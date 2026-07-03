@@ -1,0 +1,243 @@
+/* ============================================================
+   STRIVE Lesson Engine — styles
+   v1.0 · all selectors namespaced under .sl- to avoid leaking
+   into the host Webflow page. Mount target: #strive-lesson
+   ============================================================ */
+
+#strive-lesson{
+  --sl-bg:#eef4f8;--sl-ink:#0f1a24;--sl-soft:#516170;--sl-mute:#7a8794;
+  --sl-card:rgba(255,255,255,.72);--sl-solid:#fff;--sl-line:rgba(15,26,36,.10);
+  --sl-cyan:#26bbd7;--sl-cyan-deep:#0f8aa8;--sl-orange:#f5872e;--sl-orange-deep:#c25e12;
+  --sl-grid:rgba(38,187,215,.10);
+  --sl-display:'Space Grotesk',system-ui,sans-serif;
+  --sl-body:'Hanken Grotesk',system-ui,sans-serif;
+  --sl-mono:'JetBrains Mono',ui-monospace,monospace;
+
+  position:relative;font-family:var(--sl-body);color:var(--sl-ink);
+  background:var(--sl-bg);-webkit-font-smoothing:antialiased;overflow:hidden;
+  min-height:100vh;
+}
+#strive-lesson *{box-sizing:border-box;margin:0;padding:0}
+
+/* background grid + cyan glow, contained to the mount */
+#strive-lesson .sl-bg{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--sl-grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--sl-grid) 1px,transparent 1px);
+  background-size:34px 34px}
+#strive-lesson .sl-glow{position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+  width:900px;height:560px;z-index:0;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(38,187,215,.22),transparent 68%);filter:blur(10px)}
+
+/* progress + dots */
+#strive-lesson .sl-rail{position:sticky;top:0;left:0;right:0;height:3px;z-index:40}
+#strive-lesson .sl-rail__fill{height:100%;width:0;
+  background:linear-gradient(90deg,var(--sl-cyan),var(--sl-orange));transition:width .25s}
+#strive-lesson .sl-dots{position:fixed;top:16px;right:16px;z-index:50;display:flex;gap:7px;
+  background:var(--sl-card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--sl-line);border-radius:30px;padding:8px 12px}
+#strive-lesson .sl-dot{width:8px;height:8px;border-radius:50%;background:var(--sl-line);cursor:pointer;transition:.3s}
+#strive-lesson .sl-dot.is-active{background:var(--sl-cyan);transform:scale(1.45)}
+#strive-lesson .sl-dot.is-done{background:var(--sl-orange)}
+
+#strive-lesson .sl-wrap{max-width:880px;margin:0 auto;padding:0 22px;position:relative;z-index:1}
+#strive-lesson .sl-section{padding:84px 0 76px;opacity:0;transform:translateY(26px);
+  transition:opacity .7s ease,transform .7s ease}
+#strive-lesson .sl-section.is-in{opacity:1;transform:none}
+#strive-lesson .sl-section.sl-hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+
+#strive-lesson .sl-eyebrow{font-family:var(--sl-mono);font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--sl-cyan-deep);display:flex;align-items:center;gap:10px;margin-bottom:18px}
+#strive-lesson .sl-eyebrow::before{content:"";width:26px;height:1px;background:var(--sl-cyan-deep)}
+#strive-lesson .sl-h1{font-family:var(--sl-display);font-size:clamp(34px,6.2vw,62px);font-weight:700;
+  line-height:1.0;letter-spacing:-.02em;margin-bottom:20px}
+#strive-lesson .sl-h1 .sl-accent{color:var(--sl-cyan-deep)}
+#strive-lesson .sl-h2{font-family:var(--sl-display);font-size:clamp(25px,4.2vw,40px);font-weight:600;
+  letter-spacing:-.015em;line-height:1.08;margin-bottom:18px}
+#strive-lesson .sl-lead{font-size:clamp(16.5px,2.1vw,18.5px);color:var(--sl-soft);max-width:65ch;margin-bottom:15px;line-height:1.62}
+#strive-lesson .sl-body{font-size:15.5px;color:var(--sl-soft);max-width:66ch;margin-bottom:14px;line-height:1.62}
+#strive-lesson b{color:var(--sl-ink);font-weight:600}
+#strive-lesson .sl-term{color:var(--sl-cyan-deep);font-weight:600;border-bottom:1.5px dotted var(--sl-cyan);cursor:help}
+
+#strive-lesson .sl-meta{font-family:var(--sl-mono);font-size:12px;color:var(--sl-mute);margin-top:30px;display:flex;flex-wrap:wrap;gap:8px}
+#strive-lesson .sl-pill{border:1px solid var(--sl-line);border-radius:20px;padding:5px 12px;background:var(--sl-card);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+#strive-lesson .sl-pill b{color:var(--sl-cyan-deep);font-weight:500}
+#strive-lesson .sl-reading{font-family:var(--sl-mono);font-size:11px;color:var(--sl-mute);margin-top:6px}
+
+#strive-lesson .sl-btn{font-family:var(--sl-mono);font-size:13px;letter-spacing:.03em;cursor:pointer;border:none;
+  background:var(--sl-ink);color:#fff;padding:14px 24px;border-radius:8px;display:inline-flex;align-items:center;gap:9px;
+  transition:.2s;align-self:flex-start;margin-top:26px}
+#strive-lesson .sl-btn:hover{background:var(--sl-cyan-deep);transform:translateY(-2px)}
+#strive-lesson .sl-btn svg{transition:transform .2s}
+#strive-lesson .sl-btn:hover svg{transform:translateX(4px)}
+#strive-lesson .sl-btn.sl-ghost{background:transparent;color:var(--sl-ink);border:1px solid var(--sl-line)}
+#strive-lesson .sl-btn.sl-ghost:hover{background:var(--sl-solid);color:var(--sl-cyan-deep)}
+
+#strive-lesson .sl-card{background:var(--sl-card);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.6);box-shadow:0 24px 60px -34px rgba(15,26,36,.5),inset 0 1px 0 rgba(255,255,255,.7);border-radius:18px}
+
+/* callouts */
+#strive-lesson .sl-note{display:flex;gap:13px;padding:16px 18px;border-radius:12px;margin:18px 0;
+  background:rgba(38,187,215,.07);border:1px solid rgba(38,187,215,.22)}
+#strive-lesson .sl-note.sl-warn{background:rgba(245,135,46,.08);border-color:rgba(245,135,46,.28)}
+#strive-lesson .sl-note__i{font-family:var(--sl-mono);font-size:11px;font-weight:600;letter-spacing:.06em;
+  color:var(--sl-cyan-deep);flex:none;text-transform:uppercase;padding-top:2px}
+#strive-lesson .sl-note.sl-warn .sl-note__i{color:var(--sl-orange-deep)}
+#strive-lesson .sl-note__t{font-size:14.5px;color:var(--sl-soft);line-height:1.55}
+
+/* glossary / term cards */
+#strive-lesson .sl-terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:20px}
+#strive-lesson .sl-tcard{padding:15px 17px}
+#strive-lesson .sl-tcard__w{font-family:var(--sl-mono);font-size:13px;color:var(--sl-cyan-deep);font-weight:500;
+  margin-bottom:6px;display:flex;align-items:center;gap:8px}
+#strive-lesson .sl-tcard__w .sl-ic{width:8px;height:8px;border-radius:2px;background:var(--sl-cyan)}
+#strive-lesson .sl-tcard__w .sl-ic.sl-o{background:var(--sl-orange);border-radius:50%}
+#strive-lesson .sl-tcard__d{font-size:13.5px;color:var(--sl-soft);line-height:1.5}
+
+/* split: code vs visual (generic two-column) */
+#strive-lesson .sl-split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+#strive-lesson .sl-panel{padding:20px}
+#strive-lesson .sl-panel h3{font-family:var(--sl-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--sl-mute);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+#strive-lesson .sl-tag{font-size:10px;padding:2px 7px;border-radius:10px;color:#fff}
+#strive-lesson .sl-code{font-family:var(--sl-mono);font-size:12.5px;line-height:2.0;color:var(--sl-soft);white-space:pre-wrap}
+#strive-lesson .sl-code .k{color:var(--sl-cyan-deep)}
+#strive-lesson .sl-code .n{color:var(--sl-orange)}
+#strive-lesson .sl-code .c{color:var(--sl-mute);font-style:italic}
+#strive-lesson .sl-vnode{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--sl-line);
+  border-radius:9px;padding:10px 13px;margin-bottom:9px;font-family:var(--sl-mono);font-size:12px;box-shadow:0 4px 12px -8px rgba(15,26,36,.4)}
+#strive-lesson .sl-vnode small{color:var(--sl-mute);margin-left:auto;font-size:10.5px}
+#strive-lesson .sl-vnode .sl-pin{width:9px;height:9px;border-radius:50%;background:var(--sl-cyan);flex:none}
+#strive-lesson .sl-vnode .sl-pin.sl-o{background:var(--sl-orange)}
+#strive-lesson .sl-vconn{height:13px;width:2px;background:var(--sl-cyan);opacity:.4;margin:-4px 0 -4px 17px}
+
+/* numbered flow steps */
+#strive-lesson .sl-flow{display:grid;gap:12px;margin-top:16px}
+#strive-lesson .sl-fstep{display:grid;grid-template-columns:42px 1fr;gap:16px;align-items:start;padding:16px 18px}
+#strive-lesson .sl-fstep__n{font-family:var(--sl-mono);font-size:18px;font-weight:500;color:#fff;background:var(--sl-cyan);
+  width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+#strive-lesson .sl-fstep.sl-warm .sl-fstep__n{background:var(--sl-orange)}
+#strive-lesson .sl-fstep__t{font-family:var(--sl-display);font-weight:600;font-size:16px;margin-bottom:4px}
+#strive-lesson .sl-fstep__d{font-size:14px;color:var(--sl-soft);line-height:1.5}
+
+/* generic matrix / slider rows (used by maturity lesson) */
+#strive-lesson .sl-matrix{padding:22px;margin-top:14px}
+#strive-lesson .sl-firm{font-family:var(--sl-mono);font-size:12px;color:var(--sl-mute);margin-bottom:4px;letter-spacing:.04em}
+#strive-lesson .sl-mtitle{font-family:var(--sl-display);font-weight:600;font-size:18px;margin-bottom:18px}
+#strive-lesson .sl-row{margin-bottom:17px}
+#strive-lesson .sl-row__head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+#strive-lesson .sl-row__name{font-weight:600;font-size:14.5px}
+#strive-lesson .sl-row__val{font-family:var(--sl-mono);font-size:12.5px;padding:2px 9px;border-radius:12px;color:#fff;transition:.3s;background:#cfcabc}
+#strive-lesson .sl-track{position:relative;height:34px;border-radius:7px;overflow:hidden;display:grid;border:1px solid var(--sl-line)}
+#strive-lesson .sl-cell{display:flex;align-items:center;justify-content:center;font-family:var(--sl-mono);font-size:11px;
+  color:#aaa;border-right:1px solid #ececec;cursor:pointer;transition:.18s;user-select:none}
+#strive-lesson .sl-cell:last-child{border-right:none}
+#strive-lesson .sl-cell:hover{background:#f4f6fa;color:#555}
+#strive-lesson .sl-cell.is-on{color:#fff;font-weight:500}
+#strive-lesson .sl-scorebar{margin-top:20px;padding-top:18px;border-top:1px dashed var(--sl-line);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+#strive-lesson .sl-score-num{font-family:var(--sl-display);font-size:46px;font-weight:700;line-height:1;transition:.4s;text-align:center}
+#strive-lesson .sl-score-lab{font-family:var(--sl-mono);font-size:12px;color:var(--sl-mute);text-align:center}
+#strive-lesson .sl-verdict{flex:1;min-width:200px;font-size:14px;color:var(--sl-soft);border-left:3px solid var(--sl-cyan);padding-left:13px;transition:.3s}
+#strive-lesson .sl-hint{font-family:var(--sl-mono);font-size:12px;color:var(--sl-cyan-deep);margin-top:10px}
+
+/* interactive node graph (used by visual-programming lesson) */
+#strive-lesson .sl-lab{margin-top:14px;overflow:hidden}
+#strive-lesson .sl-lab__head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:15px 18px;border-bottom:1px solid var(--sl-line);flex-wrap:wrap}
+#strive-lesson .sl-lab__title{font-family:var(--sl-mono);font-size:12.5px;color:var(--sl-soft);letter-spacing:.04em}
+#strive-lesson .sl-lab__title .sl-dotg{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--sl-cyan);
+  margin-right:7px;box-shadow:0 0 0 0 rgba(38,187,215,.5);animation:sl-live 2s infinite}
+@keyframes sl-live{0%{box-shadow:0 0 0 0 rgba(38,187,215,.5)}70%{box-shadow:0 0 0 8px rgba(38,187,215,0)}100%{box-shadow:0 0 0 0 rgba(38,187,215,0)}}
+#strive-lesson .sl-lab__body{display:grid;grid-template-columns:1fr 300px;gap:0}
+#strive-lesson .sl-graph{position:relative;padding:18px;min-height:360px;
+  background-image:radial-gradient(rgba(15,26,36,.06) 1px,transparent 1px);background-size:20px 20px}
+#strive-lesson .sl-gnode{position:absolute;width:152px;background:#fff;border:1px solid var(--sl-line);border-radius:11px;
+  box-shadow:0 8px 22px -12px rgba(15,26,36,.45);overflow:hidden;user-select:none}
+#strive-lesson .sl-gnode__h{font-family:var(--sl-mono);font-size:11px;letter-spacing:.05em;color:#fff;padding:7px 11px;display:flex;align-items:center;gap:7px}
+#strive-lesson .sl-gnode__b{padding:10px 11px}
+#strive-lesson .sl-gnode__b label{font-family:var(--sl-mono);font-size:10.5px;color:var(--sl-mute);display:block;margin-bottom:4px}
+#strive-lesson .sl-gnode__b output{font-family:var(--sl-mono);font-size:15px;color:var(--sl-ink);font-weight:500}
+#strive-lesson input[type=range]{width:100%;accent-color:var(--sl-cyan);margin-top:2px}
+#strive-lesson .sl-gport{position:absolute;width:13px;height:13px;border-radius:50%;background:#fff;border:2px solid var(--sl-cyan);
+  top:50%;right:-7px;transform:translateY(-50%);transition:.2s}
+#strive-lesson .sl-gport.sl-in{left:-7px;right:auto;border-color:var(--sl-orange)}
+#strive-lesson .sl-gport.is-lit{background:var(--sl-cyan);box-shadow:0 0 0 4px rgba(38,187,215,.18)}
+#strive-lesson .sl-gport.sl-in.is-lit{background:var(--sl-orange);box-shadow:0 0 0 4px rgba(245,135,46,.18)}
+#strive-lesson .sl-wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+#strive-lesson .sl-wire{fill:none;stroke:var(--sl-cyan);stroke-width:2.5;stroke-dasharray:6 6;animation:sl-flow 1s linear infinite;opacity:.85}
+@keyframes sl-flow{to{stroke-dashoffset:-12}}
+#strive-lesson .sl-preview{border-left:1px solid var(--sl-line);padding:18px;display:flex;flex-direction:column}
+#strive-lesson .sl-preview h4{font-family:var(--sl-mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--sl-mute);margin-bottom:10px}
+#strive-lesson .sl-stage{flex:1;min-height:190px;background:#fff;border:1px solid var(--sl-line);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+#strive-lesson .sl-stage svg{width:100%;height:100%}
+#strive-lesson .sl-readout{font-family:var(--sl-mono);font-size:11.5px;color:var(--sl-soft);margin-top:11px;line-height:1.7}
+#strive-lesson .sl-readout b{color:var(--sl-cyan-deep)}
+#strive-lesson .sl-nudge{font-family:var(--sl-mono);font-size:11.5px;color:var(--sl-orange);margin-top:10px;text-align:center}
+#strive-lesson .sl-trace{font-family:var(--sl-mono);font-size:11px;color:var(--sl-mute);margin-top:12px;
+  background:rgba(15,26,36,.03);border-radius:8px;padding:10px 12px;line-height:1.8}
+#strive-lesson .sl-trace .sl-arrow{color:var(--sl-cyan)}
+
+/* sortable / tappable case cards */
+#strive-lesson .sl-cases{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+#strive-lesson .sl-case{padding:16px 18px;cursor:pointer;transition:.18s;position:relative}
+#strive-lesson .sl-case:hover{transform:translateY(-3px)}
+#strive-lesson .sl-case__i{font-size:20px;margin-bottom:8px;display:block}
+#strive-lesson .sl-case__t{font-family:var(--sl-display);font-weight:600;font-size:15px;margin-bottom:5px}
+#strive-lesson .sl-case__d{font-size:12.5px;color:var(--sl-soft);line-height:1.45}
+#strive-lesson .sl-case__why{font-size:12px;color:var(--sl-mute);line-height:1.45;margin-top:8px;padding-top:8px;border-top:1px dashed var(--sl-line);display:none}
+#strive-lesson .sl-case.is-good .sl-case__why,#strive-lesson .sl-case.is-bad .sl-case__why{display:block}
+#strive-lesson .sl-case__verdict{position:absolute;top:14px;right:14px;font-family:var(--sl-mono);font-size:10px;padding:3px 8px;border-radius:10px;opacity:0;transition:.25s}
+#strive-lesson .sl-case.is-good .sl-case__verdict{opacity:1;background:rgba(38,187,215,.14);color:var(--sl-cyan-deep)}
+#strive-lesson .sl-case.is-bad .sl-case__verdict{opacity:1;background:rgba(245,135,46,.16);color:var(--sl-orange-deep)}
+#strive-lesson .sl-case.is-good{border-color:var(--sl-cyan)}
+#strive-lesson .sl-case.is-bad{opacity:.82}
+#strive-lesson .sl-scorestrip{font-family:var(--sl-mono);font-size:12.5px;color:var(--sl-soft);margin-top:14px}
+#strive-lesson .sl-scorestrip b{color:var(--sl-cyan-deep)}
+
+/* quiz */
+#strive-lesson .sl-quiz{padding:26px;margin-top:14px}
+#strive-lesson .sl-qmeta{font-family:var(--sl-mono);font-size:11px;color:var(--sl-mute);margin-bottom:8px;letter-spacing:.06em}
+#strive-lesson .sl-q{font-family:var(--sl-display);font-weight:600;font-size:18.5px;margin-bottom:18px;line-height:1.34}
+#strive-lesson .sl-opts{display:grid;gap:10px}
+#strive-lesson .sl-opt{text-align:left;font-family:var(--sl-body);font-size:14.5px;color:var(--sl-ink);cursor:pointer;
+  background:#fff;border:1px solid var(--sl-line);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;transition:.16s}
+#strive-lesson .sl-opt:hover{border-color:var(--sl-cyan);background:#f4fcfe}
+#strive-lesson .sl-opt .sl-key{font-family:var(--sl-mono);font-size:12px;border:1px solid var(--sl-line);border-radius:6px;padding:2px 9px;color:var(--sl-mute);flex:none}
+#strive-lesson .sl-opt.is-correct{border-color:var(--sl-cyan);background:#ecfafd}
+#strive-lesson .sl-opt.is-correct .sl-key{background:var(--sl-cyan);color:#fff;border-color:var(--sl-cyan)}
+#strive-lesson .sl-opt.is-wrong{border-color:var(--sl-orange);background:#fff6ef}
+#strive-lesson .sl-opt.is-wrong .sl-key{background:var(--sl-orange);color:#fff;border-color:var(--sl-orange)}
+#strive-lesson .sl-fb{margin-top:16px;font-size:14px;color:var(--sl-soft);background:rgba(38,187,215,.07);
+  border-left:3px solid var(--sl-cyan);border-radius:9px;padding:14px 16px;display:none;line-height:1.55}
+#strive-lesson .sl-fb.is-show{display:block;animation:sl-fade .4s}
+@keyframes sl-fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+#strive-lesson .sl-qnav{margin-top:14px;font-family:var(--sl-mono);font-size:12px;text-align:right;display:none}
+#strive-lesson .sl-qnav.is-show{display:block}
+#strive-lesson .sl-qnav button{font-family:var(--sl-mono);font-size:12px;color:var(--sl-cyan-deep);background:none;border:none;cursor:pointer;text-decoration:underline}
+
+/* recap */
+#strive-lesson .sl-recap{display:grid;gap:11px;margin-top:14px}
+#strive-lesson .sl-rc{display:flex;gap:14px;padding:16px 18px}
+#strive-lesson .sl-rc__i{font-family:var(--sl-mono);color:var(--sl-cyan-deep);font-size:13px;margin-top:1px;flex:none}
+#strive-lesson .sl-rc__t{font-size:14.5px;color:var(--sl-soft);line-height:1.55}
+#strive-lesson .sl-badge{margin-top:26px;display:inline-flex;align-items:center;gap:10px;font-family:var(--sl-mono);font-size:13px;
+  color:var(--sl-cyan-deep);border:1px solid var(--sl-cyan);border-radius:30px;padding:9px 18px;background:rgba(38,187,215,.08)}
+#strive-lesson .sl-next{margin-top:22px;font-size:14px;color:var(--sl-soft)}
+#strive-lesson .sl-next a{color:var(--sl-cyan-deep);font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--sl-cyan)}
+
+#strive-lesson .sl-foot{text-align:center;padding:34px;font-family:var(--sl-mono);font-size:11.5px;color:var(--sl-mute);position:relative;z-index:1}
+#strive-lesson .sl-foot .b{color:var(--sl-cyan-deep)}
+
+/* responsive */
+@media(max-width:720px){#strive-lesson .sl-lab__body{grid-template-columns:1fr}
+  #strive-lesson .sl-preview{border-left:none;border-top:1px solid var(--sl-line)}}
+@media(max-width:640px){#strive-lesson .sl-split{grid-template-columns:1fr}}
+@media(max-width:600px){#strive-lesson .sl-cases{grid-template-columns:1fr}}
+
+@media(prefers-reduced-motion:reduce){
+  #strive-lesson *{animation:none!important}
+  #strive-lesson .sl-section{opacity:1;transform:none;transition:opacity .2s}
+  #strive-lesson .sl-wire{stroke-dasharray:none}
+}
