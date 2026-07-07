@@ -1,0 +1,124 @@
+/* ============================================================
+   STRIVE Library Engine — strive-library.css
+   Renders the course library (unified catalog of full courses +
+   mini-lessons) from the Xano list endpoints. All rules are scoped
+   under #strive-library so nothing leaks into Webflow chrome or the
+   course (#strive-course) / lesson (#strive-lesson) engines.
+   Design tokens mirror the STRIVE design system (Sora / Manrope /
+   JetBrains Mono, turquoise-led palette, cool-slate neutrals).
+   ============================================================ */
+
+#strive-library{
+  /* Turquoise (primary) */
+  --slib-turq-300:#4fd4f9; --slib-turq-400:#16c4f6; --slib-turq-500:#05a9d8; --slib-turq-600:#0688b0; --slib-turq-700:#0a6c8c;
+  /* Teal / sage */
+  --slib-teal-500:#389696; --slib-teal-600:#2c7878; --slib-sage-400:#80a37f;
+  /* Orange (secondary/energy) */
+  --slib-orange-50:#fff4e6; --slib-orange-100:#ffe2bf; --slib-orange-300:#ffa840; --slib-orange-400:#fc8204; --slib-orange-700:#964a08;
+  /* Cool-slate neutrals */
+  --slib-ink-950:#0c1417; --slib-slate-700:#2c3d45; --slib-slate-500:#5a6e77; --slib-slate-400:#7c8d95;
+  --slib-slate-300:#a6b3b9; --slib-slate-200:#cdd6da; --slib-slate-100:#e6ebed; --slib-slate-50:#f3f6f7;
+  --slib-paper:#fbfdfd; --slib-white:#fff; --slib-success-500:#2c9c6a;
+  /* Gradients — light band for COURSES, deep band for MINI-LESSONS */
+  --slib-grad-soft:linear-gradient(100deg,#4fd4f9 0%,#7fcccb 45%,#ffa840 100%);
+  --slib-grad-deep:linear-gradient(115deg,#0a6c8c 0%,#2c7878 42%,#105770 64%,#964a08 100%);
+  /* Type */
+  --slib-font-display:'Sora',system-ui,sans-serif;
+  --slib-font-body:'Manrope',system-ui,sans-serif;
+  --slib-font-mono:'JetBrains Mono',ui-monospace,monospace;
+  /* Radii / shadow / motion */
+  --slib-shadow-sm:0 1px 2px rgba(16,42,51,.06),0 2px 6px rgba(16,42,51,.05);
+  --slib-shadow-lg:0 4px 8px rgba(16,42,51,.06),0 18px 40px rgba(16,42,51,.12);
+  --slib-ease:cubic-bezier(.22,1,.36,1);
+  --slib-max:1200px;
+
+  font-family:var(--slib-font-body);
+  color:var(--slib-slate-700);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+  background:
+    radial-gradient(1200px 480px at 80% -10%,rgba(22,196,246,.10),transparent 60%),
+    radial-gradient(900px 420px at 0% 0%,rgba(252,130,4,.06),transparent 55%);
+  background-repeat:no-repeat;
+}
+#strive-library *{box-sizing:border-box}
+#strive-library a{color:inherit;text-decoration:none}
+
+#strive-library .slib-wrap{max-width:var(--slib-max);margin:0 auto;padding:44px 32px 88px}
+
+/* ===== Header ===== */
+#strive-library .slib-eyebrow{font-family:var(--slib-font-mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--slib-turq-600)}
+#strive-library .slib-title{font-family:var(--slib-font-display);font-size:42px;font-weight:800;letter-spacing:-.03em;color:var(--slib-ink-950);margin:10px 0 10px}
+#strive-library .slib-lede{font-size:16.5px;color:var(--slib-slate-500);max-width:600px;margin:0 0 30px}
+
+/* ===== Controls ===== */
+#strive-library .slib-controls{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+#strive-library .slib-search{position:relative;flex:1;min-width:260px;max-width:380px}
+#strive-library .slib-search i{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--slib-slate-400)}
+#strive-library .slib-search input{width:100%;font-family:var(--slib-font-body);font-size:14.5px;color:var(--slib-ink-950);
+  padding:12px 14px 12px 42px;border:1px solid var(--slib-slate-200);border-radius:12px;background:var(--slib-white);outline:none;transition:box-shadow .2s,border-color .2s}
+#strive-library .slib-search input::placeholder{color:var(--slib-slate-400)}
+#strive-library .slib-search input:focus{border-color:var(--slib-turq-400);box-shadow:0 0 0 3px rgba(22,196,246,.25)}
+#strive-library .slib-count{font-family:var(--slib-font-mono);font-size:12.5px;color:var(--slib-slate-400);margin-left:auto;white-space:nowrap}
+
+#strive-library .slib-segment{display:inline-flex;background:var(--slib-slate-50);border:1px solid var(--slib-slate-100);border-radius:12px;padding:4px;gap:2px;margin-bottom:30px}
+#strive-library .slib-segment button{font-family:var(--slib-font-body);font-size:13.5px;font-weight:600;color:var(--slib-slate-500);
+  border:0;background:transparent;padding:8px 16px;border-radius:9px;cursor:pointer;transition:all .18s var(--slib-ease);display:flex;align-items:center;gap:7px}
+#strive-library .slib-segment button .slib-dot{width:8px;height:8px;border-radius:50%}
+#strive-library .slib-segment button[data-k="course"] .slib-dot{background:var(--slib-turq-500)}
+#strive-library .slib-segment button[data-k="lesson"] .slib-dot{background:var(--slib-teal-600)}
+#strive-library .slib-segment button.is-active{background:var(--slib-white);color:var(--slib-ink-950);box-shadow:var(--slib-shadow-sm)}
+
+/* ===== Grid ===== */
+#strive-library .slib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+
+/* ===== Card — identical layout for both types; color-coded left border ===== */
+#strive-library .slib-card{position:relative;background:var(--slib-white);border:1px solid var(--slib-slate-100);
+  border-left:4px solid var(--slib-accent,var(--slib-slate-200));border-radius:18px;overflow:hidden;cursor:pointer;
+  transition:transform .22s var(--slib-ease),box-shadow .22s var(--slib-ease);display:flex;flex-direction:column}
+#strive-library .slib-card.is-course{--slib-accent:var(--slib-turq-400)}
+#strive-library .slib-card.is-lesson{--slib-accent:var(--slib-orange-300)}
+#strive-library .slib-card:hover{transform:translateY(-4px);box-shadow:var(--slib-shadow-lg)}
+
+/* Media band — gradient now; swap to an image later via inline background. Title over it with a scrim. */
+#strive-library .slib-band{height:150px;position:relative;background:var(--slib-slate-100);background-size:cover;background-position:center;
+  display:flex;flex-direction:column;justify-content:space-between;padding:13px 15px 14px}
+#strive-library .slib-band::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,20,23,0) 38%,rgba(12,20,23,.62) 100%)}
+#strive-library .slib-brow{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between}
+#strive-library .slib-band h3{position:relative;z-index:1;margin:0;color:#fff;font-family:var(--slib-font-display);font-size:17px;font-weight:700;
+  line-height:1.26;letter-spacing:-.01em;text-shadow:0 1px 4px rgba(0,0,0,.35);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+#strive-library .slib-chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--slib-font-mono);font-size:10.5px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px;color:#fff;background:rgba(12,20,23,.45);backdrop-filter:blur(4px);z-index:1}
+#strive-library .slib-chip i{width:13px;height:13px}
+
+/* completion mark */
+#strive-library .slib-done{width:28px;height:28px;border-radius:50%;background:var(--slib-success-500);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(16,42,51,.25);z-index:1}
+#strive-library .slib-done i{width:17px;height:17px}
+#strive-library .slib-done.is-todo{background:rgba(255,255,255,.28);color:rgba(255,255,255,.9);backdrop-filter:blur(4px)}
+#strive-library .slib-done.is-todo i{width:15px;height:15px}
+
+#strive-library .slib-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
+#strive-library .slib-domain{font-family:var(--slib-font-mono);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--slib-turq-600);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+#strive-library .slib-domain i{width:13px;height:13px}
+#strive-library .slib-card.is-lesson .slib-domain{color:var(--slib-orange-700)}
+#strive-library .slib-comp{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--slib-slate-700);margin-bottom:14px}
+#strive-library .slib-comp i{width:15px;height:15px;color:var(--slib-sage-400)}
+#strive-library .slib-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:13px;border-top:1px solid var(--slib-slate-100)}
+#strive-library .slib-length{display:inline-flex;align-items:center;gap:6px;font-family:var(--slib-font-mono);font-size:12px;color:var(--slib-slate-500)}
+#strive-library .slib-length i{width:14px;height:14px}
+#strive-library .slib-go{font-family:var(--slib-font-body);font-weight:700;font-size:13.5px;display:inline-flex;align-items:center;gap:6px;color:var(--slib-turq-600)}
+#strive-library .slib-card.is-lesson .slib-go{color:var(--slib-teal-600)}
+#strive-library .slib-go i{width:16px;height:16px}
+
+/* ===== States ===== */
+#strive-library .slib-empty{text-align:center;padding:80px 20px;color:var(--slib-slate-400);grid-column:1/-1}
+#strive-library .slib-empty i{width:40px;height:40px;color:var(--slib-slate-300)}
+#strive-library .slib-empty p{font-family:var(--slib-font-display);font-size:18px;color:var(--slib-slate-500);margin:14px 0 4px}
+#strive-library .slib-skel{height:264px;border-radius:18px;background:linear-gradient(100deg,var(--slib-slate-50) 30%,var(--slib-slate-100) 50%,var(--slib-slate-50) 70%);background-size:200% 100%;animation:slib-sh 1.3s infinite}
+@keyframes slib-sh{to{background-position:-200% 0}}
+#strive-library .slib-error{padding:48px 20px;text-align:center;color:var(--slib-orange-700);font-family:var(--slib-font-body)}
+
+@media(max-width:560px){#strive-library .slib-wrap{padding:32px 20px 64px}#strive-library .slib-title{font-size:34px}}
