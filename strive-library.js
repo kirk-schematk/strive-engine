@@ -15,8 +15,11 @@
            coursesUrl: XANO_BASE + '/courses',
            lessonsUrl: XANO_BASE + '/lessons',
            // optional — where a card links to (defaults shown):
-           courseHref: function (it) { return '/course?course_id=' + encodeURIComponent(it.slug); },
-           lessonHref: function (it) { return '/mini-lesson?slug=' + encodeURIComponent(it.slug); }
+           courseHref: function (it) { return '/course?slug=' + encodeURIComponent(it.slug); },
+           lessonHref: function (it) { return '/lessons/' + encodeURIComponent(it.slug); },
+           // optional — the current user's completed items (array of slugs or {slug}).
+           // Needs user identity on the request; omit until auth/progress is wired.
+           completedUrl: XANO_BASE + '/my/completed'
          });
      See webflow-library-embed.html for the exact markup.
 
@@ -24,7 +27,7 @@
      /courses  -> { title, slug, category, level, duration, is_premium,
                     status, competency_id, _competency:{ name, slug,
                     _domain:{ name, slug } } }
-     /lessons  -> { title, slug, skill_id, status, competency_id,
+     /lessons  -> { title, slug, skill_id, status, est_minutes, competency_id,
                     _competency:{ name, slug, _domain:{ name, slug } } }
 
    Requires Lucide (unpkg) for icons; calls lucide.createIcons() after render.
@@ -42,30 +45,43 @@
   var domainShort = function (name) { return String(name == null ? '' : name).replace(/^Domain\s*\d+:\s*/, ''); };
   var domName = function (x) { return domainShort(x._competency && x._competency._domain && x._competency._domain.name); };
 
-  /* sample lengths + completion until those data paths exist (see STRIVE Tasks) */
-  var LESSON_MIN = [6, 7, 5, 8, 6, 5, 7, 9, 6, 5, 8, 7, 9, 6, 5, 7, 8, 9];
+  // Build a lookup of completed slugs from opts.completed (array of slugs, or of
+  // {slug}). Returns null when completion isn't tracked, so the UI hides the mark
+  // rather than implying a progress system that isn't wired yet.
+  function completedLookup(opts) {
+    if (!opts.completed) return null;
+    var set = {};
+    (opts.completed || []).forEach(function (x) {
+      var s = typeof x === 'string' ? x : (x && x.slug);
+      if (s) set[s] = true;
+    });
+    return set;
+  }
 
   function normalize(courses, lessons, opts) {
-    // Default to the Webflow CMS detail pages (slugs mirror Xano 1:1):
-    //   courses -> /courses-catalog/<slug>   lessons -> /lessons/<slug>
-    var courseHref = opts.courseHref || function (it) { return '/courses-catalog/' + encodeURIComponent(it.slug); };
+    // Card link targets (both slug-based; slugs mirror Xano 1:1):
+    //   Courses -> static /course page, which reads ?slug= and loads that course.
+    //   Lessons -> Webflow CMS detail page /lessons/<slug>.
+    var courseHref = opts.courseHref || function (it) { return '/course?slug=' + encodeURIComponent(it.slug); };
     var lessonHref = opts.lessonHref || function (it) { return '/lessons/' + encodeURIComponent(it.slug); };
+    var done = completedLookup(opts);                 // null => not tracked
+    var mark = function (slug) { return done ? !!done[slug] : null; };
     var out = [];
     (courses || []).filter(isPub).forEach(function (c) {
       var it = {
         type: 'course', label: 'Course', grad: 'var(--slib-grad-soft)', image: c.image || null,
         title: c.title, slug: c.slug, competency: compName(c), domain: domName(c) || c.category || 'General',
-        length: c.duration || '', done: false
+        length: c.duration || '', done: mark(c.slug)
       };
       it.href = courseHref(it);
       it.search = [c.title, c.category, it.competency, it.domain, c.level].join(' ').toLowerCase();
       out.push(it);
     });
-    (lessons || []).filter(isPub).forEach(function (l, i) {
+    (lessons || []).filter(isPub).forEach(function (l) {
       var it = {
         type: 'lesson', label: 'Mini-lesson', grad: 'var(--slib-grad-deep)', image: l.image || null,
         title: l.title, slug: l.slug, competency: compName(l), domain: domName(l),
-        length: '~' + LESSON_MIN[i % LESSON_MIN.length] + ' min', done: false
+        length: l.est_minutes ? (l.est_minutes + ' min read') : (l.length || ''), done: mark(l.slug)
       };
       it.href = lessonHref(it);
       it.search = [l.title, it.competency, it.domain].join(' ').toLowerCase();
@@ -76,9 +92,13 @@
 
   function cardHTML(it) {
     var bg = it.image ? "center/cover url('" + esc(it.image) + "')" : it.grad;
-    var done = it.done
+    // Completion mark only renders when tracking is active (it.done === true/false).
+    // it.done === null (no progress data) => no mark, no non-functional UI.
+    var done = it.done === true
       ? '<span class="slib-done" title="Completed">' + icon('check') + '</span>'
-      : '<span class="slib-done is-todo" title="Not started">' + icon('circle') + '</span>';
+      : it.done === false
+      ? '<span class="slib-done is-todo" title="Not started">' + icon('circle') + '</span>'
+      : '';
     return '<article class="slib-card is-' + it.type + '" role="link" tabindex="0" data-href="' + esc(it.href) + '">' +
       '<div class="slib-band" style="background:' + bg + '">' +
         '<div class="slib-brow">' +
@@ -163,7 +183,7 @@
     return root;
   }
 
-  /* fetch both endpoints, normalize, render */
+  /* fetch endpoints, normalize, render */
   function load(opts) {
     opts = opts || {};
     var mount = opts.mount || '#strive-library';
@@ -180,10 +200,16 @@
       if (!url) return Promise.resolve([]);
       return fetch(url, { headers: headers }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
     };
-    return Promise.all([getJSON(opts.coursesUrl), getJSON(opts.lessonsUrl)])
+    // opts.completedUrl (optional): returns the current user's completed items —
+    // an array of slugs or of { slug }. Requires user identity (e.g. a Memberstack
+    // token on the request); until that's wired, omit it and no marks show.
+    return Promise.all([getJSON(opts.coursesUrl), getJSON(opts.lessonsUrl), getJSON(opts.completedUrl)])
       .then(function (res) {
         var courses = Array.isArray(res[0]) ? res[0] : (res[0] && res[0].items) || [];
         var lessons = Array.isArray(res[1]) ? res[1] : (res[1] && res[1].items) || [];
+        if (opts.completedUrl && !opts.completed) {
+          opts.completed = Array.isArray(res[2]) ? res[2] : (res[2] && res[2].items) || [];
+        }
         return render(normalize(courses, lessons, opts), mount);
       })
       .catch(function (err) {
