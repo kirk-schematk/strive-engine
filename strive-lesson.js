@@ -285,45 +285,90 @@
     },
   };
 
-  /* ---------- QUIZ (one per lesson, multi-question) ---------- */
-  function buildQuiz(quiz) {
+  /* ---------- COMPLETION ----------
+     Posts a lesson completion to Xano when the quiz is passed all-correct.
+     No-op unless ctx has completeUrl + authToken + slug (i.e. a logged-in
+     member on a wired lesson page). The server re-grades `answers` against
+     the lesson's stored quiz — the client result is never trusted. */
+  function postCompletion(ctx, selections, score, total) {
+    if (!ctx || !ctx.completeUrl || !ctx.authToken || !ctx.slug) return;
+    try {
+      fetch(ctx.completeUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": "Bearer " + ctx.authToken },
+        body: JSON.stringify({ slug: ctx.slug, answers: selections, score: score, total: total }),
+      })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((res) => { if (res && res.passed && typeof ctx.onComplete === "function") { try { ctx.onComplete(res); } catch (e) {} } })
+        .catch(() => {});
+    } catch (e) {}
+  }
+
+  /* ---------- QUIZ (one per lesson, multi-question) ----------
+     Completion rule: EVERY question must be answered correctly. A wrong
+     answer still reveals the correct one (learning), but blocks completion
+     and offers a retry. Completion fires once, on the final question. */
+  function buildQuiz(quiz, ctx) {
     const wrap = el("div", "sl-card sl-quiz");
     wrap.innerHTML = `<div class="sl-qmeta" data-qmeta></div><div class="sl-q" data-qtext></div>
       <div class="sl-opts" data-opts></div><div class="sl-fb" data-fb></div>
-      <div class="sl-qnav" data-qnav><button data-next>Next question →</button></div>`;
-    let qi = 0, answered = false;
+      <div class="sl-qnav" data-qnav></div>`;
+    const total = quiz.questions.length;
+    const selections = new Array(total).fill(null);
+    const correctFlags = new Array(total).fill(false);
+    let qi = 0, answered = false, done = false;
+    if (ctx && ctx.completed) wrap.classList.add("is-complete");
+
+    function finish() {
+      if (done) return; done = true;
+      const score = correctFlags.filter(Boolean).length;
+      const nav = wrap.querySelector("[data-qnav]");
+      if (score === total) {
+        wrap.classList.add("is-complete");
+        nav.innerHTML = `<span class="sl-quiz__done" style="color:var(--sl-cyan-deep)">✓ ${esc(quiz.doneText || "Lesson complete — all answers correct.")}</span>`;
+        postCompletion(ctx, selections, score, total);
+      } else {
+        nav.innerHTML = `<span class="sl-quiz__retry" style="color:#e28001">${score} / ${total} correct — every answer must be correct to complete this lesson. <button data-retry style="margin-left:8px;padding:6px 12px;border:0;border-radius:8px;background:var(--sl-cyan-deep,#006879);color:#fff;font:inherit;cursor:pointer">Try again ↺</button></span>`;
+        nav.querySelector("[data-retry]").addEventListener("click", () => {
+          qi = 0; done = false; answered = false; selections.fill(null); correctFlags.fill(false); load();
+        });
+      }
+      nav.classList.add("is-show");
+    }
+
     function load() {
       answered = false;
       const Q = quiz.questions[qi];
-      wrap.querySelector("[data-qmeta]").textContent = `Question ${qi + 1} of ${quiz.questions.length}`;
+      wrap.querySelector("[data-qmeta]").textContent = `Question ${qi + 1} of ${total}`;
       wrap.querySelector("[data-qtext]").innerHTML = h(Q.q);
-      wrap.querySelector("[data-fb]").classList.remove("is-show");
-      wrap.querySelector("[data-qnav]").classList.remove("is-show");
+      const fb = wrap.querySelector("[data-fb]"); fb.classList.remove("is-show"); fb.innerHTML = "";
+      const nav = wrap.querySelector("[data-qnav]");
+      nav.classList.remove("is-show");
+      nav.innerHTML = qi < total - 1 ? `<button data-next>Next question →</button>` : "";
+      if (qi < total - 1) nav.querySelector("[data-next]").addEventListener("click", () => { qi++; load(); });
       const opts = wrap.querySelector("[data-opts]"); opts.innerHTML = "";
       Q.options.forEach((o, idx) => {
         const b = el("button", "sl-opt", `<span class="sl-key">${String.fromCharCode(65 + idx)}</span> ${esc(o.text)}`);
         b.addEventListener("click", () => {
           if (answered) return; answered = true;
-          const correct = !!o.correct;
+          selections[qi] = idx;
+          const correct = !!o.correct; correctFlags[qi] = correct;
           b.classList.add(correct ? "is-correct" : "is-wrong");
           if (!correct) { const ci = Q.options.findIndex((x) => x.correct); opts.children[ci].classList.add("is-correct"); }
-          const fb = wrap.querySelector("[data-fb]");
           fb.innerHTML = correct ? h(Q.okFeedback) : h(Q.noFeedback);
           fb.classList.add("is-show");
-          const nav = wrap.querySelector("[data-qnav]");
-          if (qi < quiz.questions.length - 1) nav.classList.add("is-show");
-          else { nav.innerHTML = `<span style="color:var(--sl-cyan-deep)">${esc(quiz.doneText || "✓ Knowledge check complete.")}</span>`; nav.classList.add("is-show"); }
+          if (qi < total - 1) nav.classList.add("is-show");
+          else finish();
         });
         opts.appendChild(b);
       });
     }
-    wrap.querySelector("[data-next]").addEventListener("click", () => { if (qi < quiz.questions.length - 1) { qi++; load(); } });
     load();
     return wrap;
   }
 
   /* ---------- SECTION assembly ---------- */
-  function buildSection(sec, idx, lesson) {
+  function buildSection(sec, idx, lesson, ctx) {
     const s = el("section", "sl-section" + (sec.hero ? " sl-hero" : ""));
     s.id = "sl-s" + idx;
     const wrap = el("div", "sl-wrap");
@@ -349,7 +394,7 @@
           s._mounts.push(inst.mount);
         }
       } else if (b.type === "quiz") {
-        wrap.appendChild(buildQuiz(b.config));
+        wrap.appendChild(buildQuiz(b.config, ctx));
       } else if (b.type === "recap") {
         const r = el("div", "sl-recap");
         r.innerHTML = b.items.map((t, i) => `<div class="sl-card sl-rc"><span class="sl-rc__i">${String(i + 1).padStart(2, "0")}</span><span class="sl-rc__t">${h(t)}</span></div>`).join("");
@@ -378,8 +423,22 @@
     return s;
   }
 
-  /* ---------- PUBLIC: render a whole lesson ---------- */
-  function renderLesson(lesson, mountId) {
+  /* ---------- PUBLIC: render a whole lesson ----------
+     opts (all optional; omit for a public preview with no completion):
+       slug        — mini_lesson slug for the completion payload (falls back to lesson.slug)
+       completeUrl — POST endpoint that records completion (Xano)
+       authToken   — Xano auth token for the current member (Bearer)
+       completed   — true to render the quiz already marked complete
+       onComplete  — callback(result) fired after a successful POST */
+  function renderLesson(lesson, mountId, opts) {
+    opts = opts || {};
+    const ctx = {
+      slug: opts.slug || lesson.slug || null,
+      completeUrl: opts.completeUrl || null,
+      authToken: opts.authToken || null,
+      completed: !!opts.completed,
+      onComplete: typeof opts.onComplete === "function" ? opts.onComplete : null,
+    };
     const root = document.getElementById(mountId || "strive-lesson");
     if (!root) { console.error("STRIVE: mount #strive-lesson not found"); return; }
     root.innerHTML = "";
@@ -392,7 +451,7 @@
 
     const sectionEls = [];
     lesson.sections.forEach((sec, i) => {
-      const s = buildSection(sec, i, lesson);
+      const s = buildSection(sec, i, lesson, ctx);
       root.appendChild(s);
       sectionEls.push(s);
       const d = el("div", "sl-dot"); d.title = "Section " + (i + 1);
