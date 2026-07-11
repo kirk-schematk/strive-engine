@@ -35,7 +35,7 @@
   --sc-shadow-lg:0 4px 8px rgba(16,42,51,.06),0 18px 40px rgba(16,42,51,.12);
   --sc-ring:0 0 0 3px rgba(22,196,246,.40);
   --sc-ease:cubic-bezier(.22,1,.36,1);
-  --sc-max:1080px;
+  --sc-max:1200px; /* DS --container-max */
 
   font-family:var(--sc-font-body);
   color:var(--sc-slate-700);
@@ -64,8 +64,8 @@
 #strive-course .sc-badge.primary{background:var(--sc-turq-500)}
 #strive-course .sc-badge.secondary{background:var(--sc-orange-400)}
 #strive-course .sc-badge.ghost{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16)}
-#strive-course .sc-hero h1{font-size:clamp(2.4rem,5vw,3.4rem);font-weight:800;line-height:1.05;letter-spacing:-0.03em;margin:0 0 16px}
-#strive-course .sc-lede{font-size:1.06rem;line-height:1.6;color:var(--sc-slate-300);max-width:52ch;margin:0 0 26px}
+#strive-course .sc-hero h1{font-size:clamp(2.25rem,5vw,3rem);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0 0 16px} /* DS text-3xl cap, tracking-tight */
+#strive-course .sc-lede{font-size:1.125rem;line-height:1.65;color:var(--sc-slate-300);max-width:52ch;margin:0 0 26px} /* DS text-md / leading-relaxed */
 #strive-course .sc-stats{display:flex;flex-wrap:wrap;gap:22px;font-size:14px;color:var(--sc-slate-300)}
 #strive-course .sc-stats span{display:inline-flex;align-items:center;gap:7px}
 #strive-course .sc-stats .sc-ico{width:16px;height:16px}
@@ -76,9 +76,10 @@
 #strive-course .sc-enrol .sc-thumb{height:150px;border-radius:var(--sc-r-md);background:var(--sc-grad-brand);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
 #strive-course .sc-enrol .sc-thumb .sc-pin{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;color:var(--sc-ink-950)}
 #strive-course .sc-enrol .sc-thumb .sc-pin .sc-ico{width:24px;height:24px}
-#strive-course .sc-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;width:100%;font-family:var(--sc-font-body);font-weight:700;font-size:16px;padding:14px 18px;border-radius:var(--sc-r-md);border:0;cursor:pointer;background:var(--sc-orange-400);color:#fff;transition:filter var(--sc-ease),transform var(--sc-ease)}
-#strive-course .sc-btn:hover{filter:brightness(1.06);color:#fff}
-#strive-course .sc-btn:active{transform:scale(.98)}
+/* DS Button lg: primary turquoise, 600 weight, 54px, radius-md; hover/press darken (brand-primary-hover/-press) */
+#strive-course .sc-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;font-family:var(--sc-font-body);font-weight:600;font-size:17px;padding:0 28px;border-radius:var(--sc-r-md);border:0;cursor:pointer;background:var(--sc-turq-500);color:#fff;transition:background .2s var(--sc-ease),transform .12s var(--sc-ease)}
+#strive-course .sc-btn:hover{background:var(--sc-turq-600);color:#fff}
+#strive-course .sc-btn:active{background:var(--sc-turq-700);transform:scale(.98)}
 #strive-course .sc-btn .sc-ico{width:19px;height:19px}
 #strive-course .sc-enrol .sc-earns{margin-top:14px;display:flex;flex-direction:column;gap:10px}
 #strive-course .sc-enrol .sc-earns div{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--sc-slate-700)}
@@ -89,7 +90,7 @@
 #strive-course .sc-section.sunken{background:var(--sc-slate-50);border-top:1px solid var(--sc-slate-100);border-bottom:1px solid var(--sc-slate-100)}
 #strive-course .sc-head{max-width:62ch;margin-bottom:26px}
 #strive-course .sc-head h2{font-size:clamp(1.6rem,3vw,2.25rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:10px}
-#strive-course .sc-head p{color:var(--sc-slate-500);font-size:1.05rem;margin:0}
+#strive-course .sc-head p{color:var(--sc-slate-500);font-size:1.125rem;margin:0} /* DS text-md */
 
 /* Path row */
 #strive-course .sc-path{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;border:1px solid var(--sc-slate-100);border-radius:var(--sc-r-lg);overflow:hidden;background:var(--sc-white)}
@@ -101,7 +102,7 @@
 
 /* Outcomes / setup grids */
 #strive-course .sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
-#strive-course .sc-card{background:var(--sc-white);border:1px solid var(--sc-slate-100);border-radius:var(--sc-r-lg);padding:22px;box-shadow:var(--sc-shadow-sm)}
+#strive-course .sc-card{background:var(--sc-white);border:1px solid var(--sc-slate-100);border-radius:var(--sc-r-lg);padding:24px;box-shadow:var(--sc-shadow-sm)} /* DS space-6 */
 #strive-course .sc-card .sc-cic{width:40px;height:40px;border-radius:10px;background:var(--sc-turq-50);color:var(--sc-turq-600);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
 #strive-course .sc-card .sc-cic .sc-ico{width:20px;height:20px}
 #strive-course .sc-card h4{font-size:1.05rem;font-weight:600;margin-bottom:6px}
@@ -174,7 +175,7 @@
 #strive-course .sc-cr-links a.free{background:var(--sc-slate-50);color:var(--sc-slate-700);border:1px solid var(--sc-slate-100)}
 #strive-course .sc-cr-links a.free:hover{background:var(--sc-slate-100)}
 #strive-course .sc-cr-links a.paid{background:var(--sc-turq-50);color:var(--sc-turq-700);border:1px solid var(--sc-turq-100)}
-#strive-course .sc-cr-links a.paid:hover{filter:brightness(.98)}
+#strive-course .sc-cr-links a.paid:hover{background:var(--sc-turq-100)}
 #strive-course .sc-cr-links a .sc-ico{width:15px;height:15px}
 
 /* Finish */
@@ -192,6 +193,42 @@
 #strive-course .sc-credit{margin-top:38px;padding-top:22px;border-top:1px solid rgba(255,255,255,.13);font-size:.85rem;color:var(--sc-slate-400)}
 #strive-course .sc-credit a{color:var(--sc-turq-300)}
 
+/* ── Paged mode ── */
+/* Sticky module bar (back link + stepper) */
+#strive-course .sc-pagebar{position:sticky;top:0;z-index:20;background:rgba(251,253,253,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--sc-slate-100)}
+#strive-course .sc-pagebar-in{display:flex;align-items:center;gap:18px;padding-top:12px;padding-bottom:12px}
+#strive-course .sc-backlink{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:.9rem;color:var(--sc-slate-500)}
+#strive-course .sc-backlink:hover{color:var(--sc-ink-950)}
+#strive-course .sc-backlink .sc-ico{width:16px;height:16px}
+#strive-course .sc-stepper{display:flex;gap:6px;margin-left:auto}
+#strive-course .sc-stepnum{font-family:var(--sc-font-mono);font-size:12.5px;font-weight:600;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--sc-slate-500);background:var(--sc-slate-50);border:1px solid var(--sc-slate-100)}
+#strive-course .sc-stepnum:hover{color:var(--sc-turq-700);border-color:var(--sc-turq-300)}
+#strive-course .sc-stepnum.is-current{background:var(--sc-ink-950);border-color:var(--sc-ink-950);color:#fff}
+#strive-course .sc-eyebrow.sc-mcount{display:block;margin-bottom:14px}
+
+/* Overview syllabus cards (module list as links) */
+#strive-course a.sc-mlink{display:block;color:inherit;transition:box-shadow .25s var(--sc-ease),transform .25s var(--sc-ease)}
+#strive-course a.sc-mlink:hover{box-shadow:var(--sc-shadow-lg);transform:translateY(-2px);color:inherit}
+#strive-course .sc-syllabus .sc-mhead{border-bottom:0}
+#strive-course .sc-mlink .sc-go{align-self:center;color:var(--sc-turq-500);flex:none;margin-left:6px}
+#strive-course .sc-mlink .sc-go .sc-ico{width:20px;height:20px}
+#strive-course .sc-mlink:hover .sc-go{color:var(--sc-turq-700)}
+
+/* Path steps become links in paged mode */
+#strive-course a.sc-step{display:block;color:inherit}
+#strive-course a.sc-step:hover{background:var(--sc-turq-50)}
+#strive-course a.sc-step:hover .sc-nm{color:var(--sc-turq-700)}
+
+/* Prev / next footer nav */
+#strive-course .sc-mnav{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-bottom:56px}
+#strive-course .sc-mnav-a{display:flex;flex-direction:column;gap:6px;padding:18px 20px;border:1px solid var(--sc-slate-100);border-radius:var(--sc-r-lg);background:var(--sc-white);box-shadow:var(--sc-shadow-sm);color:inherit;transition:box-shadow .25s var(--sc-ease)}
+#strive-course .sc-mnav-a:hover{box-shadow:var(--sc-shadow-lg);color:inherit}
+#strive-course .sc-mnav-a.next{text-align:right;align-items:flex-end}
+#strive-course .sc-mnav-k{display:inline-flex;align-items:center;gap:7px;font-family:var(--sc-font-mono);font-size:11.5px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--sc-slate-400)}
+#strive-course .sc-mnav-k .sc-ico{width:14px;height:14px}
+#strive-course .sc-mnav-t{font-family:var(--sc-font-display);font-weight:600;color:var(--sc-ink-950);font-size:1rem}
+#strive-course .sc-moduleview{padding-top:36px}
+
 /* States */
 #strive-course a:focus-visible,#strive-course .sc-btn:focus-visible{outline:none;box-shadow:var(--sc-ring)}
 #strive-course .sc-loading,#strive-course .sc-error{max-width:var(--sc-max);margin:0 auto;padding:80px 32px;text-align:center;color:var(--sc-slate-500);font-family:var(--sc-font-body)}
@@ -206,5 +243,8 @@
   #strive-course .sc-wrap{padding:0 20px}
   #strive-course .sc-section{padding:44px 0}
   #strive-course .sc-mhead,#strive-course .sc-mbody{padding:20px}
+  #strive-course .sc-mnav{grid-template-columns:1fr}
+  #strive-course .sc-mnav-a.next{text-align:left;align-items:flex-start}
+  #strive-course .sc-stepper{display:none}
 }
 @media (prefers-reduced-motion:reduce){#strive-course *{transition:none!important}}
