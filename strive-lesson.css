@@ -5,12 +5,12 @@
    ============================================================ */
 
 #strive-lesson{
-  --sl-bg:#eef4f8;--sl-ink:#0f1a24;--sl-soft:#516170;--sl-mute:#7a8794;
-  --sl-card:rgba(255,255,255,.72);--sl-solid:#fff;--sl-line:rgba(15,26,36,.10);
-  --sl-cyan:#26bbd7;--sl-cyan-deep:#0f8aa8;--sl-orange:#f5872e;--sl-orange-deep:#c25e12;
-  --sl-grid:rgba(38,187,215,.10);
-  --sl-display:'Space Grotesk',system-ui,sans-serif;
-  --sl-body:'Hanken Grotesk',system-ui,sans-serif;
+  --sl-bg:#fbfdfd;--sl-ink:#0c1417;--sl-soft:#2c3d45;--sl-mute:#7c8d95;
+  --sl-card:rgba(255,255,255,.72);--sl-solid:#fff;--sl-line:rgba(12,20,23,.10);
+  --sl-cyan:#05a9d8;--sl-cyan-deep:#0688b0;--sl-orange:#fc8204;--sl-orange-deep:#c25f08;
+  --sl-grid:transparent;
+  --sl-display:'Sora',system-ui,sans-serif;
+  --sl-body:'Manrope',system-ui,sans-serif;
   --sl-mono:'JetBrains Mono',ui-monospace,monospace;
 
   position:relative;font-family:var(--sl-body);color:var(--sl-ink);
@@ -26,7 +26,7 @@
   background-size:34px 34px}
 #strive-lesson .sl-glow{position:absolute;top:-200px;left:50%;transform:translateX(-50%);
   width:900px;height:560px;z-index:0;border-radius:50%;pointer-events:none;
-  background:radial-gradient(ellipse,rgba(38,187,215,.22),transparent 68%);filter:blur(10px)}
+  background:radial-gradient(ellipse,rgba(22,196,246,.22),transparent 68%);filter:blur(10px)}
 
 /* progress + dots */
 #strive-lesson .sl-rail{position:sticky;top:0;left:0;right:0;height:3px;z-index:40}
@@ -74,12 +74,12 @@
 #strive-lesson .sl-btn.sl-ghost:hover{background:var(--sl-solid);color:var(--sl-cyan-deep)}
 
 #strive-lesson .sl-card{background:var(--sl-card);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border:1px solid rgba(255,255,255,.6);box-shadow:0 24px 60px -34px rgba(15,26,36,.5),inset 0 1px 0 rgba(255,255,255,.7);border-radius:18px}
+  border:1px solid rgba(255,255,255,.6);box-shadow:0 24px 60px -34px rgba(12,20,23,.5),inset 0 1px 0 rgba(255,255,255,.7);border-radius:18px}
 
 /* callouts */
 #strive-lesson .sl-note{display:flex;gap:13px;padding:16px 18px;border-radius:12px;margin:18px 0;
-  background:rgba(38,187,215,.07);border:1px solid rgba(38,187,215,.22)}
-#strive-lesson .sl-note.sl-warn{background:rgba(245,135,46,.08);border-color:rgba(245,135,46,.28)}
+  background:rgba(22,196,246,.07);border:1px solid rgba(22,196,246,.22)}
+#strive-lesson .sl-note.sl-warn{background:rgba(252,130,4,.08);border-color:rgba(252,130,4,.28)}
 #strive-lesson .sl-note__i{font-family:var(--sl-mono);font-size:11px;font-weight:600;letter-spacing:.06em;
   color:var(--sl-cyan-deep);flex:none;text-transform:uppercase;padding-top:2px}
 #strive-lesson .sl-note.sl-warn .sl-note__i{color:var(--sl-orange-deep)}
@@ -105,7 +105,7 @@
 #strive-lesson .sl-code .n{color:var(--sl-orange)}
 #strive-lesson .sl-code .c{color:var(--sl-mute);font-style:italic}
 #strive-lesson .sl-vnode{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--sl-line);
-  border-radius:9px;padding:10px 13px;margin-bottom:9px;font-family:var(--sl-mono);font-size:12px;box-shadow:0 4px 12px -8px rgba(15,26,36,.4)}
+  border-radius:9px;padding:10px 13px;margin-bottom:9px;font-family:var(--sl-mono);font-size:12px;box-shadow:0 4px 12px -8px rgba(12,20,23,.4)}
 #strive-lesson .sl-vnode small{color:var(--sl-mute);margin-left:auto;font-size:10.5px}
 #strive-lesson .sl-vnode .sl-pin{width:9px;height:9px;border-radius:50%;background:var(--sl-cyan);flex:none}
 #strive-lesson .sl-vnode .sl-pin.sl-o{background:var(--sl-orange)}
@@ -130,9 +130,9 @@
 #strive-lesson .sl-row__val{font-family:var(--sl-mono);font-size:12.5px;padding:2px 9px;border-radius:12px;color:#fff;transition:.3s;background:#cfcabc}
 #strive-lesson .sl-track{position:relative;height:34px;border-radius:7px;overflow:hidden;display:grid;border:1px solid var(--sl-line)}
 #strive-lesson .sl-cell{display:flex;align-items:center;justify-content:center;font-family:var(--sl-mono);font-size:11px;
-  color:#aaa;border-right:1px solid #ececec;cursor:pointer;transition:.18s;user-select:none}
+  color:#a6b3b9;border-right:1px solid #e6ebed;cursor:pointer;transition:.18s;user-select:none}
 #strive-lesson .sl-cell:last-child{border-right:none}
-#strive-lesson .sl-cell:hover{background:#f4f6fa;color:#555}
+#strive-lesson .sl-cell:hover{background:#f3f6f7;color:#5a6e77}
 #strive-lesson .sl-cell.is-on{color:#fff;font-weight:500}
 #strive-lesson .sl-scorebar{margin-top:20px;padding-top:18px;border-top:1px dashed var(--sl-line);
   display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -147,13 +147,13 @@
   padding:15px 18px;border-bottom:1px solid var(--sl-line);flex-wrap:wrap}
 #strive-lesson .sl-lab__title{font-family:var(--sl-mono);font-size:12.5px;color:var(--sl-soft);letter-spacing:.04em}
 #strive-lesson .sl-lab__title .sl-dotg{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--sl-cyan);
-  margin-right:7px;box-shadow:0 0 0 0 rgba(38,187,215,.5);animation:sl-live 2s infinite}
-@keyframes sl-live{0%{box-shadow:0 0 0 0 rgba(38,187,215,.5)}70%{box-shadow:0 0 0 8px rgba(38,187,215,0)}100%{box-shadow:0 0 0 0 rgba(38,187,215,0)}}
+  margin-right:7px;box-shadow:0 0 0 0 rgba(22,196,246,.5);animation:sl-live 2s infinite}
+@keyframes sl-live{0%{box-shadow:0 0 0 0 rgba(22,196,246,.5)}70%{box-shadow:0 0 0 8px rgba(22,196,246,0)}100%{box-shadow:0 0 0 0 rgba(22,196,246,0)}}
 #strive-lesson .sl-lab__body{display:grid;grid-template-columns:1fr 300px;gap:0}
 #strive-lesson .sl-graph{position:relative;padding:18px;min-height:360px;
-  background-image:radial-gradient(rgba(15,26,36,.06) 1px,transparent 1px);background-size:20px 20px}
+  background-image:radial-gradient(rgba(12,20,23,.06) 1px,transparent 1px);background-size:20px 20px}
 #strive-lesson .sl-gnode{position:absolute;width:152px;background:#fff;border:1px solid var(--sl-line);border-radius:11px;
-  box-shadow:0 8px 22px -12px rgba(15,26,36,.45);overflow:hidden;user-select:none}
+  box-shadow:0 8px 22px -12px rgba(12,20,23,.45);overflow:hidden;user-select:none}
 #strive-lesson .sl-gnode__h{font-family:var(--sl-mono);font-size:11px;letter-spacing:.05em;color:#fff;padding:7px 11px;display:flex;align-items:center;gap:7px}
 #strive-lesson .sl-gnode__b{padding:10px 11px}
 #strive-lesson .sl-gnode__b label{font-family:var(--sl-mono);font-size:10.5px;color:var(--sl-mute);display:block;margin-bottom:4px}
@@ -162,8 +162,8 @@
 #strive-lesson .sl-gport{position:absolute;width:13px;height:13px;border-radius:50%;background:#fff;border:2px solid var(--sl-cyan);
   top:50%;right:-7px;transform:translateY(-50%);transition:.2s}
 #strive-lesson .sl-gport.sl-in{left:-7px;right:auto;border-color:var(--sl-orange)}
-#strive-lesson .sl-gport.is-lit{background:var(--sl-cyan);box-shadow:0 0 0 4px rgba(38,187,215,.18)}
-#strive-lesson .sl-gport.sl-in.is-lit{background:var(--sl-orange);box-shadow:0 0 0 4px rgba(245,135,46,.18)}
+#strive-lesson .sl-gport.is-lit{background:var(--sl-cyan);box-shadow:0 0 0 4px rgba(22,196,246,.18)}
+#strive-lesson .sl-gport.sl-in.is-lit{background:var(--sl-orange);box-shadow:0 0 0 4px rgba(252,130,4,.18)}
 #strive-lesson .sl-wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
 #strive-lesson .sl-wire{fill:none;stroke:var(--sl-cyan);stroke-width:2.5;stroke-dasharray:6 6;animation:sl-flow 1s linear infinite;opacity:.85}
 @keyframes sl-flow{to{stroke-dashoffset:-12}}
@@ -176,7 +176,7 @@
 #strive-lesson .sl-readout b{color:var(--sl-cyan-deep)}
 #strive-lesson .sl-nudge{font-family:var(--sl-mono);font-size:11.5px;color:var(--sl-orange);margin-top:10px;text-align:center}
 #strive-lesson .sl-trace{font-family:var(--sl-mono);font-size:11px;color:var(--sl-mute);margin-top:12px;
-  background:rgba(15,26,36,.03);border-radius:8px;padding:10px 12px;line-height:1.8}
+  background:rgba(12,20,23,.03);border-radius:8px;padding:10px 12px;line-height:1.8}
 #strive-lesson .sl-trace .sl-arrow{color:var(--sl-cyan)}
 
 /* sortable / tappable case cards */
@@ -189,8 +189,8 @@
 #strive-lesson .sl-case__why{font-size:12px;color:var(--sl-mute);line-height:1.45;margin-top:8px;padding-top:8px;border-top:1px dashed var(--sl-line);display:none}
 #strive-lesson .sl-case.is-good .sl-case__why,#strive-lesson .sl-case.is-bad .sl-case__why{display:block}
 #strive-lesson .sl-case__verdict{position:absolute;top:14px;right:14px;font-family:var(--sl-mono);font-size:10px;padding:3px 8px;border-radius:10px;opacity:0;transition:.25s}
-#strive-lesson .sl-case.is-good .sl-case__verdict{opacity:1;background:rgba(38,187,215,.14);color:var(--sl-cyan-deep)}
-#strive-lesson .sl-case.is-bad .sl-case__verdict{opacity:1;background:rgba(245,135,46,.16);color:var(--sl-orange-deep)}
+#strive-lesson .sl-case.is-good .sl-case__verdict{opacity:1;background:rgba(22,196,246,.14);color:var(--sl-cyan-deep)}
+#strive-lesson .sl-case.is-bad .sl-case__verdict{opacity:1;background:rgba(252,130,4,.16);color:var(--sl-orange-deep)}
 #strive-lesson .sl-case.is-good{border-color:var(--sl-cyan)}
 #strive-lesson .sl-case.is-bad{opacity:.82}
 #strive-lesson .sl-scorestrip{font-family:var(--sl-mono);font-size:12.5px;color:var(--sl-soft);margin-top:14px}
@@ -203,13 +203,13 @@
 #strive-lesson .sl-opts{display:grid;gap:10px}
 #strive-lesson .sl-opt{text-align:left;font-family:var(--sl-body);font-size:14.5px;color:var(--sl-ink);cursor:pointer;
   background:#fff;border:1px solid var(--sl-line);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;transition:.16s}
-#strive-lesson .sl-opt:hover{border-color:var(--sl-cyan);background:#f4fcfe}
+#strive-lesson .sl-opt:hover{border-color:var(--sl-cyan);background:#e6faff}
 #strive-lesson .sl-opt .sl-key{font-family:var(--sl-mono);font-size:12px;border:1px solid var(--sl-line);border-radius:6px;padding:2px 9px;color:var(--sl-mute);flex:none}
 #strive-lesson .sl-opt.is-correct{border-color:var(--sl-cyan);background:#ecfafd}
 #strive-lesson .sl-opt.is-correct .sl-key{background:var(--sl-cyan);color:#fff;border-color:var(--sl-cyan)}
 #strive-lesson .sl-opt.is-wrong{border-color:var(--sl-orange);background:#fff6ef}
 #strive-lesson .sl-opt.is-wrong .sl-key{background:var(--sl-orange);color:#fff;border-color:var(--sl-orange)}
-#strive-lesson .sl-fb{margin-top:16px;font-size:14px;color:var(--sl-soft);background:rgba(38,187,215,.07);
+#strive-lesson .sl-fb{margin-top:16px;font-size:14px;color:var(--sl-soft);background:rgba(22,196,246,.07);
   border-left:3px solid var(--sl-cyan);border-radius:9px;padding:14px 16px;display:none;line-height:1.55}
 #strive-lesson .sl-fb.is-show{display:block;animation:sl-fade .4s}
 @keyframes sl-fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
@@ -223,7 +223,7 @@
 #strive-lesson .sl-rc__i{font-family:var(--sl-mono);color:var(--sl-cyan-deep);font-size:13px;margin-top:1px;flex:none}
 #strive-lesson .sl-rc__t{font-size:14.5px;color:var(--sl-soft);line-height:1.55}
 #strive-lesson .sl-badge{margin-top:26px;display:inline-flex;align-items:center;gap:10px;font-family:var(--sl-mono);font-size:13px;
-  color:var(--sl-cyan-deep);border:1px solid var(--sl-cyan);border-radius:30px;padding:9px 18px;background:rgba(38,187,215,.08)}
+  color:var(--sl-cyan-deep);border:1px solid var(--sl-cyan);border-radius:30px;padding:9px 18px;background:rgba(22,196,246,.08)}
 #strive-lesson .sl-next{margin-top:22px;font-size:14px;color:var(--sl-soft)}
 #strive-lesson .sl-next a{color:var(--sl-cyan-deep);font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--sl-cyan)}
 

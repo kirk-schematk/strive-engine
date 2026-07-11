@@ -64,7 +64,7 @@
 
     split: (b) =>
       `<div class="sl-split">
-         <div class="sl-card sl-panel"><h3><span class="sl-tag" style="background:${b.left.tagColor || "#7a8794"}">${esc(b.left.tag)}</span> ${esc(b.left.title)}</h3>
+         <div class="sl-card sl-panel"><h3><span class="sl-tag" style="background:${b.left.tagColor || "#7c8d95"}">${esc(b.left.tag)}</span> ${esc(b.left.title)}</h3>
            <div class="sl-code">${h(b.left.body)}</div></div>
          <div class="sl-card sl-panel"><h3><span class="sl-tag" style="background:var(--sl-cyan)">${esc(b.right.tag)}</span> ${esc(b.right.title)}</h3>
            ${b.right.nodes
@@ -256,8 +256,8 @@
               return pts;
             };
             let svg = ""; const rings = []; for (let l = 0; l < floors; l++) rings.push(ring(l));
-            for (let i = 0; i < sides; i++) { let d = "M"; for (let l = 0; l < floors; l++) { d += `${rings[l][i][0].toFixed(1)},${rings[l][i][1].toFixed(1)} ` + (l < floors - 1 ? "L" : ""); } svg += `<path d="${d}" fill="none" stroke="rgba(38,187,215,0.35)" stroke-width="1"/>`; }
-            rings.forEach((r, l) => { let d = "M" + r.map((p) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" L") + " Z"; const top = l === floors - 1; svg += `<path d="${d}" fill="${top ? "rgba(245,135,46,0.12)" : "rgba(38,187,215,0.06)"}" stroke="${top ? "#f5872e" : "#26bbd7"}" stroke-width="${top ? 2 : 1.4}"/>`; });
+            for (let i = 0; i < sides; i++) { let d = "M"; for (let l = 0; l < floors; l++) { d += `${rings[l][i][0].toFixed(1)},${rings[l][i][1].toFixed(1)} ` + (l < floors - 1 ? "L" : ""); } svg += `<path d="${d}" fill="none" stroke="rgba(22,196,246,0.35)" stroke-width="1"/>`; }
+            rings.forEach((r, l) => { let d = "M" + r.map((p) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" L") + " Z"; const top = l === floors - 1; svg += `<path d="${d}" fill="${top ? "rgba(252,130,4,0.12)" : "rgba(22,196,246,0.06)"}" stroke="${top ? "#fc8204" : "#05a9d8"}" stroke-width="${top ? 2 : 1.4}"/>`; });
             root.querySelector("[data-stage]").innerHTML = svg;
             root.querySelector("[data-readout]").innerHTML = `radius <b>${radius.toFixed(1)}m</b> · sides <b>${sides}</b> · twist <b>${twist}°</b><br>→ <b>${sides * floors}</b> vertices, <b>${sides}</b> vertical edges.`;
             root.querySelector("[data-trace]").innerHTML =
