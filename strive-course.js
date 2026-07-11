@@ -216,7 +216,7 @@
         (links ? '<div class="sc-cr-links">' + links + '</div>' : '') +
       '</div>';
     }).join('');
-    return '<section class="sc-section sunken"><div class="sc-wrap">' +
+    return '<section class="sc-section sc-crsec"><div class="sc-wrap">' +
       '<div class="sc-head"><h2>Meet the creators</h2>' +
       '<p>This course curates free tutorials from respected educators. If they help you, support their work — their paid courses go deeper than any single video.</p></div>' +
       '<div class="sc-creators">' + cards + '</div>' +
@@ -304,10 +304,10 @@
 
   function renderOverview(c) {
     return renderHero(c) +
+      renderCreators(c) +
       renderOutcomes(c) +
       renderSetup(c) +
-      renderSyllabus(c) +
-      renderCreators(c);
+      renderSyllabus(c);
   }
 
   function renderModuleView(c, i) {
@@ -395,10 +395,10 @@
       state = null;
       root.innerHTML =
         renderHero(data) +
+        renderCreators(data) +
         renderOutcomes(data) +
         renderSetup(data) +
         renderModules(data) +
-        renderCreators(data) +
         renderFinish(data);
       runIcons();
       return root;
