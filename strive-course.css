@@ -51,25 +51,26 @@
 #strive-course .sc-ico{width:18px;height:18px;flex:none}
 #strive-course kbd{font-family:var(--sc-font-mono);font-size:12px;font-weight:500;background:var(--sc-slate-50);border:1px solid var(--sc-slate-200);border-radius:5px;padding:1px 6px;color:var(--sc-ink-950)}
 
-#strive-course .sc-eyebrow{font-family:var(--sc-font-mono);text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:500;color:var(--sc-turq-400)}
+#strive-course .sc-eyebrow{font-family:var(--sc-font-mono);text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:500;color:var(--sc-turq-600)}
+#strive-course .sc-finish .sc-eyebrow{color:var(--sc-turq-300)} /* finish stays dark */
 
-/* ── Hero ── */
-#strive-course .sc-hero{position:relative;overflow:hidden;background:var(--sc-ink-950);color:#fff;padding:52px 0 60px}
-#strive-course .sc-bloom{position:absolute;top:-140px;right:-90px;width:460px;height:460px;border-radius:50%;background:var(--sc-grad-brand);opacity:.20;filter:blur(8px);pointer-events:none}
-#strive-course .sc-bloom2{position:absolute;bottom:-180px;left:-120px;width:360px;height:360px;border-radius:50%;background:var(--sc-grad-cool);opacity:.14;filter:blur(10px);pointer-events:none}
+/* ── Hero — light DS surface (gradient-surface: white→slate-50) ── */
+#strive-course .sc-hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--sc-white) 0%,var(--sc-slate-50) 100%);color:var(--sc-slate-700);border-bottom:1px solid var(--sc-slate-100);padding:52px 0 60px}
+#strive-course .sc-bloom{position:absolute;top:-140px;right:-90px;width:460px;height:460px;border-radius:50%;background:var(--sc-grad-brand);opacity:.14;filter:blur(8px);pointer-events:none}
+#strive-course .sc-bloom2{position:absolute;bottom:-180px;left:-120px;width:360px;height:360px;border-radius:50%;background:var(--sc-grad-cool);opacity:.10;filter:blur(10px);pointer-events:none}
 #strive-course .sc-hero .sc-wrap{position:relative;z-index:1}
 #strive-course .sc-hero-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:44px;align-items:start}
 #strive-course .sc-badges{display:flex;gap:8px;margin:16px 0 18px;flex-wrap:wrap}
 #strive-course .sc-badge{font-weight:600;font-size:13px;padding:5px 12px;border-radius:var(--sc-r-pill);color:#fff}
 #strive-course .sc-badge.primary{background:var(--sc-turq-500)}
 #strive-course .sc-badge.secondary{background:var(--sc-orange-400)}
-#strive-course .sc-badge.ghost{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16)}
+#strive-course .sc-badge.ghost{background:var(--sc-white);border:1px solid var(--sc-slate-200);color:var(--sc-slate-700)}
 #strive-course .sc-hero h1{font-size:clamp(2.25rem,5vw,3rem);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0 0 16px} /* DS text-3xl cap, tracking-tight */
-#strive-course .sc-lede{font-size:1.125rem;line-height:1.65;color:var(--sc-slate-300);max-width:52ch;margin:0 0 26px} /* DS text-md / leading-relaxed */
-#strive-course .sc-stats{display:flex;flex-wrap:wrap;gap:22px;font-size:14px;color:var(--sc-slate-300)}
+#strive-course .sc-lede{font-size:1.125rem;line-height:1.65;color:var(--sc-slate-500);max-width:52ch;margin:0 0 26px} /* DS text-md / leading-relaxed */
+#strive-course .sc-stats{display:flex;flex-wrap:wrap;gap:22px;font-size:14px;color:var(--sc-slate-500)}
 #strive-course .sc-stats span{display:inline-flex;align-items:center;gap:7px}
 #strive-course .sc-stats .sc-ico{width:16px;height:16px}
-#strive-course .sc-stats b{font-family:var(--sc-font-mono);font-weight:500;color:#fff}
+#strive-course .sc-stats b{font-family:var(--sc-font-mono);font-weight:500;color:var(--sc-ink-950)}
 
 /* Enrol card */
 #strive-course .sc-enrol{background:var(--sc-white);border-radius:var(--sc-r-lg);padding:20px;box-shadow:var(--sc-shadow-lg);color:var(--sc-slate-700)}
