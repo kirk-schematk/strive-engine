@@ -29,6 +29,12 @@
   /* Radii / shadow / motion */
   --slib-shadow-sm:0 1px 2px rgba(16,42,51,.06),0 2px 6px rgba(16,42,51,.05);
   --slib-shadow-lg:0 4px 8px rgba(16,42,51,.06),0 18px 40px rgba(16,42,51,.12);
+  /* Colored glow — mirrors design-system --glow-turquoise / --glow-orange.
+     Soft = resting (the course vs mini-lesson indicator), full = hover emphasis. */
+  --slib-glow-turq-soft:0 6px 20px rgba(5,169,216,.18);
+  --slib-glow-orange-soft:0 6px 20px rgba(252,130,4,.16);
+  --slib-glow-turq:0 8px 28px rgba(5,169,216,.30);
+  --slib-glow-orange:0 8px 28px rgba(252,130,4,.28);
   --slib-ease:cubic-bezier(.22,1,.36,1);
   --slib-max:1200px;
 
@@ -73,13 +79,13 @@
 /* ===== Grid ===== */
 #strive-library .slib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
 
-/* ===== Card — identical layout for both types; color-coded left border ===== */
+/* ===== Card — identical layout for both types; type shown via colored glow ===== */
 #strive-library .slib-card{position:relative;background:var(--slib-white);border:1px solid var(--slib-slate-100);
-  border-left:4px solid var(--slib-accent,var(--slib-slate-200));border-radius:18px;overflow:hidden;cursor:pointer;
+  border-radius:18px;overflow:hidden;cursor:pointer;box-shadow:var(--slib-shadow-sm),var(--slib-glow,0 0 0 transparent);
   transition:transform .22s var(--slib-ease),box-shadow .22s var(--slib-ease);display:flex;flex-direction:column}
-#strive-library .slib-card.is-course{--slib-accent:var(--slib-turq-400)}
-#strive-library .slib-card.is-lesson{--slib-accent:var(--slib-orange-300)}
-#strive-library .slib-card:hover{transform:translateY(-4px);box-shadow:var(--slib-shadow-lg)}
+#strive-library .slib-card.is-course{--slib-glow:var(--slib-glow-turq-soft);--slib-glow-hover:var(--slib-glow-turq)}
+#strive-library .slib-card.is-lesson{--slib-glow:var(--slib-glow-orange-soft);--slib-glow-hover:var(--slib-glow-orange)}
+#strive-library .slib-card:hover{transform:translateY(-4px);box-shadow:var(--slib-shadow-lg),var(--slib-glow-hover,0 0 0 transparent)}
 
 /* Media band — gradient now; swap to an image later via inline background. Title over it with a scrim. */
 #strive-library .slib-band{height:150px;position:relative;background:var(--slib-slate-100);background-size:cover;background-position:center;
