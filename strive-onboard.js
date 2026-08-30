@@ -127,7 +127,7 @@ function injectScaffold(){
           '<a href="/" class="onb-footer-logo">STRIVE</a>'+
           '<p>Pushing digitalization forward in buildings &amp; infrastructure — through free learning, verified skills, and community.</p>'+
         '</div>'+
-        '<div class="onb-footer-col"><h4>Learn</h4><a href="/catalog">Courses</a><a href="/career-paths">Career paths</a><a href="/assessment">Skill assessments</a><a href="/teams">For teams</a></div>'+
+        '<div class="onb-footer-col"><h4>Learn</h4><a href="/catalog">Courses</a><a href="/career-paths">Career paths</a><a href="/get-started">Skill assessments</a><a href="/teams">For teams</a></div>'+
         '<div class="onb-footer-col"><h4>Community</h4><a href="/forum">Forum</a><a href="/events">Events</a><a href="/mentorship">Mentorship</a></div>'+
         '<div class="onb-footer-col"><h4>Company</h4><a href="/about">About</a><a href="/careers">Careers</a><a href="/contact">Contact</a></div>'+
       '</div>'+
