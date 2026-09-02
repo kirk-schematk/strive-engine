@@ -1,0 +1,108 @@
+<!-- ============================================================
+     STRIVE Course — Webflow embed (rate-limit hardened)
+     Paste into an HTML Embed on the single static /course page.
+
+     Flow: read ?slug= from the URL -> resolve it to a course_id
+     via the /courses list -> fetch the course_json by course_id
+     -> render with STRIVECourse.load({ data }).
+
+     Hardening (mirrors the lesson embed):
+       - getJSON() retries Xano 429 (free-tier rate limit) and 5xx
+         with exponential backoff, so a busy server recovers on its
+         own instead of the visitor refreshing.
+       - Course is cached per-slug in sessionStorage, so revisits and
+         back/forward don't re-hit Xano.
+       - Renders ONLY a valid course object; otherwise shows a
+         "server busy - Retry" card instead of a blank page.
+       - Waits for the STRIVECourse engine before rendering.
+     ============================================================ -->
+
+<!-- STRIVE course engine (CDN) — delete these 2 lines if the page already loads them -->
+<link rel="stylesheet" href="https://strive-engine.netlify.app/strive-course.css">
+<script src="https://strive-engine.netlify.app/strive-course.js"></script>
+
+<!-- Mount point -->
+<div id="strive-course"></div>
+
+<script>
+(function () {
+  var XANO = 'https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM';
+  var MOUNT = 'strive-course';
+  var slug = new URLSearchParams(location.search).get('slug')
+          || location.pathname.split('/').filter(Boolean).pop();
+
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  // Fetch JSON with retry + exponential backoff on 429 (Xano rate limit) and 5xx.
+  // Returns null on give-up or any non-OK response — callers must handle null.
+  async function getJSON(url, opts, tries) {
+    tries = tries || 5;
+    for (var i = 0; i < tries; i++) {
+      try {
+        var r = await fetch(url, opts || {});
+        if (r.status === 429 || r.status >= 500) { await sleep(500 * Math.pow(2, i) + Math.random() * 250); continue; }
+        if (!r.ok) return null;
+        return await r.json();
+      } catch (e) { await sleep(500 * Math.pow(2, i)); }
+    }
+    return null;
+  }
+
+  // Session cache for the course object (stable, public) so revisits don't re-hit Xano.
+  function readCache(s) { try { var v = sessionStorage.getItem('strive_course_' + s); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
+  function writeCache(s, d) { try { sessionStorage.setItem('strive_course_' + s, JSON.stringify(d)); } catch (e) {} }
+
+  function valid(c) { return !!(c && (Array.isArray(c.modules) || c.hero)); }
+
+  // Graceful fallback instead of a blank page when the server is rate-limited.
+  function showError() {
+    var el = document.getElementById(MOUNT);
+    if (!el) return;
+    el.innerHTML =
+      '<div style="max-width:620px;margin:90px auto;padding:0 24px;text-align:center;font-family:Manrope,system-ui,sans-serif;color:#0b1f2a">' +
+      '<div style="font-family:\'JetBrains Mono\',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#e28001;margin-bottom:10px">Server busy</div>' +
+      '<h2 style="font-family:Sora,system-ui,sans-serif;font-size:24px;margin:0 0 10px">This course is taking a moment</h2>' +
+      '<p style="opacity:.7;margin:0 0 22px;line-height:1.5">The learning server hit its rate limit. Give it a few seconds, then try again.</p>' +
+      '<button onclick="location.reload()" style="padding:11px 22px;border:0;border-radius:10px;background:#006879;color:#fff;font:600 15px/1 Manrope,system-ui,sans-serif;cursor:pointer">Retry &#8635;</button></div>';
+  }
+
+  async function start() {
+    if (!slug) { showError(); return; }
+
+    // Cache hit -> render immediately, zero Xano calls.
+    var cached = readCache(slug);
+    if (valid(cached)) { STRIVECourse.load({ mount: '#' + MOUNT, data: cached }); return; }
+
+    var mountEl = document.getElementById(MOUNT);
+    if (mountEl) mountEl.innerHTML = '<div class="sc-loading">Loading course…</div>';
+
+    // 1) Resolve slug -> course_id via the courses list.
+    var list = await getJSON(XANO + '/courses', {}, 5);
+    if (!list) { showError(); return; }
+    var items = Array.isArray(list) ? list : (list.items || []);
+    var match = items.filter(function (c) { return c.slug === slug; })[0];
+    if (!match) { showError(); return; }
+    var courseId = match.course_id || match.courseId;
+
+    // 2) Fetch the full course by course_id (the endpoint returns the course_json directly).
+    var course = await getJSON(XANO + '/course?course_id=' + encodeURIComponent(courseId), {}, 5);
+    var data = valid(course) ? course : (course && valid(course.course_json) ? course.course_json : null);
+    if (!valid(data)) { showError(); return; }
+
+    writeCache(slug, data);
+    STRIVECourse.load({ mount: '#' + MOUNT, data: data });
+  }
+
+  // Wait for the STRIVECourse engine before rendering (covers a slow/late CDN load), then start.
+  function boot() {
+    var waited = 0;
+    (function poll() {
+      if (window.STRIVECourse) { start(); return; }
+      if (waited >= 10000) { showError(); return; }
+      waited += 100; setTimeout(poll, 100);
+    })();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>

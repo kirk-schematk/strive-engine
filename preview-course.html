@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!-- Dev preview for the course engine. Open locally (or on Netlify) —
+     uses the LOCAL strive-course.css/js next to this file, so you can
+     check changes before/after pushing. ?slug= overrides the course. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Course engine preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="./strive-course.css">
+  <script src="./strive-course.js"></script>
+</head>
+<body style="margin:0">
+  <div id="strive-course"></div>
+  <script>
+    var slug = new URLSearchParams(location.search).get('slug') || 'revit-basics-for-architecture';
+    STRIVECourse.load({
+      mount: '#strive-course',
+      url: 'https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM/course?slug=' + encodeURIComponent(slug)
+    });
+  </script>
+</body>
+</html>

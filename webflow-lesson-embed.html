@@ -1,0 +1,116 @@
+<!-- ============================================================
+     STRIVE Mini-Lesson — Webflow embed (completion-wired)
+     Paste into an HTML Embed on the single static /lesson page.
+     Flow: Memberstack cookie -> Xano /memberstack_auth (token
+     exchange) -> check prior completion -> renderLesson with opts.
+     Logged-out visitors still get the full lesson + quiz; nothing
+     is recorded (authToken stays null).
+
+     Slug is read from the URL query (?slug=<slug>) with a path
+     fallback (/lessons/<slug>), so one static page serves every
+     lesson — no CMS item per lesson, no CMS field binding.
+     ============================================================ -->
+
+<!-- STRIVE lesson engine (CDN) — delete these 2 lines if the page already loads them -->
+<link rel="stylesheet" href="https://strive-engine.netlify.app/strive-lesson.css">
+<script src="https://strive-engine.netlify.app/strive-lesson.js"></script>
+
+<!-- Mount point -->
+<div id="strive-lesson"></div>
+
+<script>
+(function () {
+  var XANO = 'https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM';
+  var MOUNT = 'strive-lesson';
+  var slug = new URLSearchParams(location.search).get('slug')
+          || location.pathname.split('/').filter(Boolean).pop();
+
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  // Fetch JSON with retry + exponential backoff on 429 (Xano rate limit) and 5xx.
+  // Returns null on give-up or any non-OK response — callers must handle null.
+  async function getJSON(url, opts, tries) {
+    tries = tries || 4;
+    for (var i = 0; i < tries; i++) {
+      try {
+        var r = await fetch(url, opts || {});
+        if (r.status === 429 || r.status >= 500) { await sleep(500 * Math.pow(2, i) + Math.random() * 250); continue; }
+        if (!r.ok) return null;
+        return await r.json();
+      } catch (e) { await sleep(500 * Math.pow(2, i)); }
+    }
+    return null;
+  }
+
+  // Session cache for lesson content (stable, public) so revisits/back-forward don't re-hit Xano.
+  function readCache(s) { try { var v = sessionStorage.getItem('strive_lesson_' + s); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
+  function writeCache(s, d) { try { sessionStorage.setItem('strive_lesson_' + s, JSON.stringify(d)); } catch (e) {} }
+
+  // Graceful fallback instead of a blank page when the server is rate-limited.
+  function showError() {
+    var el = document.getElementById(MOUNT);
+    if (!el) return;
+    el.innerHTML =
+      '<div style="max-width:620px;margin:90px auto;padding:0 24px;text-align:center;font-family:Manrope,system-ui,sans-serif;color:#0b1f2a">' +
+      '<div style="font-family:\'JetBrains Mono\',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#e28001;margin-bottom:10px">Server busy</div>' +
+      '<h2 style="font-family:Sora,system-ui,sans-serif;font-size:24px;margin:0 0 10px">This lesson is taking a moment</h2>' +
+      '<p style="opacity:.7;margin:0 0 22px;line-height:1.5">The learning server hit its rate limit. Give it a few seconds, then try again.</p>' +
+      '<button onclick="location.reload()" style="padding:11px 22px;border:0;border-radius:10px;background:#006879;color:#fff;font:600 15px/1 Manrope,system-ui,sans-serif;cursor:pointer">Retry &#8635;</button></div>';
+  }
+
+  async function getAuth() {
+    try {
+      var member = await window.$memberstackDom.getCurrentMember();
+      if (!member || !member.data) return null;
+      var msToken = await window.$memberstackDom.getMemberCookie();
+      var ex = await getJSON(XANO + '/memberstack_auth', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ms_token: msToken })
+      }, 2);
+      return (ex || {}).authToken || null;
+    } catch (e) { return null; }
+  }
+
+  async function start() {
+    if (!slug) { showError(); return; }
+
+    // Fetch lesson content (essential) and auth (best-effort) in parallel.
+    var lessonP = (function () {
+      var cached = readCache(slug);
+      if (cached) return Promise.resolve(cached);
+      return getJSON(XANO + '/mini_lesson?slug=' + encodeURIComponent(slug), {}, 5)
+        .then(function (d) { if (d && Array.isArray(d.sections)) writeCache(slug, d); return d; });
+    })();
+    var authP = getAuth();
+
+    var lesson = await lessonP;
+    // Only render a valid lesson payload — never hand a 429/error body to the renderer.
+    if (!lesson || !Array.isArray(lesson.sections)) { showError(); return; }
+
+    var authToken = await authP, completed = false;
+    if (authToken) {
+      var c = await getJSON(XANO + '/mini_lesson/completions', { headers: { Authorization: 'Bearer ' + authToken } }, 2);
+      if (c) { var items = c.items || []; completed = items.some(function (x) { return (x.slug || x) === slug; }); }
+    }
+
+    STRIVE.renderLesson(lesson, MOUNT, {
+      slug: slug,
+      completeUrl: XANO + '/mini_lesson/complete',
+      authToken: authToken,
+      completed: completed
+    });
+  }
+
+  // Wait for the STRIVE engine before rendering (covers a slow/late CDN load), then start.
+  function boot() {
+    var waited = 0;
+    (function poll() {
+      if (window.STRIVE) { start(); return; }
+      if (waited >= 10000) { showError(); return; }
+      waited += 100; setTimeout(poll, 100);
+    })();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>

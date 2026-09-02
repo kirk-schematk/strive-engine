@@ -1,0 +1,64 @@
+<!-- ============================================================
+     STRIVE Course Library — Webflow embed
+     Paste this into a Webflow **Embed** element on the Course
+     Library page (or an HTML Embed inside a Section). It loads the
+     library engine from the CDN and mounts the catalog, which pulls
+     live from the Xano Platform endpoints.
+
+     Fonts (Sora / Manrope / JetBrains Mono) and Lucide icons are
+     loaded here so the engine renders correctly on any page. If your
+     Webflow site already loads these globally, you can delete those
+     two lines to avoid duplicates.
+     ============================================================ -->
+
+<!-- Fonts + icons (delete if already loaded site-wide) -->
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- STRIVE library engine (CDN) -->
+<link rel="stylesheet" href="https://strive-engine.netlify.app/strive-library.css">
+<script src="https://strive-engine.netlify.app/strive-library.js"></script>
+
+<!-- Mount point -->
+<div id="strive-library"></div>
+
+<script>
+  (function () {
+    var XANO_BASE = 'https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM';
+
+    // Memberstack -> Xano token exchange so completed lessons get checkmarks.
+    // Resolves null when logged out or on any failure (library loads fine without).
+    async function getAuthToken() {
+      try {
+        var member = await window.$memberstackDom.getCurrentMember();
+        if (!member || !member.data) return null;
+        var msToken = await window.$memberstackDom.getMemberCookie();
+        var ex = await fetch(XANO_BASE + '/memberstack_auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ms_token: msToken })
+        });
+        if (!ex.ok) return null;
+        return ((await ex.json()) || {}).authToken || null;
+      } catch (e) { return null; }
+    }
+
+    async function start() {
+      var authToken = await getAuthToken();
+      STRIVELibrary.load({
+        mount: '#strive-library',
+        coursesUrl: XANO_BASE + '/courses',
+        lessonsUrl: XANO_BASE + '/lessons',
+        completedUrl: authToken ? XANO_BASE + '/mini_lesson/completions' : null,
+        headers: authToken ? { Authorization: 'Bearer ' + authToken } : {},
+        // Both slug-based (slugs mirror Xano 1:1):
+        //   courses -> /course?slug=<slug> (the /course page reads ?slug= and loads it)
+        //   lessons -> /lesson?slug=<slug> (the /lesson page reads ?slug= and loads it)
+        courseHref: function (it) { return '/course?slug=' + encodeURIComponent(it.slug); },
+        lessonHref: function (it) { return '/lesson?slug=' + encodeURIComponent(it.slug); }
+      });
+    }
+    if (window.STRIVELibrary) start();
+    else document.addEventListener('DOMContentLoaded', start);
+  })();
+</script>
