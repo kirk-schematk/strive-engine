@@ -73,8 +73,21 @@
     } catch (e) { return { authToken: null, msToken: null, prefill: null }; }
   }
 
+  // Reload when the Memberstack login state flips (the login modal opens in place,
+  // so without this a fresh login would leave the "log in" card on screen).
+  function watchLogin(loggedIn) {
+    try {
+      window.$memberstackDom.onAuthChange(function (res) {
+        var m = res && (res.data || res.member || res);
+        var now = !!(m && (m.id || m.email));
+        if (now !== loggedIn) location.reload();
+      });
+    } catch (e) {}
+  }
+
   async function start() {
     var auth = MOCK ? { authToken: 'mock', msToken: 'mock', prefill: null } : await getAuth();
+    if (!MOCK) watchLogin(!!auth.authToken);
     if (!auth.authToken && !MOCK) {
       // Not logged in (or exchange failed). There is no /login page: login is the
       // Memberstack modal (data-ms-modal="login"), with /signup#/ms/login as the
