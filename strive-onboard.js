@@ -399,6 +399,10 @@ function doTeaser(){
       cta.href=signupHref();
       cta.onclick=function(){setStep(3)};
       locked.appendChild(cta);
+      /* Existing members: open the Memberstack login modal; after login Memberstack lands on
+         /dashboard, which hands off to /welcome-onboard to claim this session. */
+      var lg=el('p','onb-sub onb-sub--light onb-lock-login','Already a member? <a href="/signup#/ms/login" data-ms-modal="login">Log in to save your results</a>');
+      locked.appendChild(lg);
       w.appendChild(locked);
       showLessonPick(w);
       var rst=el('button','onb-restart','Start over');
@@ -551,6 +555,7 @@ function onLessonPassed(wrap,p,score,total){
   cta.href=signupHref();
   cta.onclick=function(){setStep(3)};
   done.appendChild(cta);
+  done.appendChild(el('p','onb-sub onb-sub--light onb-lock-login','Already a member? <a href="/signup#/ms/login" data-ms-modal="login">Log in to save your results</a>'));
   var back=el('button','onb-restart','Back to results');
   back.onclick=function(){root.scrollIntoView({behavior:'smooth',block:'start'})};
   done.appendChild(back);

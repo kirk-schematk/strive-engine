@@ -178,11 +178,20 @@ function init(opts){
   function fdToObj(fd){var o={};fd.forEach(function(v,k){o[k]=(v&&v.name)?'[File '+v.name+', '+v.size+' bytes]':v});return o}
 
   /* ---------- load ---------- */
+  function pendingOnboardToken(){
+    try{var t=localStorage.getItem('strive_onboard_token');if(t)return t}catch(e){}
+    var m=document.cookie.match(/(?:^|;\s*)strive_onb=([^;]+)/);
+    return m?decodeURIComponent(m[1]):null;
+  }
   function load(){
     st.loading=true;st.error=null;render();
     request('GET','/dashboard').then(function(d){
       st.data=normalize(d||{});
       st.loading=false;
+      /* A finished assessment is claimed on /welcome-onboard. Memberstack's post-login
+         redirect lands here instead, so hand off when there is no roadmap yet but a
+         pending assessment token (localStorage / cookie) from the quiz. */
+      if(!st.data.roadmap_summary&&pendingOnboardToken()&&!((cfg&&cfg.mock)||(st&&st.mock))){location.replace((cfg&&cfg.claimHref)||'/welcome-onboard');return}
       var next=st.data.next_item;
       st.open={};
       if(next&&next.milestone_id)st.open[next.milestone_id]=true;

@@ -208,3 +208,7 @@
   .onb-lesson #strive-lesson .sl-section{padding:40px 0 36px}
   .onb-pick{padding:18px 16px}
 }
+
+/* "Already a member?" line under the results / lesson-done CTAs */
+.onb-lock-login{margin:12px 0 0}
+.onb-lock-login a{color:var(--teal,#006879);font-weight:600;text-decoration:underline;text-underline-offset:3px}

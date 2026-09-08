@@ -336,6 +336,8 @@ function doClaim(){
   request('POST','/onboarding_claim',{session_token:st.onboardToken},{base:'onboarding'})
   .then(function(d){
     st.results=d.results||null;st.roadmap=d.roadmap||null;st.goalsSuggested=d.goals_suggested||[];
+    /* Claimed: drop the stored token so the dashboard stops handing off here. */
+    clearOnboardToken();
     initInputs();
     if(st.results)showResults();else if(st.roadmap)showRoadmap();else showQuickStart();
   })
