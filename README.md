@@ -12,9 +12,25 @@ styled page inside Webflow. Content is data; these files are the renderer.
 |---|---|
 | `strive-lesson.js` / `strive-lesson.css` | Mini-lesson engine. Renders a lesson from `lesson_json`. Scoped under `#strive-lesson .sl-*`. |
 | `strive-course.js` / `strive-course.css` | Course engine. Renders a course from `course_json` via `STRIVECourse.render(data, mount)` / `STRIVECourse.load({url})`. Scoped under `#strive-course .sc-*`. |
+| `strive-onboard.js` / `strive-onboard.css` | Onboarding / assessment engine for `/get-started`. Anonymous adaptive ladder → teaser → one remediation mini-lesson rendered inline (loads the lesson engine from this CDN on demand). Scoped under `#strive-onboard .onb-*`. `?mock=1` renders from `docs/fixtures/` without Xano; `preview-onboard.html` is the local harness. Contract: `docs/onboarding-roadmap-spec.md`. |
+| `strive-roadmap.js` / `strive-roadmap.css` | Post-signup engine for `/welcome-onboard`: claims the assessment session, shows results, guided roadmap review, SMART-style goals, then profile. `STRIVERoadmap.init({mount, platform, onboarding, authToken, msToken, onboardToken, …})`. Scoped under `#strive-roadmap .rm-*`. `#roadmap` deep-links to the review step; `?mock=1` + `preview-roadmap.html` for local review. |
+| `strive-dashboard.js` / `strive-dashboard.css` | Member dashboard engine for `/dashboard`: profile header, next-up lesson, roadmap progress, goals, recent completions. `STRIVEDashboard.init({mount, platform, authToken, msToken})`. Scoped under `#strive-dashboard .dsh-*`. `?mock=1` + `preview-dashboard.html`. |
+| `strive-library.js` / `strive-library.css` | Course library catalog for `/catalog`. Scoped under `#strive-library .slib-*`. |
 
-The two engines are **parallel and independent** — different namespaces, no shared
-code — so a change to one can never break the other.
+All engines are **parallel and independent** — different namespaces, no shared
+code — so a change to one can never break another. The `webflow-*-embed.html`
+files are the exact snippets pasted into each Webflow page (auth exchange, mount,
+init call). The `preview-*.html` pages load the local files with fixtures from
+`docs/fixtures/` so a change can be reviewed in a browser without Xano or Webflow.
+
+## Onboarding → roadmap → dashboard
+
+The end-to-end journey (assessment → signup → results/roadmap/goals/profile →
+dashboard) is specified in `docs/onboarding-roadmap-spec.md`. The Xano side of
+it (new tables, endpoints, roadmap generation rules) lives as paste-ready
+XanoScript in `docs/xano/` with a runbook (`docs/xano/README.md`) and a smoke
+test (`docs/xano/smoke_test.py`). Memberstack must redirect to `/welcome-onboard`
+after signup.
 
 ## How it's used (Webflow)
 

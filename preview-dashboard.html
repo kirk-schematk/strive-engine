@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- Dev preview for the dashboard engine. Uses the LOCAL
+     strive-dashboard.css/js next to this file with mock:true, so
+     GET /dashboard is served from docs/fixtures/dashboard_get.json and
+     every write (PATCH /profile, POST /profile_photo, PATCH /goal) is
+     logged to the console instead of hitting Xano.
+     Serve the repo dir (e.g. `python -m http.server 8766`) and open
+     http://localhost:8766/preview-dashboard.html
+     ?fixture=docs/fixtures/other.json swaps the fixture. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard engine preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./strive-dashboard.css">
+  <script src="./strive-dashboard.js"></script>
+  <style>body{margin:0;background:#fbfdfd}</style>
+</head>
+<body>
+  <div id="strive-dashboard"></div>
+  <script>
+    var fixture = new URLSearchParams(location.search).get('fixture') || './docs/fixtures/dashboard_get.json';
+    window.dash = STRIVEDashboard.init({
+      mount: '#strive-dashboard',
+      platform: 'https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM',
+      authToken: 'mock-token',
+      msToken: 'mock-ms-token',
+      mock: true,
+      fixture: fixture
+    });
+  </script>
+</body>
+</html>

@@ -1,6 +1,13 @@
 (function(){
 'use strict';
 var API='https://x8ki-letl-twmt.n7.xano.io/api:m2bNDxnv';
+var PLATFORM='https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM';
+var CDN='https://strive-engine.netlify.app/';
+/* ?mock=1 → fixtures only, no Xano (add &stretch=1 to force the "stretch" lesson pick). */
+var MOCK=/[?&]mock=1(?:&|$)/.test(location.search);
+var MOCK_STRETCH=/[?&]stretch=1(?:&|$)/.test(location.search);
+var SCRIPT_BASE=(function(){try{var s=document.currentScript&&document.currentScript.src;return s?s.replace(/[^\/]*$/,''):''}catch(e){return ''}})();
+var FIXTURES=(SCRIPT_BASE||'./')+'docs/fixtures/';
 var LOGO='https://s3.amazonaws.com/webflow-prod-assets/6a1704050c9a272f02d13182/6a170557e26efe4dcc460946_Strive%20Logo%20Torquise_Burnt%20Orange%20Gradient-p-500.png';
 var root=document.getElementById('strive-onboard');
 if(!root)return;
@@ -29,7 +36,10 @@ var P={
   users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
   box:'<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>',
   route:'<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>',
-  eye:'<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>'
+  eye:'<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  zap:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+  playCircle:'<circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>'
 };
 
 var DISC=['Architecture','Engineering','Construction','Operations & FM','Client/Owner','Other'];
@@ -39,9 +49,11 @@ var GOAL_ICON={'Level up in my current role':P.trendUp,'Step up to the next role
 var ARCH_ICON={Explorer:P.compass,Builder:P.box,Orchestrator:P.target,Strategist:P.route,Visionary:P.eye};
 
 var STEPS=['About you','Assessment','Your level','Sign up'];
-var st={token:null,q:null,qNum:0,disc:null,goal:null};
+var st={token:null,q:null,qNum:0,disc:null,goal:null,pick:null,lessonEl:null,lessonDone:false};
+var enginePromise=null;
 
 function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
 
 function setStep(idx){
   var rail=document.querySelector('.onb-rail');
@@ -67,6 +79,7 @@ function show(fn,stepIdx){
 }
 
 function apiCall(method,path,body){
+  if(MOCK)return mockCall(path,body);
   var url=API+path;
   var opts={method:method,headers:{'Content-Type':'application/json'}};
   if(method==='GET'&&body){url+='?'+new URLSearchParams(body).toString()}
@@ -77,7 +90,82 @@ function apiCall(method,path,body){
   });
 }
 
-function saveToken(t){try{localStorage.setItem('strive_onboard_token',t)}catch(e){}}
+/* Fetch JSON with retry + exponential backoff on 429 (Xano rate limit) / 5xx / network
+   errors — same pattern as webflow-lesson-embed.html. Rejects after `tries`. */
+function getJSONRetry(url,opts,tries){
+  tries=tries||4;
+  function attempt(i){
+    return fetch(url,opts||{}).then(function(r){
+      if(r.status===429||r.status>=500){
+        if(i+1>=tries)throw new Error('API error '+r.status);
+        return sleep(500*Math.pow(2,i)+Math.random()*250).then(function(){return attempt(i+1)});
+      }
+      if(!r.ok)throw new Error('API error '+r.status);
+      return r.json();
+    },function(e){
+      if(i+1>=tries)throw e;
+      return sleep(500*Math.pow(2,i)).then(function(){return attempt(i+1)});
+    });
+  }
+  return attempt(0);
+}
+
+/* Session token lives in localStorage (primary) + a cookie (fallback for
+   /welcome-onboard, per docs/onboarding-roadmap-spec.md) + ?onb= on the signup link. */
+function saveToken(t){
+  try{localStorage.setItem('strive_onboard_token',t)}catch(e){}
+  try{document.cookie='strive_onb='+encodeURIComponent(t)+'; path=/; max-age=2592000; SameSite=Lax'}catch(e){}
+}
+function signupHref(){return '/signup'+(st.token?'?onb='+encodeURIComponent(st.token):'')}
+
+/* ---- MOCK MODE (?mock=1) — fixtures only, nothing hits Xano ----
+   onboarding_start / _answer / _teaser use the small bank below;
+   onboarding_lesson_pick + mini_lesson read docs/fixtures/*.json. */
+var MOCK_QS=[
+  {question_id:101,stem:'A concept-stage design review needs a wall element. Which level of geometric detail is appropriate?',
+   options:['Fabrication-level detail so nothing is missed later','Enough to show intent and arrangement for the decision at hand','No geometry — a placeholder note is fine','Whatever the template defaults to'],correct:1,
+   ok:'Right — Level of Information Need means modelling to what the milestone needs, no more.',no:'Not quite. At concept stage the milestone only needs intent and arrangement; anything more is over-modelling.'},
+  {question_id:102,stem:'Which document sets out how information will be produced and managed on a project?',
+   options:['The clash report','The BIM Execution Plan (BEP)','The IFC export log','The federated model'],correct:1,
+   ok:'Correct — the BEP is the how-we-work agreement for information delivery.',no:'The BEP is the document that sets out how information is produced, shared and managed.'},
+  {question_id:103,stem:'A federated model is best described as…',
+   options:['A single-author model with every discipline inside it','Separate discipline models linked together for coordination','A model exported to IFC','A 2D drawing set generated from a model'],correct:1,
+   ok:'Yes — discipline models stay separate and are linked for coordination.',no:'Federation keeps discipline models separate and links them for coordination.'}
+];
+var mockState={i:0,asked:0,correct:0};
+function mockQ(q){return {question_id:q.question_id,stem:q.stem,options:q.options}}
+function mockCall(path,body){
+  function delay(v){return sleep(350).then(function(){return v})}
+  body=body||{};
+  if(path==='/onboarding_start'){
+    mockState={i:0,asked:0,correct:0};
+    return delay({session_token:'mock-'+Date.now().toString(36),question:mockQ(MOCK_QS[0]),
+      concept_card:{title:'Level of Information Need',body:'<p>Before we start: BIM is not about modelling everything. Each deliverable has a <b>Level of Information Need</b> — the geometry, data and documentation a milestone actually requires. Keep that in mind for the questions ahead.</p>'}});
+  }
+  if(path==='/onboarding_answer'){
+    var q=MOCK_QS[mockState.i]||MOCK_QS[0];
+    var ok=body.answer_index===q.correct;
+    mockState.asked++;if(ok)mockState.correct++;mockState.i++;
+    var done=mockState.i>=MOCK_QS.length;
+    return delay({correct:ok,feedback:ok?q.ok:q.no,done:done,next_question:done?null:mockQ(MOCK_QS[mockState.i])});
+  }
+  if(path==='/onboarding_teaser'){
+    var acc=Math.round(mockState.correct/Math.max(1,mockState.asked)*100);
+    return delay({archetype:'Builder',phase_label:'Phase 2 · BIM Modeler',accuracy:acc,
+      headline:'You build reliably inside the model and follow the standards you are given. The next step is owning the information — not just the geometry.'});
+  }
+  if(path==='/onboarding_lesson_pick'){
+    return fetch(FIXTURES+'lesson_pick.json').then(function(r){return r.json()}).then(function(p){
+      if(MOCK_STRETCH||(mockState.asked>0&&mockState.correct===mockState.asked)){
+        p.reason='stretch';p.question_stem=null;p.phase=5;
+        p.message='No gaps to close, so here is a lesson from a domain we did not test you on.';
+      }
+      return delay(p);
+    });
+  }
+  if(path==='/onboarding_lesson_done')return delay({ok:true});
+  return Promise.reject(new Error('No mock for '+path));
+}
 
 /* ---- PAGE SCAFFOLDING (DS onboarding chrome) ---- */
 function injectScaffold(){
@@ -308,13 +396,15 @@ function doTeaser(){
       locked.appendChild(el('h3','onb-lock-title','Your personalized learning path is ready'));
       locked.appendChild(el('p','onb-lock-text','Create a free account to unlock your full track, curated lessons, and career roadmap.'));
       var cta=el('a','onb-btn onb-btn--lg onb-btn--cta','Create free account '+ic(P.arrowRight,19));
-      cta.href='/signup';
+      cta.href=signupHref();
       cta.onclick=function(){setStep(3)};
       locked.appendChild(cta);
       w.appendChild(locked);
+      showLessonPick(w);
       var rst=el('button','onb-restart','Start over');
       rst.onclick=function(){
-        st={token:null,q:null,qNum:0,disc:null,goal:null};
+        removeLesson();
+        st={token:null,q:null,qNum:0,disc:null,goal:null,pick:null,lessonEl:null,lessonDone:false};
         showDiscipline();
       };
       w.appendChild(rst);
@@ -329,6 +419,149 @@ function doTeaser(){
       w.appendChild(b);
     },2);
   });
+}
+
+/* ---- REMEDIATION LESSON (spec §1 step 1) ----
+   onboarding_lesson_pick → card under the results → lesson engine mounted
+   inline (full-width section under the results card, since #strive-onboard
+   is a 640px column) → onboarding_lesson_done when the quiz is passed. */
+function showLessonPick(w){
+  var card=el('div','onb-pick');
+  card.hidden=true;
+  w.appendChild(card);
+  apiCall('POST','/onboarding_lesson_pick',{session_token:st.token})
+  .then(function(p){
+    if(!p||!p.slug){card.remove();return}
+    st.pick=p;
+    renderPick(card,p);
+    card.hidden=false;
+  })
+  .catch(function(){card.remove()});
+}
+
+function pickMins(p){return p.est_minutes||6}
+function startLabel(p){return 'Start the lesson (~'+pickMins(p)+' min) '+ic(P.arrowRight,17)}
+
+function renderPick(card,p){
+  var stretch=p.reason==='stretch';
+  card.className='onb-pick'+(stretch?' onb-pick--stretch':'');
+  card.innerHTML=
+    '<p class="onb-pick-eyebrow">'+ic(stretch?P.zap:P.target,14)+' '+(stretch?'Stretch yourself':'Fix your weakest answer')+'</p>'+
+    '<h3 class="onb-pick-title">'+(p.title||'')+'</h3>'+
+    '<div class="onb-pick-meta">'+
+      '<span class="onb-pill">'+ic(P.clock,13)+' ~'+pickMins(p)+' min</span>'+
+      (p.competency?'<span class="onb-pill">'+ic(P.layers,13)+' '+p.competency+'</span>':'')+
+    '</div>'+
+    (stretch
+      ?'<p class="onb-pick-lead">You aced it. Try something at the next level.</p>'
+      :(p.question_stem?'<blockquote class="onb-pick-q"><span>The question you missed</span>'+p.question_stem+'</blockquote>':''))+
+    (p.message?'<p class="onb-pick-msg">'+p.message+'</p>':'')+
+    '<button class="onb-btn onb-btn--block" data-start>'+startLabel(p)+'</button>'+
+    '<p class="onb-error" data-err hidden></p>';
+  card.querySelector('[data-start]').onclick=function(){startLesson(card,p)};
+}
+
+function startLesson(card,p){
+  if(st.lessonEl){st.lessonEl.scrollIntoView({behavior:'smooth',block:'start'});return}
+  var btn=card.querySelector('[data-start]');
+  var err=card.querySelector('[data-err]');
+  btn.disabled=true;
+  btn.innerHTML='<span class="onb-spinner onb-spinner--sm"></span> Loading lesson…';
+  err.hidden=true;
+  Promise.all([ensureLessonEngine(),fetchLesson(p.slug)])
+  .then(function(r){
+    mountLesson(r[1],p);
+    btn.disabled=false;
+    btn.innerHTML='Continue the lesson '+ic(P.arrowRight,17);
+  })
+  .catch(function(e){
+    btn.disabled=false;
+    btn.innerHTML=startLabel(p);
+    err.textContent='Couldn’t load the lesson right now — please try again.';
+    err.hidden=false;
+  });
+}
+
+/* Load strive-lesson.css/js from the CDN on demand (skipped when the page already has them). */
+function ensureLessonEngine(){
+  if(window.STRIVE&&typeof window.STRIVE.renderLesson==='function')return Promise.resolve();
+  if(enginePromise)return enginePromise;
+  if(!document.querySelector('link[href*="strive-lesson.css"]')){
+    var l=document.createElement('link');l.rel='stylesheet';l.href=CDN+'strive-lesson.css';
+    document.head.appendChild(l);
+  }
+  enginePromise=new Promise(function(res,rej){
+    var s=document.createElement('script');
+    s.src=CDN+'strive-lesson.js';s.async=true;
+    s.onload=function(){if(window.STRIVE)res();else rej(new Error('Lesson engine failed to initialise'))};
+    s.onerror=function(){enginePromise=null;rej(new Error('Lesson engine failed to load'))};
+    document.head.appendChild(s);
+  });
+  return enginePromise;
+}
+
+function fetchLesson(slug){
+  if(MOCK)return fetch(FIXTURES+'mini_lesson_sample.json').then(function(r){return r.json()});
+  return getJSONRetry(PLATFORM+'/mini_lesson?slug='+encodeURIComponent(slug),{},5)
+  .then(function(d){
+    if(!d||!Array.isArray(d.sections))throw new Error('Invalid lesson payload');
+    return d;
+  });
+}
+
+function removeLesson(){
+  if(st.lessonEl&&st.lessonEl.parentNode)st.lessonEl.parentNode.removeChild(st.lessonEl);
+  st.lessonEl=null;
+}
+
+function mountLesson(lesson,p){
+  removeLesson();
+  var wrap=el('section','onb-lesson');
+  var bar=el('div','onb-lesson-bar');
+  var back=el('button','onb-back',ic(P.arrowLeft,16)+' Back to results');
+  back.onclick=function(){removeLesson();root.scrollIntoView({behavior:'smooth',block:'start'})};
+  var skip=el('a','onb-lesson-skip','Skip to sign up '+ic(P.arrowRight,15));
+  skip.href=signupHref();
+  skip.onclick=function(){setStep(3)};
+  bar.appendChild(back);bar.appendChild(skip);
+  wrap.appendChild(bar);
+  var frame=el('div','onb-lesson-frame');
+  var mount=el('div');mount.id='strive-lesson';
+  frame.appendChild(mount);
+  wrap.appendChild(frame);
+  root.parentNode.insertBefore(wrap,root.nextSibling);
+  st.lessonEl=wrap;
+  st.lessonDone=false;
+  window.STRIVE.renderLesson(lesson,'strive-lesson',{
+    slug:p.slug,
+    onQuizPass:function(score,total){onLessonPassed(wrap,p,score,total)}
+  });
+  wrap.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function onLessonPassed(wrap,p,score,total){
+  if(st.lessonDone)return;
+  st.lessonDone=true;
+  apiCall('POST','/onboarding_lesson_done',{session_token:st.token,slug:p.slug}).catch(function(){});
+  var done=el('div','onb-lesson-done');
+  done.appendChild(el('div','onb-lesson-done-ico',ic(P.checkCircle,28)));
+  done.appendChild(el('h3','onb-lock-title','Nice — that one’s now in your roadmap'));
+  done.appendChild(el('p','onb-lock-text',score+' of '+total+' correct. Create a free account to save your results, keep this lesson ticked off, and unlock the rest of your path.'));
+  var cta=el('a','onb-btn onb-btn--lg onb-btn--cta onb-btn--glow','Create free account '+ic(P.arrowRight,19));
+  cta.href=signupHref();
+  cta.onclick=function(){setStep(3)};
+  done.appendChild(cta);
+  var back=el('button','onb-restart','Back to results');
+  back.onclick=function(){root.scrollIntoView({behavior:'smooth',block:'start'})};
+  done.appendChild(back);
+  wrap.appendChild(done);
+  done.scrollIntoView({behavior:'smooth',block:'center'});
+  var card=root.querySelector('.onb-pick');
+  if(card){
+    card.classList.add('is-done');
+    var b=card.querySelector('[data-start]');
+    if(b){b.disabled=true;b.innerHTML=ic(P.check,17)+' Lesson complete — in your roadmap'}
+  }
 }
 
 injectScaffold();

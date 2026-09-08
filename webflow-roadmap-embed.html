@@ -1,0 +1,112 @@
+<!-- ============================================================
+     STRIVE welcome-onboard — Webflow embed reference
+     Page: /welcome-onboard (Memberstack redirects here after signup;
+     the dashboard's "Edit roadmap" links here with #roadmap).
+     Engine files: strive-roadmap.css + strive-roadmap.js
+     Served from: https://strive-engine.netlify.app/
+
+     Flow: Memberstack cookie -> POST {PLATFORM}/memberstack_auth
+     {ms_token} -> authToken (Bearer). Onboard token read from
+     localStorage strive_onboard_token, cookie strive_onb, or ?onb=.
+     The engine then claims the session (POST /onboarding_claim) or
+     falls back to GET /roadmap / the quick-start card, and walks
+     Results -> Roadmap -> Goals -> Profile -> /dashboard.
+     ============================================================ -->
+
+<!-- Page settings → Custom code → Head -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://strive-engine.netlify.app/strive-roadmap.css">
+
+<!-- Page body: an HTML Embed containing the mount + this script -->
+<div id="strive-roadmap"></div>
+<script src="https://strive-engine.netlify.app/strive-roadmap.js"></script>
+<script>
+(function () {
+  var PLATFORM   = 'https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM';
+  var ONBOARDING = 'https://x8ki-letl-twmt.n7.xano.io/api:m2bNDxnv';
+  var MOCK = /[?&]mock=1(?:&|$)/.test(location.search);
+
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  // POST JSON with retry + exponential backoff on 429 / 5xx. Returns null on give-up.
+  async function postJSON(url, body, tries) {
+    tries = tries || 3;
+    for (var i = 0; i < tries; i++) {
+      try {
+        var r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        if (r.status === 429 || r.status >= 500) { await sleep(500 * Math.pow(2, i) + Math.random() * 250); continue; }
+        if (!r.ok) return null;
+        return await r.json();
+      } catch (e) { await sleep(500 * Math.pow(2, i)); }
+    }
+    return null;
+  }
+
+  function readCookie(n) { var m = document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)')); return m ? decodeURIComponent(m[1]) : null; }
+  function readOnboardToken() {
+    var t = null;
+    try { t = localStorage.getItem('strive_onboard_token'); } catch (e) {}
+    if (!t) t = readCookie('strive_onb');
+    if (!t) t = new URLSearchParams(location.search).get('onb');
+    if (t) { // persist whichever source we found it in so a reload still works
+      try { localStorage.setItem('strive_onboard_token', t); } catch (e) {}
+      document.cookie = 'strive_onb=' + encodeURIComponent(t) + '; path=/; max-age=2592000; SameSite=Lax';
+    }
+    return t;
+  }
+
+  // Memberstack member -> Xano bearer token (+ profile prefill from Memberstack custom fields).
+  async function getAuth() {
+    try {
+      var ms = window.$memberstackDom;
+      if (!ms) return { authToken: null, msToken: null, prefill: null };
+      var member = await ms.getCurrentMember();
+      if (!member || !member.data) return { authToken: null, msToken: null, prefill: null };
+      var msToken = await ms.getMemberCookie();
+      var ex = await postJSON(PLATFORM + '/memberstack_auth', { ms_token: msToken });
+      var cf = member.data.customFields || {};
+      return {
+        authToken: (ex || {}).authToken || null,
+        msToken: msToken,
+        prefill: { first_name: cf['first-name'] || cf.firstName || '', last_name: cf['last-name'] || cf.lastName || '' }
+      };
+    } catch (e) { return { authToken: null, msToken: null, prefill: null }; }
+  }
+
+  async function start() {
+    var auth = MOCK ? { authToken: 'mock', msToken: 'mock', prefill: null } : await getAuth();
+    if (!auth.authToken && !MOCK) {
+      // Not logged in (or exchange failed): send them to log in and come back here.
+      location.href = '/login?redirect=' + encodeURIComponent(location.pathname + location.search + location.hash);
+      return;
+    }
+    STRIVERoadmap.init({
+      mount: '#strive-roadmap',
+      platform: PLATFORM,
+      onboarding: ONBOARDING,
+      afterProfileHref: '/dashboard',
+      authToken: auth.authToken,
+      msToken: auth.msToken,
+      onboardToken: readOnboardToken(),
+      prefill: auth.prefill,
+      lessonHref: '/lesson?slug=',
+      courseHref: '/course?slug=',
+      assessmentHref: '/get-started',
+      loginHref: '/login',
+      mock: MOCK
+    });
+  }
+
+  // Wait for the engine (slow CDN) and Memberstack before starting.
+  function boot() {
+    var waited = 0;
+    (function poll() {
+      if (window.STRIVERoadmap && (MOCK || window.$memberstackDom)) { start(); return; }
+      if (waited >= 10000) { if (window.STRIVERoadmap) start(); return; }
+      waited += 100; setTimeout(poll, 100);
+    })();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>

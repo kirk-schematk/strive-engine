@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!-- Dev preview for the onboarding engine. Open locally (or on Netlify) with
+     ?mock=1 — uses the LOCAL strive-onboard.css/js next to this file and
+     fixtures from docs/fixtures/, so nothing hits Xano. Add &stretch=1 to
+     force the "stretch" lesson pick. The local lesson engine is preloaded so
+     the inline lesson step exercises the local strive-lesson.js too; drop
+     those two lines to test the on-demand CDN load instead.
+     Serve from the repo root, e.g.  python -m http.server 8765  →
+     http://localhost:8765/preview-onboard.html?mock=1 -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Onboarding engine preview</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet" href="./strive-onboard.css">
+  <link rel="stylesheet" href="./strive-lesson.css">
+  <script src="./strive-lesson.js"></script>
+</head>
+<body style="margin:0">
+  <section><div id="strive-onboard"></div></section>
+  <script src="./strive-onboard.js" defer></script>
+</body>
+</html>

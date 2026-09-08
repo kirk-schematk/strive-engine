@@ -1,0 +1,539 @@
+{
+  "roadmap": {
+    "version": 1,
+    "generated_at": "2026-09-02T14:00:00Z",
+    "source": "assessment",
+    "placement_phase": 2,
+    "placement_override": null,
+    "target_phase": 3,
+    "phase_labels": {
+      "1": "Student",
+      "2": "Modeler",
+      "3": "Coordinator",
+      "4": "Project BIM Manager",
+      "5": "Director"
+    },
+    "archetype": "Builder",
+    "goal": "Step up to the next role",
+    "discipline": "Architecture",
+    "inputs": {
+      "current_role": "",
+      "target_role": "",
+      "weekly_minutes": 60,
+      "focus_domains": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "summary": "You placed at Modeler (Builder). Your goal is 'Step up to the next role', so this plan takes you to Coordinator. It starts by closing 3 gaps from your assessment, then works through Technical & Computational Proficiency, Information Management & Open Standards, Process Execution & Coordination and Interpersonal & Supportive Competencies at Modeler and Coordinator level. About 4h of lessons at 60 min/week — roughly 4 weeks.",
+    "weak_domains": [
+      {
+        "domain": 1,
+        "name": "Technical & Computational Proficiency",
+        "asked": 3,
+        "wrong": 2
+      },
+      {
+        "domain": 2,
+        "name": "Information Management & Open Standards",
+        "asked": 2,
+        "wrong": 1
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "title": "Close the gaps from your assessment",
+        "why": "Three answers pointed at skills you nearly have. Fix those first and everything after gets easier.",
+        "phase": 2,
+        "domain": null,
+        "deferred": false,
+        "items": [
+          {
+            "type": "lesson",
+            "slug": "level-of-information-need",
+            "title": "Apply the correct Level of Information Need to geometric outputs",
+            "minutes": 6,
+            "competency": "Model Authoring",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-3",
+            "done": true
+          },
+          {
+            "type": "lesson",
+            "slug": "exporting-open-formats",
+            "title": "Export native models to open formats (IFC, NWC)",
+            "minutes": 6,
+            "competency": "Model Federation & Validation",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-11",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "cde-naming-conventions",
+            "title": "Upload/download files with correct naming conventions and suitability codes",
+            "minutes": 5,
+            "competency": "CDE Utilization",
+            "domain": 2,
+            "phase": 2,
+            "skill_id": "SKL-20",
+            "done": false
+          }
+        ]
+      },
+      {
+        "id": "m2",
+        "title": "Modeler: Technical & Computational Proficiency",
+        "why": "Solid authoring, data and federation habits are what Coordinators rely on from their modelers.",
+        "phase": 2,
+        "domain": 1,
+        "deferred": false,
+        "items": [
+          {
+            "type": "lesson",
+            "slug": "parametric-elements",
+            "title": "Create parametric model elements from project templates",
+            "minutes": 7,
+            "competency": "Model Authoring",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-2",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "managing-worksets",
+            "title": "Manage worksets and model subdivision in shared models",
+            "minutes": 4,
+            "competency": "Model Authoring",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-73",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "shared-coordinates-setup",
+            "title": "Coordinate shared coordinates and base points across models",
+            "minutes": 4,
+            "competency": "Model Authoring",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-75",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "enriching-objects",
+            "title": "Enrich objects with parameters, materials and metadata",
+            "minutes": 6,
+            "competency": "Data Enrichment",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-7",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "applying-classification-codes",
+            "title": "Apply classification codes to elements per project standard",
+            "minutes": 3,
+            "competency": "Data Enrichment",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-82",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "preparing-models-for-federation",
+            "title": "Prepare models for federation: purge, coordinates and export settings",
+            "minutes": 4,
+            "competency": "Model Federation & Validation",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-99",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "navigating-federated-models",
+            "title": "Navigate a federated 3D model viewer",
+            "minutes": 6,
+            "competency": "Model Federation & Validation",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-10",
+            "done": false
+          },
+          {
+            "type": "course",
+            "slug": "revit-basics-for-architecture",
+            "title": "Revit basics for architecture",
+            "minutes": 120,
+            "competency": "Model Authoring",
+            "level": "Beginner",
+            "domain": 1,
+            "phase": 2,
+            "done": false
+          }
+        ]
+      },
+      {
+        "id": "m3",
+        "title": "Modeler: Information Management & Open Standards",
+        "why": "Know where files live, how they are named and how they leave your authoring tool.",
+        "phase": 2,
+        "domain": 2,
+        "deferred": false,
+        "items": [
+          {
+            "type": "lesson",
+            "slug": "linking-from-the-cde",
+            "title": "Link and reference shared models correctly from the CDE",
+            "minutes": 4,
+            "competency": "CDE Utilization",
+            "domain": 2,
+            "phase": 2,
+            "skill_id": "SKL-108",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "ifc-export-mvds",
+            "title": "Export IFC files using predefined Model View Definitions (MVDs)",
+            "minutes": 5,
+            "competency": "OpenBIM & Interoperability",
+            "domain": 2,
+            "phase": 2,
+            "skill_id": "SKL-24",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "modelling-to-loin",
+            "title": "Read a LOIN table and model to the specified need",
+            "minutes": 4,
+            "competency": "Information Specification",
+            "domain": 2,
+            "phase": 2,
+            "skill_id": "SKL-123",
+            "done": false
+          }
+        ]
+      },
+      {
+        "id": "m4",
+        "title": "Coordinator: Process Execution & Coordination",
+        "why": "This is the core of the Coordinator role: reading, fixing and closing out clashes to the BEP.",
+        "phase": 3,
+        "domain": 3,
+        "deferred": false,
+        "items": [
+          {
+            "type": "lesson",
+            "slug": "reading-clash-reports",
+            "title": "Read a clash report: locations, elements and status codes",
+            "minutes": 5,
+            "competency": "Clash Resolution",
+            "domain": 3,
+            "phase": 3,
+            "skill_id": "SKL-131",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "fixing-assigned-clashes",
+            "title": "Fix assigned discipline clashes in native authoring software",
+            "minutes": 5,
+            "competency": "Clash Resolution",
+            "domain": 3,
+            "phase": 3,
+            "skill_id": "SKL-37",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "verifying-clash-closeout",
+            "title": "Verify resolved clashes and close out assigned issues",
+            "minutes": 5,
+            "competency": "Clash Resolution",
+            "domain": 3,
+            "phase": 3,
+            "skill_id": "SKL-133",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "bep-issue-checklist",
+            "title": "Complete BEP-required checks before each model issue",
+            "minutes": 5,
+            "competency": "BEP Compliance",
+            "domain": 3,
+            "phase": 3,
+            "skill_id": "SKL-142",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "schedules-and-takeoffs",
+            "title": "Extract documentation, schedules and quantity take-offs from a coordinated model",
+            "minutes": 5,
+            "competency": "Delivery & Handover",
+            "domain": 3,
+            "phase": 3,
+            "skill_id": "SKL-41",
+            "done": false
+          }
+        ]
+      },
+      {
+        "id": "m5",
+        "title": "Coordinator: Technical & Computational Proficiency",
+        "why": "Run the checks yourself instead of waiting for someone else's report.",
+        "phase": 3,
+        "domain": 1,
+        "deferred": false,
+        "items": [
+          {
+            "type": "lesson",
+            "slug": "clash-detection",
+            "title": "Run rule-based clash detection (Navisworks / Solibri)",
+            "minutes": 7,
+            "competency": "Model Federation & Validation",
+            "domain": 1,
+            "phase": 3,
+            "skill_id": "SKL-13",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "model-integrity-checks",
+            "title": "Validate model integrity: duplicates, overlaps and orphaned elements",
+            "minutes": 4,
+            "competency": "Model Federation & Validation",
+            "domain": 1,
+            "phase": 3,
+            "skill_id": "SKL-102",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "running-dynamo-scripts",
+            "title": "Run pre-built Dynamo scripts for repetitive tasks",
+            "minutes": 6,
+            "competency": "Computational Automation",
+            "domain": 1,
+            "phase": 3,
+            "skill_id": "SKL-16",
+            "done": false
+          }
+        ]
+      },
+      {
+        "id": "m6",
+        "title": "Coordinator: Interpersonal & Supportive Competencies",
+        "why": "Coordinators spend half their week in meetings. Make those minutes count.",
+        "phase": 3,
+        "domain": 5,
+        "deferred": false,
+        "items": [
+          {
+            "type": "lesson",
+            "slug": "coordination-minutes",
+            "title": "Write coordination minutes that drive accountable actions",
+            "minutes": 5,
+            "competency": "Communication",
+            "domain": 5,
+            "phase": 3,
+            "skill_id": "SKL-188",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "honest-status-updates",
+            "title": "Communicate model status honestly: progress, blockers, assumptions",
+            "minutes": 5,
+            "competency": "Communication",
+            "domain": 5,
+            "phase": 3,
+            "skill_id": "SKL-187",
+            "done": false
+          }
+        ]
+      }
+    ],
+    "totals": {
+      "items": 24,
+      "minutes": 236,
+      "done": 1
+    },
+    "goals_suggested": [
+      {
+        "title": "Close my assessment gaps",
+        "description": "Finish the three lessons that cover the questions you missed.",
+        "metric": {
+          "type": "lessons",
+          "slugs": [
+            "level-of-information-need",
+            "exporting-open-formats",
+            "cde-naming-conventions"
+          ]
+        },
+        "target_count": 3,
+        "due_date": "2026-09-16"
+      },
+      {
+        "title": "Finish Modeler: Technical & Computational Proficiency",
+        "description": "Complete every lesson in your first milestone, including the Revit basics course.",
+        "metric": {
+          "type": "lessons",
+          "slugs": [
+            "parametric-elements",
+            "managing-worksets",
+            "shared-coordinates-setup",
+            "enriching-objects",
+            "applying-classification-codes",
+            "preparing-models-for-federation",
+            "navigating-federated-models"
+          ]
+        },
+        "target_count": 7,
+        "due_date": "2026-09-23"
+      },
+      {
+        "title": "Reach Coordinator level",
+        "description": "Work through the whole plan and land at Coordinator.",
+        "metric": {
+          "type": "lessons",
+          "slugs": [
+            "level-of-information-need",
+            "exporting-open-formats",
+            "cde-naming-conventions",
+            "parametric-elements",
+            "managing-worksets",
+            "shared-coordinates-setup",
+            "enriching-objects",
+            "applying-classification-codes",
+            "preparing-models-for-federation",
+            "navigating-federated-models",
+            "linking-from-the-cde",
+            "ifc-export-mvds",
+            "modelling-to-loin",
+            "reading-clash-reports",
+            "fixing-assigned-clashes",
+            "verifying-clash-closeout",
+            "bep-issue-checklist",
+            "schedules-and-takeoffs",
+            "clash-detection",
+            "model-integrity-checks",
+            "running-dynamo-scripts",
+            "coordination-minutes",
+            "honest-status-updates"
+          ]
+        },
+        "target_count": 23,
+        "due_date": "2026-09-30"
+      }
+    ]
+  },
+  "goals": [],
+  "goals_suggested": [
+    {
+      "title": "Close my assessment gaps",
+      "description": "Finish the three lessons that cover the questions you missed.",
+      "metric": {
+        "type": "lessons",
+        "slugs": [
+          "level-of-information-need",
+          "exporting-open-formats",
+          "cde-naming-conventions"
+        ]
+      },
+      "target_count": 3,
+      "due_date": "2026-09-16"
+    },
+    {
+      "title": "Finish Modeler: Technical & Computational Proficiency",
+      "description": "Complete every lesson in your first milestone, including the Revit basics course.",
+      "metric": {
+        "type": "lessons",
+        "slugs": [
+          "parametric-elements",
+          "managing-worksets",
+          "shared-coordinates-setup",
+          "enriching-objects",
+          "applying-classification-codes",
+          "preparing-models-for-federation",
+          "navigating-federated-models"
+        ]
+      },
+      "target_count": 7,
+      "due_date": "2026-09-23"
+    },
+    {
+      "title": "Reach Coordinator level",
+      "description": "Work through the whole plan and land at Coordinator.",
+      "metric": {
+        "type": "lessons",
+        "slugs": [
+          "level-of-information-need",
+          "exporting-open-formats",
+          "cde-naming-conventions",
+          "parametric-elements",
+          "managing-worksets",
+          "shared-coordinates-setup",
+          "enriching-objects",
+          "applying-classification-codes",
+          "preparing-models-for-federation",
+          "navigating-federated-models",
+          "linking-from-the-cde",
+          "ifc-export-mvds",
+          "modelling-to-loin",
+          "reading-clash-reports",
+          "fixing-assigned-clashes",
+          "verifying-clash-closeout",
+          "bep-issue-checklist",
+          "schedules-and-takeoffs",
+          "clash-detection",
+          "model-integrity-checks",
+          "running-dynamo-scripts",
+          "coordination-minutes",
+          "honest-status-updates"
+        ]
+      },
+      "target_count": 23,
+      "due_date": "2026-09-30"
+    }
+  ],
+  "next_item": {
+    "type": "lesson",
+    "slug": "exporting-open-formats",
+    "title": "Export native models to open formats (IFC, NWC)",
+    "minutes": 6,
+    "competency": "Model Federation & Validation",
+    "domain": 1,
+    "phase": 2,
+    "skill_id": "SKL-11",
+    "done": false,
+    "milestone_id": "m1",
+    "milestone_title": "Close the gaps from your assessment"
+  },
+  "stats": {
+    "items_total": 24,
+    "items_done": 1,
+    "minutes_total": 236,
+    "minutes_done": 6,
+    "percent": 4,
+    "completions": 1
+  },
+  "status": "proposed",
+  "version": 1,
+  "confirmed_at": null
+}

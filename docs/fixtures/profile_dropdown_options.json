@@ -1,0 +1,46 @@
+{
+  "industries": [
+    {
+      "id": 1,
+      "label": "Architecture"
+    },
+    {
+      "id": 2,
+      "label": "Mechanical Engineering"
+    },
+    {
+      "id": 3,
+      "label": "HVAC Technician"
+    },
+    {
+      "id": 4,
+      "label": "Construction Manager"
+    }
+  ],
+  "experience_levels": [
+    {
+      "id": 1,
+      "label": "Student"
+    },
+    {
+      "id": 2,
+      "label": "0-2 Years"
+    },
+    {
+      "id": 3,
+      "label": "3-5 Years"
+    },
+    {
+      "id": 4,
+      "label": "6-10 Years"
+    },
+    {
+      "id": 5,
+      "label": "10-15 Years"
+    },
+    {
+      "id": 6,
+      "label": "15+ Years"
+    }
+  ]
+}

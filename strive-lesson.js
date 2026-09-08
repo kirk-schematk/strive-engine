@@ -325,6 +325,7 @@
       const nav = wrap.querySelector("[data-qnav]");
       if (score === total) {
         wrap.classList.add("is-complete");
+        if (ctx && typeof ctx.onQuizPass === "function") { try { ctx.onQuizPass(score, total); } catch (e) {} }
         nav.innerHTML = `<span class="sl-quiz__done" style="color:var(--sl-cyan-deep)">✓ ${esc(quiz.doneText || "Lesson complete — all answers correct.")}</span>`;
         postCompletion(ctx, selections, score, total);
       } else {
@@ -429,7 +430,10 @@
        completeUrl — POST endpoint that records completion (Xano)
        authToken   — Xano auth token for the current member (Bearer)
        completed   — true to render the quiz already marked complete
-       onComplete  — callback(result) fired after a successful POST */
+       onComplete  — callback(result) fired after a successful POST
+       onQuizPass  — callback(score, total) fired the moment every quiz answer is
+                     correct. Client-side only, needs no auth and is independent of
+                     postCompletion (used by the anonymous onboarding flow). */
   function renderLesson(lesson, mountId, opts) {
     opts = opts || {};
     const ctx = {
@@ -438,6 +442,7 @@
       authToken: opts.authToken || null,
       completed: !!opts.completed,
       onComplete: typeof opts.onComplete === "function" ? opts.onComplete : null,
+      onQuizPass: typeof opts.onQuizPass === "function" ? opts.onQuizPass : null,
     };
     const root = document.getElementById(mountId || "strive-lesson");
     if (!root) { console.error("STRIVE: mount #strive-lesson not found"); return; }

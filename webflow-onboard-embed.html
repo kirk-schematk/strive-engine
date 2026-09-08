@@ -9,7 +9,13 @@
     <section><div id="strive-onboard"></div></section>
   The script injects the DS onboarding chrome (sticky header with
   step rail, hero, footer) and runs the Xano-backed assessment
-  (onboarding_start → onboarding_answer → onboarding_teaser).
+  (onboarding_start → onboarding_answer → onboarding_teaser), then
+  offers one remediation mini-lesson under the results
+  (onboarding_lesson_pick → strive-lesson.js loaded on demand from
+  this CDN and rendered inline → onboarding_lesson_done when the quiz
+  is passed). The session token is kept in localStorage, a
+  strive_onb cookie, and ?onb= on the /signup CTA so /welcome-onboard
+  can claim it after signup. ?mock=1 renders from docs/fixtures/.
   Styling follows the STRIVE Design System onboarding flow
   (design-system project → Website → Onboarding Flow).
 ============================================================ -->

@@ -1,0 +1,457 @@
+{
+  "user": {
+    "id": 1042,
+    "first_name": "Maya",
+    "last_name": "Okafor",
+    "email": "maya.okafor@example.com",
+    "location": "Toronto, ON",
+    "company": "Studio North Architects",
+    "industry": "Architecture",
+    "current_role": "BIM Modeler",
+    "desired_role": "BIM Coordinator",
+    "bio": "Revit modeler on mid-rise residential. Trying to get ahead of coordination before it gets ahead of me.",
+    "profile_photo": null,
+    "discipline": "Architecture",
+    "goal": "Step up to the next role",
+    "placement_phase": 2,
+    "phase_label": "Modeler",
+    "archetype": "Builder"
+  },
+  "roadmap_summary": {
+    "id": 77,
+    "status": "confirmed",
+    "source": "assessment",
+    "version": 2,
+    "generated_at": "2026-08-27T14:02:11Z",
+    "confirmed_at": "2026-08-27T14:19:40Z",
+    "placement_phase": 2,
+    "target_phase": 3,
+    "phase_labels": {
+      "1": "Student",
+      "2": "Modeler",
+      "3": "Coordinator",
+      "4": "Project BIM Manager",
+      "5": "Director"
+    },
+    "archetype": "Builder",
+    "goal": "Step up to the next role",
+    "discipline": "Architecture",
+    "inputs": {
+      "current_role": "BIM Modeler",
+      "target_role": "BIM Coordinator",
+      "weekly_minutes": 60,
+      "focus_domains": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "summary": "You placed at Modeler (Builder). Your goal is 'Step up to the next role', so this plan takes you to Coordinator. It starts by closing 3 gaps from your assessment, then works through Technical & Computational Proficiency, Information Management & Open Standards, Process Execution & Coordination and Strategy, Policy & Management at Modeler and Coordinator level. About 3.7h of lessons at 60 min/week — roughly 4 weeks.",
+    "totals": {
+      "items": 20,
+      "minutes": 220,
+      "done": 3,
+      "minutes_done": 18
+    },
+    "milestones": [
+      {
+        "id": "m1",
+        "title": "Close the gaps from your assessment",
+        "why": "Three answers pointed at fundamentals worth locking in before you move up.",
+        "phase": 2,
+        "domain": null,
+        "deferred": false,
+        "items_total": 3,
+        "items_done": 2,
+        "minutes": 16,
+        "items": [
+          {
+            "type": "lesson",
+            "slug": "level-of-information-need",
+            "title": "Apply the correct Level of Information Need to geometric outputs",
+            "minutes": 6,
+            "competency": "Model Authoring",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-3",
+            "done": true
+          },
+          {
+            "type": "lesson",
+            "slug": "cde-naming-conventions",
+            "title": "Upload/download files with correct naming conventions and suitability codes",
+            "minutes": 5,
+            "competency": "CDE Utilization",
+            "domain": 2,
+            "phase": 2,
+            "skill_id": "SKL-20",
+            "done": true
+          },
+          {
+            "type": "lesson",
+            "slug": "hard-vs-soft-clashes",
+            "title": "Explain hard vs soft spatial clashes",
+            "minutes": 5,
+            "competency": "Clash Resolution",
+            "domain": 3,
+            "phase": 2,
+            "skill_id": "SKL-36",
+            "done": false
+          }
+        ]
+      },
+      {
+        "id": "m2",
+        "title": "Modeler: Technical & Computational Proficiency",
+        "why": "The authoring, data and federation habits a Coordinator expects from every modeler.",
+        "phase": 2,
+        "domain": 1,
+        "deferred": false,
+        "items_total": 5,
+        "items_done": 1,
+        "minutes": 145,
+        "items": [
+          {
+            "type": "lesson",
+            "slug": "parametric-elements",
+            "title": "Create parametric model elements from project templates",
+            "minutes": 7,
+            "competency": "Model Authoring",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-2",
+            "done": true
+          },
+          {
+            "type": "lesson",
+            "slug": "enriching-objects",
+            "title": "Enrich objects with parameters, materials and metadata",
+            "minutes": 6,
+            "competency": "Data Enrichment",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-7",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "navigating-federated-models",
+            "title": "Navigate a federated 3D model viewer",
+            "minutes": 6,
+            "competency": "Model Federation & Validation",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-10",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "running-dynamo-scripts",
+            "title": "Run pre-built Dynamo scripts for repetitive tasks",
+            "minutes": 6,
+            "competency": "Computational Automation",
+            "domain": 1,
+            "phase": 2,
+            "skill_id": "SKL-16",
+            "done": false
+          },
+          {
+            "type": "course",
+            "slug": "revit-basics-for-architecture",
+            "title": "Revit basics for architecture",
+            "minutes": 120,
+            "competency": "Model Authoring",
+            "level": "Beginner",
+            "domain": 1,
+            "phase": 2,
+            "done": false
+          }
+        ]
+      },
+      {
+        "id": "m3",
+        "title": "Modeler: Information Management & Open Standards",
+        "why": "Get comfortable with requirements and IFC so your models travel well.",
+        "phase": 2,
+        "domain": 2,
+        "deferred": false,
+        "items_total": 3,
+        "items_done": 0,
+        "minutes": 14,
+        "items": [
+          {
+            "type": "lesson",
+            "slug": "object-properties-guidelines",
+            "title": "Input required object properties per project guidelines",
+            "minutes": 5,
+            "competency": "Information Specification",
+            "domain": 2,
+            "phase": 2,
+            "skill_id": "SKL-28",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "ifc-export-mvds",
+            "title": "Export IFC files using predefined Model View Definitions (MVDs)",
+            "minutes": 5,
+            "competency": "OpenBIM & Interoperability",
+            "domain": 2,
+            "phase": 2,
+            "skill_id": "SKL-24",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "importing-ifc-models",
+            "title": "Import and link IFC models into native authoring tools",
+            "minutes": 4,
+            "competency": "OpenBIM & Interoperability",
+            "domain": 2,
+            "phase": 2,
+            "skill_id": "SKL-115",
+            "done": false
+          }
+        ]
+      },
+      {
+        "id": "m4",
+        "title": "Coordinator: Process Execution & Coordination",
+        "why": "Running clash cycles, enforcing the BEP and issuing data drops is the core of the Coordinator role.",
+        "phase": 3,
+        "domain": 3,
+        "deferred": false,
+        "items_total": 5,
+        "items_done": 0,
+        "minutes": 25,
+        "items": [
+          {
+            "type": "lesson",
+            "slug": "enforcing-bep-compliance",
+            "title": "Enforce BEP compliance across trades and report deviations",
+            "minutes": 5,
+            "competency": "BEP Compliance",
+            "domain": 3,
+            "phase": 3,
+            "skill_id": "SKL-34",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "grouping-clash-results",
+            "title": "Group, filter and de-duplicate clash results for review",
+            "minutes": 5,
+            "competency": "Clash Resolution",
+            "domain": 3,
+            "phase": 3,
+            "skill_id": "SKL-134",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "leading-coordination-meetings",
+            "title": "Lead coordination meetings: prioritise clashes, assign and propose fixes",
+            "minutes": 5,
+            "competency": "Clash Resolution",
+            "domain": 3,
+            "phase": 3,
+            "skill_id": "SKL-38",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "schedules-and-takeoffs",
+            "title": "Extract documentation, schedules and quantity take-offs from a coordinated model",
+            "minutes": 5,
+            "competency": "Delivery & Handover",
+            "domain": 3,
+            "phase": 3,
+            "skill_id": "SKL-41",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "preparing-data-drops",
+            "title": "Prepare milestone data drops (e.g. COBie) and tender packs",
+            "minutes": 5,
+            "competency": "Delivery & Handover",
+            "domain": 3,
+            "phase": 3,
+            "skill_id": "SKL-42",
+            "done": false
+          }
+        ]
+      },
+      {
+        "id": "m5",
+        "title": "Coordinator: Strategy, Policy & Management",
+        "why": "Planning deliveries and judging incoming models so the schedule holds.",
+        "phase": 3,
+        "domain": 4,
+        "deferred": false,
+        "items_total": 4,
+        "items_done": 0,
+        "minutes": 20,
+        "items": [
+          {
+            "type": "lesson",
+            "slug": "running-delivery-timelines",
+            "title": "Manage timelines for federated deliveries, clash cycles and data drops",
+            "minutes": 5,
+            "competency": "Strategic Planning",
+            "domain": 4,
+            "phase": 3,
+            "skill_id": "SKL-46",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "midp-and-tidp",
+            "title": "Build and maintain the MIDP from team TIDPs",
+            "minutes": 5,
+            "competency": "Strategic Planning",
+            "domain": 4,
+            "phase": 3,
+            "skill_id": "SKL-169",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "assessing-incoming-models",
+            "title": "Assess the capability of incoming subcontractor models",
+            "minutes": 5,
+            "competency": "Capability Assessment",
+            "domain": 4,
+            "phase": 3,
+            "skill_id": "SKL-51",
+            "done": false
+          },
+          {
+            "type": "lesson",
+            "slug": "testing-plugins-and-rulesets",
+            "title": "Test interoperability plugins and automated validation rulesets",
+            "minutes": 5,
+            "competency": "Innovation & R&D",
+            "domain": 4,
+            "phase": 3,
+            "skill_id": "SKL-56",
+            "done": false
+          }
+        ]
+      }
+    ]
+  },
+  "next_item": {
+    "type": "lesson",
+    "slug": "hard-vs-soft-clashes",
+    "title": "Explain hard vs soft spatial clashes",
+    "minutes": 5,
+    "competency": "Clash Resolution",
+    "domain": 3,
+    "phase": 2,
+    "skill_id": "SKL-36",
+    "milestone_id": "m1",
+    "milestone_title": "Close the gaps from your assessment"
+  },
+  "goals": [
+    {
+      "id": 301,
+      "title": "Nail the Modeler tech fundamentals",
+      "description": "Finish the five core Modeler lessons on authoring, data and federation.",
+      "metric": {
+        "type": "lessons",
+        "slugs": [
+          "level-of-information-need",
+          "parametric-elements",
+          "enriching-objects",
+          "navigating-federated-models",
+          "running-dynamo-scripts"
+        ]
+      },
+      "target_count": 5,
+      "due_date": "2026-10-14",
+      "status": "active",
+      "sort_order": 1,
+      "completed_at": null,
+      "progress": {
+        "done": 2,
+        "target": 5,
+        "percent": 40
+      }
+    },
+    {
+      "id": 302,
+      "title": "Close my assessment gaps",
+      "description": "Clear the three lessons flagged by your assessment.",
+      "metric": {
+        "type": "lessons",
+        "slugs": [
+          "level-of-information-need",
+          "cde-naming-conventions",
+          "hard-vs-soft-clashes"
+        ]
+      },
+      "target_count": 3,
+      "due_date": "2026-09-04",
+      "status": "active",
+      "sort_order": 2,
+      "completed_at": null,
+      "progress": {
+        "done": 2,
+        "target": 3,
+        "percent": 67
+      }
+    },
+    {
+      "id": 303,
+      "title": "Share one lesson with my team",
+      "description": "Pick a lesson from the roadmap and walk the team through it at Friday standup.",
+      "metric": {
+        "type": "manual"
+      },
+      "target_count": 1,
+      "due_date": "2026-09-30",
+      "status": "active",
+      "sort_order": 3,
+      "completed_at": null,
+      "progress": null
+    }
+  ],
+  "recent_completions": [
+    {
+      "type": "lesson",
+      "slug": "parametric-elements",
+      "title": "Create parametric model elements from project templates",
+      "minutes": 7,
+      "completed_at": "2026-09-01T16:20:00Z"
+    },
+    {
+      "type": "lesson",
+      "slug": "cde-naming-conventions",
+      "title": "Upload/download files with correct naming conventions and suitability codes",
+      "minutes": 5,
+      "completed_at": "2026-08-31T12:05:00Z"
+    },
+    {
+      "type": "lesson",
+      "slug": "level-of-information-need",
+      "title": "Apply the correct Level of Information Need to geometric outputs",
+      "minutes": 6,
+      "completed_at": "2026-08-28T09:40:00Z"
+    }
+  ],
+  "stats": {
+    "items_total": 20,
+    "items_done": 3,
+    "minutes_total": 220,
+    "minutes_done": 18,
+    "percent": 15,
+    "completions": 3,
+    "lessons_this_week": 2,
+    "lessons_done": 3,
+    "minutes_learned": 18,
+    "goals_done": 1
+  }
+}

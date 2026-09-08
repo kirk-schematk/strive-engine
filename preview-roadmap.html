@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- Dev preview for the roadmap engine (/welcome-onboard). Uses the LOCAL
+     strive-roadmap.css/js next to this file with mock:true, so every call
+     is served from docs/fixtures/*.json and logged to the console.
+       preview-roadmap.html                → claim path (Results first)
+       preview-roadmap.html?path=noroadmap → no token, no roadmap → quick-start
+       preview-roadmap.html?path=roadmap   → no token, GET /roadmap has a plan
+       preview-roadmap.html#roadmap        → deep link (dashboard "Edit roadmap")
+     Serve the repo dir (python -m http.server 8765) so fixtures load. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roadmap engine preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./strive-roadmap.css">
+  <script src="./strive-roadmap.js"></script>
+  <style>
+    body{margin:0;background:#fbfdfd}
+    .pv-bar{position:sticky;top:0;z-index:70;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px 14px;background:#0b1f2a;color:#cdd6da;font:12px/1.4 'JetBrains Mono',monospace}
+    .pv-bar a{color:#16c4f6;text-decoration:none}.pv-bar a:hover{text-decoration:underline}
+    .pv-bar strong{color:#fff}
+  </style>
+</head>
+<body>
+  <div class="pv-bar"><strong>mock</strong>
+    <a href="preview-roadmap.html">claim path</a>
+    <a href="preview-roadmap.html?path=noroadmap">no roadmap (quick-start)</a>
+    <a href="preview-roadmap.html?path=roadmap">existing roadmap</a>
+    <a href="preview-roadmap.html?path=roadmap#roadmap">#roadmap deep link</a>
+    <span style="margin-left:auto;opacity:.7">request bodies → console</span>
+  </div>
+  <div id="strive-roadmap"></div>
+  <script>
+    STRIVERoadmap.init({
+      mount: '#strive-roadmap',
+      platform: 'https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM',
+      onboarding: 'https://x8ki-letl-twmt.n7.xano.io/api:m2bNDxnv',
+      afterProfileHref: '/dashboard',
+      authToken: 'mock-auth-token',
+      msToken: 'mock-ms-token',
+      onboardToken: 'mock-onboard-token',
+      prefill: { first_name: 'Kirk', last_name: '' },
+      mock: true
+    });
+  </script>
+</body>
+</html>

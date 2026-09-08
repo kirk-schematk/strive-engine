@@ -25,3 +25,9 @@ yarn-error.log*
 # Local scratch
 *.log
 tmp/
+
+# Python
+__pycache__/
+
+# Claude Code local permissions
+.claude/settings.local.json

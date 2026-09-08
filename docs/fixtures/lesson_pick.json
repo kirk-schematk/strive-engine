@@ -1,0 +1,11 @@
+{
+  "slug": "level-of-information-need",
+  "title": "Apply the correct Level of Information Need",
+  "est_minutes": 6,
+  "competency": "Model Authoring",
+  "domain": 1,
+  "phase": 2,
+  "reason": "remediation",
+  "question_stem": "A concept-stage design review needs a wall element. Which level of geometric detail is appropriate?",
+  "message": "You missed a question on Level of Information Need. This six-minute lesson closes that gap before it shows up in your roadmap."
+}

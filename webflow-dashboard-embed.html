@@ -1,0 +1,96 @@
+<!-- ============================================================
+     STRIVE Dashboard — Webflow embed
+     Paste into an HTML Embed on the static /dashboard page.
+     Flow: Memberstack cookie -> Xano POST /memberstack_auth (token
+     exchange, retry/backoff on 429/5xx) -> STRIVEDashboard.init.
+     Logged-out visitors get a "Log in" card (links /login + /signup).
+
+     The engine makes ONE call on load: GET {PLATFORM}/dashboard
+     (Bearer authToken). Profile edits -> PATCH /profile; photo ->
+     POST /profile_photo (multipart ms_token + photo); manual goals
+     -> PATCH /goal {id, status:"done"}.
+     ============================================================ -->
+
+<!-- Fonts — delete if the site already loads Sora / Manrope / JetBrains Mono -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- STRIVE dashboard engine (CDN) -->
+<link rel="stylesheet" href="https://strive-engine.netlify.app/strive-dashboard.css">
+<script src="https://strive-engine.netlify.app/strive-dashboard.js"></script>
+
+<!-- Mount point -->
+<div id="strive-dashboard"></div>
+
+<script>
+(function () {
+  var PLATFORM = 'https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM';
+  var MOUNT = '#strive-dashboard';
+
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  // POST JSON with retry + exponential backoff on 429 (Xano rate limit) and 5xx.
+  // Resolves null on give-up or any non-OK response.
+  async function postJSON(url, body, tries) {
+    tries = tries || 3;
+    for (var i = 0; i < tries; i++) {
+      try {
+        var r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        if (r.status === 429 || r.status >= 500) { await sleep(500 * Math.pow(2, i) + Math.random() * 250); continue; }
+        if (!r.ok) return null;
+        return await r.json();
+      } catch (e) { await sleep(500 * Math.pow(2, i)); }
+    }
+    return null;
+  }
+
+  // Memberstack cookie -> Xano bearer token. Returns { authToken, msToken } or null when logged out.
+  async function getAuth() {
+    try {
+      var ms = window.$memberstackDom;
+      if (!ms) return null;
+      var member = await ms.getCurrentMember();
+      if (!member || !member.data) return null;
+      var msToken = await ms.getMemberCookie();
+      if (!msToken) return null;
+      var ex = await postJSON(PLATFORM + '/memberstack_auth', { ms_token: msToken }, 3);
+      var authToken = (ex || {}).authToken || null;
+      return authToken ? { authToken: authToken, msToken: msToken } : null;
+    } catch (e) { return null; }
+  }
+
+  function showLogin() {
+    if (window.STRIVEDashboard) { STRIVEDashboard.renderLogin({ mount: MOUNT, href: '/signup', loginHref: '/login' }); return; }
+    var el = document.querySelector(MOUNT);
+    if (el) el.innerHTML = '<div style="max-width:520px;margin:80px auto;padding:0 24px;text-align:center;font-family:Manrope,system-ui,sans-serif;color:#0b1f2a">' +
+      '<h2 style="font-family:Sora,system-ui,sans-serif;font-size:24px;margin:0 0 10px">Log in to see your dashboard</h2>' +
+      '<p style="opacity:.7;margin:0 0 22px">Your roadmap, goals and progress live here.</p>' +
+      '<a href="/signup" style="display:inline-block;padding:12px 22px;border-radius:10px;background:#006879;color:#fff;font-weight:600;text-decoration:none">Log in</a></div>';
+  }
+
+  async function start() {
+    var auth = await getAuth();
+    if (!auth) { showLogin(); return; }
+    STRIVEDashboard.init({
+      mount: MOUNT,
+      platform: PLATFORM,
+      authToken: auth.authToken,
+      msToken: auth.msToken,
+      mock: false
+    });
+  }
+
+  // Wait for the engine (slow/late CDN) and Memberstack before starting.
+  function boot() {
+    var waited = 0;
+    (function poll() {
+      if (window.STRIVEDashboard && window.$memberstackDom) { start(); return; }
+      if (waited >= 10000) { if (window.STRIVEDashboard) showLogin(); return; }
+      waited += 100; setTimeout(poll, 100);
+    })();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
