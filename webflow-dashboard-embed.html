@@ -61,7 +61,7 @@
   }
 
   function showLogin() {
-    if (window.STRIVEDashboard) { STRIVEDashboard.renderLogin({ mount: MOUNT, href: '/signup', loginHref: '/login' }); return; }
+    if (window.STRIVEDashboard) { STRIVEDashboard.renderLogin({ mount: MOUNT, href: '/signup', loginHref: '/signup#/ms/login' }); return; }
     var el = document.querySelector(MOUNT);
     if (el) el.innerHTML = '<div style="max-width:520px;margin:80px auto;padding:0 24px;text-align:center;font-family:Manrope,system-ui,sans-serif;color:#0b1f2a">' +
       '<h2 style="font-family:Sora,system-ui,sans-serif;font-size:24px;margin:0 0 10px">Log in to see your dashboard</h2>' +

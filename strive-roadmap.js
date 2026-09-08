@@ -11,7 +11,7 @@
        localStorage / cookie / ?onb= when omitted),
      prefill:{first_name,last_name,location,company,industry,current_role},
      lessonHref:'/lesson?slug=', courseHref:'/course?slug=',
-     assessmentHref:'/get-started', loginHref:'/login',
+     assessmentHref:'/get-started', loginHref:'/signup#/ms/login',
      mock:false   // true or ?mock=1 → docs/fixtures/*.json, nothing hits Xano
    })
    Mock paths: ?path=noroadmap → no onboard token + GET /roadmap empty
@@ -300,7 +300,7 @@ function showError(err,retry,stepIdx){
     var hint=status===401||status===403?'Your session may have expired. Log in again and we’ll pick up where you left off.':
       status===429||status>=500?'The learning server is busy. Give it a moment, then retry.':(err&&err.message)||'Something went wrong on our side.';
     w.innerHTML='<div class="rm-err-ico">'+ic(P.alert,28)+'</div><h2 class="rm-title">'+esc(title)+'</h2><p class="rm-sub">'+esc(hint)+'</p>'+
-      '<div class="rm-actions rm-actions--center">'+(status===401||status===403?'<a class="rm-btn" href="'+esc(st.opts.loginHref)+'">Log in</a>':'')+
+      '<div class="rm-actions rm-actions--center">'+(status===401||status===403?'<a class="rm-btn" href="'+esc(st.opts.loginHref)+'" data-ms-modal="login">Log in</a>':'')+
       '<button type="button" class="rm-btn '+(status===401||status===403?'rm-btn--ghost':'')+'">'+ic(P.refresh,16)+' Retry</button></div>';
     w.querySelector('button').onclick=retry;
   },stepIdx!=null?stepIdx:st.step);
@@ -858,7 +858,9 @@ function init(opts){
     lessonHref:opts.lessonHref||'/lesson?slug=',
     courseHref:opts.courseHref||'/course?slug=',
     assessmentHref:opts.assessmentHref||'/get-started',
-    loginHref:opts.loginHref||'/login',
+    /* No /login page exists: login is the Memberstack modal (data-ms-modal="login");
+       /signup#/ms/login opens it on the signup page as a fallback. */
+    loginHref:opts.loginHref||'/signup#/ms/login',
     prefill:opts.prefill||null
   };
   st.root=typeof st.opts.mount==='string'?document.querySelector(st.opts.mount):st.opts.mount;

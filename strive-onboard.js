@@ -182,7 +182,7 @@ function injectScaffold(){
     nav.innerHTML=
       '<a href="/" class="onb-logo"><img src="'+LOGO+'" alt="STRIVE"></a>'+
       '<nav class="onb-rail" aria-label="Onboarding steps">'+railHtml+'</nav>'+
-      '<span class="onb-login"><span>Already a member? </span><a href="/login">Log in</a></span>';
+      '<span class="onb-login"><span>Already a member? </span><a href="/signup#/ms/login" data-ms-modal="login">Log in</a></span>';
     var lg=nav.querySelector('img');
     lg.onerror=function(){var s=document.createElement('span');s.className='onb-footer-logo';s.style.margin='0';s.textContent='STRIVE';lg.replaceWith(s)};
     body.insertBefore(nav,body.firstChild);

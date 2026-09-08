@@ -295,7 +295,7 @@ function init(opts){
       '<p class="dsh-kicker">'+(busy?'Server busy':unauth?'Signed out':'Something went wrong')+'</p>'+
       '<h2 class="dsh-h2">'+(busy?'Your dashboard is taking a moment':unauth?'Please log in again':'We couldn’t load your dashboard')+'</h2>'+
       '<p class="dsh-muted">'+esc(busy?'The learning server hit its rate limit. Give it a few seconds, then try again.':unauth?'Your session looks expired. Log in and we’ll bring you right back.':(e&&e.message)||'Unknown error')+'</p>'+
-      (unauth?'<a class="dsh-btn" href="/login">'+ic(P.logIn,16)+' Log in</a>':'<button class="dsh-btn" data-action="retry">'+ic(P.refresh,16)+' Retry</button>')+
+      (unauth?'<a class="dsh-btn" href="/signup#/ms/login" data-ms-modal="login">'+ic(P.logIn,16)+' Log in</a>':'<button class="dsh-btn" data-action="retry">'+ic(P.refresh,16)+' Retry</button>')+
       '</div></div>';
   }
 
@@ -606,13 +606,14 @@ function renderLogin(opts){
   var root=typeof opts.mount==='string'?document.querySelector(opts.mount):(opts.mount||document.getElementById('strive-dashboard'));
   if(!root)return;
   if(!root.id)root.id='strive-dashboard';
-  var href=opts.href||'/signup',login=opts.loginHref||'/login';
+  /* No /login page exists: login is the Memberstack modal; /signup#/ms/login is the fallback. */
+  var href=opts.href||'/signup',login=opts.loginHref||'/signup#/ms/login';
   root.innerHTML='<div class="dsh-wrap"><div class="dsh-card dsh-error dsh-login">'+
     '<div class="dsh-error-ico">'+ic(P.logIn,26)+'</div>'+
     '<p class="dsh-kicker">Members only</p>'+
     '<h2 class="dsh-h2">Log in to see your dashboard</h2>'+
     '<p class="dsh-muted">Your roadmap, goals and progress live here. New to STRIVE? It’s free.</p>'+
-    '<div class="dsh-hero-actions dsh-hero-actions--center"><a class="dsh-btn" href="'+attr(login)+'">'+ic(P.logIn,16)+' Log in</a><a class="dsh-btn dsh-btn--ghost" href="'+attr(href)+'">Create free account '+ic(P.arrowRight,16)+'</a></div>'+
+    '<div class="dsh-hero-actions dsh-hero-actions--center"><a class="dsh-btn" href="'+attr(login)+'" data-ms-modal="login">'+ic(P.logIn,16)+' Log in</a><a class="dsh-btn dsh-btn--ghost" href="'+attr(href)+'">Create free account '+ic(P.arrowRight,16)+'</a></div>'+
   '</div></div>';
 }
 

@@ -76,8 +76,15 @@
   async function start() {
     var auth = MOCK ? { authToken: 'mock', msToken: 'mock', prefill: null } : await getAuth();
     if (!auth.authToken && !MOCK) {
-      // Not logged in (or exchange failed): send them to log in and come back here.
-      location.href = '/login?redirect=' + encodeURIComponent(location.pathname + location.search + location.hash);
+      // Not logged in (or exchange failed). There is no /login page: login is the
+      // Memberstack modal (data-ms-modal="login"), with /signup#/ms/login as the
+      // fallback when the site script isn't loaded. Render an in-page card.
+      var el = document.querySelector('#strive-roadmap');
+      if (el) el.innerHTML = '<div style="max-width:520px;margin:80px auto;padding:0 24px;text-align:center;font-family:Manrope,system-ui,sans-serif;color:#0b1f2a">' +
+        '<h2 style="font-family:Sora,system-ui,sans-serif;font-size:24px;margin:0 0 10px">Log in to see your results</h2>' +
+        '<p style="opacity:.7;margin:0 0 22px;line-height:1.5">Your assessment results and roadmap are tied to your STRIVE account.</p>' +
+        '<a href="/signup#/ms/login" data-ms-modal="login" style="display:inline-block;padding:11px 22px;border-radius:10px;background:#006879;color:#fff;font:600 15px/1 Manrope,system-ui,sans-serif;text-decoration:none">Log in</a>' +
+        '<p style="margin:16px 0 0;font-size:14px;opacity:.7">New here? <a href="/signup" style="color:#006879">Create a free account</a></p></div>';
       return;
     }
     STRIVERoadmap.init({
@@ -92,7 +99,7 @@
       lessonHref: '/lesson?slug=',
       courseHref: '/course?slug=',
       assessmentHref: '/get-started',
-      loginHref: '/login',
+      loginHref: '/signup#/ms/login',
       mock: MOCK
     });
   }
