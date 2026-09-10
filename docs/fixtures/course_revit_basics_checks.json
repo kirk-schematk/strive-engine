@@ -1,0 +1,1003 @@
+{
+  "hero": {
+    "cta": {
+      "href": "#sc-course",
+      "earns": [
+        {
+          "icon": "badge-check",
+          "text": "Earns: Model Authoring skill"
+        },
+        {
+          "icon": "route",
+          "text": "Counts toward the BIM Modeler path"
+        },
+        {
+          "icon": "graduation-cap",
+          "text": "Certificate on completion"
+        }
+      ],
+      "label": "Start learning free"
+    },
+    "lede": "Go from a blank project to a real 3D building model in about two hours. Learn the interface, levels, walls, doors, windows, floors, and roofs — the core moves every architectural modeler uses every day. Each module ends with a short knowledge check — miss a question and a mini-lesson re-teaches the idea before you try it again.",
+    "stats": [
+      {
+        "icon": "clock",
+        "label": "",
+        "value": "~2h 00m"
+      },
+      {
+        "icon": "play-circle",
+        "label": "modules",
+        "value": "6"
+      },
+      {
+        "icon": "signal",
+        "label": "Beginner"
+      },
+      {
+        "icon": "box",
+        "label": "Revit 2021+"
+      },
+      {
+        "icon": "target",
+        "value": "18",
+        "label": "knowledge checks"
+      }
+    ],
+    "title": "Revit basics for architecture",
+    "badges": [
+      {
+        "tone": "primary",
+        "label": "Architecture"
+      },
+      {
+        "tone": "secondary",
+        "label": "Free"
+      },
+      {
+        "tone": "ghost",
+        "label": "Beginner"
+      },
+      {
+        "tone": "primary",
+        "label": "Knowledge checks"
+      }
+    ],
+    "eyebrow": "Course library · Model authoring · Knowledge checks"
+  },
+  "setup": [
+    {
+      "body": "Use Revit 2021 or newer. Students and educators can get it free through the <a href=\"https://www.autodesk.com/education/edu-software/overview\" target=\"_blank\" rel=\"noopener\">Autodesk Education plan</a>. A 30-day trial also works.",
+      "icon": "download",
+      "title": "Install Revit"
+    },
+    {
+      "body": "Open a new architectural template project and pause each video to try the moves yourself. Repetition is how the shortcuts stick.",
+      "icon": "mouse-pointer-click",
+      "title": "Work along"
+    },
+    {
+      "body": "Jot down shortcuts as you meet them: <kbd>WA</kbd> wall, <kbd>DR</kbd> door, <kbd>WN</kbd> window, <kbd>LL</kbd> level, <kbd>AL</kbd> align.",
+      "icon": "keyboard",
+      "title": "Keep a shortcut note"
+    }
+  ],
+  "finish": {
+    "lede": "You now understand the Revit interface, the BIM way of thinking, and the core architectural elements. That's the foundation every modeling capability builds on. You also proved it: every module check answered correctly, with a mini-lesson wherever an idea needed a second pass.",
+    "next": [
+      {
+        "body": "Compound walls, stacked walls, and layers for accurate construction detail.",
+        "icon": "layers",
+        "title": "Go deeper on walls"
+      },
+      {
+        "body": "The next core elements — often the trickiest, and worth their own module.",
+        "icon": "stairs",
+        "title": "Stairs & railings"
+      },
+      {
+        "body": "Turn your model into sheets, dimensions, and schedules — where BIM pays off.",
+        "icon": "file-text",
+        "title": "Documentation"
+      },
+      {
+        "body": "Build your own parametric components instead of relying on generic content.",
+        "icon": "box",
+        "title": "Families"
+      }
+    ],
+    "title": "You’ve modeled your first building",
+    "credit": "Video content is embedded from its original creators on YouTube and remains their property. Featured channels: <a href=\"https://www.youtube.com/@balkanarchitect\" target=\"_blank\" rel=\"noopener\">Balkan Architect</a>, <a href=\"https://www.youtube.com/c/RevitPure\" target=\"_blank\" rel=\"noopener\">BIM Pure</a>, and <a href=\"https://www.youtube.com/@TheRevitKid\" target=\"_blank\" rel=\"noopener\">The Revit Kid</a>. Support the creators by subscribing and exploring their paid courses linked throughout.",
+    "eyebrow": "Course complete"
+  },
+  "modules": [
+    {
+      "desc": "The ribbon, Properties palette, Project Browser, views, and navigation. The map before the journey.",
+      "time": "~15 min",
+      "title": "Get oriented in the Revit interface",
+      "video": {
+        "meta": "Part 1 of the beginner series",
+        "title": "Fastest Revit beginner course — Part 1",
+        "youtubeId": "0Ndeh-jt26M",
+        "creatorKey": "balkan"
+      },
+      "practice": {
+        "body": "Open a new project, switch between the Level 1 plan and the default 3D view a few times, and select any element to watch its <strong>Properties</strong> update.",
+        "label": "Try it"
+      },
+      "watchFor": [
+        "How the <strong>ribbon</strong> is organized by tabs (Architecture, Insert, View) and the contextual tab that appears when you select something.",
+        "The <strong>Properties palette</strong> (instance settings) versus <strong>Edit Type</strong> (settings shared by every element of that type).",
+        "The <strong>Project Browser</strong> tree — plans, elevations, sections, and 3D views are all windows into one model.",
+        "Orbit, zoom, and pan so you can move around a 3D view comfortably."
+      ],
+      "learnMore": {
+        "body": "Want the full guided path? Balkan Architect's <b>Beginner to Intermediate course</b> covers the interface in structured depth with project files.",
+        "href": "https://balkanarchitect.com/p/autodesk-revit-course-beginner-to-intermediate-level",
+        "icon": "graduation-cap"
+      },
+      "check": {
+        "eyebrow": "Knowledge check",
+        "intro": "Three questions on the interface. Miss one and a mini-lesson will re-teach the idea before you try again.",
+        "doneText": "Check passed — you can navigate Revit and read what it is telling you.",
+        "questions": [
+          {
+            "q": "You select one wall and change its <strong>Height</strong> in the Properties palette. Which walls change?",
+            "options": [
+              {
+                "text": "Every wall of that type in the project"
+              },
+              {
+                "text": "Only the wall you selected",
+                "correct": true
+              },
+              {
+                "text": "Every wall on the same level"
+              }
+            ],
+            "okFeedback": "Exactly. Properties holds <strong>instance</strong> settings — they belong to the one element you have selected.",
+            "noFeedback": "Not quite. That would be true of a <strong>type</strong> setting, but height lives on the instance.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · instance vs. type",
+              "title": "Two sets of settings, two blast radii",
+              "body": "Every Revit element carries two kinds of properties, and the whole interface is built around the difference. Getting this one idea straight prevents most beginner accidents.",
+              "points": [
+                "<strong>Properties palette</strong> = instance settings. Height, base level, top offset — they describe <em>this</em> element only.",
+                "<strong>Edit Type</strong> = type settings. Thickness, layers, material — shared by every element of that type in the project.",
+                "Change a type setting and 200 walls can move at once. That is a feature, not a bug — but know which panel you are in."
+              ],
+              "note": {
+                "label": "Tell them apart",
+                "text": "If a change should affect only what you clicked, it belongs in Properties. If it should affect everything of that kind, it belongs in Edit Type."
+              },
+              "rewatch": {
+                "label": "Rewatch: Properties vs. Edit Type"
+              }
+            }
+          },
+          {
+            "q": "Where do you find every plan, elevation, section and 3D view in a project?",
+            "options": [
+              {
+                "text": "The Project Browser",
+                "correct": true
+              },
+              {
+                "text": "The Insert tab on the ribbon"
+              },
+              {
+                "text": "The Properties palette"
+              }
+            ],
+            "okFeedback": "Right. The Project Browser is the tree of every view, and each view is a window into the same model.",
+            "noFeedback": "Close, but those are for loading content and editing settings. Views live somewhere else.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · one model, many windows",
+              "title": "Views are windows, not drawings",
+              "body": "A CAD file stores separate drawings. Revit stores one model, and every view in the Project Browser is a live window onto it — cut, filtered, and scaled differently.",
+              "points": [
+                "Draw a wall in a plan and it appears in the elevations, sections and 3D views immediately — you never redraw it.",
+                "Deleting a <em>view</em> deletes a window, not the building. Deleting an <em>element</em> in any view removes it everywhere.",
+                "The Project Browser is grouped by view type: Floor Plans, Ceiling Plans, Elevations, Sections, 3D Views, Sheets."
+              ],
+              "note": {
+                "label": "Habit",
+                "text": "When something looks wrong, open another view. The model is the truth; a single view can just be hiding things."
+              },
+              "rewatch": {
+                "label": "Rewatch: the Project Browser"
+              }
+            }
+          },
+          {
+            "q": "A <strong>Modify | Walls</strong> tab suddenly appears on the ribbon. What made it show up?",
+            "options": [
+              {
+                "text": "The project template loaded a new tab"
+              },
+              {
+                "text": "You switched to a 3D view"
+              },
+              {
+                "text": "You selected a wall — the ribbon is contextual",
+                "correct": true
+              }
+            ],
+            "okFeedback": "Yes. Select something (or start a tool) and Revit offers exactly the commands that apply to it.",
+            "noFeedback": "Not that. Contextual tabs are driven by what is selected, not by the view or the template.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · reading the ribbon",
+              "title": "The ribbon answers what you are doing right now",
+              "body": "The ribbon has stable tabs and one moving tab. Learning to read it means you stop hunting for commands.",
+              "points": [
+                "Fixed tabs group by intent: <strong>Architecture</strong> to create, <strong>Insert</strong> to bring content in, <strong>View</strong> to control what you see.",
+                "The green <strong>Modify | …</strong> tab appears only while something is selected or a tool is running, and it disappears on <kbd>Esc</kbd>.",
+                "The <strong>Options Bar</strong> just under the ribbon carries the settings for the moment — height, offset, chain. Beginners miss it constantly."
+              ],
+              "note": {
+                "label": "Remember",
+                "text": "Command missing? Check what you have selected. Revit hides what does not apply."
+              },
+              "rewatch": {
+                "label": "Rewatch: the ribbon tour"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "desc": "A tight tour of the modify and modeling tools you'll reach for constantly — the foundation for everything after.",
+      "time": "~15 min",
+      "title": "The core tools every beginner needs",
+      "video": {
+        "meta": "Essential tools rundown",
+        "title": "Top 10 tools every Revit beginner should learn",
+        "youtubeId": "Kk3TnlBuGBk",
+        "creatorKey": "balkan"
+      },
+      "practice": {
+        "body": "Draw a few walls, then practice <strong>Move</strong>, <strong>Copy</strong>, and <strong>Align</strong> on them until the shortcuts feel automatic.",
+        "label": "Try it"
+      },
+      "watchFor": [
+        "<strong>Modify</strong> tools: <kbd>MV</kbd> move, <kbd>CO</kbd> copy, <kbd>RO</kbd> rotate, <kbd>MM</kbd> mirror, <kbd>AR</kbd> array.",
+        "<strong>Align</strong> (<kbd>AL</kbd>) and <strong>Trim / Extend</strong> — the two you'll use most for cleaning up geometry.",
+        "Temporary dimensions and the <strong>snaps</strong> that let you place elements precisely.",
+        "How the <strong>Type Selector</strong> lets you swap one element for another instantly."
+      ],
+      "learnMore": {
+        "body": "Balkan Architect's <b>Architecture Template + content pack</b> gives you a professional starting file so your tools and types are set up the right way.",
+        "href": "https://balkanarchitect.com/courses",
+        "icon": "folder-open"
+      },
+      "check": {
+        "eyebrow": "Knowledge check",
+        "intro": "Three questions on the everyday tools. A wrong answer opens a mini-lesson, then you try again.",
+        "doneText": "Check passed — the core modify tools are yours.",
+        "questions": [
+          {
+            "q": "Which shortcut starts the <strong>Align</strong> tool?",
+            "options": [
+              {
+                "text": "<kbd>MV</kbd>"
+              },
+              {
+                "text": "<kbd>AL</kbd>",
+                "correct": true
+              },
+              {
+                "text": "<kbd>AR</kbd>"
+              }
+            ],
+            "okFeedback": "Correct — <kbd>AL</kbd>. Pick the line you want to align <em>to</em> first, then the thing that should move.",
+            "noFeedback": "That is a different tool: <kbd>MV</kbd> is Move and <kbd>AR</kbd> is Array.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · the shortcuts that pay off",
+              "title": "Six keystrokes cover most of a modeling day",
+              "body": "Revit shortcuts are two letters, typed with no Enter. These are the ones worth burning in now — the rest you can pick up as you meet them.",
+              "points": [
+                "<kbd>MV</kbd> move · <kbd>CO</kbd> copy · <kbd>RO</kbd> rotate · <kbd>MM</kbd> mirror · <kbd>AR</kbd> array",
+                "<kbd>AL</kbd> align — click the reference first, then the element that should move to it. It can also lock the two together.",
+                "<kbd>TR</kbd> trim / extend for tidying corners and stray ends."
+              ],
+              "note": {
+                "label": "Order matters",
+                "text": "With Align you always pick the target first. Get that backwards and the wrong thing moves."
+              },
+              "rewatch": {
+                "label": "Rewatch: the modify tools"
+              }
+            }
+          },
+          {
+            "q": "A door is in the right place but it is the wrong type. What is the fastest correct fix?",
+            "options": [
+              {
+                "text": "Select it and pick another type in the <strong>Type Selector</strong>",
+                "correct": true
+              },
+              {
+                "text": "Delete it and place the right one"
+              },
+              {
+                "text": "Open Edit Type and change the width and height there"
+              }
+            ],
+            "okFeedback": "Right. The Type Selector swaps the element in place and keeps its position and host.",
+            "noFeedback": "That works, but it costs you. And option C would change <em>every</em> door of that type in the project.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · swap, do not rebuild",
+              "title": "The Type Selector is the safest edit in Revit",
+              "body": "The dropdown at the top of the Properties palette re-points a placed element at a different type. Position, host and dimensions to other elements survive the swap.",
+              "points": [
+                "Select the element → <strong>Type Selector</strong> → choose another type. Works for walls, doors, windows, furniture, almost everything.",
+                "Editing the <strong>type</strong> instead changes every instance of it — right when you want a project-wide change, wrong for a one-off.",
+                "Deleting and re-placing loses the element and anything attached to it, and it costs you the tag and dimension work."
+              ],
+              "note": {
+                "label": "Rule of thumb",
+                "text": "Wrong <em>kind</em> of thing → Type Selector. Wrong <em>definition</em> of the thing → Edit Type."
+              },
+              "rewatch": {
+                "label": "Rewatch: the Type Selector"
+              }
+            }
+          },
+          {
+            "q": "Two walls stop just short of each other at a corner. Which tool closes the gap cleanly?",
+            "options": [
+              {
+                "text": "Array"
+              },
+              {
+                "text": "Trim / Extend",
+                "correct": true
+              },
+              {
+                "text": "Move, dragged by eye"
+              }
+            ],
+            "okFeedback": "Yes. Trim / Extend takes both walls exactly to their intersection — no eyeballing, no gap.",
+            "noFeedback": "Dragging by eye leaves a tiny gap that breaks room boundaries and joins later. There is a tool for this.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · precision beats dragging",
+              "title": "Never place anything by eye",
+              "body": "Revit gives you three ways to be exact. Small inaccuracies do not stay cosmetic — they break room bounding, wall joins and schedules downstream.",
+              "points": [
+                "<strong>Trim / Extend</strong> (<kbd>TR</kbd>): click the two elements and they meet exactly at the intersection.",
+                "<strong>Snaps</strong> catch endpoints, midpoints, intersections and perpendiculars while you draw.",
+                "<strong>Temporary dimensions</strong> appear as you draw — type a number instead of clicking to place at an exact distance."
+              ],
+              "note": {
+                "label": "Watch for",
+                "text": "A \"walls slightly off axis\" warning or a room that will not close is nearly always a by-eye placement."
+              },
+              "rewatch": {
+                "label": "Rewatch: trim, extend and snaps"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "desc": "Levels drive everything vertical in Revit. Then walls, the first smart element, teach you how BIM data works.",
+      "time": "~25 min",
+      "title": "Levels and walls — the BIM foundation",
+      "video": {
+        "meta": "BASICS course · levels & walls chapters",
+        "title": "BIM Pure BASICS — interface, levels & walls",
+        "youtubeId": "EFOtqkXGEwM",
+        "creatorKey": "bimpure"
+      },
+      "practice": {
+        "body": "Add a second level at 3000&nbsp;mm, then draw a rectangle of exterior walls constrained from <strong>Level 1</strong> to <strong>Level 2</strong>. Check them in 3D.",
+        "label": "Try it"
+      },
+      "watchFor": [
+        "Why you create <strong>levels in an elevation view</strong>, and how every wall is tied to a base and top level.",
+        "The <strong>location line</strong> of a wall (finish face vs. core) and why it matters for accurate models.",
+        "Editing <strong>wall types</strong> and their layers — a Revit wall carries structure, thickness, and material, not just a line.",
+        "The core BIM idea: change the type once and every instance updates."
+      ],
+      "learnMore": {
+        "body": "BIM Pure's <b>BASICS course</b> is the full, polished version of this material — bite-sized lessons updated for the latest Revit, with a certificate.",
+        "href": "https://www.bimpure.com/basics",
+        "icon": "graduation-cap"
+      },
+      "check": {
+        "eyebrow": "Knowledge check",
+        "intro": "Three questions on levels and walls — the ideas the rest of the model hangs off.",
+        "doneText": "Check passed — you are thinking in levels, types and constraints.",
+        "questions": [
+          {
+            "q": "You need a new level at +3000&nbsp;mm. Which view do you create it in?",
+            "options": [
+              {
+                "text": "A floor plan"
+              },
+              {
+                "text": "The default 3D view"
+              },
+              {
+                "text": "An elevation or section",
+                "correct": true
+              }
+            ],
+            "okFeedback": "Correct. A level is a horizontal datum — you can only see and place it in a view that looks at the building from the side.",
+            "noFeedback": "Not there. A level is a horizontal plane, so in a plan view you would be looking straight down its edge.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · levels",
+              "title": "Levels are drawn from the side",
+              "body": "Levels are the vertical skeleton of the project: every wall, floor and roof is tied to one. Because a level is a horizontal plane, only an elevation or section shows it as a line you can draw.",
+              "points": [
+                "Open an elevation (North / South / East / West in the Project Browser), then <strong>Architecture → Level</strong> (<kbd>LL</kbd>).",
+                "Copying a level instead of drawing it does <em>not</em> create the matching floor plan view — use <strong>View → Plan Views</strong> to add one.",
+                "Rename levels as you make them. Every element you place afterwards inherits that name in schedules."
+              ],
+              "note": {
+                "label": "Why it matters",
+                "text": "Move a level later and everything constrained to it follows. That is the payoff for setting levels up first."
+              },
+              "rewatch": {
+                "label": "Rewatch: creating levels"
+              }
+            }
+          },
+          {
+            "q": "You edit the <strong>Exterior — Brick on Block</strong> wall type and thicken its block layer. Forty walls of that type are already placed. What happens?",
+            "options": [
+              {
+                "text": "All forty walls update immediately",
+                "correct": true
+              },
+              {
+                "text": "Only walls you draw from now on use the new thickness"
+              },
+              {
+                "text": "Revit asks which walls to update"
+              }
+            ],
+            "okFeedback": "Yes — and that is the whole point of BIM. Define once, and every instance stays consistent.",
+            "noFeedback": "Not how types work. A type is a single shared definition, not a copy taken at the time of placement.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · the BIM idea",
+              "title": "A wall is a definition, not a drawing",
+              "body": "In CAD, a wall is two lines you drew — change the standard and you edit every drawing. In Revit, the wall type <em>is</em> the standard, and the instances are just where you put it.",
+              "points": [
+                "A wall type carries its layers: structure, insulation, finish — each with a thickness and a material.",
+                "Editing the type updates every instance, in every view and every schedule, at once.",
+                "Need a variant instead? <strong>Duplicate</strong> the type first, then edit the copy — otherwise you change the original everywhere."
+              ],
+              "note": {
+                "label": "The habit",
+                "text": "Before editing any type, ask: do I want this everywhere? If not, duplicate first."
+              },
+              "rewatch": {
+                "label": "Rewatch: editing wall types"
+              }
+            }
+          },
+          {
+            "q": "What does a wall’s <strong>Location Line</strong> control?",
+            "options": [
+              {
+                "text": "Which plane of the wall sits on the line you draw",
+                "correct": true
+              },
+              {
+                "text": "Which level the wall belongs to"
+              },
+              {
+                "text": "The material shown on the wall’s outer face"
+              }
+            ],
+            "okFeedback": "Exactly — wall centreline, core face, finish face. It decides which way the thickness grows from your line.",
+            "noFeedback": "Those are set elsewhere: the level by the base constraint, the material by the wall type.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · location line",
+              "title": "The line you draw is not always the middle of the wall",
+              "body": "A Revit wall has thickness and layers, so it needs to know which of its planes lands on the line you sketch. That choice is the Location Line, set on the Options Bar before you draw.",
+              "points": [
+                "Options include <strong>Wall Centerline</strong>, <strong>Core Centerline</strong>, <strong>Finish Face: Exterior/Interior</strong> and <strong>Core Face: Exterior/Interior</strong>.",
+                "Structural coordination usually wants <strong>Core Face</strong> on the grid, so the structure aligns even when finishes change.",
+                "It is an instance property — you can change it on a placed wall, and the wall shifts around its line."
+              ],
+              "note": {
+                "label": "Watch for",
+                "text": "Walls that look right in plan but are half a thickness out from the grid are almost always a location-line choice."
+              },
+              "rewatch": {
+                "label": "Rewatch: the location line"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "desc": "Host-based components and horizontal elements. See how doors and windows live inside walls and cut themselves automatically.",
+      "time": "~20 min",
+      "title": "Doors, windows & floors",
+      "video": {
+        "meta": "Selection & placement fundamentals",
+        "title": "Placing & editing elements in Revit",
+        "youtubeId": "9UNhOy5HlEg",
+        "creatorKey": "balkan"
+      },
+      "practice": {
+        "body": "Add a front door and a few windows to your walls, then sketch a <strong>floor</strong> that fills the footprint. Confirm the openings show in plan and 3D.",
+        "label": "Try it"
+      },
+      "watchFor": [
+        "Doors (<kbd>DR</kbd>) and windows (<kbd>WN</kbd>) are <strong>hosted</strong> — they can only sit in a wall and cut the opening for you.",
+        "Using the <strong>spacebar</strong> to flip a door's swing or hand before you click.",
+        "Drawing a <strong>floor</strong> by sketching its boundary, then setting its level and thickness.",
+        "Selecting smartly with <strong>Tab</strong> to cycle, and filters to grab only what you want."
+      ],
+      "learnMore": {
+        "body": "Ready for better components? BIM Pure's <b>door & window family collections</b> replace the generic content that clutters most beginner models.",
+        "href": "https://www.bimpure.com/",
+        "icon": "box"
+      },
+      "check": {
+        "eyebrow": "Knowledge check",
+        "intro": "Three questions on hosted components and sketch-based elements.",
+        "doneText": "Check passed — hosting and sketching both make sense now.",
+        "questions": [
+          {
+            "q": "You start the Door tool and click in an empty part of the plan, away from any wall. What happens?",
+            "options": [
+              {
+                "text": "The door is placed and floats in space"
+              },
+              {
+                "text": "Nothing places — a door needs a wall to host it",
+                "correct": true
+              },
+              {
+                "text": "Revit creates a short wall to hold the door"
+              }
+            ],
+            "okFeedback": "Right. Doors and windows are wall-hosted: no host, no placement.",
+            "noFeedback": "Revit will not let you. Doors and windows can only exist inside a host.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · hosted components",
+              "title": "Some elements cannot live alone",
+              "body": "A door is not a hole plus a leaf you drew. It is a component that belongs to a wall, and the relationship is permanent and two-way.",
+              "points": [
+                "Doors (<kbd>DR</kbd>) and windows (<kbd>WN</kbd>) are hosted by walls. Hover over a wall and the preview snaps into it.",
+                "The opening is cut automatically — you never draw or maintain it, and it updates if the wall type changes.",
+                "Delete the host wall and its doors and windows go with it. Move the wall and they travel along."
+              ],
+              "note": {
+                "label": "Remember",
+                "text": "Need an opening with no door? Use <strong>Wall Opening</strong> — still hosted, just empty."
+              },
+              "rewatch": {
+                "label": "Rewatch: placing doors and windows"
+              }
+            }
+          },
+          {
+            "q": "While placing a door, before you click, which key flips which way it swings?",
+            "options": [
+              {
+                "text": "<kbd>Tab</kbd>"
+              },
+              {
+                "text": "<kbd>Ctrl</kbd>"
+              },
+              {
+                "text": "<kbd>Spacebar</kbd>",
+                "correct": true
+              }
+            ],
+            "okFeedback": "Yes — spacebar flips the preview before you commit, which saves fixing it afterwards.",
+            "noFeedback": "Not that one. <kbd>Tab</kbd> cycles what is under the cursor; <kbd>Ctrl</kbd> adds to a selection.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · placement keys",
+              "title": "Three keys that do most of the fiddly work",
+              "body": "Placement and selection each have a key that beginners skip and experienced modelers use every few seconds.",
+              "points": [
+                "<kbd>Spacebar</kbd> while placing — flips a door’s hand and swing, or rotates a component before you click.",
+                "<kbd>Tab</kbd> — cycles through overlapping elements under the cursor, and picks whole chains of connected walls.",
+                "Already placed it wrong? Select the door and click the blue <strong>flip arrows</strong> in plan — same result, one extra click."
+              ],
+              "note": {
+                "label": "Watch for",
+                "text": "Set the swing at placement time. A plan full of doors opening the wrong way is a slow, boring fix."
+              },
+              "rewatch": {
+                "label": "Rewatch: spacebar and Tab"
+              }
+            }
+          },
+          {
+            "q": "How do you create a floor?",
+            "options": [
+              {
+                "text": "Sketch a closed boundary, then finish the sketch",
+                "correct": true
+              },
+              {
+                "text": "Drag a floor family in from the Project Browser"
+              },
+              {
+                "text": "Click two opposite corners of the room"
+              }
+            ],
+            "okFeedback": "Correct. Floors are sketch-based: draw the boundary — usually by picking walls — and click the green tick.",
+            "noFeedback": "Not quite. A floor has no fixed shape, so Revit asks you to draw its outline first.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · sketch-based elements",
+              "title": "Draw the outline, then commit",
+              "body": "Floors, roofs by footprint, ceilings and openings all share one workflow: Revit puts you in sketch mode, you define a boundary, and you finish. Until you finish, nothing exists.",
+              "points": [
+                "<strong>Pick Walls</strong> is faster than drawing lines — and the floor then follows those walls if they move.",
+                "The boundary must be a single <strong>closed loop</strong> with no gaps, overlaps or double lines. That is the cause of the classic \"Lines must be in a closed loop\" error.",
+                "Thickness and build-up come from the floor <em>type</em>; which level it sits on and its offset come from the instance."
+              ],
+              "note": {
+                "label": "Remember",
+                "text": "Green tick finishes the sketch, red X abandons it. Nothing is real until you tick."
+              },
+              "rewatch": {
+                "label": "Rewatch: sketching a floor"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "desc": "Close the shell. Roof by footprint is the fastest way to cap a building and set slopes.",
+      "time": "~15 min",
+      "title": "Roofs",
+      "video": {
+        "meta": "Full roofs walkthrough · ~45 min (watch to ~37:00)",
+        "title": "Roofs in Revit — roof by footprint, slope arrows & attaching walls",
+        "youtubeId": "uB-DDCgzZ3w",
+        "creatorKey": "revitkid",
+        "creatorLabel": "BIM After Dark × Balkan Architect"
+      },
+      "practice": {
+        "body": "Add a roof by footprint with a small overhang, give two opposite edges a slope, then <strong>attach</strong> the top of your walls to it.",
+        "label": "Try it"
+      },
+      "watchFor": [
+        "<strong>Creating a roof</strong> (~09:55): sketch the footprint on the top level and let Revit slope it automatically.",
+        "<strong>Slope arrows</strong> (~13:30): control slope per edge to make gable vs. hip roofs.",
+        "<strong>Attaching walls to roofs</strong> (~21:30): extend walls up to meet a sloped roof cleanly.",
+        "<strong>Flat roof tips</strong> (~30:41) and a full residential roof from scratch (~37:00) if you want to push further."
+      ],
+      "learnMore": {
+        "body": "This walkthrough is hosted by Jeff Pinheiro (The Revit Kid). His <b>BIM After Dark community</b> bundles full courses, sample files, and office hours. For roofs specifically, Balkan Architect's <b>Roofs Masterclass</b> goes deep on complex shapes.",
+        "href": "https://community.bimafterdark.com",
+        "icon": "users"
+      },
+      "check": {
+        "eyebrow": "Knowledge check",
+        "intro": "Three questions on roof by footprint. The mini-lessons here can jump the video back to the right moment.",
+        "doneText": "Check passed — you can cap a building and make the walls meet it.",
+        "questions": [
+          {
+            "q": "You are in a roof-by-footprint sketch. How do you make one particular edge slope?",
+            "options": [
+              {
+                "text": "Select that boundary line and tick <strong>Defines Slope</strong>",
+                "correct": true
+              },
+              {
+                "text": "Rotate the roof after finishing the sketch"
+              },
+              {
+                "text": "Change the roof type to a sloped type"
+              }
+            ],
+            "okFeedback": "Right. Every line with Defines Slope ticked generates a sloping plane — that is how you get hips, gables and flats.",
+            "noFeedback": "Slope is not a roof type or an afterthought — it is a property of each boundary line in the sketch.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · roof geometry",
+              "title": "The sketch lines decide the roof shape",
+              "body": "Roof by footprint builds the form from your boundary lines. Which lines slope, and at what angle, is the whole design.",
+              "points": [
+                "Select a boundary line → tick <strong>Defines Slope</strong> on the Options Bar → set the angle or rise in Properties.",
+                "All four edges sloping = a <strong>hip</strong>. Two opposite edges = a <strong>gable</strong>. None = a <strong>flat</strong> roof.",
+                "A <strong>slope arrow</strong> is the other route: draw it across the sketch to slope a plane from one point to another, useful for drainage falls."
+              ],
+              "note": {
+                "label": "Watch for",
+                "text": "Different edges can carry different angles. Mixed slopes are how real roofs get their character."
+              },
+              "rewatch": {
+                "label": "Rewatch: slope arrows (~13:30)",
+                "start": 810
+              }
+            }
+          },
+          {
+            "q": "Your walls stop at the top level and the sloped roof floats above them. Best fix?",
+            "options": [
+              {
+                "text": "Type a taller Unconnected Height into each wall until it looks right"
+              },
+              {
+                "text": "Select the walls, use <strong>Attach Top/Base</strong>, then pick the roof",
+                "correct": true
+              },
+              {
+                "text": "Move the roof down until it touches"
+              }
+            ],
+            "okFeedback": "Yes. Attach creates a live relationship — each wall follows the roof’s underside, and keeps following it if the roof changes.",
+            "noFeedback": "That is manual, and it breaks the moment the roof pitch changes. Revit can hold the relationship for you.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · attach, do not fake it",
+              "title": "Let the model hold the relationship",
+              "body": "Typing heights until a gap disappears looks the same in a screenshot and behaves completely differently the moment anything changes.",
+              "points": [
+                "Select the walls → <strong>Modify | Walls → Attach Top/Base</strong> → click the roof. Each wall extends or trims to meet it.",
+                "Change the roof pitch afterwards and the attached walls re-cut themselves automatically.",
+                "The same tool attaches walls to floors and ceilings, and <strong>Detach</strong> undoes it."
+              ],
+              "note": {
+                "label": "The principle",
+                "text": "Anywhere you find yourself typing numbers until things line up, look for the relationship tool instead."
+              },
+              "rewatch": {
+                "label": "Rewatch: attaching walls to roofs (~21:30)",
+                "start": 1290
+              }
+            }
+          },
+          {
+            "q": "In the roof footprint options you set an <strong>Overhang</strong> of 600&nbsp;mm while picking walls. What does that do?",
+            "options": [
+              {
+                "text": "Raises the roof 600&nbsp;mm above the level"
+              },
+              {
+                "text": "Offsets the boundary 600&nbsp;mm outside the walls, so the roof projects past them",
+                "correct": true
+              },
+              {
+                "text": "Thickens the roof build-up by 600&nbsp;mm"
+              }
+            ],
+            "okFeedback": "Correct — the eaves overhang. The sketch line lands 600&nbsp;mm outside the wall you picked.",
+            "noFeedback": "Height comes from the level and offset; thickness comes from the roof type. Overhang is horizontal.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · footprint options",
+              "title": "Set the overhang while you pick, not after",
+              "body": "The Options Bar during Pick Walls carries the settings that shape the eaves. Setting them up front saves editing every boundary line later.",
+              "points": [
+                "<strong>Overhang</strong> offsets the sketch line outward from the wall you pick — that is your eaves projection.",
+                "<strong>Extend to wall core</strong> decides whether the overhang is measured from the wall’s core or its finish face.",
+                "Roof height comes from the level you sketch on plus its <strong>Base Offset</strong> — Revit warns you if you sketch it on the lowest level."
+              ],
+              "note": {
+                "label": "Remember",
+                "text": "Picking walls rather than drawing lines keeps the roof tied to them, so the eaves follow if the walls move."
+              },
+              "rewatch": {
+                "label": "Rewatch: creating a roof (~09:55)",
+                "start": 595
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "desc": "Everything in one workflow, start to finish. Follow along to model a small building and see how the pieces connect.",
+      "time": "~30 min",
+      "title": "Put it together — a complete project",
+      "video": {
+        "meta": "Complete project · start to finish",
+        "title": "Full beginner course — complete project, start to finish",
+        "youtubeId": "chom9hiewXI",
+        "creatorKey": "balkan"
+      },
+      "practice": {
+        "body": "Model the full building shell alongside the video. When you finish, you'll have completed the <strong>Model Authoring</strong> milestone for architectural modeling.",
+        "label": "Capstone"
+      },
+      "watchFor": [
+        "The <strong>order of operations</strong>: levels → walls → floors → openings → roof → refine.",
+        "How each element you learned in isolation now works as part of one connected model.",
+        "Small real-world habits: naming, keeping things on the right level, checking 3D often.",
+        "Free project files are linked in the video description if you want to match the source exactly."
+      ],
+      "learnMore": {
+        "body": "Loved building along? The complete <b>Beginner to Intermediate course</b> extends this project into full documentation, families, and detailing.",
+        "href": "https://balkanarchitect.com/p/autodesk-revit-course-beginner-to-intermediate-level",
+        "icon": "rocket"
+      },
+      "check": {
+        "eyebrow": "Final check",
+        "intro": "Three questions that tie the whole course together — workflow, constraints, and what makes this BIM.",
+        "doneText": "Final check passed — you can explain the workflow, not just click through it.",
+        "questions": [
+          {
+            "q": "Which order of operations does the capstone follow?",
+            "options": [
+              {
+                "text": "Walls → levels → roof → floors → openings"
+              },
+              {
+                "text": "Levels → walls → floors → openings → roof → refine",
+                "correct": true
+              },
+              {
+                "text": "Roof → walls → levels → floors → openings"
+              }
+            ],
+            "okFeedback": "Right. Levels first, because everything vertical hangs off them; refinement last, once the shell is real.",
+            "noFeedback": "That order fights the model. Something in it has to be re-done once the levels arrive.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · workflow",
+              "title": "Order is not a preference, it is dependency",
+              "body": "Each element in a Revit model depends on one that came before it. Following the dependency chain means you never rebuild work.",
+              "points": [
+                "<strong>Levels</strong> first — walls, floors and roofs all constrain to them.",
+                "<strong>Walls</strong> next, because doors and windows need a host and floors are usually picked from them.",
+                "<strong>Floors and openings</strong>, then the <strong>roof</strong> to close the shell — and only then refine types, materials and detail."
+              ],
+              "note": {
+                "label": "Why",
+                "text": "Adding levels after the walls means re-hosting everything. Ten minutes of setup saves an afternoon."
+              },
+              "rewatch": {
+                "label": "Rewatch: the project from the start"
+              }
+            }
+          },
+          {
+            "q": "Halfway through, the ground floor needs to be 3200&nbsp;mm instead of 3000&nbsp;mm. What is the fastest correct move?",
+            "options": [
+              {
+                "text": "Change the level’s elevation — constrained walls follow",
+                "correct": true
+              },
+              {
+                "text": "Select every wall and edit its height"
+              },
+              {
+                "text": "Delete the walls and redraw them taller"
+              }
+            ],
+            "okFeedback": "Exactly. Edit the datum and everything tied to it moves — that is what constraints are for.",
+            "noFeedback": "Both of those do by hand what the model will do for you — and neither keeps the walls tied to the level.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · constraints",
+              "title": "Constrained elements move themselves",
+              "body": "A wall drawn from Level 1 to Level 2 stores that relationship. Change either level and the wall re-sizes. A wall given a fixed unconnected height stores a number, and a number cannot follow anything.",
+              "points": [
+                "Check <strong>Base Constraint</strong> and <strong>Top Constraint</strong> in Properties — \"Up to level: Level 2\" is what you want, not \"Unconnected\".",
+                "Change the level elevation in an elevation view and every constrained wall, floor and hosted component moves with it.",
+                "The same idea runs the whole model: attach walls to roofs, pick walls for floors, host doors in walls."
+              ],
+              "note": {
+                "label": "Diagnostic",
+                "text": "If a change does not ripple through, something is unconstrained. Fix the constraint, not the geometry."
+              },
+              "rewatch": {
+                "label": "Rewatch: constraints in the build"
+              }
+            }
+          },
+          {
+            "q": "What makes your finished shell a <strong>BIM</strong> model rather than 3D geometry?",
+            "options": [
+              {
+                "text": "It is three-dimensional rather than flat"
+              },
+              {
+                "text": "It was authored in Revit"
+              },
+              {
+                "text": "Its elements carry data and relationships, so they update together and can be scheduled",
+                "correct": true
+              }
+            ],
+            "okFeedback": "That is the whole idea. The geometry is the visible part; the data and the relationships are what make it useful downstream.",
+            "noFeedback": "Neither the dimensions nor the software makes a model BIM — you can build dumb 3D geometry in any tool, Revit included.",
+            "miniLesson": {
+              "eyebrow": "Mini-lesson · what you actually built",
+              "title": "A model is a database that happens to look like a building",
+              "body": "Every element you placed knows what it is, what it is made of, which level it belongs to and what it is attached to. That information — not the shape — is what the rest of the project consumes.",
+              "points": [
+                "Because elements carry data, you can <strong>schedule</strong> them: a door schedule is a query, not a table you type out.",
+                "Because they carry relationships, a change propagates — plans, sections, elevations and schedules never drift apart.",
+                "This is what the next steps build on: documentation, families, and coordination with other disciplines."
+              ],
+              "note": {
+                "label": "Carry this forward",
+                "text": "Model with the downstream use in mind. Anything you fake now, someone rebuilds later."
+              },
+              "rewatch": {
+                "label": "Rewatch: the finished project"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "courseId": "CRS-revit-basics-arch-checks",
+  "creators": {
+    "balkan": {
+      "bio": "A software-obsessed architect who built one of the largest Revit channels on YouTube (680k+ subscribers) after struggling to learn Revit the traditional way. Known for clear, methodical, project-based teaching that ties tools to real design.",
+      "free": {
+        "href": "https://www.youtube.com/@balkanarchitect",
+        "label": "Free on YouTube"
+      },
+      "name": "Balkan Architect",
+      "paid": {
+        "href": "https://balkanarchitect.com/courses",
+        "label": "Courses & templates"
+      },
+      "role": "Miloš Temerinski · architect",
+      "accent": "cool",
+      "monogram": "BA"
+    },
+    "bimpure": {
+      "bio": "Founded in 2016 with a guiding ethos of minimalism, simplicity, and beauty. BIM Pure has helped more than two million people learn Revit through beautifully edited, time-efficient lessons — strongest in architecture and design.",
+      "free": {
+        "href": "https://www.youtube.com/c/RevitPure",
+        "label": "Free on YouTube"
+      },
+      "name": "BIM Pure",
+      "paid": {
+        "href": "https://www.bimpure.com/basics",
+        "label": "BASICS & membership"
+      },
+      "role": "Nicolas Catellier · architect",
+      "accent": "sage",
+      "monogram": "BP"
+    },
+    "revitkid": {
+      "bio": "A licensed architect with 15+ years of blogging and 1200+ tutorials, and host of BIM After Dark Live. His roofs session with Balkan Architect anchors this course's roof module. The BIM After Dark community bundles full courses, sample files, and live office hours.",
+      "free": {
+        "href": "https://www.youtube.com/@TheRevitKid",
+        "label": "Free on YouTube"
+      },
+      "name": "The Revit Kid",
+      "paid": {
+        "href": "https://community.bimafterdark.com",
+        "label": "BIM After Dark"
+      },
+      "role": "Jeff Pinheiro · licensed architect",
+      "accent": "warm",
+      "monogram": "RK"
+    }
+  },
+  "outcomes": [
+    {
+      "body": "Move around the ribbon, Properties palette, Project Browser, and 3D views without getting lost.",
+      "icon": "compass",
+      "title": "Navigate confidently"
+    },
+    {
+      "body": "Understand why a Revit wall knows its height, material, and level — unlike a CAD line.",
+      "icon": "box",
+      "title": "Think in BIM, not lines"
+    },
+    {
+      "body": "Place levels, walls, doors, windows, floors, and roofs, and edit their properties.",
+      "icon": "layers",
+      "title": "Model the core elements"
+    },
+    {
+      "body": "Tie it all together on a real project, start to finish, following along in your own file.",
+      "icon": "home",
+      "title": "Build a full house shell"
+    }
+  ],
+  "competency": {
+    "note": "Building parametric 3D geometry and understanding the difference between 2D drafting and true BIM modeling.",
+    "label": "Model Authoring"
+  }
+}

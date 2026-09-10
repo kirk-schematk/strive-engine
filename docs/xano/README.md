@@ -31,12 +31,15 @@ python docs/xano/smoke_test.py                  # + XANO_AUTH_TOKEN=<member toke
 | Platform `goal` (DELETE, auth) | 4040762 |
 | Platform `dashboard` (GET, auth) | 4040763 |
 | Platform `lessons` (GET) | 3971069 |
+| Platform `course/check_complete` (POST, auth) | 4043102 |
+| Platform `course/check_completions` (GET, auth) | 4043103 |
 
 Group ids: Onboarding 428916 (`api:m2bNDxnv`), Platform 417827 (`api:fykJB1SM`).
 The manual paste steps below still work as a fallback.
 
 ## XanoScript gotchas (all verified live on this instance)
 
+- A bare `||` inside a `db.edit` / `db.add` **object literal** does not evaluate as a boolean OR — `passed: ($row.passed == true || $passed == true)` silently stored `false`. Compute it into a var with a one-line ternary first. (2026-09-09)
 - `array.map` is a **no-op** (returns the input unchanged). Use `foreach … each as $x { array.push $out { value = … } }`.
 - `|get:key:default` **ignores the default** and returns null for a missing key. Use `|get:key|first_notempty:default`.
 - A literal object with numeric-string keys (`{"1": "a"}`) becomes a **0-based list**. Build maps with `{}|set:"1":"a"|set:"2":"b"`.
@@ -66,10 +69,44 @@ Contract: `docs/onboarding-roadmap-spec.md` (section 2).
 | `platform/goal_delete.xs` | endpoint | Platform | DELETE | **user** | new |
 | `platform/dashboard_get.xs` | endpoint | Platform | GET | **user** | new |
 | `platform/lessons_get.xs` | endpoint | Platform | GET | none | **replaces** existing |
+| `platform/course_check_complete.xs` | endpoint | Platform | POST | **user** | new |
+| `platform/course_check_completions_get.xs` | endpoint | Platform | GET | **user** | new |
 | `smoke_test.py` | test | — | — | — | — |
 
 "user" auth = the `user` table (id 848600), same token the front end gets from
 `POST /memberstack_auth`.
+
+## Course knowledge checks (2026-09-09)
+
+Per-module checks on a course (`course_json.modules[n].check`, see
+`docs/course-knowledge-checks.md`) are graded and stored server-side.
+
+**Table `course_check_completions` (888032) is already created** through the
+Metadata API — schema and a btree index on `(user_id, course_id, module_index)`.
+One row per (user, course, module): `score`, `total`, `helped`, `attempts`,
+`passed` (sticky once true), `completed_at` (kept from the first pass),
+plus denormalized `course_id` / `module_title` so reads need no join.
+
+**Both endpoints are live** (4043102 / 4043103, pushed 2026-09-09) and verified
+against the live instance: a wrong answer scores 2/3 and does not pass, an empty
+answer list and an all-zeros list do not pass, an unknown `course_id` 404s, an
+out-of-range `module_index` 400s, `passed` survives a later failed attempt,
+`attempts` increments, and `completed_at` keeps the first pass. Both return 401
+without a token.
+
+`push.py` now falls back to `XANO_META_TOKEN=…` in a **gitignored `.env`** at the
+repo root, which is how these were pushed — a Xano metadata token is ~1.8 kB, well
+past the 1024-char limit that silently truncates `setx`:
+
+```bash
+python docs/xano/push.py docs/xano/platform/course_check_complete.xs api 417827 4043102
+```
+
+To re-verify, `smoke_test.py`'s `course_check_flow()` needs `XANO_AUTH_TOKEN` (a
+member token from `POST /memberstack_auth`). `POST /auth/signup` cannot currently
+mint one — see BUG-002 in `docs/bugs.md`. The 2026-09-09 verification worked around
+that with temporary unauthenticated clones of both endpoints (`_tmpcheck/*`, taking
+`user_id` as an input) which were deleted afterwards, along with their rows.
 
 ## Step 0 — schema check (already done, verify only)
 

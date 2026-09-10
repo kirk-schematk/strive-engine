@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <!-- Dev preview for the course engine. Open locally (or on Netlify) —
      uses the LOCAL strive-course.css/js next to this file, so you can
-     check changes before/after pushing. ?slug= overrides the course. -->
+     check changes before/after pushing. ?slug= overrides the course.
+     ?mock=1 renders the knowledge-check course from
+     docs/fixtures/course_revit_basics_checks.json with no Xano call
+     (needs a local server — the "static" config in .claude/launch.json). -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -15,11 +18,19 @@
 <body style="margin:0">
   <div id="strive-course"></div>
   <script>
-    var slug = new URLSearchParams(location.search).get('slug') || 'revit-basics-for-architecture';
-    STRIVECourse.load({
-      mount: '#strive-course',
-      url: 'https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM/course?slug=' + encodeURIComponent(slug)
-    });
+    var qs = new URLSearchParams(location.search);
+    if (qs.get('mock') === '1') {
+      // Local fixture — the copy that carries the per-module knowledge checks.
+      fetch('./docs/fixtures/course_revit_basics_checks.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) { STRIVECourse.load({ mount: '#strive-course', data: data }); });
+    } else {
+      var slug = qs.get('slug') || 'revit-basics-for-architecture';
+      STRIVECourse.load({
+        mount: '#strive-course',
+        url: 'https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM/course?slug=' + encodeURIComponent(slug)
+      });
+    }
   </script>
 </body>
 </html>

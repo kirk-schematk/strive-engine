@@ -232,6 +232,93 @@
 #strive-course .sc-mnav-t{font-family:var(--sc-font-display);font-weight:600;color:var(--sc-ink-950);font-size:1rem}
 #strive-course .sc-moduleview{padding-top:36px}
 
+/* ── Knowledge check (per module) ──────────────────────────────
+   Mirrors the mini-lesson engine's quiz language (#strive-lesson
+   .sl-quiz / .sl-opt / .sl-fb) in the course namespace: one
+   question at a time, a wrong answer reveals the right option and
+   opens a mini-lesson card that re-teaches the concept. */
+#strive-course .sc-check{margin-top:16px;padding:20px 22px;border-radius:var(--sc-r-lg);border:1px solid var(--sc-turq-100);
+  background:linear-gradient(180deg,var(--sc-white) 0%,var(--sc-turq-50) 190%);box-shadow:var(--sc-shadow-sm)}
+#strive-course .sc-check-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#strive-course .sc-check-eyebrow{display:inline-flex;align-items:center;gap:7px;font-family:var(--sc-font-mono);font-weight:600;
+  font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--sc-turq-600)}
+#strive-course .sc-check-eyebrow .sc-ico{width:15px;height:15px}
+#strive-course .sc-check-count{display:inline-flex;align-items:center;gap:6px;font-family:var(--sc-font-mono);font-size:11px;
+  letter-spacing:.06em;color:var(--sc-slate-400);white-space:nowrap}
+#strive-course .sc-check-count .sc-ico{width:14px;height:14px;color:var(--sc-success-500)}
+#strive-course .sc-check-intro{margin:8px 0 0;font-size:.86rem;color:var(--sc-slate-500);line-height:1.5}
+#strive-course .sc-check-body{margin-top:14px}
+
+#strive-course .sc-q{font-family:var(--sc-font-display);font-weight:600;font-size:1.05rem;line-height:1.4;color:var(--sc-ink-950);margin-bottom:14px}
+#strive-course .sc-opts{display:grid;gap:9px}
+#strive-course .sc-opt{display:flex;align-items:center;gap:11px;width:100%;text-align:left;cursor:pointer;
+  font-family:var(--sc-font-body);font-size:.93rem;line-height:1.45;color:var(--sc-slate-700);
+  background:var(--sc-white);border:1px solid var(--sc-slate-200);border-radius:var(--sc-r-md);padding:13px 15px;
+  transition:border-color .16s var(--sc-ease),background .16s var(--sc-ease)}
+#strive-course .sc-opt:hover{border-color:var(--sc-turq-400);background:var(--sc-turq-50)}
+#strive-course .sc-opt.is-locked{cursor:default}
+#strive-course .sc-opt.is-locked:hover{border-color:var(--sc-slate-200);background:var(--sc-white)}
+#strive-course .sc-opt .sc-key{flex:none;font-family:var(--sc-font-mono);font-size:11.5px;font-weight:600;color:var(--sc-slate-400);
+  border:1px solid var(--sc-slate-200);border-radius:6px;padding:2px 8px}
+#strive-course .sc-opt.is-correct,#strive-course .sc-opt.is-locked.is-correct:hover{border-color:var(--sc-turq-500);background:var(--sc-turq-50)}
+#strive-course .sc-opt.is-correct .sc-key{background:var(--sc-turq-500);border-color:var(--sc-turq-500);color:#fff}
+#strive-course .sc-opt.is-wrong,#strive-course .sc-opt.is-locked.is-wrong:hover{border-color:var(--sc-orange-400);background:#fff6ef}
+#strive-course .sc-opt.is-wrong .sc-key{background:var(--sc-orange-400);border-color:var(--sc-orange-400);color:#fff}
+
+#strive-course .sc-fb{display:none}
+#strive-course .sc-fb.is-show{display:block;margin-top:14px;padding:14px 16px;border-radius:var(--sc-r-md);
+  font-size:.92rem;line-height:1.6;color:var(--sc-slate-700);animation:sc-fb-in .35s var(--sc-ease)}
+#strive-course .sc-fb.is-show > .sc-ico{float:left;margin:2px 10px 0 0;width:17px;height:17px}
+#strive-course .sc-fb.is-ok{background:rgba(22,196,246,.09);border-left:3px solid var(--sc-turq-400)}
+#strive-course .sc-fb.is-ok > .sc-ico{color:var(--sc-turq-600)}
+#strive-course .sc-fb.is-wrong{background:#fff8f1;border-left:3px solid var(--sc-orange-400)}
+#strive-course .sc-fb.is-wrong > .sc-ico{color:var(--sc-orange-500)}
+@keyframes sc-fb-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* Mini-lesson — the reinforcement shown when an answer is wrong */
+#strive-course .sc-mini{clear:both;margin-top:14px;padding:16px 18px;border-radius:var(--sc-r-md);
+  background:var(--sc-white);border:1px solid var(--sc-turq-100);box-shadow:var(--sc-shadow-sm)}
+#strive-course .sc-mini-eyebrow{display:inline-flex;align-items:center;gap:7px;font-family:var(--sc-font-mono);font-weight:600;
+  font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--sc-turq-600)}
+#strive-course .sc-mini-eyebrow .sc-ico{width:14px;height:14px}
+#strive-course .sc-mini-title{font-size:1rem;line-height:1.35;margin:9px 0 6px}
+#strive-course .sc-mini-body{margin:0;font-size:.92rem;line-height:1.6;color:var(--sc-slate-700)}
+#strive-course .sc-ml-points{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+#strive-course .sc-ml-points li{display:flex;gap:10px;font-size:.9rem;line-height:1.55;color:var(--sc-slate-700)}
+#strive-course .sc-ml-points li .sc-ml-pin{flex:none;width:7px;height:7px;border-radius:50%;margin-top:7px;background:var(--sc-grad-cool)}
+#strive-course .sc-ml-note{display:flex;gap:11px;align-items:flex-start;margin-top:13px;padding:11px 13px;border-radius:10px;background:var(--sc-turq-50)}
+#strive-course .sc-ml-note-l{flex:none;font-family:var(--sc-font-mono);font-weight:600;font-size:10px;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--sc-turq-700);border:1px solid var(--sc-turq-100);border-radius:6px;padding:3px 7px;background:var(--sc-white)}
+#strive-course .sc-ml-note-t{font-size:.88rem;line-height:1.55;color:var(--sc-slate-700)}
+#strive-course .sc-ml-rewatch{display:inline-flex;align-items:center;gap:7px;margin-top:13px;cursor:pointer;
+  font-family:var(--sc-font-mono);font-size:11.5px;font-weight:600;color:var(--sc-turq-700);
+  background:var(--sc-white);border:1px solid var(--sc-turq-100);border-radius:var(--sc-r-pill);padding:7px 13px;transition:background .16s var(--sc-ease)}
+#strive-course .sc-ml-rewatch:hover{background:var(--sc-turq-50)}
+#strive-course .sc-ml-rewatch .sc-ico{width:14px;height:14px}
+
+#strive-course .sc-qnav{display:none}
+#strive-course .sc-qnav.is-show{display:block;margin-top:14px;text-align:right}
+#strive-course .sc-nextq{cursor:pointer;font-family:var(--sc-font-mono);font-size:11.5px;font-weight:600;color:var(--sc-turq-700);
+  background:var(--sc-white);border:1px solid var(--sc-turq-300);border-radius:var(--sc-r-pill);padding:8px 15px;transition:background .16s var(--sc-ease)}
+#strive-course .sc-nextq:hover{background:var(--sc-turq-50)}
+
+/* Passed state */
+#strive-course .sc-check.is-complete{border-color:rgba(44,156,106,.32);background:linear-gradient(180deg,var(--sc-white) 0%,#f2fbf7 190%)}
+#strive-course .sc-check.is-complete .sc-check-eyebrow{color:var(--sc-success-500)}
+#strive-course .sc-check-done-t{display:flex;align-items:center;gap:9px;font-family:var(--sc-font-display);font-weight:600;
+  font-size:1rem;color:var(--sc-ink-950)}
+#strive-course .sc-check-done-t .sc-ico{width:19px;height:19px;color:var(--sc-success-500)}
+#strive-course .sc-check-done-s{margin:8px 0 0;font-size:.88rem;line-height:1.55;color:var(--sc-slate-500)}
+#strive-course .sc-check-sync{margin:10px 0 0;font-family:var(--sc-font-mono);font-size:11px;letter-spacing:.05em;color:var(--sc-success-500)}
+#strive-course .sc-check-retake{margin-top:13px;cursor:pointer;font-family:var(--sc-font-mono);font-size:11.5px;font-weight:600;
+  color:var(--sc-slate-500);background:var(--sc-white);border:1px solid var(--sc-slate-200);border-radius:var(--sc-r-pill);
+  padding:7px 13px;transition:color .16s var(--sc-ease),border-color .16s var(--sc-ease)}
+#strive-course .sc-check-retake:hover{color:var(--sc-turq-700);border-color:var(--sc-turq-300)}
+
+/* Stepper: a module whose check is passed */
+#strive-course .sc-stepnum.is-done{border-color:var(--sc-success-500);color:var(--sc-success-500);background:#f2fbf7}
+#strive-course .sc-stepnum.is-done.is-current{background:var(--sc-ink-950);border-color:var(--sc-ink-950);color:#fff}
+
 /* States */
 #strive-course a:focus-visible,#strive-course .sc-btn:focus-visible{outline:none;box-shadow:var(--sc-ring)}
 #strive-course .sc-loading,#strive-course .sc-error{max-width:var(--sc-max);margin:0 auto;padding:80px 32px;text-align:center;color:var(--sc-slate-500);font-family:var(--sc-font-body)}
@@ -249,5 +336,9 @@
   #strive-course .sc-mnav{grid-template-columns:1fr}
   #strive-course .sc-mnav-a.next{text-align:left;align-items:flex-start}
   #strive-course .sc-stepper{display:none}
+  #strive-course .sc-check{padding:18px 16px}
+  #strive-course .sc-check-head{flex-direction:column;align-items:flex-start;gap:6px}
+  #strive-course .sc-ml-note{flex-direction:column;gap:8px}
+  #strive-course .sc-ml-note-l{align-self:flex-start}
 }
 @media (prefers-reduced-motion:reduce){#strive-course *{transition:none!important}}

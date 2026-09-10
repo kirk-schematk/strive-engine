@@ -12,6 +12,9 @@ Anonymous: onboarding_start -> onboarding_answer (until done) -> onboarding_teas
 Authenticated (needs a user Bearer token, e.g. from POST /memberstack_auth):
            onboarding_claim -> GET /roadmap -> PATCH /roadmap {status:confirmed}
            -> POST /goals -> GET /dashboard. Prints the shape of each response.
+           Then course knowledge checks: POST /course/check_complete with a
+           wrong answer (expects passed=false) and with the right ones
+           (expects passed=true), then GET /course/check_completions.
 Handles 429 with exponential backoff.
 """
 import json
@@ -230,12 +233,64 @@ def authenticated_flow(token):
     expect(r.get("ok") is True, "goal deleted")
 
 
+def course_check_flow():
+    """Server-side grading of a module knowledge check.
+
+    Uses SMOKE_COURSE_ID (default: the Revit basics copy that carries checks)
+    and module 0. Reads the course to find the right answers, so it stays
+    correct if the content changes.
+    """
+    course_id = os.environ.get("SMOKE_COURSE_ID", "CRS-revit-basics-arch-checks")
+    module_index = int(os.environ.get("SMOKE_MODULE_INDEX", "0"))
+
+    step("GET /course (find the stored check)")
+    course = call("GET", PLATFORM + "/course", query={"course_id": course_id})
+    cj = course.get("course_json", course)
+    modules = cj.get("modules", [])
+    expect(len(modules) > module_index, f"{course_id} has module {module_index}")
+    check = (modules[module_index] or {}).get("check")
+    expect(bool(check and check.get("questions")), "that module carries a check")
+    questions = check["questions"]
+    right = [next(i for i, o in enumerate(q["options"]) if o.get("correct")) for q in questions]
+    print(f"  {len(questions)} questions, correct indexes: {right}")
+
+    step("POST /course/check_complete (one wrong)")
+    wrong = list(right)
+    wrong[0] = next(i for i, o in enumerate(questions[0]["options"]) if not o.get("correct"))
+    r = call("POST", PLATFORM + "/course/check_complete",
+             {"course_id": course_id, "module_index": module_index, "answers": wrong, "helped": 0}, auth=True)
+    print("  shape:", shape(r, max_depth=2))
+    expect(r.get("passed") is False, "server refuses to pass a wrong answer")
+    expect(r.get("score") == len(questions) - 1, "score counts the right ones")
+
+    step("POST /course/check_complete (all right)")
+    r = call("POST", PLATFORM + "/course/check_complete",
+             {"course_id": course_id, "module_index": module_index, "answers": right, "helped": 1}, auth=True)
+    expect(r.get("passed") is True, "all-correct passes")
+    expect(r.get("score") == r.get("total") == len(questions), "score == total")
+
+    step("POST /course/check_complete (client lies about the answers)")
+    r = call("POST", PLATFORM + "/course/check_complete",
+             {"course_id": course_id, "module_index": module_index, "answers": [], "helped": 0}, auth=True)
+    expect(r.get("passed") is False, "empty answers cannot pass — grading is server-side")
+
+    step("GET /course/check_completions (auth)")
+    r = call("GET", PLATFORM + "/course/check_completions", query={"course_id": course_id}, auth=True)
+    print("  shape:", shape(r, max_depth=3))
+    row = [x for x in r.get("items", []) if x.get("module_index") == module_index]
+    expect(len(row) == 1, "exactly one row per (user, course, module)")
+    expect(row[0].get("passed") is True, "passed stays true after a later failed attempt")
+    expect(row[0].get("attempts", 0) >= 3, "attempts counted")
+    expect(row[0].get("completed_at"), "completed_at kept from the first pass")
+
+
 def main():
     print("Onboarding base:", ONBOARDING)
     print("Platform base:  ", PLATFORM)
     token = anonymous_flow()
     if TOKEN:
         authenticated_flow(token)
+        course_check_flow()
     else:
         print("\n(XANO_AUTH_TOKEN not set — skipped claim/roadmap/goals/dashboard. Session token: %s)" % token)
     print("\nALL OK")

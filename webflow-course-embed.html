@@ -6,6 +6,15 @@
      via the /courses list -> fetch the course_json by course_id
      -> render with STRIVECourse.load({ data }).
 
+     Knowledge checks (courses that carry them):
+       - Exchanges the Memberstack cookie for a Xano token, loads the
+         member's passed checks, and hands both to the engine so a passed
+         check follows them across devices and a new pass is recorded in
+         Xano (re-graded server-side). Signed out, checks still work and
+         remember themselves in localStorage.
+       - Reloads when the login state flips, so logging in mid-course picks
+         up the member's progress.
+
      Hardening (mirrors the lesson embed):
        - getJSON() retries Xano 429 (free-tier rate limit) and 5xx
          with exponential backoff, so a busy server recovers on its
@@ -66,12 +75,75 @@
       '<button onclick="location.reload()" style="padding:11px 22px;border:0;border-radius:10px;background:#006879;color:#fff;font:600 15px/1 Manrope,system-ui,sans-serif;cursor:pointer">Retry &#8635;</button></div>';
   }
 
+  // Memberstack cookie -> Xano token. Best-effort: a signed-out visitor just
+  // gets the course with local-only knowledge checks.
+  async function getAuth() {
+    try {
+      if (!window.$memberstackDom) return null;
+      var member = await window.$memberstackDom.getCurrentMember();
+      if (!member || !member.data) return null;
+      var msToken = await window.$memberstackDom.getMemberCookie();
+      var ex = await getJSON(XANO + '/memberstack_auth', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ms_token: msToken })
+      }, 2);
+      return (ex || {}).authToken || null;
+    } catch (e) { return null; }
+  }
+
+  // Reload when the login state flips (the login modal opens in place, so
+  // without this a fresh login would leave un-synced checks on screen).
+  function watchLogin(loggedIn) {
+    try {
+      window.$memberstackDom.onAuthChange(function (res) {
+        var m = res && (res.data || res.member || res);
+        var now = !!(m && (m.id || m.email));
+        if (now !== loggedIn) location.reload();
+      });
+    } catch (e) {}
+  }
+
+  function courseHasChecks(c) {
+    return !!(c && Array.isArray(c.modules) && c.modules.some(function (m) {
+      return m && m.check && m.check.questions && m.check.questions.length;
+    }));
+  }
+
+  // Everything the engine needs to track checks. Never blocks the render:
+  // if the completions call fails we fall back to local-only.
+  async function checkOpts(course, authToken) {
+    var opts = {
+      completeUrl: XANO + '/course/check_complete',
+      courseId: course.courseId,
+      authToken: authToken,
+      completions: []
+    };
+    if (!authToken || !course.courseId) return opts;
+    var done = await getJSON(
+      XANO + '/course/check_completions?course_id=' + encodeURIComponent(course.courseId),
+      { headers: { Authorization: 'Bearer ' + authToken } }, 2);
+    if (done && Array.isArray(done.items)) opts.completions = done.items;
+    return opts;
+  }
+
   async function start() {
     if (!slug) { showError(); return; }
 
-    // Cache hit -> render immediately, zero Xano calls.
+    // Auth runs in parallel with the content fetch; it never gates the render.
+    var authP = getAuth();
+
+    // Cache hit -> render immediately, zero Xano calls for the content.
     var cached = readCache(slug);
-    if (valid(cached)) { STRIVECourse.load({ mount: '#' + MOUNT, data: cached }); return; }
+    if (valid(cached)) {
+      var tokenC = await authP;
+      watchLogin(!!tokenC);
+      STRIVECourse.load({
+        mount: '#' + MOUNT,
+        data: cached,
+        checks: courseHasChecks(cached) ? await checkOpts(cached, tokenC) : undefined
+      });
+      return;
+    }
 
     var mountEl = document.getElementById(MOUNT);
     if (mountEl) mountEl.innerHTML = '<div class="sc-loading">Loading course…</div>';
@@ -90,7 +162,14 @@
     if (!valid(data)) { showError(); return; }
 
     writeCache(slug, data);
-    STRIVECourse.load({ mount: '#' + MOUNT, data: data });
+
+    var token = await authP;
+    watchLogin(!!token);
+    STRIVECourse.load({
+      mount: '#' + MOUNT,
+      data: data,
+      checks: courseHasChecks(data) ? await checkOpts(data, token) : undefined
+    });
   }
 
   // Wait for the STRIVECourse engine before rendering (covers a slow/late CDN load), then start.

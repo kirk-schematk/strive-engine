@@ -14,6 +14,11 @@
            url: XANO_BASE + '/course?slug=' + SLUG
            // OR: data: {...}  to render an inline object
            // paged: false  → force the classic one-page render
+           // checks: {          → knowledge-check tracking (optional)
+           //   completeUrl: XANO + '/course/check_complete',
+           //   authToken:   <member token from /memberstack_auth>,
+           //   completions: <items from GET /course/check_completions>
+           // }
          });
      See webflow-course-embed.html for the exact markup.
 
@@ -182,9 +187,271 @@
         '<div class="sc-vmeta"><span class="sc-creator ' + esc(accent) + '">' + esc(creatorLabel) + '</span>' +
           (v.meta ? '<span class="sc-vlen">' + rich(v.meta) + '</span>' : '') + '</div>' +
         (v.title ? '<div class="sc-vtitle">' + rich(v.title) + '</div>' : '') +
-        wfBlock + prBlock + lmBlock +
+        wfBlock + prBlock + renderCheck(m, i) + lmBlock +
       '</div>' +
     '</article>';
+  }
+
+  /* ---------- KNOWLEDGE CHECKS ----------
+     A module may carry:
+       check: { eyebrow, intro, doneText, questions: [
+         { q, options:[{text,correct}], okFeedback, noFeedback,
+           miniLesson:{ eyebrow,title,body,points[],note{label,text},
+                        rewatch{label,start} } } ] }
+     One question at a time. A WRONG answer reveals the correct option and
+     expands a mini-lesson (mini-lesson engine styling) that re-teaches the
+     concept, then asks the same question again. Purely additive — a module
+     with no `check` renders exactly as it did before.
+
+     Only the shell is emitted here; wireChecks() builds the questions after
+     paint (the engine renders through innerHTML, so behaviour binds later). */
+
+  /* Completion context, set by render() from opts.checks:
+       { completeUrl, authToken, completions:[rows from GET /course/check_completions],
+         onCheckPass }
+     With a token, a passed check is POSTed to Xano and RE-GRADED there — the
+     client's verdict is never trusted. Without one (signed out, or a page that
+     doesn't wire auth) the check still works and remembers itself locally. */
+  var CTX = { courseId: null, completeUrl: null, authToken: null, completions: {}, onCheckPass: null };
+
+  function setCheckContext(opts, data) {
+    var k = (opts && opts.checks) || {};
+    var courseId = k.courseId || (data && data.courseId) || null;
+    var map = {};
+    (k.completions || []).forEach(function (row) {
+      if (!row) return;
+      var idx = (row.module_index != null) ? row.module_index : row.moduleIndex;
+      if (idx == null) return;
+      if (courseId && row.course_id && row.course_id !== courseId) return;
+      map[idx] = { passed: !!row.passed, total: row.total, helped: row.helped || 0, server: true };
+    });
+    CTX = {
+      courseId: courseId,
+      completeUrl: k.completeUrl || null,
+      authToken: k.authToken || null,
+      completions: map,
+      onCheckPass: (typeof k.onCheckPass === 'function') ? k.onCheckPass : null
+    };
+  }
+
+  /* Fire-and-forget: the UI has already congratulated them, so a failed save
+     must not undo that. The local copy keeps the state until the next load. */
+  function postCheck(c, i, answers, helped, onSaved) {
+    if (!CTX.completeUrl || !CTX.authToken) return;
+    try {
+      fetch(CTX.completeUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + CTX.authToken },
+        body: JSON.stringify({
+          course_id: c.courseId || CTX.courseId,
+          module_index: i,
+          answers: answers,
+          helped: helped
+        })
+      })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (res) {
+          if (!res || !res.passed) return;
+          CTX.completions[i] = { passed: true, total: res.total, helped: helped, server: true };
+          if (onSaved) { try { onSaved(res); } catch (e) {} }
+          if (CTX.onCheckPass) { try { CTX.onCheckPass(res); } catch (e) {} }
+        })
+        .catch(function () {});
+    } catch (e) {}
+  }
+
+  function checkKey(courseId, i) { return 'strive_check_' + (courseId || 'course') + '_m' + (i + 1); }
+
+  function readCheckState(courseId, i) {
+    try { var raw = global.localStorage.getItem(checkKey(courseId, i)); return raw ? JSON.parse(raw) : null; }
+    catch (e) { return null; }
+  }
+  function writeCheckState(courseId, i, val) {
+    try { global.localStorage.setItem(checkKey(courseId, i), JSON.stringify(val)); } catch (e) {}
+  }
+  /* A check counts as passed if Xano says so, else if this browser remembers it. */
+  function checkState(c, i) {
+    var srv = CTX.completions[i];
+    if (srv && srv.passed) return srv;
+    return readCheckState(c && c.courseId, i);
+  }
+  function checkPassed(c, i) { var st = checkState(c, i); return !!(st && st.passed); }
+
+  function renderCheck(m, i) {
+    var k = m.check;
+    if (!k || !k.questions || !k.questions.length) return '';
+    return '<section class="sc-check" data-check="' + i + '">' +
+      '<div class="sc-check-head">' +
+        '<span class="sc-check-eyebrow">' + icon('target') + ' ' + esc(k.eyebrow || 'Knowledge check') + '</span>' +
+        '<span class="sc-check-count" data-count></span>' +
+      '</div>' +
+      (k.intro ? '<p class="sc-check-intro">' + rich(k.intro) + '</p>' : '') +
+      '<div class="sc-check-body" data-body></div>' +
+    '</section>';
+  }
+
+  /* The reinforcement card shown after a wrong answer. */
+  function miniLessonHTML(ml) {
+    if (!ml) return '';
+    var points = (ml.points || []).map(function (p) {
+      return '<li><span class="sc-ml-pin"></span><span>' + rich(p) + '</span></li>';
+    }).join('');
+    var note = ml.note
+      ? '<div class="sc-ml-note"><span class="sc-ml-note-l">' + esc(ml.note.label || 'Remember') + '</span>' +
+        '<span class="sc-ml-note-t">' + rich(ml.note.text) + '</span></div>'
+      : '';
+    var rw = ml.rewatch
+      ? '<button class="sc-ml-rewatch" type="button" data-rewatch="' + esc(ml.rewatch.start == null ? '' : ml.rewatch.start) + '">' +
+        icon('rotate-ccw') + ' <span>' + esc(ml.rewatch.label || 'Rewatch this part') + '</span></button>'
+      : '';
+    return '<div class="sc-mini">' +
+      '<span class="sc-mini-eyebrow">' + icon('lightbulb') + ' ' + esc(ml.eyebrow || 'Mini-lesson') + '</span>' +
+      (ml.title ? '<h4 class="sc-mini-title">' + rich(ml.title) + '</h4>' : '') +
+      (ml.body ? '<p class="sc-mini-body">' + rich(ml.body) + '</p>' : '') +
+      (points ? '<ul class="sc-ml-points">' + points + '</ul>' : '') +
+      note + rw +
+    '</div>';
+  }
+
+  /* Send the module video back to the timestamp a mini-lesson points at. */
+  function rewatch(section, start) {
+    var art = section.closest ? section.closest('.sc-module') : null;
+    var frame = art && art.querySelector('.sc-video iframe');
+    if (!frame) return;
+    if (start !== '' && start != null && !isNaN(parseInt(start, 10))) {
+      var base = String(frame.src).split('?')[0];
+      frame.src = base + '?start=' + parseInt(start, 10) + '&autoplay=1';
+    }
+    try { frame.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+  }
+
+  /* Mark a passed module in the paged-mode stepper without a re-render. */
+  function markStepDone(root, i) {
+    var steps = root.querySelectorAll('.sc-stepnum');
+    if (steps && steps[i]) steps[i].classList.add('is-done');
+  }
+
+  function wireCheck(section, c, root) {
+    var i = parseInt(section.getAttribute('data-check'), 10);
+    var m = (c.modules || [])[i];
+    if (!m || !m.check) return;
+    var qs = m.check.questions, total = qs.length;
+    var body = section.querySelector('[data-body]');
+    var countEl = section.querySelector('[data-count]');
+    var helped = 0, qi = 0, answered = false;
+    var selections = new Array(total).fill(-1);
+
+    /* submit=true only when they just finished it — never on a restore. */
+    function done(stored, submit) {
+      section.classList.add('is-complete');
+      countEl.innerHTML = total + ' / ' + total + ' ' + icon('badge-check');
+      var h = (stored && stored.helped) || helped;
+      body.innerHTML = '<div class="sc-check-done">' +
+        '<div class="sc-check-done-t">' + icon('badge-check') + ' ' +
+          esc(m.check.doneText || 'Check passed — you can explain every idea in this module.') + '</div>' +
+        (h ? '<p class="sc-check-done-s">You worked through ' + h + ' mini-lesson' + (h > 1 ? 's' : '') +
+             ' on the way. That is the part that sticks.</p>' : '') +
+        '<button class="sc-check-retake" type="button" data-retake>Retake the check \u21ba</button>' +
+      '</div>';
+      writeCheckState(c.courseId, i, { passed: true, total: total, helped: h, at: Date.now() });
+      markStepDone(root, i);
+      runIcons();
+      if (submit) {
+        postCheck(c, i, selections, helped, function () {
+          var d = body.querySelector('.sc-check-done');
+          if (d && !d.querySelector('.sc-check-sync')) {
+            var p = document.createElement('p');
+            p.className = 'sc-check-sync';
+            p.textContent = 'Saved to your STRIVE profile.';
+            d.appendChild(p);
+          }
+        });
+      } else if (stored && stored.server) {
+        var d0 = body.querySelector('.sc-check-done');
+        if (d0) {
+          var p0 = document.createElement('p');
+          p0.className = 'sc-check-sync';
+          p0.textContent = 'Passed on your STRIVE profile.';
+          d0.appendChild(p0);
+        }
+      }
+      body.querySelector('[data-retake]').addEventListener('click', function () {
+        section.classList.remove('is-complete');
+        helped = 0; qi = 0; selections = new Array(total).fill(-1); load();
+      });
+    }
+
+    function load() {
+      answered = false;
+      var Q = qs[qi];
+      countEl.textContent = 'Question ' + (qi + 1) + ' of ' + total;
+      var opts = Q.options.map(function (o, n) {
+        return '<button class="sc-opt" type="button" data-opt="' + n + '">' +
+          '<span class="sc-key">' + String.fromCharCode(65 + n) + '</span>' +
+          '<span>' + rich(o.text) + '</span></button>';
+      }).join('');
+      body.innerHTML = '<div class="sc-q">' + rich(Q.q) + '</div>' +
+        '<div class="sc-opts">' + opts + '</div>' +
+        '<div class="sc-fb" data-fb></div>' +
+        '<div class="sc-qnav" data-qnav></div>';
+      runIcons();
+
+      var fb = body.querySelector('[data-fb]');
+      var nav = body.querySelector('[data-qnav]');
+
+      Array.prototype.forEach.call(body.querySelectorAll('[data-opt]'), function (btn) {
+        btn.addEventListener('click', function () {
+          if (answered) return;
+          answered = true;
+          var all = body.querySelectorAll('[data-opt]');
+          var n = parseInt(btn.getAttribute('data-opt'), 10);
+          var ok = !!Q.options[n].correct;
+          selections[qi] = n;
+          Array.prototype.forEach.call(all, function (b) { b.classList.add('is-locked'); });
+          btn.classList.add(ok ? 'is-correct' : 'is-wrong');
+          if (!ok) {
+            var ci = -1;
+            Q.options.forEach(function (o, x) { if (o.correct && ci < 0) ci = x; });
+            if (ci >= 0) all[ci].classList.add('is-correct');
+          }
+
+          if (ok) {
+            fb.className = 'sc-fb is-show is-ok';
+            fb.innerHTML = icon('badge-check') + '<span>' + rich(Q.okFeedback || 'Correct.') + '</span>';
+            nav.innerHTML = '<button class="sc-nextq" type="button" data-next>' +
+              (qi < total - 1 ? 'Next question \u2192' : 'Finish the check \u2192') + '</button>';
+            nav.className = 'sc-qnav is-show';
+            runIcons();
+            nav.querySelector('[data-next]').addEventListener('click', function () {
+              if (qi < total - 1) { qi++; load(); } else { done(null, true); }
+            });
+          } else {
+            helped++;
+            fb.className = 'sc-fb is-show is-wrong';
+            fb.innerHTML = icon('circle-alert') + '<span>' +
+              rich(Q.noFeedback || 'Not quite — here is the idea again.') + '</span>' +
+              miniLessonHTML(Q.miniLesson);
+            nav.innerHTML = '<button class="sc-nextq" type="button" data-retry>Try this question again \u21ba</button>';
+            nav.className = 'sc-qnav is-show';
+            runIcons();
+            var rw = fb.querySelector('[data-rewatch]');
+            if (rw) rw.addEventListener('click', function () { rewatch(section, rw.getAttribute('data-rewatch')); });
+            nav.querySelector('[data-retry]').addEventListener('click', function () { load(); });
+          }
+        });
+      });
+    }
+
+    var stored = checkState(c, i);
+    if (stored && stored.passed) done(stored, false);
+    else load();
+  }
+
+  function wireChecks(root, c) {
+    if (!root || !c) return;
+    Array.prototype.forEach.call(root.querySelectorAll('.sc-check'), function (sec) {
+      wireCheck(sec, c, root);
+    });
   }
 
   function renderModules(c) {
@@ -264,7 +531,7 @@
 
   function renderStepper(c, current) {
     var steps = (c.modules || []).map(function (m, i) {
-      var cls = 'sc-stepnum' + (i === current ? ' is-current' : '');
+      var cls = 'sc-stepnum' + (i === current ? ' is-current' : '') + (checkPassed(c, i) ? ' is-done' : '');
       return '<a class="' + cls + '" href="#module-' + (i + 1) + '" title="' + esc(shortTitle(m.title)) + '">' + (i + 1) + '</a>';
     }).join('');
     return '<nav class="sc-stepper" aria-label="Course modules">' + steps + '</nav>';
@@ -358,6 +625,7 @@
     else if (v.view === 'finish') root.innerHTML = renderFinishView(c);
     else root.innerHTML = renderOverview(c);
     runIcons();
+    wireChecks(root, c);
     if (doScroll) {
       try { root.scrollIntoView({ block: 'start' }); }
       catch (e) { global.scrollTo(0, 0); }
@@ -385,6 +653,8 @@
     }
     if (!data) { root.innerHTML = '<div class="sc-error">No course data.</div>'; return; }
 
+    setCheckContext(opts, data);
+
     // Paged by default when the course has 2+ modules; opt out with paged:false.
     var paged = (opts.paged !== undefined)
       ? !!opts.paged
@@ -401,6 +671,7 @@
         renderModules(data) +
         renderFinish(data);
       runIcons();
+      wireChecks(root, data);
       return root;
     }
 
@@ -446,5 +717,5 @@
       });
   }
 
-  global.STRIVECourse = { render: render, load: load, version: '1.1.0' };
+  global.STRIVECourse = { render: render, load: load, version: '1.3.0' };
 })(typeof window !== 'undefined' ? window : this);

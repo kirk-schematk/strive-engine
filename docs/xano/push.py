@@ -12,7 +12,23 @@ statement *before* the reported one (see README "XanoScript gotchas").
 """
 import sys, os, json, time, urllib.request, urllib.error
 
-TOKEN = os.environ.get("XANO_META_TOKEN", "").strip()
+def _from_env_file(key):
+    """Fall back to a gitignored .env at the repo root, so a long token never
+    has to go through setx (1024-char limit) or a command line."""
+    root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    path = os.path.join(root, ".env")
+    try:
+        with open(path, encoding="utf-8-sig") as fh:
+            for line in fh:
+                line = line.strip()
+                if line.startswith(key + "="):
+                    return line.split("=", 1)[1].strip().strip('"').strip("'")
+    except OSError:
+        pass
+    return ""
+
+
+TOKEN = os.environ.get("XANO_META_TOKEN", "").strip() or _from_env_file("XANO_META_TOKEN")
 BASE = "https://x8ki-letl-twmt.n7.xano.io/api:meta/workspace/163196"
 
 def call(method, url, body):
@@ -33,7 +49,7 @@ def call(method, url, body):
 
 def main(argv):
     if not TOKEN:
-        print("XANO_META_TOKEN is not set"); return 2
+        print("XANO_META_TOKEN is not set (env var, or XANO_META_TOKEN=… in a .env at the repo root)"); return 2
     if len(argv) < 2:
         print(__doc__); return 2
     path, kind = argv[0], argv[1]
