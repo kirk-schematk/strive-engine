@@ -198,9 +198,9 @@ function injectScaffold(){
     hero.innerHTML=
       '<p class="onb-eyebrow">'+ic(P.compass,15)+' No account needed to start</p>'+
       '<h1 class="onb-hero-title">Find your <span class="onb-grad-text">starting point</span></h1>'+
-      '<p class="onb-hero-sub">Answer a few quick questions and we’ll map your BIM proficiency level, match you to a career archetype, and build a personalized learning path — free, in about six minutes.</p>'+
+      '<p class="onb-hero-sub">Answer a few quick questions and we’ll map your BIM proficiency level, match you to a career archetype, and build your personalized roadmap — in about six minutes.</p>'+
       '<div class="onb-hero-feats">'+
-        [[P.bldg,'Pick your discipline'],[P.clipboard,'Answer quick questions'],[P.target,'Get your level & path']].map(function(f){
+        [[P.bldg,'Pick your discipline'],[P.clipboard,'Answer quick questions'],[P.target,'Get your level & roadmap']].map(function(f){
           return '<div class="onb-feat"><span class="onb-feat-ico">'+ic(f[0],17)+'</span><span>'+f[1]+'</span></div>';
         }).join('')+
       '</div>';
@@ -213,7 +213,7 @@ function injectScaffold(){
       '<div class="onb-footer-inner">'+
         '<div class="onb-footer-about">'+
           '<a href="/" class="onb-footer-logo">STRIVE</a>'+
-          '<p>Pushing digitalization forward in buildings &amp; infrastructure — through free learning, verified skills, and community.</p>'+
+          '<p>Pushing digitalization forward in buildings &amp; infrastructure — through hands-on learning, verified skills, and community.</p>'+
         '</div>'+
         '<div class="onb-footer-col"><h4>Learn</h4><a href="/catalog">Courses</a><a href="/career-paths">Career paths</a><a href="/get-started">Skill assessments</a><a href="/teams">For teams</a></div>'+
         '<div class="onb-footer-col"><h4>Community</h4><a href="/forum">Forum</a><a href="/events">Events</a><a href="/mentorship">Mentorship</a></div>'+
@@ -394,8 +394,8 @@ function doTeaser(){
       var locked=el('div','onb-locked');
       locked.appendChild(el('div','onb-lock-ico',ic(P.lock,30)));
       locked.appendChild(el('h3','onb-lock-title','Your personalized learning path is ready'));
-      locked.appendChild(el('p','onb-lock-text','Create a free account to unlock your full track, curated lessons, and career roadmap.'));
-      var cta=el('a','onb-btn onb-btn--lg onb-btn--cta','Create free account '+ic(P.arrowRight,19));
+      locked.appendChild(el('p','onb-lock-text','Create an account to unlock your full track, curated lessons, and career roadmap.'));
+      var cta=el('a','onb-btn onb-btn--lg onb-btn--cta','Create account '+ic(P.arrowRight,19));
       cta.href=signupHref();
       cta.onclick=function(){setStep(3)};
       locked.appendChild(cta);
@@ -550,8 +550,8 @@ function onLessonPassed(wrap,p,score,total){
   var done=el('div','onb-lesson-done');
   done.appendChild(el('div','onb-lesson-done-ico',ic(P.checkCircle,28)));
   done.appendChild(el('h3','onb-lock-title','Nice — that one’s now in your roadmap'));
-  done.appendChild(el('p','onb-lock-text',score+' of '+total+' correct. Create a free account to save your results, keep this lesson ticked off, and unlock the rest of your path.'));
-  var cta=el('a','onb-btn onb-btn--lg onb-btn--cta onb-btn--glow','Create free account '+ic(P.arrowRight,19));
+  done.appendChild(el('p','onb-lock-text',score+' of '+total+' correct. Create an account to save your results, keep this lesson ticked off, and unlock the rest of your roadmap.'));
+  var cta=el('a','onb-btn onb-btn--lg onb-btn--cta onb-btn--glow','Create account '+ic(P.arrowRight,19));
   cta.href=signupHref();
   cta.onclick=function(){setStep(3)};
   done.appendChild(cta);
@@ -570,5 +570,13 @@ function onLessonPassed(wrap,p,score,total){
 }
 
 injectScaffold();
-showDiscipline();
+/* Hand-off from the home page: /get-started?discipline=…&goal=… (already chosen
+   there, no API call made yet) skips both chooser screens and starts the
+   assessment straight away. Unknown or missing values fall back to the choosers. */
+(function(){
+  var qs=new URLSearchParams(location.search);
+  var d=qs.get('discipline'),g=qs.get('goal');
+  if(d&&g&&DISC.indexOf(d)>=0&&GOALS.indexOf(g)>=0){st.disc=d;st.goal=g;doStart();return}
+  showDiscipline();
+})();
 })();

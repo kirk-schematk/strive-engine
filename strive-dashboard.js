@@ -621,8 +621,8 @@ function renderLogin(opts){
     '<div class="dsh-error-ico">'+ic(P.logIn,26)+'</div>'+
     '<p class="dsh-kicker">Members only</p>'+
     '<h2 class="dsh-h2">Log in to see your dashboard</h2>'+
-    '<p class="dsh-muted">Your roadmap, goals and progress live here. New to STRIVE? It’s free.</p>'+
-    '<div class="dsh-hero-actions dsh-hero-actions--center"><a class="dsh-btn" href="'+attr(login)+'" data-ms-modal="login">'+ic(P.logIn,16)+' Log in</a><a class="dsh-btn dsh-btn--ghost" href="'+attr(href)+'">Create free account '+ic(P.arrowRight,16)+'</a></div>'+
+    '<p class="dsh-muted">Your roadmap, goals and progress live here. New to STRIVE? Create an account to get started.</p>'+
+    '<div class="dsh-hero-actions dsh-hero-actions--center"><a class="dsh-btn" href="'+attr(login)+'" data-ms-modal="login">'+ic(P.logIn,16)+' Log in</a><a class="dsh-btn dsh-btn--ghost" href="'+attr(href)+'">Create account '+ic(P.arrowRight,16)+'</a></div>'+
   '</div></div>';
 }
 

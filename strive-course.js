@@ -79,7 +79,7 @@
     var enrol =
       '<div class="sc-enrol">' +
         '<div class="sc-thumb"><span class="sc-pin">' + icon('play') + '</span></div>' +
-        '<a class="sc-btn" href="' + esc(href) + '"><span>' + esc(cta.label || 'Start learning free') + '</span>' + icon('arrow-right') + '</a>' +
+        '<a class="sc-btn" href="' + esc(href) + '"><span>' + esc(cta.label || 'Start learning') + '</span>' + icon('arrow-right') + '</a>' +
         (earns ? '<div class="sc-earns">' + earns + '</div>' : '') +
       '</div>';
 
