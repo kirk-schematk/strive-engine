@@ -125,7 +125,11 @@ svg{display:block}
 .hm-footer-link:hover{color:#0688B0}
 
 /* ---------- Responsive ---------- */
-@media (max-width:991px){
+.hm-start-desk{display:inline-flex;align-items:center;padding:14px 0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#4FD4F9;text-decoration:none;transition:color .2s}
+.hm-start-desk:hover{color:#fff}
+.hm-start-mob{display:none}
+@media (max-width:991px){.hm-start-desk{display:none}.hm-start-mob{display:inline-block}
+
   .text-display{font-size:44px}
   .text-h2{font-size:30px}
   .hm-hero{padding:56px 0 72px}
@@ -181,7 +185,7 @@ svg{display:block}
         <h1 class="text-display hm-hero-title">The built world is going digital. <span class="hm-accent">You can lead it.</span></h1>
         <p class="text-body-lg hm-hero-lead">Hands-on mini-lessons and full courses in BIM and digital delivery. Tell us your discipline and goal, answer one warm-up question, and your assessment starts exactly where you are.</p>
         <div class="hm-hero-actions">
-          <a class="btn is-primary" href="#qz">Take the lead</a>
+          <a class="hm-start-desk" href="#qz">Start with three taps →</a><a class="btn is-primary hm-start-mob" href="#qz">Start with three taps ↓</a>
           <a class="btn is-ghost" href="/catalog">Browse courses</a>
         </div>
         <p class="text-caption hm-hero-caption">Three taps, then five minutes. No account needed to start.</p>
@@ -228,7 +232,14 @@ svg{display:block}
 .qz-q{font-size:17px;line-height:1.4;margin:0 0 16px}
 .qz-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .qz-g1{grid-template-columns:minmax(0,1fr)}
-.qz-c{display:block;width:100%;margin:0;background:#fff;border:1.5px solid #CDD6DA;border-radius:12px;padding:12px 14px;font-family:'Manrope',system-ui,sans-serif;font-size:15px;line-height:1.35;font-weight:600;color:#0C1417;text-align:left;cursor:pointer;-webkit-appearance:none;appearance:none;transition:border-color .15s,background-color .15s}
+.qz-c{position:relative;display:block;width:100%;margin:0;background:#fff;border:1.5px solid #CDD6DA;border-radius:12px;padding:12px 30px 12px 38px;font-family:'Manrope',system-ui,sans-serif;font-size:15px;line-height:1.35;font-weight:600;color:#0C1417;text-align:left;cursor:pointer;-webkit-appearance:none;appearance:none;box-shadow:0 1px 2px rgba(16,42,51,.06);transition:border-color .15s,background-color .15s,transform .15s,box-shadow .15s}
+.qz-c::before{content:'';position:absolute;left:14px;top:50%;width:14px;height:14px;margin-top:-7px;border:1.5px solid #CDD6DA;border-radius:50%;background:#fff;transition:border-color .15s,background-color .15s,box-shadow .15s}
+.qz-c::after{content:'→';position:absolute;right:12px;top:50%;margin-top:-.6em;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;line-height:1.2;color:#A6B3B9;transition:color .15s,transform .15s}
+.qz-c:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(16,42,51,.10)}.qz-c:hover::after{color:#05A9D8;transform:translateX(2px)}
+.qz-c.is-sel::before{border-color:#05A9D8;background:#05A9D8;box-shadow:inset 0 0 0 3px #fff}.qz-c.is-bad::before{border-color:#FC8204;background:#FC8204;box-shadow:inset 0 0 0 3px #fff}
+.qz-c:disabled{transform:none;box-shadow:none}.qz-c:disabled::after{content:''}
+.qz-top{display:flex;align-items:center;gap:8px;margin:0 0 14px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#0688B0}.qz-top::before{content:'';width:8px;height:8px;border-radius:50%;background:#FC8204}
+.qz-n.is-act{animation:qz-pulse 1.6s ease-out 2}@keyframes qz-pulse{0%{box-shadow:0 0 0 0 rgba(5,169,216,.45)}100%{box-shadow:0 0 0 12px rgba(5,169,216,0)}}@media (prefers-reduced-motion:reduce){.qz-n.is-act{animation:none}}
 .qz-c:hover{border-color:#05A9D8}
 .qz-c:focus-visible{outline:2px solid #05A9D8;outline-offset:2px}
 .qz-c.is-sel{border-color:#05A9D8;background:#E6FAFF}
@@ -245,6 +256,7 @@ svg{display:block}
 @media (max-width:479px){.qz{padding:20px;border-radius:20px}.qz-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.qz-w{display:none}.qz.is-end .qz-ls{align-items:center}.qz-stub{margin-right:0}.qz-lp{flex-wrap:wrap;justify-content:center}}
 </style>
 <div class="qz" id="qz" data-qz>
+<div class="qz-top" data-qz-top>Step 1 of 3 · tap to start</div>
 <div class="qz-map">
 <div class="qz-row">
 <div class="qz-n is-act"><div class="qz-nt">01 · You</div><div class="qz-nl">Discipline</div></div>
@@ -260,7 +272,7 @@ svg{display:block}
 <div class="qz-body">
 <div class="qz-step is-on" data-qz-s="1">
 <h3 class="qz-h">Where do you stand?</h3>
-<p class="qz-p">Pick the area closest to your work.</p>
+<p class="qz-p">Tap your discipline to begin.</p>
 <div class="qz-g">
 <button type="button" class="qz-c" data-qz-d>Architecture</button>
 <button type="button" class="qz-c" data-qz-d>Engineering</button>
@@ -272,7 +284,7 @@ svg{display:block}
 </div>
 <div class="qz-step" data-qz-s="2">
 <h3 class="qz-h">What's your goal?</h3>
-<p class="qz-p">Choose what drives you.</p>
+<p class="qz-p">Tap what drives you.</p>
 <div class="qz-g qz-g1">
 <button type="button" class="qz-c" data-qz-g>Level up in my current role</button>
 <button type="button" class="qz-c" data-qz-g>Step up to the next role</button>
@@ -312,13 +324,14 @@ var nodes=root.querySelectorAll('.qz-n');
 var wires=root.querySelectorAll('.qz-w');
 var labs=root.querySelectorAll('.qz-nl');
 var fb=root.querySelector('[data-qz-fb]');
-var go_=root.querySelector('[data-qz-go]');
+var go_=root.querySelector('[data-qz-go]'),top=root.querySelector('[data-qz-top]');
 function show(n){
 for(var j=0;j<steps.length;j++)steps[j].className='qz-step'+(Number(steps[j].getAttribute('data-qz-s'))===n?' is-on':'');
 for(var k=0;k<3;k++){nodes[k].className='qz-n'+(k+1<n?' is-done':k+1===n?' is-act':'');wires[k].className='qz-w'+(k+1<n?' is-on':'')}
 nodes[3].className='qz-n'+(n===4?' is-lit':' is-lock');
 labs[0].textContent=disc||'Discipline';labs[1].textContent=goal||'Goal';labs[2].textContent=n>3?'✓ Done':'Warm-up';
 root.className=root.className.replace(/ ?\bis-end\b/,'')+(n===4?' is-end':'');
+top.textContent=['Step 1 of 3 · tap to start','Step 2 of 3 · your goal','Step 3 of 3 · warm-up','Ready · continue below'][n-1];
 if(n===4)go_.setAttribute('href','/get-started?discipline='+encodeURIComponent(disc)+'&goal='+encodeURIComponent(goal));
 }
 function go(n){
