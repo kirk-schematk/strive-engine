@@ -75,13 +75,7 @@ svg{display:block}
 
 /* the onboarding window: reads as an application window, not a picture */
 .hm-window{max-width:1040px;margin:44px auto 0}
-.hm-window-bar{display:flex;align-items:center;gap:12px;padding:12px 18px;background:#0F1A1F;border:1px solid rgba(255,255,255,.14);border-bottom:0;border-radius:20px 20px 0 0}
-.hm-window-dots{display:flex;gap:6px;flex:0 0 auto}
-.hm-window-dots span{width:10px;height:10px;border-radius:50%;background:#5A6E77}
-.hm-window-dots span:last-child{background:#05A9D8}
-.hm-window-title{font-family:'Manrope',system-ui,sans-serif;font-size:13px;line-height:1.4;font-weight:600;color:#FFFFFF}
-.hm-window-note{margin-left:auto;font-family:'Manrope',system-ui,sans-serif;font-size:12px;line-height:1.4;font-weight:500;color:#A6B3B9;white-space:nowrap}
-.hm-window-body{background:#FFFFFF;border:1px solid rgba(255,255,255,.14);border-radius:0 0 20px 20px;padding:28px 32px 32px;box-shadow:0 24px 80px rgba(22,196,246,.35)}
+.hm-window-body{background:#FFFFFF;border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:28px 32px 32px;box-shadow:0 24px 80px rgba(22,196,246,.35)}
 .hm-under{display:block;width:-webkit-max-content;width:max-content;max-width:100%;margin:18px auto 0;font-family:'Manrope',system-ui,sans-serif;font-size:14px;line-height:1.5;font-weight:600;color:#4FD4F9;text-decoration:none;transition:color .2s}
 .hm-under:hover{color:#FFFFFF}
 
@@ -159,9 +153,9 @@ svg{display:block}
   .hm-footer-row{flex-direction:column;align-items:flex-start}
 }
 @media (max-width:479px){
-  .hm-window-bar{padding:10px 14px;border-radius:16px 16px 0 0}
-  .hm-window-note{display:none}
-  .hm-window-body{padding:20px;border-radius:0 0 16px 16px}
+  
+  
+  .hm-window-body{padding:20px;border-radius:16px}
   .hm-cta-actions{flex-direction:column;align-items:stretch}
 }
 </style>
@@ -185,15 +179,10 @@ svg{display:block}
     <div class="hm-hero-copy">
       <div class="hm-eyebrow">Buildings &amp; infrastructure</div>
       <h1 class="text-display hm-hero-title">The built world is going digital. <span class="hm-accent">You can lead it.</span></h1>
-      <p class="text-body-lg hm-hero-lead">Hands-on mini-lessons and full courses in BIM and digital delivery. Start with three taps below and a five-minute assessment lines up exactly what to learn next.</p>
+      <p class="text-body-lg hm-hero-lead">Mini-lessons and full courses in BIM and digital delivery. Start with three taps.</p>
     </div>
 
     <div class="hm-window">
-      <div class="hm-window-bar">
-        <div class="hm-window-dots"><span></span><span></span><span></span></div>
-        <div class="hm-window-title">Find your starting point</div>
-        <div class="hm-window-note">No account needed</div>
-      </div>
       <div class="hm-window-body">
 
 <!-- ===== "Where do you stand?" card — self-contained, paste into a Webflow HTML Embed as one block ===== -->
@@ -205,7 +194,7 @@ svg{display:block}
 .qz-nl,.qz-h,.qz-q,.qz-hd,.qz-done{font-family:'Sora',system-ui,sans-serif;font-weight:600;color:#0C1417}
 /* left column: copy + roadmap sketch + progress line */
 .qz-side{min-width:0}
-.qz-hd{font-size:28px;line-height:1.15;font-weight:700;letter-spacing:-.02em;margin:0}
+.qz-hd{font-size:28px;line-height:1.15;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
 .qz-lead{font-size:15px;line-height:1.55;font-weight:500;color:#2C3D45;margin:10px 0 20px}
 .qz-map{margin:0}
 .qz-row{display:flex;align-items:stretch}
@@ -236,11 +225,11 @@ svg{display:block}
 .qz-body{transition:opacity 150ms ease}
 .qz-step{display:none}
 .qz-step.is-on{display:block}
-.qz-h{font-size:22px;line-height:1.2;margin:0 0 6px}
+.qz-h{font-size:22px;line-height:1.2;margin:0 0 16px}
 .qz-p{font-size:14px;line-height:1.5;color:#5A6E77;margin:0 0 16px}
 .qz-eb{font-size:12px;line-height:1.5;color:#0688B0;margin:0 0 10px}
 .qz-q{font-size:17px;line-height:1.4;margin:0 0 16px}
-.qz-done{font-size:20px;line-height:1.25;font-weight:700;margin:0 0 6px}
+.qz-done{font-size:20px;line-height:1.25;font-weight:700;margin:0}
 .qz-g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .qz-g1{grid-template-columns:minmax(0,1fr)}
 .qz-c{position:relative;display:block;width:100%;margin:0;background:#fff;border:1.5px solid #CDD6DA;border-radius:12px;padding:12px 30px 12px 38px;font-family:'Manrope',system-ui,sans-serif;font-size:15px;line-height:1.35;font-weight:600;color:#0C1417;text-align:left;cursor:pointer;-webkit-appearance:none;appearance:none;box-shadow:0 1px 2px rgba(16,42,51,.06);transition:border-color .15s,background-color .15s,transform .15s,box-shadow .15s}
@@ -267,8 +256,7 @@ svg{display:block}
 </style>
 <div class="qz" id="qz" data-qz>
 <div class="qz-side">
-<h2 class="qz-hd">Where do you stand?</h2>
-<p class="qz-lead">Three taps tell us your discipline, your goal, and how you think. Then a five-minute assessment places you and lines up your first lessons.</p>
+<h2 class="qz-hd">Become a leader</h2>
 <div class="qz-map">
 <div class="qz-row">
 <div class="qz-n is-act"><div class="qz-nt">01 · You</div><div class="qz-nl">Discipline</div></div>
@@ -287,7 +275,6 @@ svg{display:block}
 <div class="qz-body">
 <div class="qz-step is-on" data-qz-s="1">
 <h3 class="qz-h">Pick your discipline</h3>
-<p class="qz-p">Tap the area closest to your work.</p>
 <div class="qz-g">
 <button type="button" class="qz-c" data-qz-d>Architecture</button>
 <button type="button" class="qz-c" data-qz-d>Engineering</button>
@@ -299,7 +286,6 @@ svg{display:block}
 </div>
 <div class="qz-step" data-qz-s="2">
 <h3 class="qz-h">What's your goal?</h3>
-<p class="qz-p">Tap what drives you.</p>
 <div class="qz-g qz-g1">
 <button type="button" class="qz-c" data-qz-g>Level up in my current role</button>
 <button type="button" class="qz-c" data-qz-g>Step up to the next role</button>
@@ -321,7 +307,6 @@ svg{display:block}
 </div>
 <div class="qz-step" data-qz-s="4">
 <h3 class="qz-done">Your assessment is ready.</h3>
-<p class="qz-p">Six to eight questions, about five minutes. Your first lessons line up from the result.</p>
 <a class="btn is-primary qz-go" data-qz-go href="/get-started">Continue to your assessment →</a>
 <button type="button" class="qz-t" data-qz-reset>Start over</button>
 </div>
