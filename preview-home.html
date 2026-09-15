@@ -179,7 +179,6 @@ svg{display:block}
   <div class="hm-container">
 
     <div class="hm-hero-copy">
-      <div class="hm-eyebrow">Buildings &amp; infrastructure</div>
       <h1 class="text-display hm-hero-title">The built world is going digital. <span class="hm-accent">You can lead it.</span></h1>
     </div>
 
@@ -188,87 +187,70 @@ svg{display:block}
 
 <!-- ===== "Where do you stand?" card — self-contained, paste into a Webflow HTML Embed as one block ===== -->
 <style>
-.qz{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start;color:#0C1417;font-family:'Manrope',system-ui,sans-serif}
+.qz{color:#0C1417;font-family:'Manrope',system-ui,sans-serif}
 .qz *{box-sizing:border-box}
 .qz-nt,.qz-eb{font-family:'Manrope',system-ui,sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.qz-np,.qz-lp span,.qz-t,.qz-lead{font-family:'Manrope',system-ui,sans-serif;font-weight:600;letter-spacing:0}
+.qz-np,.qz-lp span,.qz-t{font-family:'Manrope',system-ui,sans-serif;font-weight:600;letter-spacing:0}
 .qz-nl,.qz-h,.qz-q,.qz-hd,.qz-done{font-family:'Sora',system-ui,sans-serif;font-weight:600;color:#0C1417}
-/* left column: copy + roadmap sketch + progress line */
-.qz-side{min-width:0}
-.qz-hd{font-size:28px;line-height:1.15;font-weight:700;letter-spacing:-.02em;margin:0 0 18px}
-.qz-lead{font-size:15px;line-height:1.55;font-weight:500;color:#2C3D45;margin:10px 0 20px}
-.qz-map{grid-column:1/-1;margin:0 0 4px}
-.qz-row{display:flex;align-items:stretch}
-.qz-n{flex:1 1 0;min-width:0;display:flex;flex-direction:column;border:1.5px solid #CDD6DA;border-radius:10px;background:#fff;overflow:hidden;transition:border-color .2s,background-color .2s}
-.qz-nt{padding:5px 8px;font-size:10px;line-height:1.3;letter-spacing:.04em;color:#5A6E77;background:#E6EBED;transition:color .2s,background-color .2s}
-.qz-nl{padding:8px 8px 9px;font-size:12.5px;line-height:1.25;color:#7C8D95;overflow-wrap:normal;hyphens:auto;transition:color .2s}
-.qz-w{flex:0 0 14px;align-self:center;border-top:2px solid #CDD6DA;transition:border-color .2s}
+.qz-hd{font-size:32px;line-height:1.1;font-weight:700;letter-spacing:-.02em;margin:0 0 22px;text-align:center}
+.qz-main{background:linear-gradient(180deg,#F7FDFE 0%,#EDF8FB 100%);border:1px solid #C2F1FE;border-radius:18px;padding:28px 28px 26px;box-shadow:0 12px 36px rgba(5,169,216,.12)}
+.qz-body{transition:opacity 150ms ease}
+.qz-step{display:none}
+.qz-step.is-on{display:block}
+.qz-h{font-size:24px;line-height:1.2;margin:0 0 18px;text-align:center}
+.qz-p{font-size:14px;line-height:1.5;color:#5A6E77;margin:0 0 16px}
+.qz-eb{font-size:12px;line-height:1.5;color:#0688B0;margin:0 0 10px;text-align:center}
+.qz-q{font-size:19px;line-height:1.4;margin:0 auto 18px;max-width:640px;text-align:center}
+.qz-done{font-size:26px;line-height:1.2;font-weight:700;margin:0;text-align:center}
+.qz-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.qz-g1{grid-template-columns:minmax(0,1fr);max-width:600px;margin:0 auto}
+.qz-c{position:relative;display:block;width:100%;margin:0;background:#fff;border:1.5px solid #CDD6DA;border-radius:14px;padding:15px 36px 15px 46px;font-family:'Manrope',system-ui,sans-serif;font-size:16px;line-height:1.35;font-weight:600;color:#0C1417;text-align:left;cursor:pointer;-webkit-appearance:none;appearance:none;box-shadow:0 1px 2px rgba(16,42,51,.06);transition:border-color .15s,background-color .15s,transform .15s,box-shadow .15s}
+.qz-c::before{content:'';position:absolute;left:16px;top:50%;width:16px;height:16px;margin-top:-8px;border:1.5px solid #CDD6DA;border-radius:50%;background:#fff;transition:border-color .15s,background-color .15s,box-shadow .15s}
+.qz-c::after{content:'→';position:absolute;right:14px;top:50%;margin-top:-.6em;font-family:'Manrope',system-ui,sans-serif;font-weight:600;font-size:14px;line-height:1.2;color:#A6B3B9;transition:color .15s,transform .15s}
+.qz-c:hover{border-color:#05A9D8;transform:translateY(-2px);box-shadow:0 8px 20px rgba(5,169,216,.18)}
+.qz-c:hover::after{color:#05A9D8;transform:translateX(2px)}
+.qz-c:focus-visible{outline:2px solid #05A9D8;outline-offset:2px}
+.qz-c.is-sel{border-color:#05A9D8;background:#E6FAFF}
+.qz-c.is-sel::before{border-color:#05A9D8;background:#05A9D8;box-shadow:inset 0 0 0 3px #fff}
+.qz-c.is-bad{border-color:#FC8204;background:#FFF4E6}
+.qz-c.is-bad::before{border-color:#FC8204;background:#FC8204;box-shadow:inset 0 0 0 3px #fff}
+.qz-c:disabled{cursor:default;transform:none;box-shadow:none}
+.qz-c:disabled::after{content:''}
+.qz-c:disabled:not(.is-sel):not(.is-bad){color:#7C8D95}
+.qz-fb{display:none;margin:16px auto 0;max-width:640px;font-size:15px;line-height:1.5;color:#2C3D45;text-align:center}
+.qz-fb.is-on{display:block}
+.qz-t{display:block;margin:14px auto 0;padding:0;border:0;background:none;font-size:13px;color:#7C8D95;cursor:pointer}
+.qz-t:hover{color:#0688B0}
+.qz .qz-go{display:block;max-width:440px;margin:18px auto 0}
+.qz-map{margin:22px 0 0;padding-top:18px;border-top:1px solid #E6EBED}
+.qz-row{display:flex;align-items:stretch;max-width:760px;margin:0 auto}
+.qz-n{flex:1 1 0;min-width:0;display:flex;flex-direction:column;border:1.5px solid #E6EBED;border-radius:9px;background:#fff;overflow:hidden;opacity:.72;transition:border-color .2s,background-color .2s,opacity .2s}
+.qz-nt{padding:4px 8px;font-size:9px;line-height:1.3;letter-spacing:.04em;color:#7C8D95;background:#F3F6F7;transition:color .2s,background-color .2s}
+.qz-nl{padding:7px 8px 8px;font-size:11.5px;line-height:1.25;color:#7C8D95;overflow-wrap:normal;hyphens:auto;transition:color .2s}
+.qz-w{flex:0 0 14px;align-self:center;border-top:1.5px solid #E6EBED;transition:border-color .2s}
 .qz-w.is-on{border-color:#05A9D8}
+.qz-n.is-act,.qz-n.is-done,.qz-n.is-lit{opacity:1}
 .qz-n.is-act,.qz-n.is-done{border-color:#05A9D8}
 .qz-n.is-done{background:#E6FAFF}
 .qz-n.is-act .qz-nt,.qz-n.is-done .qz-nt{color:#fff;background:linear-gradient(120deg,#16c4f6 0%,#389696 100%)}
 .qz-n.is-act .qz-nl,.qz-n.is-done .qz-nl,.qz-n.is-lit .qz-nl{color:#0C1417}
-.qz-n.is-lock{border-color:#FFC880}.qz-n.is-lock .qz-nt{background:#FFF4E6;color:#C25F08}
+.qz-n.is-lock{border-color:#FFE2BF}
+.qz-n.is-lock .qz-nt{background:#FFF4E6;color:#C25F08}
 .qz-n.is-lit{border-color:#FC8204;background:#FFF4E6}
 .qz-n.is-lit .qz-nt{color:#fff;background:linear-gradient(120deg,#fc8204 0%,#e6750a 100%)}
 .qz-np{display:none;margin:0 8px 8px;padding:2px 8px;border-radius:999px;background:#FC8204;color:#fff;font-size:10px;line-height:1.5;text-align:center}
 .qz-n.is-lit .qz-np{display:inline-block}
 .qz-ls{display:none}
-.qz-stub{width:0;height:14px;border-left:1.5px dashed #FC8204;margin-right:calc(12.5% - 5.25px)}
+.qz-stub{width:0;height:12px;border-left:1.5px dashed #FC8204;margin-right:calc(12.5% - 5.25px)}
 .qz-lp{display:flex;gap:6px}
-.qz-lp span{padding:3px 10px;border:1.5px dashed #CDD6DA;border-radius:999px;font-size:11px;line-height:1.5;color:#7C8D95;white-space:nowrap}
-.qz.is-end .qz-ls{display:flex;flex-direction:column;align-items:flex-end;margin-top:0}
-.qz.is-end .qz-nt{padding:6px 10px;font-size:10.5px}
-.qz.is-end .qz-nl{padding:10px 10px 12px;font-size:13.5px}
-
-/* right column: the steps panel */
-.qz-main{min-width:0;background:#F3F6F7;border-radius:16px;padding:22px}
-.qz-body{transition:opacity 150ms ease}
-.qz-step{display:none}
-.qz-step.is-on{display:block}
-.qz-h{font-size:22px;line-height:1.2;margin:0 0 16px}
-.qz-p{font-size:14px;line-height:1.5;color:#5A6E77;margin:0 0 16px}
-.qz-eb{font-size:12px;line-height:1.5;color:#0688B0;margin:0 0 10px}
-.qz-q{font-size:17px;line-height:1.4;margin:0 0 16px}
-.qz-done{font-size:20px;line-height:1.25;font-weight:700;margin:0}
-.qz-g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.qz-g1{grid-template-columns:minmax(0,1fr)}
-.qz-c{position:relative;display:block;width:100%;margin:0;background:#fff;border:1.5px solid #CDD6DA;border-radius:12px;padding:12px 30px 12px 38px;font-family:'Manrope',system-ui,sans-serif;font-size:15px;line-height:1.35;font-weight:600;color:#0C1417;text-align:left;cursor:pointer;-webkit-appearance:none;appearance:none;box-shadow:0 1px 2px rgba(16,42,51,.06);transition:border-color .15s,background-color .15s,transform .15s,box-shadow .15s}
-.qz-c::before{content:'';position:absolute;left:14px;top:50%;width:14px;height:14px;margin-top:-7px;border:1.5px solid #CDD6DA;border-radius:50%;background:#fff;transition:border-color .15s,background-color .15s,box-shadow .15s}
-.qz-c::after{content:'→';position:absolute;right:12px;top:50%;margin-top:-.6em;font-family:'Manrope',system-ui,sans-serif;font-weight:600;font-size:13px;line-height:1.2;color:#A6B3B9;transition:color .15s,transform .15s}
-.qz-c:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(16,42,51,.10)}.qz-c:hover::after{color:#05A9D8;transform:translateX(2px)}
-.qz-c.is-sel::before{border-color:#05A9D8;background:#05A9D8;box-shadow:inset 0 0 0 3px #fff}.qz-c.is-bad::before{border-color:#FC8204;background:#FC8204;box-shadow:inset 0 0 0 3px #fff}
-.qz-c:disabled{transform:none;box-shadow:none}.qz-c:disabled::after{content:''}
-.qz-n.is-act{animation:qz-pulse 1.6s ease-out 2}@keyframes qz-pulse{0%{box-shadow:0 0 0 0 rgba(5,169,216,.45)}100%{box-shadow:0 0 0 12px rgba(5,169,216,0)}}@media (prefers-reduced-motion:reduce){.qz-n.is-act{animation:none}}
-.qz-c:hover{border-color:#05A9D8}
-.qz-c:focus-visible{outline:2px solid #05A9D8;outline-offset:2px}
-.qz-c.is-sel{border-color:#05A9D8;background:#E6FAFF}
-.qz-c.is-bad{border-color:#FC8204;background:#FFF4E6}
-.qz-c:disabled{cursor:default}
-.qz-c:disabled:not(.is-sel):not(.is-bad){color:#7C8D95}
-.qz-fb{display:none;margin:14px 0 0;font-size:14px;line-height:1.5;color:#2C3D45}
-.qz-fb.is-on{display:block}
-.qz-t{display:inline-block;margin:14px 0 0;padding:0;border:0;background:none;font-size:12px;color:#7C8D95;cursor:pointer}
-.qz-t:hover{color:#0688B0}
-.qz .qz-go{display:block;width:100%;margin-top:16px}
-@media (max-width:991px){.qz{grid-template-columns:minmax(0,1fr);gap:24px}}
-@media (max-width:767px){.qz-hd{font-size:24px}}
-@media (max-width:479px){.qz-main{padding:16px}.qz-g{grid-template-columns:minmax(0,1fr)}.qz-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.qz-w{display:none}.qz.is-end .qz-ls{align-items:center}.qz-stub{margin-right:0}.qz-lp{flex-wrap:wrap;justify-content:center}}
+.qz-lp span{padding:2px 9px;border:1.5px dashed #CDD6DA;border-radius:999px;font-size:10.5px;line-height:1.5;color:#7C8D95;white-space:nowrap}
+.qz.is-end .qz-ls{display:flex;flex-direction:column;align-items:flex-end;max-width:760px;margin:0 auto}
+@media (max-width:991px){.qz-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:767px){.qz-hd{font-size:26px}.qz-main{padding:22px 20px}.qz-h{font-size:21px}}
+@media (max-width:479px){.qz-main{padding:18px 16px}.qz-g{grid-template-columns:minmax(0,1fr)}.qz-c{padding:14px 32px 14px 42px;font-size:15px}.qz-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.qz-w{display:none}.qz.is-end .qz-ls{align-items:center}.qz-stub{margin-right:0}.qz-lp{flex-wrap:wrap;justify-content:center}}
 </style>
 <div class="qz" id="qz" data-qz>
-<div class="qz-map">
-<div class="qz-row">
-<div class="qz-n is-act"><div class="qz-nt">01 · You</div><div class="qz-nl">Discipline</div></div>
-<div class="qz-w"></div>
-<div class="qz-n"><div class="qz-nt">02 · Goal</div><div class="qz-nl">Goal</div></div>
-<div class="qz-w"></div>
-<div class="qz-n"><div class="qz-nt">03 · Warm-up</div><div class="qz-nl">Warm-up</div></div>
-<div class="qz-w"></div>
-<div class="qz-n is-lock"><div class="qz-nt">04 · Next</div><div class="qz-nl">5-min assessment</div><span class="qz-np">6–8 Qs · ~5 min</span></div>
-</div>
-<div class="qz-ls"><div class="qz-stub"></div><div class="qz-lp"><span>Lesson 1</span><span>Lesson 2</span><span>Lesson 3</span></div></div>
-</div>
-<div class="qz-side"><h2 class="qz-hd">Become a leader</h2></div>
+<h2 class="qz-hd">Become a leader</h2>
 <div class="qz-main">
 <div class="qz-body">
 <div class="qz-step is-on" data-qz-s="1">
@@ -309,6 +291,18 @@ svg{display:block}
 <button type="button" class="qz-t" data-qz-reset>Start over</button>
 </div>
 </div>
+</div>
+<div class="qz-map">
+<div class="qz-row">
+<div class="qz-n is-act"><div class="qz-nt">01 · You</div><div class="qz-nl">Discipline</div></div>
+<div class="qz-w"></div>
+<div class="qz-n"><div class="qz-nt">02 · Goal</div><div class="qz-nl">Goal</div></div>
+<div class="qz-w"></div>
+<div class="qz-n"><div class="qz-nt">03 · Warm-up</div><div class="qz-nl">Warm-up</div></div>
+<div class="qz-w"></div>
+<div class="qz-n is-lock"><div class="qz-nt">04 · Next</div><div class="qz-nl">5-min assessment</div><span class="qz-np">6–8 Qs · ~5 min</span></div>
+</div>
+<div class="qz-ls"><div class="qz-stub"></div><div class="qz-lp"><span>Lesson 1</span><span>Lesson 2</span><span>Lesson 3</span></div></div>
 </div>
 </div>
 <script>
