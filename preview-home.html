@@ -6,7 +6,7 @@
 <title>STRIVE — The built world is going digital. You can lead it.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    STRIVE Home mockup
@@ -28,8 +28,8 @@ svg{display:block}
 .text-body{font-family:'Manrope',system-ui,sans-serif;font-size:16px;line-height:1.6;font-weight:400;color:#2C3D45}
 .text-body-sm{font-family:'Manrope',system-ui,sans-serif;font-size:14px;line-height:1.5;font-weight:400;color:#5A6E77}
 .text-caption{font-family:'Manrope',system-ui,sans-serif;font-size:12px;line-height:1.5;font-weight:500;color:#5A6E77}
-.text-eyebrow{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;line-height:1.5;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#0688B0}
-.text-mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;line-height:1.5;font-weight:500;color:#2C3D45}
+.text-eyebrow{font-family:'Manrope',system-ui,sans-serif;font-size:12px;line-height:1.5;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#0688B0}
+.text-mono{font-family:'Manrope',system-ui,sans-serif;font-size:14px;line-height:1.5;font-weight:600;letter-spacing:0;color:#2C3D45}
 
 /* ---------- Buttons ---------- */
 .btn{display:inline-block;padding:14px 24px;border-radius:12px;border:1.5px solid transparent;font-family:'Manrope',system-ui,sans-serif;font-size:16px;line-height:1;font-weight:600;text-decoration:none;text-align:center;cursor:pointer;white-space:nowrap;transition:background-color 200ms ease,border-color 200ms ease,color 200ms ease}
@@ -63,21 +63,27 @@ svg{display:block}
 .hm-wordmark-light{color:#FFFFFF}
 .hm-nav-btn{padding:10px 18px;font-size:14px}
 
-/* ---------- Hero ---------- */
+/* ---------- Hero: stacked copy, then the onboarding window ---------- */
 .hm-hero{padding:72px 0 88px;background:transparent}
-.hm-hero-grid{display:grid;grid-template-columns:minmax(0,11fr) minmax(0,13fr);gap:48px;align-items:center}
-.hm-hero-copy{min-width:0}
-.hm-hero-eyebrow{margin-bottom:16px;color:#4FD4F9}
-.hm-hero-title{margin-bottom:20px;max-width:520px;font-size:52px;color:#FFFFFF}
-.hm-accent{display:block;width:-webkit-max-content;width:max-content;max-width:100%;
+.hm-hero-copy{max-width:820px;margin:0 auto;text-align:center}
+.hm-eyebrow{font-family:'Manrope',system-ui,sans-serif;font-size:12px;line-height:1.5;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#4FD4F9;margin-bottom:16px}
+.hm-hero-title{margin:0 auto 20px;font-size:52px;color:#FFFFFF}
+.hm-accent{display:block;width:-webkit-max-content;width:max-content;max-width:100%;margin:0 auto;
   background-image:linear-gradient(120deg,#16c4f6 0%,#389696 45%,#80a37f 70%,#fc8204 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent}
-.hm-hero-lead{margin-bottom:28px;max-width:480px;color:#A6B3B9}
-.hm-hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px}
-.hm-hero-caption{max-width:420px;color:#7C8D95}
+.hm-hero-lead{max-width:680px;margin:0 auto;color:#A6B3B9}
 
-/* hero visual column: holds the "Where do you stand?" card (self-contained qz-* block below) */
-.hm-hero-visual{min-width:0}
+/* the onboarding window: reads as an application window, not a picture */
+.hm-window{max-width:1040px;margin:44px auto 0}
+.hm-window-bar{display:flex;align-items:center;gap:12px;padding:12px 18px;background:#0F1A1F;border:1px solid rgba(255,255,255,.14);border-bottom:0;border-radius:20px 20px 0 0}
+.hm-window-dots{display:flex;gap:6px;flex:0 0 auto}
+.hm-window-dots span{width:10px;height:10px;border-radius:50%;background:#5A6E77}
+.hm-window-dots span:last-child{background:#05A9D8}
+.hm-window-title{font-family:'Manrope',system-ui,sans-serif;font-size:13px;line-height:1.4;font-weight:600;color:#FFFFFF}
+.hm-window-note{margin-left:auto;font-family:'Manrope',system-ui,sans-serif;font-size:12px;line-height:1.4;font-weight:500;color:#A6B3B9;white-space:nowrap}
+.hm-window-body{background:#FFFFFF;border:1px solid rgba(255,255,255,.14);border-radius:0 0 20px 20px;padding:28px 32px 32px;box-shadow:0 24px 80px rgba(22,196,246,.35)}
+.hm-under{display:block;width:-webkit-max-content;width:max-content;max-width:100%;margin:18px auto 0;font-family:'Manrope',system-ui,sans-serif;font-size:14px;line-height:1.5;font-weight:600;color:#4FD4F9;text-decoration:none;transition:color .2s}
+.hm-under:hover{color:#FFFFFF}
 
 /* ---------- How it works ---------- */
 .hm-how{background:#F3F6F7}
@@ -90,7 +96,7 @@ svg{display:block}
 .hm-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
 .hm-step{min-width:0}
 .hm-step-bar{height:3px;border-radius:2px;margin-bottom:20px;background:linear-gradient(120deg,#16c4f6 0%,#389696 45%,#80a37f 70%,#fc8204 100%)}
-.hm-step-num{display:inline-block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:16px;font-weight:700;margin-bottom:12px;letter-spacing:.04em;
+.hm-step-num{display:inline-block;font-family:'Manrope',system-ui,sans-serif;font-size:16px;font-weight:700;margin-bottom:12px;letter-spacing:.08em;text-transform:uppercase;
   background-image:linear-gradient(120deg,#16c4f6 0%,#389696 45%,#80a37f 70%,#fc8204 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent}
 .hm-step-title{margin-bottom:8px}
@@ -125,18 +131,11 @@ svg{display:block}
 .hm-footer-link:hover{color:#0688B0}
 
 /* ---------- Responsive ---------- */
-.hm-start-desk{display:inline-flex;align-items:center;padding:14px 0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#4FD4F9;text-decoration:none;transition:color .2s}
-.hm-start-desk:hover{color:#fff}
-.hm-start-mob{display:none}
-@media (max-width:991px){.hm-start-desk{display:none}.hm-start-mob{display:inline-block}
-
+@media (max-width:991px){
   .text-display{font-size:44px}
   .text-h2{font-size:30px}
   .hm-hero{padding:56px 0 72px}
-  .hm-hero-grid{grid-template-columns:minmax(0,1fr);gap:40px}
-  .hm-hero-title{max-width:560px}
-  .hm-hero-lead{max-width:560px}
-  .hm-hero-visual{margin-top:40px}
+  .hm-window{margin-top:36px}
   .hm-proof-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .hm-proof-item+.hm-proof-item{border-left:none}
   .hm-proof-item.hm-proof-item-r{border-left:1px solid #E6EBED}
@@ -147,6 +146,8 @@ svg{display:block}
   .text-display{font-size:36px}
   .hm-section{padding:64px 0}
   .hm-hero{padding:48px 0 64px}
+  .hm-hero-title{font-size:36px}
+  .hm-window-body{padding:24px}
   .hm-how-head{margin-bottom:36px}
   .hm-flow{margin-bottom:40px}
   .hm-flow-svg{display:none}
@@ -158,7 +159,9 @@ svg{display:block}
   .hm-footer-row{flex-direction:column;align-items:flex-start}
 }
 @media (max-width:479px){
-  .hm-hero-actions{flex-direction:column;align-items:stretch}
+  .hm-window-bar{padding:10px 14px;border-radius:16px 16px 0 0}
+  .hm-window-note{display:none}
+  .hm-window-body{padding:20px;border-radius:0 0 16px 16px}
   .hm-cta-actions{flex-direction:column;align-items:stretch}
 }
 </style>
@@ -178,32 +181,37 @@ svg{display:block}
 <!-- ===================== HERO ===================== -->
 <section class="hm-hero">
   <div class="hm-container">
-    <div class="hm-hero-grid">
 
-      <div class="hm-hero-copy">
-        <div class="text-eyebrow hm-hero-eyebrow">Buildings &amp; infrastructure</div>
-        <h1 class="text-display hm-hero-title">The built world is going digital. <span class="hm-accent">You can lead it.</span></h1>
-        <p class="text-body-lg hm-hero-lead">Hands-on mini-lessons and full courses in BIM and digital delivery. Tell us your discipline and goal, answer one warm-up question, and your assessment starts exactly where you are.</p>
-        <div class="hm-hero-actions">
-          <a class="hm-start-desk" href="#qz">Start with three taps →</a><a class="btn is-primary hm-start-mob" href="#qz">Start with three taps ↓</a>
-          <a class="btn is-ghost" href="/catalog">Browse courses</a>
-        </div>
-        <p class="text-caption hm-hero-caption">Three taps, then five minutes. No account needed to start.</p>
+    <div class="hm-hero-copy">
+      <div class="hm-eyebrow">Buildings &amp; infrastructure</div>
+      <h1 class="text-display hm-hero-title">The built world is going digital. <span class="hm-accent">You can lead it.</span></h1>
+      <p class="text-body-lg hm-hero-lead">Hands-on mini-lessons and full courses in BIM and digital delivery. Start with three taps below and a five-minute assessment lines up exactly what to learn next.</p>
+    </div>
+
+    <div class="hm-window">
+      <div class="hm-window-bar">
+        <div class="hm-window-dots"><span></span><span></span><span></span></div>
+        <div class="hm-window-title">Find your starting point</div>
+        <div class="hm-window-note">No account needed</div>
       </div>
-
-      <div class="hm-hero-visual">
+      <div class="hm-window-body">
 
 <!-- ===== "Where do you stand?" card — self-contained, paste into a Webflow HTML Embed as one block ===== -->
 <style>
-.qz{background:#fff;border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:28px;color:#0C1417;box-shadow:0 24px 80px rgba(22,196,246,.35);font-family:'Manrope',system-ui,sans-serif}
+.qz{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start;color:#0C1417;font-family:'Manrope',system-ui,sans-serif}
 .qz *{box-sizing:border-box}
-.qz-nt,.qz-np,.qz-lp span,.qz-eb,.qz-t{font-family:'JetBrains Mono',ui-monospace,monospace;font-weight:500}
-.qz-nl,.qz-h,.qz-q{font-family:'Sora',system-ui,sans-serif;font-weight:600;color:#0C1417}
-.qz-map{margin:0 0 22px}
+.qz-nt,.qz-eb,.qz-top{font-family:'Manrope',system-ui,sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.qz-np,.qz-lp span,.qz-t,.qz-lead{font-family:'Manrope',system-ui,sans-serif;font-weight:600;letter-spacing:0}
+.qz-nl,.qz-h,.qz-q,.qz-hd,.qz-done{font-family:'Sora',system-ui,sans-serif;font-weight:600;color:#0C1417}
+/* left column: copy + roadmap sketch + progress line */
+.qz-side{min-width:0}
+.qz-hd{font-size:28px;line-height:1.15;font-weight:700;letter-spacing:-.02em;margin:0}
+.qz-lead{font-size:15px;line-height:1.55;font-weight:500;color:#2C3D45;margin:10px 0 20px}
+.qz-map{margin:0}
 .qz-row{display:flex;align-items:stretch}
 .qz-n{flex:1 1 0;min-width:0;display:flex;flex-direction:column;border:1.5px solid #CDD6DA;border-radius:10px;background:#fff;overflow:hidden;transition:border-color .2s,background-color .2s}
-.qz-nt{padding:5px 10px;font-size:10px;line-height:1.3;letter-spacing:.06em;text-transform:uppercase;color:#5A6E77;background:#E6EBED;transition:color .2s,background-color .2s}
-.qz-nl{padding:8px 10px 9px;font-size:12.5px;line-height:1.25;color:#7C8D95;overflow-wrap:anywhere;transition:color .2s}
+.qz-nt{padding:5px 8px;font-size:10px;line-height:1.3;letter-spacing:.04em;color:#5A6E77;background:#E6EBED;transition:color .2s,background-color .2s}
+.qz-nl{padding:8px 8px 9px;font-size:12.5px;line-height:1.25;color:#7C8D95;overflow-wrap:normal;hyphens:auto;transition:color .2s}
 .qz-w{flex:0 0 14px;align-self:center;border-top:2px solid #CDD6DA;transition:border-color .2s}
 .qz-w.is-on{border-color:#05A9D8}
 .qz-n.is-act,.qz-n.is-done{border-color:#05A9D8}
@@ -213,32 +221,34 @@ svg{display:block}
 .qz-n.is-lock{border-color:#FFC880}.qz-n.is-lock .qz-nt{background:#FFF4E6;color:#C25F08}
 .qz-n.is-lit{border-color:#FC8204;background:#FFF4E6}
 .qz-n.is-lit .qz-nt{color:#fff;background:linear-gradient(120deg,#fc8204 0%,#e6750a 100%)}
-.qz-np{display:none;margin:0 10px 10px;padding:2px 8px;border-radius:999px;background:#FC8204;color:#fff;font-size:10px;line-height:1.5;text-align:center}
+.qz-np{display:none;margin:0 8px 8px;padding:2px 8px;border-radius:999px;background:#FC8204;color:#fff;font-size:10px;line-height:1.5;text-align:center}
 .qz-n.is-lit .qz-np{display:inline-block}
 .qz-ls{display:none}
 .qz-stub{width:0;height:14px;border-left:1.5px dashed #FC8204;margin-right:calc(12.5% - 5.25px)}
 .qz-lp{display:flex;gap:6px}
 .qz-lp span{padding:3px 10px;border:1.5px dashed #CDD6DA;border-radius:999px;font-size:11px;line-height:1.5;color:#7C8D95;white-space:nowrap}
 .qz.is-end .qz-ls{display:flex;flex-direction:column;align-items:flex-end}
-.qz.is-end .qz-nt{padding:6px 12px}.qz.is-end .qz-nl{padding:10px 12px 12px}
-.qz.is-end .qz-nt{font-size:10.5px}
-.qz.is-end .qz-nl{font-size:13.5px}
+.qz.is-end .qz-nt{padding:6px 10px;font-size:10.5px}
+.qz.is-end .qz-nl{padding:10px 10px 12px;font-size:13.5px}
+.qz-top{display:flex;align-items:center;gap:8px;margin:14px 0 0;font-size:12px;line-height:1.5;color:#5A6E77}.qz-top::before{content:'';flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:#FC8204}
+/* right column: the steps panel */
+.qz-main{min-width:0;background:#F3F6F7;border-radius:16px;padding:22px}
 .qz-body{transition:opacity 150ms ease}
 .qz-step{display:none}
 .qz-step.is-on{display:block}
 .qz-h{font-size:22px;line-height:1.2;margin:0 0 6px}
 .qz-p{font-size:14px;line-height:1.5;color:#5A6E77;margin:0 0 16px}
-.qz-eb{font-size:12px;line-height:1.5;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#0688B0;margin:0 0 10px}
+.qz-eb{font-size:12px;line-height:1.5;color:#0688B0;margin:0 0 10px}
 .qz-q{font-size:17px;line-height:1.4;margin:0 0 16px}
-.qz-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.qz-done{font-size:20px;line-height:1.25;font-weight:700;margin:0 0 6px}
+.qz-g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .qz-g1{grid-template-columns:minmax(0,1fr)}
 .qz-c{position:relative;display:block;width:100%;margin:0;background:#fff;border:1.5px solid #CDD6DA;border-radius:12px;padding:12px 30px 12px 38px;font-family:'Manrope',system-ui,sans-serif;font-size:15px;line-height:1.35;font-weight:600;color:#0C1417;text-align:left;cursor:pointer;-webkit-appearance:none;appearance:none;box-shadow:0 1px 2px rgba(16,42,51,.06);transition:border-color .15s,background-color .15s,transform .15s,box-shadow .15s}
 .qz-c::before{content:'';position:absolute;left:14px;top:50%;width:14px;height:14px;margin-top:-7px;border:1.5px solid #CDD6DA;border-radius:50%;background:#fff;transition:border-color .15s,background-color .15s,box-shadow .15s}
-.qz-c::after{content:'→';position:absolute;right:12px;top:50%;margin-top:-.6em;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;line-height:1.2;color:#A6B3B9;transition:color .15s,transform .15s}
+.qz-c::after{content:'→';position:absolute;right:12px;top:50%;margin-top:-.6em;font-family:'Manrope',system-ui,sans-serif;font-weight:600;font-size:13px;line-height:1.2;color:#A6B3B9;transition:color .15s,transform .15s}
 .qz-c:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(16,42,51,.10)}.qz-c:hover::after{color:#05A9D8;transform:translateX(2px)}
 .qz-c.is-sel::before{border-color:#05A9D8;background:#05A9D8;box-shadow:inset 0 0 0 3px #fff}.qz-c.is-bad::before{border-color:#FC8204;background:#FC8204;box-shadow:inset 0 0 0 3px #fff}
 .qz-c:disabled{transform:none;box-shadow:none}.qz-c:disabled::after{content:''}
-.qz-top{display:flex;align-items:center;gap:8px;margin:0 0 14px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#0688B0}.qz-top::before{content:'';width:8px;height:8px;border-radius:50%;background:#FC8204}
 .qz-n.is-act{animation:qz-pulse 1.6s ease-out 2}@keyframes qz-pulse{0%{box-shadow:0 0 0 0 rgba(5,169,216,.45)}100%{box-shadow:0 0 0 12px rgba(5,169,216,0)}}@media (prefers-reduced-motion:reduce){.qz-n.is-act{animation:none}}
 .qz-c:hover{border-color:#05A9D8}
 .qz-c:focus-visible{outline:2px solid #05A9D8;outline-offset:2px}
@@ -250,13 +260,15 @@ svg{display:block}
 .qz-fb.is-on{display:block}
 .qz-t{display:inline-block;margin:14px 0 0;padding:0;border:0;background:none;font-size:12px;color:#7C8D95;cursor:pointer}
 .qz-t:hover{color:#0688B0}
-.qz .qz-go{display:block;width:100%;margin-top:4px}
-@media (max-width:991px){.qz-g{grid-template-columns:repeat(2,minmax(0,1fr))}.qz-g1{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:767px){.qz-nt{padding:5px 8px;letter-spacing:.04em}.qz-nl{padding:8px}}
-@media (max-width:479px){.qz{padding:20px;border-radius:20px}.qz-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.qz-w{display:none}.qz.is-end .qz-ls{align-items:center}.qz-stub{margin-right:0}.qz-lp{flex-wrap:wrap;justify-content:center}}
+.qz .qz-go{display:block;width:100%;margin-top:16px}
+@media (max-width:991px){.qz{grid-template-columns:minmax(0,1fr);gap:24px}}
+@media (max-width:767px){.qz-hd{font-size:24px}}
+@media (max-width:479px){.qz-main{padding:16px}.qz-g{grid-template-columns:minmax(0,1fr)}.qz-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.qz-w{display:none}.qz.is-end .qz-ls{align-items:center}.qz-stub{margin-right:0}.qz-lp{flex-wrap:wrap;justify-content:center}}
 </style>
 <div class="qz" id="qz" data-qz>
-<div class="qz-top" data-qz-top>Step 1 of 3 · tap to start</div>
+<div class="qz-side">
+<h2 class="qz-hd">Where do you stand?</h2>
+<p class="qz-lead">Three taps tell us your discipline, your goal, and how you think. Then a five-minute assessment places you and lines up your first lessons.</p>
 <div class="qz-map">
 <div class="qz-row">
 <div class="qz-n is-act"><div class="qz-nt">01 · You</div><div class="qz-nl">Discipline</div></div>
@@ -269,10 +281,13 @@ svg{display:block}
 </div>
 <div class="qz-ls"><div class="qz-stub"></div><div class="qz-lp"><span>Lesson 1</span><span>Lesson 2</span><span>Lesson 3</span></div></div>
 </div>
+<div class="qz-top" data-qz-top>Step 1 of 3 · tap to start</div>
+</div>
+<div class="qz-main">
 <div class="qz-body">
 <div class="qz-step is-on" data-qz-s="1">
-<h3 class="qz-h">Where do you stand?</h3>
-<p class="qz-p">Tap your discipline to begin.</p>
+<h3 class="qz-h">Pick your discipline</h3>
+<p class="qz-p">Tap the area closest to your work.</p>
 <div class="qz-g">
 <button type="button" class="qz-c" data-qz-d>Architecture</button>
 <button type="button" class="qz-c" data-qz-d>Engineering</button>
@@ -305,8 +320,11 @@ svg{display:block}
 <p class="qz-fb" data-qz-fb></p>
 </div>
 <div class="qz-step" data-qz-s="4">
+<h3 class="qz-done">Your assessment is ready.</h3>
+<p class="qz-p">Six to eight questions, about five minutes. Your first lessons line up from the result.</p>
 <a class="btn is-primary qz-go" data-qz-go href="/get-started">Continue to your assessment →</a>
 <button type="button" class="qz-t" data-qz-reset>Start over</button>
+</div>
 </div>
 </div>
 </div>
@@ -331,7 +349,7 @@ for(var k=0;k<3;k++){nodes[k].className='qz-n'+(k+1<n?' is-done':k+1===n?' is-ac
 nodes[3].className='qz-n'+(n===4?' is-lit':' is-lock');
 labs[0].textContent=disc||'Discipline';labs[1].textContent=goal||'Goal';labs[2].textContent=n>3?'✓ Done':'Warm-up';
 root.className=root.className.replace(/ ?\bis-end\b/,'')+(n===4?' is-end':'');
-top.textContent=['Step 1 of 3 · tap to start','Step 2 of 3 · your goal','Step 3 of 3 · warm-up','Ready · continue below'][n-1];
+top.textContent=['Step 1 of 3 · tap to start','Step 2 of 3 · your goal','Step 3 of 3 · warm-up','Ready · continue on the right'][n-1];
 if(n===4)go_.setAttribute('href','/get-started?discipline='+encodeURIComponent(disc)+'&goal='+encodeURIComponent(goal));
 }
 function go(n){
@@ -374,9 +392,11 @@ if(t.hasAttribute('data-qz-a'))answer(t,Number(t.getAttribute('data-qz-a')));
 </script>
 <!-- ===== /card ===== -->
 
-      </div>
+      </div><!-- /hm-window-body -->
+    </div><!-- /hm-window -->
 
-    </div>
+    <a class="hm-under" href="/catalog">Or browse the course catalog →</a>
+
   </div>
 </section>
 
@@ -418,37 +438,37 @@ if(t.hasAttribute('data-qz-a'))answer(t,Number(t.getAttribute('data-qz-a')));
         <!-- node 1: goals + skills -->
         <rect x="30" y="44" width="270" height="88" rx="12" fill="#FFFFFF" stroke="#05A9D8" stroke-width="1.5"/>
         <path d="M30 56 a12 12 0 0 1 12 -12 h246 a12 12 0 0 1 12 12 v16 h-270 z" fill="url(#hm-cool-d)"/>
-        <text x="46" y="63" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="11" font-weight="500" fill="#FFFFFF" letter-spacing="1.2">01 · INPUT</text>
+        <text x="46" y="63" font-family="'Manrope',system-ui,sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="1.2">01 · INPUT</text>
         <text x="46" y="98" font-family="'Sora',system-ui,sans-serif" font-size="15" font-weight="600" fill="#0C1417">Your goals + skills</text>
-        <text x="46" y="117" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#7C8D95">role · domain · experience</text>
+        <text x="46" y="117" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#7C8D95">role · domain · experience</text>
         <circle cx="300" cy="88" r="6" fill="#FFFFFF" stroke="#05A9D8" stroke-width="2"/>
 
         <!-- node 2: assessment -->
         <rect x="410" y="44" width="270" height="88" rx="12" fill="#FFFFFF" stroke="#05A9D8" stroke-width="1.5"/>
         <path d="M410 56 a12 12 0 0 1 12 -12 h246 a12 12 0 0 1 12 12 v16 h-270 z" fill="url(#hm-cool-d)"/>
-        <text x="426" y="63" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="11" font-weight="500" fill="#FFFFFF" letter-spacing="1.2">02 · PROCESS</text>
+        <text x="426" y="63" font-family="'Manrope',system-ui,sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="1.2">02 · PROCESS</text>
         <text x="426" y="98" font-family="'Sora',system-ui,sans-serif" font-size="15" font-weight="600" fill="#0C1417">5-min assessment</text>
-        <text x="426" y="117" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#7C8D95">finds gaps · orders lessons</text>
+        <text x="426" y="117" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#7C8D95">finds gaps · orders lessons</text>
         <circle cx="410" cy="88" r="6" fill="#FFFFFF" stroke="#FC8204" stroke-width="2"/>
         <circle cx="680" cy="88" r="6" fill="#FFFFFF" stroke="#05A9D8" stroke-width="2"/>
 
         <!-- node 3: roadmap -->
         <rect x="790" y="44" width="280" height="88" rx="12" fill="#FFFFFF" stroke="#FC8204" stroke-width="1.5"/>
         <path d="M790 56 a12 12 0 0 1 12 -12 h256 a12 12 0 0 1 12 12 v16 h-280 z" fill="url(#hm-warm-d)"/>
-        <text x="806" y="63" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="11" font-weight="500" fill="#FFFFFF" letter-spacing="1.2">03 · OUTPUT</text>
+        <text x="806" y="63" font-family="'Manrope',system-ui,sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="1.2">03 · OUTPUT</text>
         <text x="806" y="98" font-family="'Sora',system-ui,sans-serif" font-size="15" font-weight="600" fill="#0C1417">Your roadmap</text>
-        <text x="806" y="117" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#7C8D95">short lessons · verified as you go</text>
+        <text x="806" y="117" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#7C8D95">short lessons · verified as you go</text>
         <circle cx="790" cy="88" r="6" fill="#FFFFFF" stroke="#FC8204" stroke-width="2"/>
         <circle cx="930" cy="132" r="5" fill="#FC8204" stroke="#FFFFFF" stroke-width="2"/>
 
         <!-- lesson pills -->
         <rect x="790" y="168" width="88" height="26" rx="12" fill="#05A9D8" stroke="#05A9D8" stroke-width="1.5"/>
-        <text x="834" y="185" text-anchor="middle" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" font-weight="500" fill="#FFFFFF">Lesson 1 ✓</text>
+        <text x="834" y="185" text-anchor="middle" font-family="'Manrope',system-ui,sans-serif" font-size="12" font-weight="500" fill="#FFFFFF">Lesson 1 ✓</text>
         <rect x="886" y="168" width="88" height="26" rx="12" fill="#FFFFFF" stroke="#CDD6DA" stroke-width="1.5"/>
-        <text x="930" y="185" text-anchor="middle" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" font-weight="500" fill="#2C3D45">Lesson 2</text>
+        <text x="930" y="185" text-anchor="middle" font-family="'Manrope',system-ui,sans-serif" font-size="12" font-weight="500" fill="#2C3D45">Lesson 2</text>
         <rect x="982" y="168" width="88" height="26" rx="12" fill="#FFFFFF" stroke="#CDD6DA" stroke-width="1.5"/>
-        <text x="1026" y="185" text-anchor="middle" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" font-weight="500" fill="#2C3D45">Lesson 3</text>
-        <text x="790" y="212" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#0688B0">✓ verified skill</text>
+        <text x="1026" y="185" text-anchor="middle" font-family="'Manrope',system-ui,sans-serif" font-size="12" font-weight="500" fill="#2C3D45">Lesson 3</text>
+        <text x="790" y="212" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#0688B0">✓ verified skill</text>
       </svg>
 
       <!-- portrait version for phones (shown ≤767px, desktop SVG hidden) -->
@@ -477,37 +497,37 @@ if(t.hasAttribute('data-qz-a'))answer(t,Number(t.getAttribute('data-qz-a')));
         <!-- node 1: goals + skills -->
         <rect x="30" y="24" width="300" height="88" rx="12" fill="#FFFFFF" stroke="#05A9D8" stroke-width="1.5"/>
         <path d="M30 36 a12 12 0 0 1 12 -12 h276 a12 12 0 0 1 12 12 v16 h-300 z" fill="url(#hm-cool-m)"/>
-        <text x="46" y="43" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="11" font-weight="500" fill="#FFFFFF" letter-spacing="1.2">01 · INPUT</text>
+        <text x="46" y="43" font-family="'Manrope',system-ui,sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="1.2">01 · INPUT</text>
         <text x="46" y="78" font-family="'Sora',system-ui,sans-serif" font-size="15" font-weight="600" fill="#0C1417">Your goals + skills</text>
-        <text x="46" y="97" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#7C8D95">role · domain · experience</text>
+        <text x="46" y="97" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#7C8D95">role · domain · experience</text>
         <circle cx="180" cy="112" r="6" fill="#FFFFFF" stroke="#05A9D8" stroke-width="2"/>
 
         <!-- node 2: assessment -->
         <rect x="30" y="168" width="300" height="88" rx="12" fill="#FFFFFF" stroke="#05A9D8" stroke-width="1.5"/>
         <path d="M30 180 a12 12 0 0 1 12 -12 h276 a12 12 0 0 1 12 12 v16 h-300 z" fill="url(#hm-cool-m)"/>
-        <text x="46" y="187" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="11" font-weight="500" fill="#FFFFFF" letter-spacing="1.2">02 · PROCESS</text>
+        <text x="46" y="187" font-family="'Manrope',system-ui,sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="1.2">02 · PROCESS</text>
         <text x="46" y="222" font-family="'Sora',system-ui,sans-serif" font-size="15" font-weight="600" fill="#0C1417">5-min assessment</text>
-        <text x="46" y="241" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#7C8D95">finds gaps · orders lessons</text>
+        <text x="46" y="241" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#7C8D95">finds gaps · orders lessons</text>
         <circle cx="180" cy="168" r="6" fill="#FFFFFF" stroke="#FC8204" stroke-width="2"/>
         <circle cx="180" cy="256" r="6" fill="#FFFFFF" stroke="#05A9D8" stroke-width="2"/>
 
         <!-- node 3: roadmap -->
         <rect x="30" y="312" width="300" height="88" rx="12" fill="#FFFFFF" stroke="#FC8204" stroke-width="1.5"/>
         <path d="M30 324 a12 12 0 0 1 12 -12 h276 a12 12 0 0 1 12 12 v16 h-300 z" fill="url(#hm-warm-m)"/>
-        <text x="46" y="331" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="11" font-weight="500" fill="#FFFFFF" letter-spacing="1.2">03 · OUTPUT</text>
+        <text x="46" y="331" font-family="'Manrope',system-ui,sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="1.2">03 · OUTPUT</text>
         <text x="46" y="366" font-family="'Sora',system-ui,sans-serif" font-size="15" font-weight="600" fill="#0C1417">Your roadmap</text>
-        <text x="46" y="385" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#7C8D95">short lessons · verified as you go</text>
+        <text x="46" y="385" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#7C8D95">short lessons · verified as you go</text>
         <circle cx="180" cy="312" r="6" fill="#FFFFFF" stroke="#FC8204" stroke-width="2"/>
         <circle cx="180" cy="400" r="5" fill="#FC8204" stroke="#FFFFFF" stroke-width="2"/>
 
         <!-- lesson pills -->
         <rect x="34" y="448" width="92" height="28" rx="14" fill="#05A9D8" stroke="#05A9D8" stroke-width="1.5"/>
-        <text x="80" y="466" text-anchor="middle" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" font-weight="500" fill="#FFFFFF">Lesson 1 ✓</text>
+        <text x="80" y="466" text-anchor="middle" font-family="'Manrope',system-ui,sans-serif" font-size="12" font-weight="500" fill="#FFFFFF">Lesson 1 ✓</text>
         <rect x="134" y="448" width="92" height="28" rx="14" fill="#FFFFFF" stroke="#CDD6DA" stroke-width="1.5"/>
-        <text x="180" y="466" text-anchor="middle" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" font-weight="500" fill="#2C3D45">Lesson 2</text>
+        <text x="180" y="466" text-anchor="middle" font-family="'Manrope',system-ui,sans-serif" font-size="12" font-weight="500" fill="#2C3D45">Lesson 2</text>
         <rect x="234" y="448" width="92" height="28" rx="14" fill="#FFFFFF" stroke="#CDD6DA" stroke-width="1.5"/>
-        <text x="280" y="466" text-anchor="middle" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" font-weight="500" fill="#2C3D45">Lesson 3</text>
-        <text x="34" y="504" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="12" fill="#0688B0">✓ verified skill</text>
+        <text x="280" y="466" text-anchor="middle" font-family="'Manrope',system-ui,sans-serif" font-size="12" font-weight="500" fill="#2C3D45">Lesson 3</text>
+        <text x="34" y="504" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#0688B0">✓ verified skill</text>
       </svg>
     </div>
 
