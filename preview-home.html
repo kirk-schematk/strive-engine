@@ -192,11 +192,13 @@ svg{display:block}
 .qz-nt{font-family:'Manrope',system-ui,sans-serif;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .qz-t{font-family:'Manrope',system-ui,sans-serif;font-weight:600;letter-spacing:0}
 .qz-nl,.qz-h,.qz-q,.qz-done{font-family:'Sora',system-ui,sans-serif;font-weight:600;color:#0C1417}
-.qz-body{min-height:236px;transition:opacity 150ms ease}
+.qz-body{min-height:240px;transition:opacity 150ms ease}
 .qz-step{display:none}
 .qz-step.is-on{display:block}
 .qz-h{font-size:24px;line-height:1.2;margin:0 0 18px;text-align:left}
-.qz-q{font-size:19px;line-height:1.4;margin:0 0 18px;max-width:720px;text-align:left}
+.qz-q{font-size:19px;line-height:1.4;margin:0 0 18px;max-width:720px;min-height:53px;text-align:left;transition:color .2s}
+.qz-q.is-ok{color:#0688B0}
+.qz-q.is-no{color:#C25F08}
 .qz-done{font-size:26px;line-height:1.2;font-weight:700;margin:0 0 18px;text-align:left}
 .qz-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .qz-g2{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -213,18 +215,18 @@ svg{display:block}
 .qz-c:disabled{cursor:default;transform:none;box-shadow:none}
 .qz-c:disabled::after{content:''}
 .qz-c:disabled:not(.is-sel):not(.is-bad){color:#7C8D95}
-.qz-fb{display:none;margin:16px 0 0;max-width:720px;font-size:15px;line-height:1.5;color:#2C3D45;text-align:left}
-.qz-fb.is-on{display:block}
 .qz-t{display:inline-block;margin:14px 0 0;padding:0;border:0;background:none;font-size:13px;color:#7C8D95;cursor:pointer}
 .qz-t:hover{color:#0688B0}
 .qz .qz-go{display:inline-block;min-width:300px;margin:0}
 .qz-map{margin:24px 0 0;padding-top:20px;border-top:1px solid #E6EBED}
 .qz-row{display:flex;align-items:stretch}
-.qz-n{flex:1 1 0;min-width:0;display:flex;flex-direction:column;border:1.5px solid #E6EBED;border-radius:9px;background:#fff;overflow:hidden;opacity:.7;transition:border-color .25s,background-color .25s,opacity .25s}
-.qz-nt{padding:5px 10px;font-size:10px;line-height:1.3;color:#7C8D95;background:#F3F6F7;transition:color .25s,background-color .25s}
-.qz-nl{display:block;min-height:36px;padding:8px 10px 9px;font-size:12.5px;line-height:1.25;color:#0C1417;overflow-wrap:normal;hyphens:auto;opacity:0;transform:translateY(5px);transition:opacity .35s ease,transform .35s ease}
+.qz-n{flex:1 1 0;min-width:0;position:relative;height:60px;border:1.5px solid #E6EBED;border-radius:10px;background:#fff;overflow:hidden;opacity:.7;transition:border-color .3s,background-color .3s,opacity .3s}
+.qz-nt{position:absolute;left:0;right:0;top:0;height:100%;display:flex;align-items:center;justify-content:center;padding:0 10px;font-size:11px;line-height:1.2;color:#7C8D95;background:#F3F6F7;transition:height .35s cubic-bezier(.22,1,.36,1),font-size .35s,justify-content 0s,color .3s,background-color .3s}
+.qz-nl{position:absolute;left:0;right:0;bottom:0;height:36px;display:flex;align-items:center;padding:0 10px;font-size:12.5px;line-height:1.2;color:#0C1417;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(6px);transition:opacity .3s ease .2s,transform .3s ease .2s}
+.qz-n.is-done .qz-nt,.qz-n.is-lit .qz-nt{height:24px;font-size:10px;justify-content:flex-start}
 .qz-n.is-done .qz-nl,.qz-n.is-lit .qz-nl{opacity:1;transform:none}
-.qz-w{flex:0 0 14px;align-self:center;border-top:1.5px solid #E6EBED;transition:border-color .25s}
+.qz-n.is-done .qz-nl,.qz-n.is-lit .qz-nl{display:block;line-height:36px}
+.qz-w{flex:0 0 16px;align-self:center;border-top:1.5px solid #E6EBED;transition:border-color .3s}
 .qz-w.is-on{border-color:#05A9D8}
 .qz-n.is-act,.qz-n.is-done,.qz-n.is-lit{opacity:1}
 .qz-n.is-act,.qz-n.is-done{border-color:#05A9D8}
@@ -270,7 +272,6 @@ svg{display:block}
 <button type="button" class="qz-c" data-qz-a="2">No geometry, a placeholder note is fine</button>
 <button type="button" class="qz-c" data-qz-a="3">Whatever the template defaults to</button>
 </div>
-<p class="qz-fb" data-qz-fb></p>
 </div>
 <div class="qz-step" data-qz-s="4">
 <h3 class="qz-done">Your assessment is ready.</h3>
@@ -304,7 +305,7 @@ var steps=root.querySelectorAll('[data-qz-s]');
 var nodes=root.querySelectorAll('.qz-n');
 var wires=root.querySelectorAll('.qz-w');
 var labs=root.querySelectorAll('.qz-nl');
-var fb=root.querySelector('[data-qz-fb]');
+var qEl=root.querySelector('.qz-q'),qText=qEl.textContent;
 var go_=root.querySelector('[data-qz-go]');
 function show(n){
 for(var j=0;j<steps.length;j++)steps[j].className='qz-step'+(Number(steps[j].getAttribute('data-qz-s'))===n?' is-on':'');
@@ -328,15 +329,15 @@ function answer(t,i){
 var bs=t.parentNode.querySelectorAll('.qz-c'),ok=i===CORRECT;
 for(var j=0;j<bs.length;j++){bs[j].disabled=true;if(j===CORRECT)bs[j].className='qz-c is-sel'}
 if(!ok)t.className='qz-c is-bad';
-fb.textContent=ok?'Right. Level of Information Need means modelling to what the milestone needs, no more.':'Not quite. At concept stage the milestone only needs intent and arrangement; anything more is over-modelling.';
-fb.className='qz-fb is-on';
+qEl.textContent=ok?'Right. Level of Information Need means modelling to what the milestone needs, no more.':'Not quite. At concept stage the milestone only needs intent and arrangement; anything more is over-modelling.';
+qEl.className='qz-q '+(ok?'is-ok':'is-no');
 setTimeout(function(){go(4)},900);
 }
 function reset(){
 disc='';goal='';
 var bs=root.querySelectorAll('.qz-c');
 for(var j=0;j<bs.length;j++){bs[j].className='qz-c';bs[j].disabled=false}
-fb.className='qz-fb';fb.textContent='';
+qEl.className='qz-q';qEl.textContent=qText;
 go(1);
 }
 root.addEventListener('click',function(e){
