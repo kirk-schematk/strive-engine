@@ -166,8 +166,15 @@ svg{display:block}
 .qz-bg1{top:-260px;left:-180px;width:820px;height:720px;background:linear-gradient(120deg,#16c4f6 0%,#389696 100%);opacity:.28;filter:blur(120px)}
 .qz-bg2{bottom:-320px;right:-200px;width:760px;height:680px;background:linear-gradient(120deg,#fc8204 0%,#e6750a 100%);opacity:.22;filter:blur(130px)}
 .qz-dots{position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:28px 28px;-webkit-mask-image:radial-gradient(ellipse at 50% 40%,#000 30%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 40%,#000 30%,transparent 75%)}
-.qz-in{position:relative;width:100%;max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:52px}
-.qz-h1{margin:0;font-family:'Sora',system-ui,sans-serif;font-size:clamp(34px,5.2vw,66px);line-height:1.22;font-weight:800;letter-spacing:-.03em;color:#fff;text-wrap:pretty}
+.qz-in{position:relative;width:100%;max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+.qz-tag{margin:0;font-family:'Sora',system-ui,sans-serif;font-size:clamp(30px,4.2vw,54px);line-height:1.12;font-weight:800;letter-spacing:-.03em;color:#fff}
+.qz-tag em{font-style:normal;display:block;width:max-content;max-width:100%;background:linear-gradient(120deg,#16c4f6 0%,#389696 45%,#80a37f 70%,#fc8204 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.qz-stage{min-height:272px}
+.qz-q{margin:0 0 18px;font-family:'Sora',system-ui,sans-serif;font-size:clamp(20px,2vw,26px);line-height:1.3;font-weight:700;color:#fff;min-height:2.6em;transition:color .2s}
+.qz-q.is-ok{color:#4fd4f9}.qz-q.is-no{color:#ffa840}
+.qz-h1{margin:0;font-family:'Sora',system-ui,sans-serif;font-size:clamp(26px,3.4vw,44px);line-height:1.3;font-weight:800;letter-spacing:-.03em;color:#fff;text-wrap:pretty}
+.qz-h1{min-height:3.9em}
+.qz-slot:not(.is-full)[data-qz-slot="0"]{min-width:15ch}.qz-slot:not(.is-full)[data-qz-slot="1"]{min-width:19ch}.qz-slot:not(.is-full)[data-qz-slot="2"]{min-width:24ch}
 .qz-nw{white-space:nowrap}
 .qz-slot{display:inline-block;min-width:5ch;padding:0 .08em;line-height:1.1;border-bottom:5px dashed rgba(255,255,255,.22);color:transparent;transition:border-color .3s}
 .qz-slot.is-cur{border-bottom:5px solid #16c4f6;color:rgba(255,255,255,.55);animation:qz-under 1.6s ease-in-out infinite}
@@ -188,6 +195,11 @@ svg{display:block}
 .qz-opt:hover .qz-ico{background:linear-gradient(120deg,#16c4f6 0%,#389696 100%);color:#fff;transform:scale(1.08)}
 .qz-opt.is-sel{background:linear-gradient(120deg,#16c4f6 0%,#389696 100%);border-color:transparent;box-shadow:0 10px 30px rgba(22,196,246,.35)}
 .qz-opt.is-sel .qz-ico{background:rgba(255,255,255,.22);color:#fff}
+.qz-opt.is-bad{border-color:#fc8204;background:rgba(252,130,4,.18)}
+.qz-opt:disabled{cursor:default;transform:none}
+.qz-opt:disabled:hover{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14);box-shadow:none}
+.qz-opt.is-sel:disabled:hover{background:linear-gradient(120deg,#16c4f6 0%,#389696 100%);border-color:transparent}
+.qz-opt.is-bad:disabled:hover{border-color:#fc8204;background:rgba(252,130,4,.18)}
 .qz-res{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:32px 48px;padding-top:8px;animation:qz-rise .48s .2s cubic-bezier(.22,1,.36,1) both}
 .qz-lv{display:flex;flex-direction:column;gap:14px;flex:1 1 320px;min-width:0}
 .qz-lvt{font-family:'Sora',system-ui,sans-serif;font-size:clamp(28px,3.4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.1}
@@ -209,15 +221,17 @@ svg{display:block}
 @keyframes qz-glow{0%,100%{box-shadow:0 0 0 0 rgba(22,196,246,0)}50%{box-shadow:0 0 0 5px rgba(22,196,246,.35)}}
 @keyframes qz-under{0%,100%{border-bottom-color:#16c4f6}50%{border-bottom-color:#fc8204}}
 @media (max-width:991px){.qz-grid.is-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:767px){.qz{padding:56px 20px 64px;min-height:0}.qz-in{gap:36px}.qz-grid,.qz-grid.is-3{grid-template-columns:minmax(0,1fr)}.qz-opt,.is-3 .qz-opt{min-height:72px;padding:16px 18px}.qz-res{flex-direction:column;align-items:stretch}.qz-act{flex-direction:column;align-items:stretch}.qz-cta{justify-content:center}.qz-link{align-self:flex-start}}
-@media (max-width:479px){.qz-h1{font-size:32px}.qz-nw{white-space:normal}.qz-slot{min-width:4ch}.qz-cta{height:56px;padding:0 24px;font-size:17px}.qz-lvt{font-size:26px}}
+@media (max-width:991px){.qz-stage{min-height:352px}}
+@media (max-width:767px){.qz{padding:56px 20px 64px;min-height:0}.qz-in{gap:32px}.qz-stage{min-height:0}.qz-h1{min-height:5.2em}.qz-slot:not(.is-full)[data-qz-slot="0"],.qz-slot:not(.is-full)[data-qz-slot="1"],.qz-slot:not(.is-full)[data-qz-slot="2"]{min-width:6ch}.qz-grid,.qz-grid.is-3{grid-template-columns:minmax(0,1fr)}.qz-opt,.is-3 .qz-opt{min-height:72px;padding:16px 18px}.qz-res{flex-direction:column;align-items:stretch}.qz-act{flex-direction:column;align-items:stretch}.qz-cta{justify-content:center}.qz-link{align-self:flex-start}}
+@media (max-width:479px){.qz-tag{font-size:30px}.qz-h1{font-size:24px}.qz-nw{white-space:normal}.qz-cta{height:56px;padding:0 24px;font-size:17px}.qz-lvt{font-size:26px}}
 @media (prefers-reduced-motion:reduce){.qz-slot,.qz-opt,.qz-seg,.qz-res,.qz-slot.is-cur:empty::after{animation:none!important}.qz-opt,.qz-cta,.qz-ico{transition:none}}
 </style>
 <div class="qz" id="qz" data-qz>
 <div class="qz-bg qz-bg1"></div><div class="qz-bg qz-bg2"></div><div class="qz-dots"></div>
 <div class="qz-in">
-<h1 class="qz-h1">I work in <span class="qz-nw"><span class="qz-slot" data-qz-slot></span>,</span> I want to <span class="qz-nw"><span class="qz-slot" data-qz-slot></span>,</span> and today I <span class="qz-nw"><span class="qz-slot" data-qz-slot></span>.</span></h1>
-<div data-qz-body></div>
+<h1 class="qz-tag">The built world is going digital. <em>You can lead it.</em></h1>
+<p class="qz-h1">I work in <span class="qz-nw"><span class="qz-slot" data-qz-slot="0"></span>,</span> I want to <span class="qz-nw"><span class="qz-slot" data-qz-slot="1"></span>,</span> and today I <span class="qz-nw"><span class="qz-slot" data-qz-slot="2"></span>.</span></p>
+<div class="qz-stage" data-qz-body></div>
 </div>
 </div>
 <script>
@@ -245,11 +259,12 @@ var DISC=[['Architecture','architecture','compass','Architecture'],['Structural'
 var GOALS=[['Land a digital role','land a digital role','rocket','Move into BIM/digital'],['Get promoted','get promoted','trend','Step up to the next role'],['Move into BIM','move into BIM','swap','Move into BIM/digital'],['Stay current','stay current','refresh','Level up in my current role']];
 var BASE=[['Draw in 2D','draw in 2D'],['Model for visuals','model for visuals'],['Work model-first','work model-first'],['Deliver federated models','deliver federated models']];
 var LV=['','Aware','Emerging','Capable','Advanced'],STEPS=[DISC,GOALS,BASE];
+var QZ={q:'One more. A concept-stage design review needs a wall element. Which level of geometric detail is appropriate?',a:['Fabrication-level detail so nothing is missed later','Enough to show intent and arrangement for the decision at hand','No geometry, a placeholder note is fine','Whatever the template defaults to'],ok:1,yes:'Right. Level of Information Need means modelling to what the milestone needs, no more.',no:'Not quite. At concept stage the milestone only needs intent and arrangement; anything more is over-modelling.'};
 var step=0,sel=[-1,-1,-1],picked=-1,hover=null,timer=null;
 var slots=root.querySelectorAll('[data-qz-slot]'),body=root.querySelector('[data-qz-body]');
 function slotsRender(){
 for(var i=0;i<3;i++){
-var v=sel[i]>-1?STEPS[i][sel[i]][1]:'',cur=i===step;
+var v=sel[i]>-1?STEPS[i][sel[i]][1]:'',cur=i===step&&step<3;
 var cls='qz-slot'+(cur?' is-cur':v?' is-full':''),txt=cur?(hover||v):v;
 if(slots[i].className!==cls)slots[i].className=cls;
 if(slots[i].textContent!==txt)slots[i].textContent=txt;
@@ -263,6 +278,10 @@ var L=STEPS[step];
 h='<div class="qz-grid'+(step===0?' is-3':'')+'">';
 for(i=0;i<L.length;i++)h+='<button type="button" class="qz-opt'+(picked===i?' is-sel':'')+'" data-i="'+i+'"><span class="qz-ico">'+(step===2?'ABCD'.charAt(i):ic(L[i][2]))+'</span><span>'+L[i][0]+'</span></button>';
 h+='</div>';
+}else if(step===3){
+h='<p class="qz-q" data-qz-q>'+QZ.q+'</p><div class="qz-grid">';
+for(i=0;i<QZ.a.length;i++)h+='<button type="button" class="qz-opt" data-i="'+i+'"><span class="qz-ico">'+'ABCD'.charAt(i)+'</span><span>'+QZ.a[i]+'</span></button>';
+h+='</div>';
 }else{
 var lvl=sel[2]+1,segs='';
 for(i=1;i<=5;i++)segs+='<div class="qz-seg'+(i<=lvl?' is-on':'')+'"></div>';
@@ -274,12 +293,14 @@ body.innerHTML=h;
 function opt(e){var t=e.target;while(t&&t!==body&&!(t.getAttribute&&t.hasAttribute('data-i')))t=t.parentNode;return t&&t!==body?t:null}
 function go(n){clearTimeout(timer);step=n;picked=-1;hover=null;render()}
 body.addEventListener('click',function(e){
-var t=opt(e);if(!t||step>2)return;
-var i=+t.getAttribute('data-i');sel[step]=i;picked=i;hover=null;
+var t=opt(e);if(!t||step>3)return;
+var i=+t.getAttribute('data-i');
+if(step===3){if(t.disabled)return;var ok=i===QZ.ok,qe=body.querySelector('[data-qz-q]'),all=body.querySelectorAll('.qz-opt');for(var k=0;k<all.length;k++){all[k].disabled=true;if(k===QZ.ok)all[k].className='qz-opt is-sel'}if(!ok)t.className='qz-opt is-bad';qe.textContent=ok?QZ.yes:QZ.no;qe.className='qz-q '+(ok?'is-ok':'is-no');clearTimeout(timer);timer=setTimeout(function(){go(4)},1100);return}
+sel[step]=i;picked=i;hover=null;
 var bs=body.querySelectorAll('.qz-opt');
 for(var j=0;j<bs.length;j++)bs[j].className='qz-opt'+(j===i?' is-sel':'');
 slotsRender();
-clearTimeout(timer);timer=setTimeout(function(){if(step<3)go(step+1)},460);
+clearTimeout(timer);timer=setTimeout(function(){if(step<4)go(step+1)},460);
 });
 body.addEventListener('mouseover',function(e){var t=opt(e);if(t&&step<3){hover=STEPS[step][+t.getAttribute('data-i')][1];slotsRender()}});
 body.addEventListener('mouseout',function(e){var t=opt(e);if(!t)return;var to=e.relatedTarget;while(to&&to!==t)to=to.parentNode;if(to!==t){hover=null;slotsRender()}});
