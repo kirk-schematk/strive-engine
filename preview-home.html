@@ -415,25 +415,20 @@ render();
 @media (max-width:479px){.sh-lab #strive-lesson .sl-gnode{width:128px!important;left:12px!important}.sh-lab #strive-lesson .sl-gnode[data-node="build"]{left:auto!important;right:14px!important;width:132px!important}}
 @media (prefers-reduced-motion:reduce){.sh-row{transition:none;opacity:1;transform:none}}
 /* Problem first, then how we answer it: eyebrow, quote (the problem), title (our answer), caption */
-.sh-head{display:block;max-width:820px;margin-bottom:44px}
-.sh-title{margin:0 0 18px}
+.sh-head{display:block;max-width:820px;margin-bottom:36px}
+.sh-title{margin:0 0 14px}
 .sh-cap{max-width:680px}
-.sh-stat{margin:0 0 20px;padding:0;border:0;border-radius:0;background:none;max-width:680px}
-.sh-stat blockquote{margin:0;font-family:'Manrope',system-ui,sans-serif;font-size:17px;line-height:1.55;font-weight:500;color:#5A6E77}
-.sh-stat figcaption{margin-top:8px;font-family:'Manrope',system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#7C8D95}
-.sh-stat a{color:#0688B0;text-decoration:none;border-bottom:1.5px solid rgba(6,136,176,.35);transition:border-color .2s}
-.sh-stat a:hover{border-bottom-color:#0688B0}
-.sh-ink .sh-stat blockquote{color:rgba(255,255,255,.72)}
-.sh-ink .sh-stat figcaption{color:rgba(255,255,255,.55)}
-.sh-ink .sh-stat a{color:#4FD4F9;border-bottom-color:rgba(79,212,249,.4)}
-.sh-ink .sh-stat a:hover{border-bottom-color:#4FD4F9}
-.hp-cta .sh-stat,.hm-cta .sh-stat{margin:0 0 22px;max-width:600px}
-.hp-cta .sh-stat blockquote,.hm-cta .sh-stat blockquote{color:rgba(255,255,255,.9)}
-.hp-cta .sh-stat figcaption,.hm-cta .sh-stat figcaption{color:rgba(255,255,255,.8)}
-.hp-cta .sh-stat a,.hm-cta .sh-stat a{color:#fff;border-bottom-color:rgba(255,255,255,.5)}
+/* Evidence line: quote and source in one compact paragraph under the tagline */
+.sh-stat{margin:0 0 14px;max-width:680px;font-family:'Manrope',system-ui,sans-serif;font-size:15px;line-height:1.55;font-weight:500;color:#5A6E77}
+.sh-src{display:inline-block;margin-left:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#0688B0;text-decoration:none;border-bottom:1.5px solid rgba(6,136,176,.35);transition:border-color .2s;white-space:nowrap}
+.sh-src:hover{border-bottom-color:#0688B0}
+.sh-ink .sh-stat{color:rgba(255,255,255,.66)}
+.sh-ink .sh-src{color:#4FD4F9;border-bottom-color:rgba(79,212,249,.4)}
+.sh-ink .sh-src:hover{border-bottom-color:#4FD4F9}
+.hp-cta .sh-stat,.hm-cta .sh-stat{margin:0 0 22px;max-width:600px;color:rgba(255,255,255,.88)}
+.hp-cta .sh-src,.hm-cta .sh-src{color:#fff;border-bottom-color:rgba(255,255,255,.5)}
 .sh-cap a{color:#0688B0;font-weight:700;text-decoration:none;border-bottom:1.5px solid rgba(6,136,176,.35)}
 .sh-ink .sh-cap a{color:#4FD4F9;border-bottom-color:rgba(79,212,249,.4)}
-.sh-lead-copy .sh-stat{margin-top:0}
 .sh-map-arrow{color:#FC8204;margin:0 8px;font-weight:600}
 .sh-map-prog{margin:18px 0 4px}
 .sh-map-prog-bar{height:12px;border-radius:999px;background:#E6EBED;overflow:hidden}
@@ -445,7 +440,7 @@ render();
 .sh-lab #strive-lesson .sl-graph{align-self:center;min-height:360px}
 .sh-lab #strive-lesson .sl-stage{min-height:320px}
 @media (max-width:991px){.sh-lab #strive-lesson .sl-lab__body{grid-template-columns:minmax(0,1fr) minmax(0,.9fr)}}
-@media (max-width:767px){.sh-head{margin-bottom:32px}.sh-stat{margin-bottom:18px}.sh-lab #strive-lesson .sl-lab__body{grid-template-columns:minmax(0,1fr)}.sh-lab #strive-lesson .sl-graph{min-height:340px}.sh-lab #strive-lesson .sl-stage{min-height:240px}}
+@media (max-width:767px){.sh-head{margin-bottom:28px}.sh-lab #strive-lesson .sl-lab__body{grid-template-columns:minmax(0,1fr)}.sh-lab #strive-lesson .sl-graph{min-height:340px}.sh-lab #strive-lesson .sl-stage{min-height:240px}}
 </style>
 <!-- ===== /card ===== -->
 
@@ -461,7 +456,7 @@ render();
     <div class="sh-head">
       <div class="sh-eyebrow"><b>1</b> Learn</div>
       <h2 class="sh-title">Learn the skills employers <em>cannot find.</em></h2>
-      <figure class="sh-stat"><blockquote>“57 percent of firms report that available candidates are not qualified … because they lack essential skills.”</blockquote><figcaption><a href="https://www.agc.org/news/2025/08/28/construction-workforce-shortages-are-leading-cause-project-delays-immigration-enforcement-affects" target="_blank" rel="noopener">AGC 2025 Workforce Survey</a></figcaption></figure>
+      <p class="sh-stat">“57 percent of firms report that available candidates are not qualified … because they lack essential skills.” <a class="sh-src" href="https://www.agc.org/news/2025/08/28/construction-workforce-shortages-are-leading-cause-project-delays-immigration-enforcement-affects" target="_blank" rel="noopener">AGC 2025 Workforce Survey</a></p>
       <p class="sh-cap">Every lesson is the actual work, so the skill is yours. This one is live: <b>drag a slider</b> and the tower rebuilds as the data flows.</p>
     </div>
     <div class="sh-lab" data-sh-lab>
@@ -490,7 +485,7 @@ render();
     <div class="sh-head">
       <div class="sh-eyebrow"><b>2</b> Verify</div>
       <h2 class="sh-title">Verified skills, <em>not just a certificate.</em></h2>
-      <figure class="sh-stat"><blockquote>“The increasing use of CAD and BIM technologies is expected to lead to a decline in employment for many types of drafters.”</blockquote><figcaption><a href="https://www.bls.gov/ooh/architecture-and-engineering/drafters.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics, Occupational Outlook</a></figcaption></figure>
+      <p class="sh-stat">“The increasing use of CAD and BIM technologies is expected to lead to a decline in employment for many types of drafters.” <a class="sh-src" href="https://www.bls.gov/ooh/architecture-and-engineering/drafters.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics, Occupational Outlook</a></p>
       <p class="sh-cap">Every lesson ends with a check that levels the skill on your profile. <b>Answer the question</b> and watch it move.</p>
     </div>
     <div class="sh-verify" data-sh-verify>
@@ -536,8 +531,8 @@ render();
       <div class="sh-lead-copy">
         <div class="sh-eyebrow"><b>3</b> Lead</div>
         <h2 class="sh-title">A roadmap to the next role, <em>and the raise that comes with it.</em></h2>
-        <figure class="sh-stat"><blockquote>“The bigger career jump often comes when a professional moves from model production to coordination to information management to project leadership.”</blockquote><figcaption><a href="https://dmc-education.com/2026/09/13/bim-salary-guide-around-the-world-2026-bim-coordinator-modeler-manager-salaries/" target="_blank" rel="noopener">BIM Salary Guide 2026, DMC Education</a></figcaption></figure>
-        <p class="sh-cap">Each tier pays more than the last. BIM managers average about <a href="https://www.erieri.com/salary/job/bim-manager/canada" target="_blank" rel="noopener">20% more</a> than modellers. Your roadmap tracks your progress to the role, milestone by milestone.</p>
+        <p class="sh-stat">“The bigger career jump often comes when a professional moves from model production to coordination to information management to project leadership.” <a class="sh-src" href="https://dmc-education.com/2026/09/13/bim-salary-guide-around-the-world-2026-bim-coordinator-modeler-manager-salaries/" target="_blank" rel="noopener">BIM Salary Guide 2026, DMC Education</a></p>
+        <p class="sh-cap">BIM managers average about <a href="https://www.erieri.com/salary/job/bim-manager/canada" target="_blank" rel="noopener">20% more</a> than modellers. Your roadmap tracks your progress to the role, milestone by milestone.</p>
       </div>
       <div class="sh-map">
         <div class="sh-map-top">
@@ -571,7 +566,7 @@ render();
       <div class="hm-cta-copy">
         <div class="text-eyebrow hm-cta-eyebrow">Demand is growing</div>
         <h2 class="text-h2 hm-cta-title">See where you stand.</h2>
-        <figure class="sh-stat"><blockquote>“Almost three in five professionals now express anxiety about their organisation falling behind without digital adoption.”</blockquote><figcaption><a href="https://www.thenbs.com/about-nbs/press-releases/ai-adoption-surges-as-digital-anxiety-grips-the-construction-sector" target="_blank" rel="noopener">NBS Digital Construction Report 2025</a></figcaption></figure>
+        <p class="sh-stat">“Almost three in five professionals now express anxiety about their organisation falling behind without digital adoption.” <a class="sh-src" href="https://www.thenbs.com/about-nbs/press-releases/ai-adoption-surges-as-digital-anxiety-grips-the-construction-sector" target="_blank" rel="noopener">NBS Digital Construction Report 2025</a></p>
         <p class="text-body-lg hm-cta-text">Five minutes. Your level, your next tier, and the first lesson to get there.</p>
         <div class="hm-cta-actions">
           <a class="btn is-white" href="/get-started">Take the lead</a>
