@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="strive-lesson.css">
+<script src="strive-lesson.js"></script>
 <style>
 /* ============================================================
    STRIVE Home mockup
@@ -326,31 +328,91 @@ render();
 <!-- Page theme below the hero (Webflow: its own HTML Embed after the hero styles embed). -->
 <style>
 /* ---- Page theme below the hero: cards, pills and an ink closing band so the rest of the page speaks the hero's language ---- */
-.hp-how-title,.hm-how-title,.hp-cta-title,.hm-cta-title{font-weight:800;letter-spacing:-.03em}
-.hp-steps,.hm-steps{gap:20px}
-.hp-step,.hm-step{background:#FFFFFF;border:1px solid #E6EBED;border-radius:18px;padding:26px 26px 28px;box-shadow:0 1px 2px rgba(16,42,51,.06),0 2px 6px rgba(16,42,51,.05);transition:transform .2s cubic-bezier(.22,1,.36,1),border-color .2s,box-shadow .2s}
-.hp-step:hover,.hm-step:hover{transform:translateY(-4px);border-color:#16C4F6;box-shadow:0 10px 30px rgba(22,196,246,.18)}
-.hp-step-bar,.hm-step-bar{display:none}
-.hp-step-num,.hm-step-num{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin:0 0 18px;border-radius:50%;background:linear-gradient(120deg,#16C4F6 0%,#389696 100%);-webkit-background-clip:padding-box;background-clip:padding-box;color:#FFFFFF;-webkit-text-fill-color:#FFFFFF;font-family:'Sora',system-ui,sans-serif;font-size:15px;font-weight:800;letter-spacing:0}
-.hp-proof,.hm-proof{padding:0 0 96px;background:#F3F6F7}
-.hp-proof-grid,.hm-proof-grid{gap:20px}
-.hp-proof-item,.hm-proof-item,.hp-proof-item+.hp-proof-item,.hm-proof-item+.hm-proof-item,.hp-proof-item.hp-proof-item-r,.hm-proof-item.hm-proof-item-r{background:#FFFFFF;border:1px solid #E6EBED;border-radius:18px;padding:22px 24px}
-.hp-cta,.hm-cta{position:relative;overflow:hidden;background-color:#0C1417;background-image:radial-gradient(ellipse at 10% 0%,rgba(22,196,246,.26),rgba(22,196,246,0) 55%),radial-gradient(ellipse at 92% 110%,rgba(252,130,4,.30),rgba(252,130,4,0) 50%),radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:100% 100%,100% 100%,28px 28px;background-position:0 0,0 0,0 0}
-.hp-cta .hp-eyebrow,.hm-cta-eyebrow{color:#4FD4F9}
+.hp-cta-title,.hm-cta-title{font-weight:800;letter-spacing:-.03em}
+.hp-cta .hp-eyebrow,.hm-cta-eyebrow{color:rgba(255,255,255,.85)}
 .hp-cta-title,.hm-cta-title{color:#FFFFFF}
-.hp-cta-text,.hm-cta-text{color:rgba(255,255,255,.75)}
+.hp-cta-text,.hm-cta-text{color:rgba(255,255,255,.88)}
 .hp-cta-actions,.hm-cta-actions{gap:14px 20px;align-items:center}
-.hp-cta .btn.is-white,.hm-cta .btn.is-white{display:inline-flex;align-items:center;height:64px;padding:0 34px;border:0;border-radius:999px;background:linear-gradient(120deg,#FC8204 0%,#E6750A 100%);color:#FFFFFF;font-size:19px;font-weight:800;box-shadow:0 10px 30px rgba(252,130,4,.4);transition:transform .2s cubic-bezier(.22,1,.36,1),filter .2s}
-.hp-cta .btn.is-white:hover,.hm-cta .btn.is-white:hover{background:linear-gradient(120deg,#FC8204 0%,#E6750A 100%);color:#FFFFFF;transform:translateY(-3px);filter:brightness(1.06)}
-.hp-cta .btn.is-ghost,.hm-cta .btn.is-ghost{display:inline-flex;align-items:center;height:64px;padding:0 30px;border-radius:999px;border:1.5px solid rgba(255,255,255,.3);color:#FFFFFF;font-size:17px;font-weight:700;transition:border-color .2s,background-color .2s}
+.hp-cta .btn.is-white,.hm-cta .btn.is-white{display:inline-flex;align-items:center;height:64px;padding:0 34px;border:0;border-radius:999px;background:#0C1417;color:#FFFFFF;font-size:19px;font-weight:800;box-shadow:0 10px 30px rgba(12,20,23,.35);transition:transform .2s cubic-bezier(.22,1,.36,1),filter .2s}
+.hp-cta .btn.is-white:hover,.hm-cta .btn.is-white:hover{background:#0C1417;color:#FFFFFF;transform:translateY(-3px);filter:brightness(1.15)}
+.hp-cta .btn.is-ghost,.hm-cta .btn.is-ghost{display:inline-flex;align-items:center;height:64px;padding:0 30px;border-radius:999px;border:1.5px solid rgba(255,255,255,.55);color:#FFFFFF;font-size:17px;font-weight:700;transition:border-color .2s,background-color .2s}
 .hp-cta .btn.is-ghost:hover,.hm-cta .btn.is-ghost:hover{border-color:#FFFFFF;background:rgba(255,255,255,.06)}
 .hp-footer,.hm-footer{background:#0C1417;border-top:1px solid rgba(255,255,255,.08);padding:44px 0}
 .hp-footer-logo-img,.hm-footer-logo img{filter:invert(1)}
 .hp-footer-link,.hm-footer-link{color:rgba(255,255,255,.7)}
 .hp-footer-link:hover,.hm-footer-link:hover{color:#FFFFFF}
 .hp-footer .text-caption,.hm-footer .text-caption,.hp-footer .text-body-sm,.hm-footer .text-body-sm{color:rgba(255,255,255,.45)}
-@media (max-width:767px){.hp-proof,.hm-proof{padding-bottom:64px}.hp-cta .btn.is-white,.hm-cta .btn.is-white,.hp-cta .btn.is-ghost,.hm-cta .btn.is-ghost{height:56px;justify-content:center;font-size:17px}}
-@media (prefers-reduced-motion:reduce){.hp-step,.hm-step,.hp-cta .btn.is-white,.hm-cta .btn.is-white{transition:none}}
+@media (max-width:767px){.hp-cta .btn.is-white,.hm-cta .btn.is-white,.hp-cta .btn.is-ghost,.hm-cta .btn.is-ghost{height:56px;justify-content:center;font-size:17px}}
+@media (prefers-reduced-motion:reduce){.hp-cta .btn.is-white,.hm-cta .btn.is-white{transition:none}}
+/* ---- Show, don't tell: three product moments below the hero (Learn / Verify / Lead) ---- */
+.sh{padding:96px 0}
+.sh-light{background:#FBFDFD;color:#2C3D45}
+.sh-ink{position:relative;overflow:hidden;background-color:#0C1417;color:#fff;background-image:radial-gradient(ellipse at 88% 0%,rgba(22,196,246,.22),rgba(22,196,246,0) 55%),radial-gradient(ellipse at 6% 100%,rgba(252,130,4,.16),rgba(252,130,4,0) 45%),radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:100% 100%,100% 100%,28px 28px}
+.sh-in{max-width:1120px;margin:0 auto;padding:0 24px}
+.sh-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:24px 64px;align-items:end;margin-bottom:40px}
+.sh-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;font-family:'Manrope',system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0688B0}
+.sh-eyebrow b{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:linear-gradient(120deg,#16C4F6 0%,#389696 100%);color:#fff;font-family:'Sora',system-ui,sans-serif;font-size:12px;font-weight:800;letter-spacing:0}
+.sh-ink .sh-eyebrow{color:#4FD4F9}
+.sh-title{margin:0;font-family:'Sora',system-ui,sans-serif;font-size:clamp(28px,3.4vw,44px);line-height:1.12;font-weight:800;letter-spacing:-.03em;color:#0C1417}
+.sh-ink .sh-title{color:#fff}
+.sh-title em{font-style:normal;background:linear-gradient(120deg,#16c4f6 0%,#389696 45%,#80a37f 70%,#fc8204 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sh-cap{margin:0;font-family:'Manrope',system-ui,sans-serif;font-size:17px;line-height:1.6;color:#5A6E77}
+.sh-ink .sh-cap{color:rgba(255,255,255,.72)}
+.sh-cap b{color:#0C1417;font-weight:700}
+.sh-ink .sh-cap b{color:#fff}
+/* Learn: the lesson engine's parametric tower, hosted in a design-system card */
+.sh-lab{background:#fff;border:1px solid #E6EBED;border-radius:24px;padding:12px;box-shadow:0 1px 2px rgba(16,42,51,.06),0 2px 6px rgba(16,42,51,.05),0 24px 60px rgba(22,196,246,.10)}
+.sh-lab #strive-lesson{min-height:0;overflow:visible;background:transparent;--sl-mono:'Manrope',system-ui,sans-serif;--sl-card:#fff}
+.sh-lab #strive-lesson .sl-wrap{max-width:none;padding:0}
+.sh-lab #strive-lesson .sl-lab{margin:0;border-radius:16px}
+.sh-lab #strive-lesson .sl-lab__title{font-weight:700;letter-spacing:.02em}
+.sh-lab #strive-lesson .sl-preview h4,.sh-lab #strive-lesson .sl-nudge{font-weight:700;letter-spacing:.06em}
+.sh-lab-empty{min-height:420px;display:flex;align-items:center;justify-content:center;color:#7C8D95;font-family:'Manrope',system-ui,sans-serif;font-size:14px}
+/* Verify: hero-style question, then the skill it mints */
+.sh-verify{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:32px;align-items:stretch}
+.sh-check{position:relative;padding:28px;border:1px solid rgba(255,255,255,.12);border-radius:24px;background:rgba(255,255,255,.05);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.sh-check .qz-q{min-height:0}
+.sh-check .qz-grid{grid-template-columns:minmax(0,1fr)}
+.sh-check .qz-opt{min-height:64px;padding:14px 18px;font-size:16px;animation:none}
+.sh-check .qz-ico{width:36px;height:36px;font-size:14px}
+.sh-skill{position:relative;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:32px;border:1px solid rgba(255,255,255,.12);border-radius:24px;background:rgba(255,255,255,.04);transition:border-color .4s,box-shadow .4s}
+.sh-skill.is-lit{border-color:rgba(22,196,246,.6);box-shadow:0 0 0 1px rgba(22,196,246,.25),0 20px 60px rgba(22,196,246,.22)}
+.sh-skill-name{font-family:'Manrope',system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.sh-skill .qz-lvt{font-size:clamp(26px,3vw,38px)}
+.sh-skill .qz-seg{animation:none;transition:background .35s}
+.sh-badge{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;height:36px;padding:0 14px 0 10px;border-radius:999px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.55);font-family:'Manrope',system-ui,sans-serif;font-size:13px;font-weight:700;transition:background .35s,color .35s}
+.sh-badge svg{width:18px;height:18px}
+.sh-skill.is-lit .sh-badge{background:linear-gradient(120deg,#16c4f6 0%,#389696 100%);color:#fff}
+.sh-skill-note{margin:0;font-size:14px;line-height:1.55;color:rgba(255,255,255,.6)}
+/* Lead: the roadmap those skills build */
+.sh-lead{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:32px;align-items:start}
+.sh-map{background:#fff;border:1px solid #E6EBED;border-radius:24px;padding:28px;box-shadow:0 1px 2px rgba(16,42,51,.06),0 2px 6px rgba(16,42,51,.05)}
+.sh-map-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding-bottom:20px;border-bottom:1px solid #E6EBED}
+.sh-map-role{font-family:'Sora',system-ui,sans-serif;font-size:22px;font-weight:800;letter-spacing:-.02em;color:#0C1417}
+.sh-map-role small{display:block;margin-top:4px;font-family:'Manrope',system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#0688B0}
+.sh-map-fit{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:999px;background:#FFF4E6;color:#C25F08;font-family:'Manrope',system-ui,sans-serif;font-size:13px;font-weight:700}
+.sh-map-fit b{font-family:'Sora',system-ui,sans-serif;font-size:15px;font-weight:800}
+.sh-rows{display:flex;flex-direction:column;margin-top:8px}
+.sh-row{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid #F3F6F7;opacity:0;transform:translateX(-10px);transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)}
+.sh-row:last-child{border-bottom:0}
+.sh-rows.is-in .sh-row{opacity:1;transform:none}
+.sh-rows.is-in .sh-row:nth-child(2){transition-delay:.12s}.sh-rows.is-in .sh-row:nth-child(3){transition-delay:.24s}.sh-rows.is-in .sh-row:nth-child(4){transition-delay:.36s}.sh-rows.is-in .sh-row:nth-child(5){transition-delay:.48s}
+.sh-dot{flex:none;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:#F3F6F7;color:#7C8D95;font-family:'Sora',system-ui,sans-serif;font-size:13px;font-weight:800}
+.sh-dot svg{width:18px;height:18px}
+.sh-row.is-done .sh-dot{background:linear-gradient(120deg,#16C4F6 0%,#389696 100%);color:#fff}
+.sh-row.is-now .sh-dot{background:linear-gradient(120deg,#FC8204 0%,#E6750A 100%);color:#fff;box-shadow:0 0 0 5px rgba(252,130,4,.18)}
+.sh-row-t{flex:1 1 auto;min-width:0}
+.sh-row-t strong{display:block;font-family:'Manrope',system-ui,sans-serif;font-size:16px;font-weight:700;color:#0C1417}
+.sh-row-t span{display:block;margin-top:2px;font-size:13px;color:#7C8D95}
+.sh-row-lv{flex:none;font-family:'Manrope',system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#0688B0}
+.sh-row.is-now .sh-row-lv{color:#C25F08}
+.sh-row.is-next .sh-row-lv{color:#A6B3B9}
+.sh-lead-copy{padding-top:8px}
+.sh-lead-copy .sh-cap{margin-top:18px}
+.sh-lead-copy .sh-cap+.sh-cap{margin-top:14px}
+@media (max-width:991px){.sh-head{grid-template-columns:minmax(0,1fr);gap:16px}.sh-verify,.sh-lead{grid-template-columns:minmax(0,1fr)}.sh-lead-copy{order:-1}}
+@media (max-width:767px){.sh{padding:64px 0}.sh-in{padding:0 20px}.sh-head{margin-bottom:28px}.sh-check,.sh-skill,.sh-map{padding:22px;border-radius:20px}.sh-lab{padding:8px;border-radius:20px}.sh-row-lv{display:none}}
+@media (prefers-reduced-motion:reduce){.sh-row{transition:none;opacity:1;transform:none}}
 </style>
 <!-- ===== /card ===== -->
 
@@ -360,180 +422,116 @@ render();
 </div><!-- /hm-top -->
 <div class="hm-hero-rule"></div>
 
-<!-- ===================== HOW IT WORKS ===================== -->
-<section class="hm-section hm-how">
-  <div class="hm-container">
-    <div class="hm-how-head">
-      <div class="text-eyebrow hm-how-eyebrow">How it works</div>
-      <h2 class="text-h2 hm-how-title">Starts where you are. Goes where you want.</h2>
-      <p class="text-body-lg">Tell us where you're headed. The assessment reads your goals and current skills, then lines up the lessons and courses that move you forward, each one verified as you go.</p>
-    </div>
-
-    <div class="hm-flow">
-      <svg class="hm-flow-svg" viewBox="0 0 1100 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Your goals and skills feed a five-minute assessment, which produces your roadmap of verified lessons">
-        <style>
-          .hm-wire{animation:hm-dash 1s linear infinite}
-          @keyframes hm-dash{to{stroke-dashoffset:-12}}
-          @media (prefers-reduced-motion:reduce){.hm-wire{animation:none}}
-        </style>
-        <defs>
-          <linearGradient id="hm-cool-d" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stop-color="#16C4F6"/><stop offset="1" stop-color="#389696"/>
-          </linearGradient>
-          <linearGradient id="hm-warm-d" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stop-color="#FC8204"/><stop offset="1" stop-color="#E6750A"/>
-          </linearGradient>
-        </defs>
-        <!-- wires -->
-        <path class="hm-wire" d="M306 88 C 352 88, 364 88, 404 88" fill="none" stroke="#05A9D8" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round"/>
-        <path class="hm-wire" d="M686 88 C 732 88, 744 88, 784 88" fill="none" stroke="#05A9D8" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round"/>
-        <!-- roadmap to lesson pills -->
-        <path class="hm-wire" d="M930 132 C 930 152, 834 148, 834 168" fill="none" stroke="#FC8204" stroke-width="1.5" stroke-dasharray="6 6" stroke-linecap="round"/>
-        <path class="hm-wire" d="M930 132 L 930 168" fill="none" stroke="#FC8204" stroke-width="1.5" stroke-dasharray="6 6" stroke-linecap="round"/>
-        <path class="hm-wire" d="M930 132 C 930 152, 1026 148, 1026 168" fill="none" stroke="#FC8204" stroke-width="1.5" stroke-dasharray="6 6" stroke-linecap="round"/>
-
-        <!-- node 1: goals + skills -->
-        <rect x="30" y="44" width="270" height="88" rx="12" fill="#FFFFFF" stroke="#05A9D8" stroke-width="1.5"/>
-        <path d="M30 56 a12 12 0 0 1 12 -12 h246 a12 12 0 0 1 12 12 v16 h-270 z" fill="url(#hm-cool-d)"/>
-        <text x="46" y="63" font-family="'Manrope',system-ui,sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="1.2">01 · INPUT</text>
-        <text x="46" y="98" font-family="'Sora',system-ui,sans-serif" font-size="15" font-weight="600" fill="#0C1417">Your goals + skills</text>
-        <text x="46" y="117" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#7C8D95">role · domain · experience</text>
-        <circle cx="300" cy="88" r="6" fill="#FFFFFF" stroke="#05A9D8" stroke-width="2"/>
-
-        <!-- node 2: assessment -->
-        <rect x="410" y="44" width="270" height="88" rx="12" fill="#FFFFFF" stroke="#05A9D8" stroke-width="1.5"/>
-        <path d="M410 56 a12 12 0 0 1 12 -12 h246 a12 12 0 0 1 12 12 v16 h-270 z" fill="url(#hm-cool-d)"/>
-        <text x="426" y="63" font-family="'Manrope',system-ui,sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="1.2">02 · PROCESS</text>
-        <text x="426" y="98" font-family="'Sora',system-ui,sans-serif" font-size="15" font-weight="600" fill="#0C1417">5-min assessment</text>
-        <text x="426" y="117" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#7C8D95">finds gaps · orders lessons</text>
-        <circle cx="410" cy="88" r="6" fill="#FFFFFF" stroke="#FC8204" stroke-width="2"/>
-        <circle cx="680" cy="88" r="6" fill="#FFFFFF" stroke="#05A9D8" stroke-width="2"/>
-
-        <!-- node 3: roadmap -->
-        <rect x="790" y="44" width="280" height="88" rx="12" fill="#FFFFFF" stroke="#FC8204" stroke-width="1.5"/>
-        <path d="M790 56 a12 12 0 0 1 12 -12 h256 a12 12 0 0 1 12 12 v16 h-280 z" fill="url(#hm-warm-d)"/>
-        <text x="806" y="63" font-family="'Manrope',system-ui,sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="1.2">03 · OUTPUT</text>
-        <text x="806" y="98" font-family="'Sora',system-ui,sans-serif" font-size="15" font-weight="600" fill="#0C1417">Your roadmap</text>
-        <text x="806" y="117" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#7C8D95">short lessons · verified as you go</text>
-        <circle cx="790" cy="88" r="6" fill="#FFFFFF" stroke="#FC8204" stroke-width="2"/>
-        <circle cx="930" cy="132" r="5" fill="#FC8204" stroke="#FFFFFF" stroke-width="2"/>
-
-        <!-- lesson pills -->
-        <rect x="790" y="168" width="88" height="26" rx="12" fill="#05A9D8" stroke="#05A9D8" stroke-width="1.5"/>
-        <text x="834" y="185" text-anchor="middle" font-family="'Manrope',system-ui,sans-serif" font-size="12" font-weight="500" fill="#FFFFFF">Lesson 1 ✓</text>
-        <rect x="886" y="168" width="88" height="26" rx="12" fill="#FFFFFF" stroke="#CDD6DA" stroke-width="1.5"/>
-        <text x="930" y="185" text-anchor="middle" font-family="'Manrope',system-ui,sans-serif" font-size="12" font-weight="500" fill="#2C3D45">Lesson 2</text>
-        <rect x="982" y="168" width="88" height="26" rx="12" fill="#FFFFFF" stroke="#CDD6DA" stroke-width="1.5"/>
-        <text x="1026" y="185" text-anchor="middle" font-family="'Manrope',system-ui,sans-serif" font-size="12" font-weight="500" fill="#2C3D45">Lesson 3</text>
-        <text x="790" y="212" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#0688B0">✓ verified skill</text>
-      </svg>
-
-      <!-- portrait version for phones (shown ≤767px, desktop SVG hidden) -->
-      <svg class="hm-flow-svg-mobile" viewBox="0 0 360 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Your goals and skills feed a five-minute assessment, which produces your roadmap of verified lessons">
-        <style>
-          .hm-wire{animation:hm-dash 1s linear infinite}
-          @keyframes hm-dash{to{stroke-dashoffset:-12}}
-          @media (prefers-reduced-motion:reduce){.hm-wire{animation:none}}
-        </style>
-        <defs>
-          <linearGradient id="hm-cool-m" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stop-color="#16C4F6"/><stop offset="1" stop-color="#389696"/>
-          </linearGradient>
-          <linearGradient id="hm-warm-m" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stop-color="#FC8204"/><stop offset="1" stop-color="#E6750A"/>
-          </linearGradient>
-        </defs>
-        <!-- wires -->
-        <path class="hm-wire" d="M180 112 L 180 168" fill="none" stroke="#05A9D8" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round"/>
-        <path class="hm-wire" d="M180 256 L 180 312" fill="none" stroke="#05A9D8" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round"/>
-        <!-- roadmap to lesson pills -->
-        <path class="hm-wire" d="M180 400 C 180 424, 80 424, 80 448" fill="none" stroke="#FC8204" stroke-width="1.5" stroke-dasharray="6 6" stroke-linecap="round"/>
-        <path class="hm-wire" d="M180 400 L 180 448" fill="none" stroke="#FC8204" stroke-width="1.5" stroke-dasharray="6 6" stroke-linecap="round"/>
-        <path class="hm-wire" d="M180 400 C 180 424, 280 424, 280 448" fill="none" stroke="#FC8204" stroke-width="1.5" stroke-dasharray="6 6" stroke-linecap="round"/>
-
-        <!-- node 1: goals + skills -->
-        <rect x="30" y="24" width="300" height="88" rx="12" fill="#FFFFFF" stroke="#05A9D8" stroke-width="1.5"/>
-        <path d="M30 36 a12 12 0 0 1 12 -12 h276 a12 12 0 0 1 12 12 v16 h-300 z" fill="url(#hm-cool-m)"/>
-        <text x="46" y="43" font-family="'Manrope',system-ui,sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="1.2">01 · INPUT</text>
-        <text x="46" y="78" font-family="'Sora',system-ui,sans-serif" font-size="15" font-weight="600" fill="#0C1417">Your goals + skills</text>
-        <text x="46" y="97" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#7C8D95">role · domain · experience</text>
-        <circle cx="180" cy="112" r="6" fill="#FFFFFF" stroke="#05A9D8" stroke-width="2"/>
-
-        <!-- node 2: assessment -->
-        <rect x="30" y="168" width="300" height="88" rx="12" fill="#FFFFFF" stroke="#05A9D8" stroke-width="1.5"/>
-        <path d="M30 180 a12 12 0 0 1 12 -12 h276 a12 12 0 0 1 12 12 v16 h-300 z" fill="url(#hm-cool-m)"/>
-        <text x="46" y="187" font-family="'Manrope',system-ui,sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="1.2">02 · PROCESS</text>
-        <text x="46" y="222" font-family="'Sora',system-ui,sans-serif" font-size="15" font-weight="600" fill="#0C1417">5-min assessment</text>
-        <text x="46" y="241" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#7C8D95">finds gaps · orders lessons</text>
-        <circle cx="180" cy="168" r="6" fill="#FFFFFF" stroke="#FC8204" stroke-width="2"/>
-        <circle cx="180" cy="256" r="6" fill="#FFFFFF" stroke="#05A9D8" stroke-width="2"/>
-
-        <!-- node 3: roadmap -->
-        <rect x="30" y="312" width="300" height="88" rx="12" fill="#FFFFFF" stroke="#FC8204" stroke-width="1.5"/>
-        <path d="M30 324 a12 12 0 0 1 12 -12 h276 a12 12 0 0 1 12 12 v16 h-300 z" fill="url(#hm-warm-m)"/>
-        <text x="46" y="331" font-family="'Manrope',system-ui,sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing="1.2">03 · OUTPUT</text>
-        <text x="46" y="366" font-family="'Sora',system-ui,sans-serif" font-size="15" font-weight="600" fill="#0C1417">Your roadmap</text>
-        <text x="46" y="385" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#7C8D95">short lessons · verified as you go</text>
-        <circle cx="180" cy="312" r="6" fill="#FFFFFF" stroke="#FC8204" stroke-width="2"/>
-        <circle cx="180" cy="400" r="5" fill="#FC8204" stroke="#FFFFFF" stroke-width="2"/>
-
-        <!-- lesson pills -->
-        <rect x="34" y="448" width="92" height="28" rx="14" fill="#05A9D8" stroke="#05A9D8" stroke-width="1.5"/>
-        <text x="80" y="466" text-anchor="middle" font-family="'Manrope',system-ui,sans-serif" font-size="12" font-weight="500" fill="#FFFFFF">Lesson 1 ✓</text>
-        <rect x="134" y="448" width="92" height="28" rx="14" fill="#FFFFFF" stroke="#CDD6DA" stroke-width="1.5"/>
-        <text x="180" y="466" text-anchor="middle" font-family="'Manrope',system-ui,sans-serif" font-size="12" font-weight="500" fill="#2C3D45">Lesson 2</text>
-        <rect x="234" y="448" width="92" height="28" rx="14" fill="#FFFFFF" stroke="#CDD6DA" stroke-width="1.5"/>
-        <text x="280" y="466" text-anchor="middle" font-family="'Manrope',system-ui,sans-serif" font-size="12" font-weight="500" fill="#2C3D45">Lesson 3</text>
-        <text x="34" y="504" font-family="'Manrope',system-ui,sans-serif" font-size="12" fill="#0688B0">✓ verified skill</text>
-      </svg>
-    </div>
-
-    <div class="hm-steps">
-      <div class="hm-step">
-        <div class="hm-step-bar"></div>
-        <div class="hm-step-num">01</div>
-        <h4 class="text-h4 hm-step-title">Learn</h4>
-        <p class="text-body-sm">Mini-lessons and full courses, hands-on, in the order that suits you.</p>
+<!-- ===================== SHOW 1: LEARN (live parametric tower from the visual-programming mini-lesson) ===================== -->
+<section class="sh sh-light" id="learn">
+  <div class="sh-in">
+    <div class="sh-head">
+      <div>
+        <div class="sh-eyebrow"><b>1</b> Learn</div>
+        <h2 class="sh-title">Lessons you can put your <em>hands on.</em></h2>
       </div>
-      <div class="hm-step">
-        <div class="hm-step-bar"></div>
-        <div class="hm-step-num">02</div>
-        <h4 class="text-h4 hm-step-title">Verify</h4>
-        <p class="text-body-sm">Knowledge checks turn what you learned into a verified, levelled skill.</p>
+      <p class="sh-cap">This is Part 4 of the visual programming mini-lesson, running live. <b>Drag a slider.</b> The data flows through the graph and the tower rebuilds, exactly as it does in the lesson.</p>
+    </div>
+    <div class="sh-lab" data-sh-lab>
+      <div id="strive-lesson"><div class="sl-wrap" data-sh-wrap><div class="sh-lab-empty">Loading the lesson engine…</div></div></div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var cfg={"nudge":"↑ try dragging Radius or Sides","inputs":[{"max":9,"min":2,"step":0.5,"label":"Number · Radius","value":4},{"max":16,"min":3,"step":1,"label":"Number · Sides","value":8},{"max":60,"min":0,"step":5,"label":"twist per floor","value":20}],"fileName":"parametric_tower.gh — live","buildLabel":"Build · Loft Tower","randomLabel":"Randomize inputs","previewTitle":"Geometry preview"};
+  var wrap=document.querySelector('[data-sh-wrap]'),tries=0;
+  (function boot(){
+    if(window.STRIVE&&STRIVE.WIDGETS&&STRIVE.WIDGETS.nodeGraph){
+      var inst=STRIVE.WIDGETS.nodeGraph(cfg);wrap.innerHTML=inst.html;
+      try{inst.mount(wrap)}catch(e){}
+      return;
+    }
+    if(tries++<100)setTimeout(boot,100);
+  })();
+})();
+</script>
+
+<!-- ===================== SHOW 2: VERIFY (a real knowledge check mints a levelled skill) ===================== -->
+<section class="sh sh-ink" id="verify">
+  <div class="sh-in">
+    <div class="sh-head">
+      <div>
+        <div class="sh-eyebrow"><b>2</b> Verify</div>
+        <h2 class="sh-title">Every lesson ends with a check <em>that counts.</em></h2>
       </div>
-      <div class="hm-step">
-        <div class="hm-step-bar"></div>
-        <div class="hm-step-num">03</div>
-        <h4 class="text-h4 hm-step-title">Lead</h4>
-        <p class="text-body-sm">Show verified skills to employers and take on the work that matters.</p>
+      <p class="sh-cap">Same lesson, final question. <b>Answer it</b> and watch the skill on the right level up. That record is yours, not a certificate PDF.</p>
+    </div>
+    <div class="sh-verify" data-sh-verify>
+      <div class="sh-check">
+        <p class="qz-q" data-vq>Which task is the best fit for algorithmic design?</p>
+        <div class="qz-grid">
+          <button type="button" class="qz-opt" data-v="0"><span class="qz-ico">A</span><span>Choosing the architectural concept for a museum</span></button>
+          <button type="button" class="qz-opt" data-v="1"><span class="qz-ico">B</span><span>Generating 250 unique shading fins from one rule</span></button>
+          <button type="button" class="qz-opt" data-v="2"><span class="qz-ico">C</span><span>Sending a contract to one consultant</span></button>
+          <button type="button" class="qz-opt" data-v="3"><span class="qz-ico">D</span><span>Naming the project in the file system</span></button>
+        </div>
+      </div>
+      <div class="sh-skill" data-vskill>
+        <div class="sh-skill-name">Visual programming · Automation &amp; computation</div>
+        <div class="qz-lvt" data-vlv>Emerging <i>· level 2 of 5</i></div>
+        <div class="qz-meter" data-vmeter><span class="qz-seg is-on"></span><span class="qz-seg is-on"></span><span class="qz-seg"></span><span class="qz-seg"></span><span class="qz-seg"></span></div>
+        <span class="sh-badge" data-vbadge><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-vbt>Not yet verified</span></span>
+        <p class="sh-skill-note" data-vnote>Pass the check and this skill moves to Capable on your profile.</p>
       </div>
     </div>
   </div>
 </section>
+<script>
+(function(){
+  var root=document.querySelector('[data-sh-verify]');if(!root)return;
+  var q=root.querySelector('[data-vq]'),opts=root.querySelectorAll('.qz-opt'),skill=root.querySelector('[data-vskill]'),lv=root.querySelector('[data-vlv]'),segs=root.querySelectorAll('[data-vmeter] .qz-seg'),bt=root.querySelector('[data-vbt]'),note=root.querySelector('[data-vnote]'),OK=1,done=false;
+  var yes='Exactly. One rule producing hundreds of related elements is the textbook case for computational design.',no='Not quite. Algorithmic design shines on repetitive, rule-based work with many items, not one-off decisions.';
+  function pick(i){
+    if(done)return;done=true;
+    for(var k=0;k<opts.length;k++){opts[k].disabled=true;if(k===OK)opts[k].className='qz-opt is-sel';else if(k===i)opts[k].className='qz-opt is-bad'}
+    var ok=i===OK;q.textContent=ok?yes:no;q.className='qz-q '+(ok?'is-ok':'is-no');
+    if(!ok){note.textContent='Wrong answers show you the right one and let you retry. Nothing is recorded until you pass.';return}
+    setTimeout(function(){skill.className='sh-skill is-lit';segs[2].className='qz-seg is-on';lv.innerHTML='Capable <i>· level 3 of 5</i>';bt.textContent='Verified · just now';note.textContent='Recorded on your profile. Employers see the level, and the check behind it.'},500);
+  }
+  for(var k=0;k<opts.length;k++)(function(b){b.addEventListener('click',function(){pick(+b.getAttribute('data-v'))})})(opts[k]);
+})();
+</script>
 
-<!-- ===================== PROOF STRIP ===================== -->
-<div class="hm-proof">
-  <div class="hm-container">
-    <div class="hm-proof-grid">
-      <div class="hm-proof-item">
-        <div class="text-eyebrow hm-proof-label">Hands-on models</div>
-        <p class="text-body-sm">Every lesson has something to drag, build, or break.</p>
+<!-- ===================== SHOW 3: LEAD (the roadmap those verified skills build) ===================== -->
+<section class="sh sh-light" id="lead">
+  <div class="sh-in">
+    <div class="sh-lead">
+      <div class="sh-lead-copy">
+        <div class="sh-eyebrow"><b>3</b> Lead</div>
+        <h2 class="sh-title">A roadmap built from what you <em>verified.</em></h2>
+        <p class="sh-cap">Your assessment sets the starting level. Every verified skill moves the roadmap forward, and the role you are aiming at moves closer with it.</p>
+        <p class="sh-cap">Five domains: information management, automation and computation, digital delivery, reality capture, sustainability.</p>
       </div>
-      <div class="hm-proof-item hm-proof-item-r">
-        <div class="text-eyebrow hm-proof-label">Knowledge checks</div>
-        <p class="text-body-sm">Short checks after each lesson confirm what stuck.</p>
-      </div>
-      <div class="hm-proof-item">
-        <div class="text-eyebrow hm-proof-label">Verified skills</div>
-        <p class="text-body-sm">Levelled skills you can show, not just a certificate.</p>
-      </div>
-      <div class="hm-proof-item hm-proof-item-r">
-        <div class="text-eyebrow hm-proof-label">Five domains</div>
-        <p class="text-body-sm">Information management, Automation &amp; computation, Digital delivery, Reality capture, Sustainability.</p>
+      <div class="sh-map">
+        <div class="sh-map-top">
+          <div class="sh-map-role"><small>Architecture · your roadmap</small>BIM Coordinator</div>
+          <span class="sh-map-fit">Role fit <b>72%</b></span>
+        </div>
+        <div class="sh-rows" data-sh-rows>
+          <div class="sh-row is-done"><span class="sh-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div class="sh-row-t"><strong>Level of Information Need</strong><span>Information management · mini-lesson</span></div><span class="sh-row-lv">Verified · Capable</span></div>
+          <div class="sh-row is-done"><span class="sh-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div class="sh-row-t"><strong>Visual programming</strong><span>Automation &amp; computation · mini-lesson</span></div><span class="sh-row-lv">Verified · Capable</span></div>
+          <div class="sh-row is-now"><span class="sh-dot">3</span><div class="sh-row-t"><strong>Federated model coordination</strong><span>Digital delivery · course, 4 lessons</span></div><span class="sh-row-lv">In progress</span></div>
+          <div class="sh-row is-next"><span class="sh-dot">4</span><div class="sh-row-t"><strong>Scan to BIM fundamentals</strong><span>Reality capture · mini-lesson</span></div><span class="sh-row-lv">Next</span></div>
+          <div class="sh-row is-next"><span class="sh-dot">5</span><div class="sh-row-t"><strong>Carbon data in the model</strong><span>Sustainability · mini-lesson</span></div><span class="sh-row-lv">Next</span></div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
+<script>
+(function(){
+  var rows=document.querySelector('[data-sh-rows]');if(!rows)return;
+  if(!('IntersectionObserver' in window)){rows.className+=' is-in';return}
+  new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){rows.className+=' is-in';o.disconnect()}})},{threshold:.35}).observe(rows);
+})();
+</script>
+
 
 <!-- ===================== CLOSING CTA ===================== -->
 <section class="hm-section hm-cta">
