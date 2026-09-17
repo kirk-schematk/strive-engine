@@ -265,13 +265,23 @@ function setStep(idx){
   });
   st.root.querySelectorAll('.rm-rail-line').forEach(function(l,i){l.classList.toggle('is-done',i<idx)});
 }
+/* Scroll guard: never scroll on the initial render (it jumped the page on load),
+   and only once the visitor has actually interacted with the page. */
+var shown=0,interacted=false;
+['pointerdown','keydown','touchstart'].forEach(function(ev){document.addEventListener(ev,function(){interacted=true},{once:true,passive:true})});
+function navBlend(){
+  var n=document.querySelector('.nav-ds');if(!n||n._rmBlend)return;n._rmBlend=true;
+  function f(){n.classList.toggle('is-top',(window.pageYOffset||document.documentElement.scrollTop||0)<24)}
+  f();window.addEventListener('scroll',f,{passive:true});
+}
 function show(fn,stepIdx,cls){
   if(stepIdx!=null)setStep(stepIdx);
   st.body.innerHTML='';
   var w=el('div','rm-card'+(cls?' '+cls:''));
   st.body.appendChild(w); // attach first so screen builders can query st.body
   fn(w);
-  try{st.root.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){}
+  shown++;
+  if(shown>1&&interacted){try{st.root.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){}}
   return w;
 }
 function toast(msg,actionLabel,action){
@@ -876,6 +886,7 @@ function init(opts){
   st.results=null;st.roadmap=null;st.goalsSuggested=[];st.existingGoals=[];st.inputs=null;st.goalsDraft=null;st.skippedResults=false;st.placementOverride=null;
   if(st.mock)log('mock mode on — fixtures from '+FIXTURES+(st.mockPath?' · path='+st.mockPath:''));
   scaffold();
+  navBlend();
   boot();
 }
 window.STRIVERoadmap={init:init,_state:st};

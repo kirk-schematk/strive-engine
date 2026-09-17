@@ -180,6 +180,9 @@ function injectScaffold(){
   var section=root.closest('section')||root.parentElement;
   var body=document.body;
   section.classList.add('onb-page');
+  /* Site navbar blends into the dark page: transparent at the top, ink when scrolled. */
+  var nav=document.querySelector('.nav-ds');
+  if(nav&&!nav._onbBlend){nav._onbBlend=true;var nb=function(){nav.classList.toggle('is-top',(window.pageYOffset||document.documentElement.scrollTop||0)<24)};nb();window.addEventListener('scroll',nb,{passive:true})}
 
   if(!document.querySelector('.onb-header')){
     var nav=el('header','onb-header');

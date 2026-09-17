@@ -359,3 +359,15 @@
   #strive-roadmap *{animation-duration:.01ms!important;transition-duration:.01ms!important}
   #strive-roadmap .rm-btn:hover,#strive-roadmap .rm-btn--ghost:hover,#strive-roadmap .rm-chip:hover,#strive-roadmap .rm-seg-btn:hover:not(:disabled),#strive-roadmap .rm-focus-btn:hover,#strive-roadmap .rm-phase:hover,#strive-roadmap .rm-qs-opt:hover,#strive-roadmap .rm-radio:hover{transform:none}
 }
+
+/* ---- Site navbar over the dark onboarding pages: white links, ink when scrolled, transparent at the top ---- */
+body:has(#strive-roadmap) .nav-ds{background-color:rgba(12,20,23,.82);border-bottom-color:rgba(255,255,255,.08);transition:background-color .25s ease,border-color .25s ease}
+body:has(#strive-roadmap) .nav-ds.is-top{background-color:transparent;border-bottom-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+body:has(#strive-roadmap) .nav-ds-logo{filter:brightness(0) invert(1)}
+body:has(#strive-roadmap) .nav-ds-link{color:rgba(255,255,255,.78)}
+body:has(#strive-roadmap) .nav-ds-link:hover{color:#fff;background-color:rgba(255,255,255,.08)}
+body:has(#strive-roadmap) .nav-ds-login{color:#fff}
+
+/* The results/roadmap page shares the onboarding's ink background until the dashboard. */
+body:has(#strive-roadmap){background:#0C1417}
+#strive-roadmap{background:transparent}
