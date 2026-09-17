@@ -418,17 +418,16 @@ render();
 .sh-head{display:block;max-width:820px;margin-bottom:44px}
 .sh-title{margin:0 0 18px}
 .sh-cap{max-width:680px}
-.sh-stat{margin:0 0 20px;padding:2px 0 2px 18px;border-left:3px solid #16C4F6;border-radius:0;background:none;max-width:680px}
+.sh-stat{margin:0 0 20px;padding:0;border:0;border-radius:0;background:none;max-width:680px}
 .sh-stat blockquote{margin:0;font-family:'Manrope',system-ui,sans-serif;font-size:17px;line-height:1.55;font-weight:500;color:#5A6E77}
 .sh-stat figcaption{margin-top:8px;font-family:'Manrope',system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#7C8D95}
 .sh-stat a{color:#0688B0;text-decoration:none;border-bottom:1.5px solid rgba(6,136,176,.35);transition:border-color .2s}
 .sh-stat a:hover{border-bottom-color:#0688B0}
-.sh-ink .sh-stat{border-left-color:#4FD4F9}
 .sh-ink .sh-stat blockquote{color:rgba(255,255,255,.72)}
 .sh-ink .sh-stat figcaption{color:rgba(255,255,255,.55)}
 .sh-ink .sh-stat a{color:#4FD4F9;border-bottom-color:rgba(79,212,249,.4)}
 .sh-ink .sh-stat a:hover{border-bottom-color:#4FD4F9}
-.hp-cta .sh-stat,.hm-cta .sh-stat{border-left-color:#fff;margin:0 0 22px;max-width:600px}
+.hp-cta .sh-stat,.hm-cta .sh-stat{margin:0 0 22px;max-width:600px}
 .hp-cta .sh-stat blockquote,.hm-cta .sh-stat blockquote{color:rgba(255,255,255,.9)}
 .hp-cta .sh-stat figcaption,.hm-cta .sh-stat figcaption{color:rgba(255,255,255,.8)}
 .hp-cta .sh-stat a,.hm-cta .sh-stat a{color:#fff;border-bottom-color:rgba(255,255,255,.5)}
@@ -442,10 +441,11 @@ render();
 .sh-map.is-in .sh-map-prog-bar span{width:var(--w)}
 .sh-map-prog-meta{margin-top:8px;font-family:'Manrope',system-ui,sans-serif;font-size:13px;font-weight:600;color:#5A6E77}
 .sh-map-prog-meta b{color:#0C1417;font-weight:800}
-.sh-lab #strive-lesson .sl-lab__body{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.sh-lab #strive-lesson .sl-lab__body{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}
+.sh-lab #strive-lesson .sl-graph{align-self:center;min-height:360px}
 .sh-lab #strive-lesson .sl-stage{min-height:320px}
 @media (max-width:991px){.sh-lab #strive-lesson .sl-lab__body{grid-template-columns:minmax(0,1fr) minmax(0,.9fr)}}
-@media (max-width:767px){.sh-head{margin-bottom:32px}.sh-stat{margin-bottom:18px}.sh-lab #strive-lesson .sl-stage{min-height:240px}}
+@media (max-width:767px){.sh-head{margin-bottom:32px}.sh-stat{margin-bottom:18px}.sh-lab #strive-lesson .sl-lab__body{grid-template-columns:minmax(0,1fr)}.sh-lab #strive-lesson .sl-graph{min-height:340px}.sh-lab #strive-lesson .sl-stage{min-height:240px}}
 </style>
 <!-- ===== /card ===== -->
 
