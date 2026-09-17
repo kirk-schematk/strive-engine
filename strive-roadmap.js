@@ -281,7 +281,7 @@ function show(fn,stepIdx,cls){
   st.body.appendChild(w); // attach first so screen builders can query st.body
   fn(w);
   shown++;
-  if(shown>1&&interacted){try{st.root.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){}}
+  /* never scroll: the page stays put between steps */
   return w;
 }
 function toast(msg,actionLabel,action){

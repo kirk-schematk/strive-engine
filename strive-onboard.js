@@ -82,8 +82,7 @@ function show(fn,stepIdx){
   var w=el('div','onb-card');
   fn(w);
   root.appendChild(w);
-  shown++;
-  if(shown>1&&interacted)root.scrollIntoView({behavior:'smooth',block:'start'});
+  shown++; /* never scroll: the assessment stays put */
 }
 
 function apiCall(method,path,body){
@@ -371,7 +370,6 @@ function submitAnswer(idx,optsEl){
       fb.appendChild(b2);
     }
     wrap.appendChild(fb);
-    fb.scrollIntoView({behavior:'smooth',block:'nearest'});
   })
   .catch(function(e){
     var wrap=optsEl.closest('.onb-card');
@@ -470,7 +468,7 @@ function renderPick(card,p){
 }
 
 function startLesson(card,p){
-  if(st.lessonEl){st.lessonEl.scrollIntoView({behavior:'smooth',block:'start'});return}
+  if(st.lessonEl)return;
   var btn=card.querySelector('[data-start]');
   var err=card.querySelector('[data-err]');
   btn.disabled=true;
@@ -527,7 +525,7 @@ function mountLesson(lesson,p){
   var wrap=el('section','onb-lesson');
   var bar=el('div','onb-lesson-bar');
   var back=el('button','onb-back',ic(P.arrowLeft,16)+' Back to results');
-  back.onclick=function(){removeLesson();root.scrollIntoView({behavior:'smooth',block:'start'})};
+  back.onclick=function(){removeLesson()};
   var skip=el('a','onb-lesson-skip','Skip to sign up '+ic(P.arrowRight,15));
   skip.href=signupHref();
   skip.onclick=function(){setStep(3)};
@@ -544,7 +542,6 @@ function mountLesson(lesson,p){
     slug:p.slug,
     onQuizPass:function(score,total){onLessonPassed(wrap,p,score,total)}
   });
-  wrap.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function onLessonPassed(wrap,p,score,total){
@@ -561,10 +558,9 @@ function onLessonPassed(wrap,p,score,total){
   done.appendChild(cta);
   done.appendChild(el('p','onb-sub onb-sub--light onb-lock-login','Already a member? <a href="/signup#/ms/login" data-ms-modal="login">Log in to save your results</a>'));
   var back=el('button','onb-restart','Back to results');
-  back.onclick=function(){root.scrollIntoView({behavior:'smooth',block:'start'})};
+  back.onclick=function(){};
   done.appendChild(back);
   wrap.appendChild(done);
-  done.scrollIntoView({behavior:'smooth',block:'center'});
   var card=root.querySelector('.onb-pick');
   if(card){
     card.classList.add('is-done');
