@@ -408,6 +408,7 @@ render();
 .sh-row.is-now .sh-row-lv{color:#C25F08}
 .sh-row.is-next .sh-row-lv{color:#A6B3B9}
 .sh-lead-copy{padding-top:8px}
+.sh-lead-copy .sh-stat{margin-bottom:0}
 .sh-lead-copy .sh-cap{margin-top:18px}
 .sh-lead-copy .sh-cap+.sh-cap{margin-top:14px}
 @media (max-width:991px){.sh-head{grid-template-columns:minmax(0,1fr);gap:16px}.sh-verify,.sh-lead{grid-template-columns:minmax(0,1fr)}.sh-lead-copy{order:-1}}
@@ -419,13 +420,13 @@ render();
 .sh-title{margin:0 0 14px}
 .sh-cap{max-width:680px}
 /* Evidence line: quote and source in one compact paragraph under the tagline */
-.sh-stat{margin:0 0 14px;max-width:680px;font-family:'Manrope',system-ui,sans-serif;font-size:15px;line-height:1.55;font-weight:500;color:#5A6E77}
+.sh-stat{margin:0;max-width:680px;font-family:'Manrope',system-ui,sans-serif;font-size:15px;line-height:1.55;font-weight:500;color:#5A6E77}
 .sh-src{display:inline-block;margin-left:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#0688B0;text-decoration:none;border-bottom:1.5px solid rgba(6,136,176,.35);transition:border-color .2s;white-space:nowrap}
 .sh-src:hover{border-bottom-color:#0688B0}
 .sh-ink .sh-stat{color:rgba(255,255,255,.66)}
 .sh-ink .sh-src{color:#4FD4F9;border-bottom-color:rgba(79,212,249,.4)}
 .sh-ink .sh-src:hover{border-bottom-color:#4FD4F9}
-.hp-cta .sh-stat,.hm-cta .sh-stat{margin:0 0 22px;max-width:600px;color:rgba(255,255,255,.88)}
+.hp-cta .sh-stat,.hm-cta .sh-stat{margin:0 0 28px;max-width:600px;color:rgba(255,255,255,.88)}
 .hp-cta .sh-src,.hm-cta .sh-src{color:#fff;border-bottom-color:rgba(255,255,255,.5)}
 .sh-cap a{color:#0688B0;font-weight:700;text-decoration:none;border-bottom:1.5px solid rgba(6,136,176,.35)}
 .sh-ink .sh-cap a{color:#4FD4F9;border-bottom-color:rgba(79,212,249,.4)}
@@ -455,9 +456,8 @@ render();
   <div class="sh-in">
     <div class="sh-head">
       <div class="sh-eyebrow"><b>1</b> Learn</div>
-      <h2 class="sh-title">Learn the skills employers <em>cannot find.</em></h2>
-      <p class="sh-stat">“57 percent of firms report that available candidates are not qualified … because they lack essential skills.” <a class="sh-src" href="https://www.agc.org/news/2025/08/28/construction-workforce-shortages-are-leading-cause-project-delays-immigration-enforcement-affects" target="_blank" rel="noopener">AGC 2025 Workforce Survey</a></p>
-      <p class="sh-cap">Every lesson is the actual work, so the skill is yours. This one is live: <b>drag a slider</b> and the tower rebuilds as the data flows.</p>
+      <h2 class="sh-title">Learn skills employers <em>cannot find.</em></h2>
+      <p class="sh-stat">“57 percent of firms report that available candidates are not qualified.” <a class="sh-src" href="https://www.agc.org/news/2025/08/28/construction-workforce-shortages-are-leading-cause-project-delays-immigration-enforcement-affects" target="_blank" rel="noopener">AGC, 2025</a></p>
     </div>
     <div class="sh-lab" data-sh-lab>
       <div id="strive-lesson"><div class="sl-wrap" data-sh-wrap><div class="sh-lab-empty">Loading the lesson engine…</div></div></div>
@@ -484,9 +484,8 @@ render();
   <div class="sh-in">
     <div class="sh-head">
       <div class="sh-eyebrow"><b>2</b> Verify</div>
-      <h2 class="sh-title">Verified skills, <em>not just a certificate.</em></h2>
-      <p class="sh-stat">“The increasing use of CAD and BIM technologies is expected to lead to a decline in employment for many types of drafters.” <a class="sh-src" href="https://www.bls.gov/ooh/architecture-and-engineering/drafters.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics, Occupational Outlook</a></p>
-      <p class="sh-cap">Every lesson ends with a check that levels the skill on your profile. <b>Answer the question</b> and watch it move.</p>
+      <h2 class="sh-title">Verified skills, <em>not certificates.</em></h2>
+      <p class="sh-stat">BIM is expected to bring “a decline in employment for many types of drafters.” <a class="sh-src" href="https://www.bls.gov/ooh/architecture-and-engineering/drafters.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics</a></p>
     </div>
     <div class="sh-verify" data-sh-verify>
       <div class="sh-check">
@@ -530,9 +529,8 @@ render();
     <div class="sh-lead">
       <div class="sh-lead-copy">
         <div class="sh-eyebrow"><b>3</b> Lead</div>
-        <h2 class="sh-title">A roadmap to the next role, <em>and the raise that comes with it.</em></h2>
-        <p class="sh-stat">“The bigger career jump often comes when a professional moves from model production to coordination to information management to project leadership.” <a class="sh-src" href="https://dmc-education.com/2026/09/13/bim-salary-guide-around-the-world-2026-bim-coordinator-modeler-manager-salaries/" target="_blank" rel="noopener">BIM Salary Guide 2026, DMC Education</a></p>
-        <p class="sh-cap">BIM managers average about <a href="https://www.erieri.com/salary/job/bim-manager/canada" target="_blank" rel="noopener">20% more</a> than modellers. Your roadmap tracks your progress to the role, milestone by milestone.</p>
+        <h2 class="sh-title">A roadmap to <em>the next role.</em></h2>
+        <p class="sh-stat">BIM managers average about 20% more than modellers. <a class="sh-src" href="https://www.erieri.com/salary/job/bim-manager/canada" target="_blank" rel="noopener">ERI SalaryExpert, 2026</a></p>
       </div>
       <div class="sh-map">
         <div class="sh-map-top">
@@ -566,9 +564,8 @@ render();
       <div class="hm-cta-copy">
         <div class="text-eyebrow hm-cta-eyebrow">Demand is growing</div>
         <h2 class="text-h2 hm-cta-title">See where you stand.</h2>
-        <p class="sh-stat">“Almost three in five professionals now express anxiety about their organisation falling behind without digital adoption.” <a class="sh-src" href="https://www.thenbs.com/about-nbs/press-releases/ai-adoption-surges-as-digital-anxiety-grips-the-construction-sector" target="_blank" rel="noopener">NBS Digital Construction Report 2025</a></p>
-        <p class="text-body-lg hm-cta-text">Five minutes. Your level, your next tier, and the first lesson to get there.</p>
-        <div class="hm-cta-actions">
+        <p class="sh-stat">“Almost three in five professionals now express anxiety about their organisation falling behind.” <a class="sh-src" href="https://www.thenbs.com/about-nbs/press-releases/ai-adoption-surges-as-digital-anxiety-grips-the-construction-sector" target="_blank" rel="noopener">NBS, 2025</a></p>
+                <div class="hm-cta-actions">
           <a class="btn is-white" href="/get-started">Take the lead</a>
           <a class="btn is-ghost" href="/catalog">Browse courses</a>
         </div>
