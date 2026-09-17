@@ -2,23 +2,27 @@
    STRIVE roadmap engine — /welcome-onboard
    Results → Roadmap → Goals → Profile. Everything scoped under
    #strive-roadmap .rm-* so nothing leaks into Webflow chrome.
-   Tokens mirror strive-onboard.css (Sora / Manrope / JetBrains
-   Mono; teal #006879, orange #e28001, ink #0b1f2a). Mobile first.
+   Tokens follow the home page (Sora / Manrope; turquoise #05A9D8,
+   orange #FC8204, ink #0C1417, slate greys, paper #FBFDFD).
+   No monospace anywhere. Mobile first.
    ============================================================ */
 #strive-roadmap{
-  --rm-teal:#006879;--rm-teal-deep:#00515e;--rm-teal-50:#e6f4f6;--rm-teal-100:#c9e6ea;
-  --rm-cyan:#16c4f6;--rm-cyan-500:#05a9d8;
-  --rm-orange:#e28001;--rm-orange-deep:#c26d00;--rm-orange-50:#fff4e5;
-  --rm-ink:#0b1f2a;--rm-body:#2c3d45;--rm-muted:#5a6e77;--rm-subtle:#7c8d95;
-  --rm-line:#e6ebed;--rm-line-2:#cdd6da;--rm-sunken:#f3f6f7;--rm-paper:#fbfdfd;--rm-card:#fff;
-  --rm-good:#2c9c6a;--rm-good-100:#d6f1e3;--rm-bad:#d8543f;--rm-bad-100:#f8ddd6;--rm-warn-100:#fdf1d8;
-  --rm-grad:linear-gradient(100deg,#16c4f6 0%,#4db1b2 38%,#80a37f 60%,#fc8204 100%);
-  --rm-grad-cool:linear-gradient(120deg,#16c4f6 0%,#006879 100%);
-  --rm-shadow-sm:0 1px 2px rgba(11,31,42,.06),0 2px 6px rgba(11,31,42,.05);
-  --rm-shadow-md:0 2px 4px rgba(11,31,42,.05),0 10px 24px rgba(11,31,42,.09);
-  --rm-ring:0 0 0 3px rgba(0,104,121,.28);
-  --rm-r-sm:8px;--rm-r-md:12px;--rm-r-lg:16px;--rm-pill:999px;
-  --rm-display:'Sora',system-ui,sans-serif;--rm-font:'Manrope',system-ui,sans-serif;--rm-mono:'JetBrains Mono',ui-monospace,monospace;
+  --rm-turq:#05A9D8;--rm-turq-deep:#0688B0;--rm-turq-300:#4FD4F9;--rm-turq-50:#E8F8FD;--rm-turq-100:#C7EEFA;
+  --rm-cyan:#16C4F6;
+  --rm-orange:#FC8204;--rm-orange-deep:#E6750A;--rm-orange-text:#C25F08;--rm-orange-50:#FFF4E6;
+  --rm-ink:#0C1417;--rm-body:#2C3D45;--rm-muted:#5A6E77;--rm-subtle:#7C8D95;--rm-faint:#A6B3B9;
+  --rm-line:#E6EBED;--rm-line-2:#CDD6DA;--rm-sunken:#F3F6F7;--rm-paper:#FBFDFD;--rm-card:#fff;
+  --rm-good:#2c9c6a;--rm-good-100:#d6f1e3;--rm-bad:#d8543f;--rm-bad-100:#f8ddd6;--rm-warn-100:#FFF4E6;
+  --rm-grad:linear-gradient(120deg,#16c4f6 0%,#389696 45%,#80a37f 70%,#fc8204 100%);
+  --rm-grad-cool:linear-gradient(120deg,#16C4F6 0%,#389696 100%);
+  --rm-grad-warm:linear-gradient(120deg,#FC8204 0%,#E6750A 100%);
+  --rm-shadow-sm:0 1px 2px rgba(16,42,51,.06),0 2px 6px rgba(16,42,51,.05);
+  --rm-shadow-md:0 2px 4px rgba(16,42,51,.05),0 10px 24px rgba(16,42,51,.09);
+  --rm-glow-turq:0 8px 20px rgba(5,169,216,.18);
+  --rm-glow-warm:0 10px 30px rgba(252,130,4,.35);
+  --rm-ring:0 0 0 3px rgba(22,196,246,.4);
+  --rm-r-sm:10px;--rm-r-md:14px;--rm-r-lg:18px;--rm-r-xl:24px;--rm-pill:999px;
+  --rm-display:'Sora',system-ui,sans-serif;--rm-font:'Manrope',system-ui,sans-serif;--rm-mono:'Manrope',system-ui,sans-serif;
   --rm-ease:cubic-bezier(.22,1,.36,1);
   position:relative;font-family:var(--rm-font);color:var(--rm-body);background:var(--rm-paper);
   padding:16px 16px 56px;min-height:60vh;overflow:hidden;-webkit-font-smoothing:antialiased;
@@ -27,115 +31,131 @@
 #strive-roadmap h1,#strive-roadmap h2,#strive-roadmap h3,#strive-roadmap h4,#strive-roadmap p,#strive-roadmap ul{margin:0}
 #strive-roadmap ul{padding:0;list-style:none}
 #strive-roadmap button,#strive-roadmap input,#strive-roadmap select{font:inherit;color:inherit}
-#strive-roadmap a{color:var(--rm-teal)}
+#strive-roadmap a{color:var(--rm-turq-deep)}
 #strive-roadmap svg{flex:none;vertical-align:-3px}
 #strive-roadmap [hidden]{display:none!important}
-#strive-roadmap .rm-glow{position:absolute;top:-220px;left:50%;transform:translateX(-50%);width:900px;height:520px;border-radius:50%;pointer-events:none;background:radial-gradient(ellipse,rgba(22,196,246,.18),transparent 68%);filter:blur(12px)}
+#strive-roadmap .rm-glow{position:absolute;top:-220px;left:50%;transform:translateX(-50%);width:900px;height:520px;border-radius:50%;pointer-events:none;background:radial-gradient(ellipse,rgba(22,196,246,.16),transparent 68%);filter:blur(12px)}
+
+/* ---- ink panel (shared by the top band and the roadmap summary) ---- */
+#strive-roadmap .rm-top,#strive-roadmap .rm-summary{
+  position:relative;overflow:hidden;color:#fff;background-color:var(--rm-ink);
+  background-image:radial-gradient(ellipse at 88% 0%,rgba(22,196,246,.22),rgba(22,196,246,0) 55%),radial-gradient(ellipse at 6% 100%,rgba(252,130,4,.16),rgba(252,130,4,0) 45%),radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);
+  background-size:100% 100%,100% 100%,28px 28px;
+}
 
 /* ---- top: eyebrow + step rail ---- */
-#strive-roadmap .rm-top{position:relative;text-align:center;max-width:720px;margin:0 auto 18px}
-#strive-roadmap .rm-eyebrow{display:inline-flex;align-items:center;gap:7px;font-family:var(--rm-mono);font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rm-orange);margin:8px 0 14px}
+#strive-roadmap .rm-top{text-align:center;max-width:720px;margin:0 auto 18px;padding:22px 18px 24px;border-radius:var(--rm-r-xl);box-shadow:var(--rm-shadow-md)}
+#strive-roadmap .rm-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--rm-font);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-turq-300);margin:0 0 16px}
 #strive-roadmap .rm-rail{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:nowrap}
 #strive-roadmap .rm-rail-step{display:inline-flex;align-items:center;gap:8px}
-#strive-roadmap .rm-rail-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;flex:none;border-radius:50%;font-family:var(--rm-mono);font-size:11px;font-weight:700;background:var(--rm-line);color:var(--rm-subtle);transition:all .2s var(--rm-ease)}
-#strive-roadmap .rm-rail-label{font-size:13.5px;font-weight:500;color:var(--rm-subtle)}
-#strive-roadmap .rm-rail-step.is-active .rm-rail-num{background:var(--rm-teal);color:#fff;box-shadow:0 0 0 4px var(--rm-teal-50)}
-#strive-roadmap .rm-rail-step.is-active .rm-rail-label{font-weight:700;color:var(--rm-ink)}
-#strive-roadmap .rm-rail-step.is-done .rm-rail-num{background:var(--rm-good-100);color:var(--rm-good)}
-#strive-roadmap .rm-rail-step.is-done .rm-rail-label{color:var(--rm-body)}
-#strive-roadmap .rm-rail-step.is-skipped .rm-rail-num{background:var(--rm-sunken);color:var(--rm-subtle)}
-#strive-roadmap .rm-rail-line{width:22px;height:2px;background:var(--rm-line-2);opacity:.7;border-radius:2px;transition:background .2s}
-#strive-roadmap .rm-rail-line.is-done{background:var(--rm-good);opacity:1}
+#strive-roadmap .rm-rail-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex:none;border-radius:50%;border:2px solid transparent;font-family:var(--rm-display);font-size:12px;font-weight:800;background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);transition:all .2s var(--rm-ease)}
+#strive-roadmap .rm-rail-label{font-family:var(--rm-font);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+#strive-roadmap .rm-rail-step.is-active .rm-rail-num{background:transparent;border-color:var(--rm-turq);color:#fff;box-shadow:0 0 0 4px rgba(22,196,246,.18)}
+#strive-roadmap .rm-rail-step.is-active .rm-rail-label{color:#fff}
+#strive-roadmap .rm-rail-step.is-done .rm-rail-num{background:var(--rm-grad-cool);border-color:transparent;color:#fff}
+#strive-roadmap .rm-rail-step.is-done .rm-rail-label{color:rgba(255,255,255,.85)}
+#strive-roadmap .rm-rail-step.is-skipped .rm-rail-num{background:rgba(255,255,255,.06);color:rgba(255,255,255,.4)}
+#strive-roadmap .rm-rail-line{width:22px;height:2px;background:rgba(255,255,255,.14);border-radius:2px;transition:background .2s}
+#strive-roadmap .rm-rail-line.is-done{background:var(--rm-grad-cool)}
 
 /* ---- card ---- */
 #strive-roadmap .rm-body{position:relative;max-width:720px;margin:0 auto}
-#strive-roadmap .rm-card{background:var(--rm-card);border:1px solid var(--rm-line);border-radius:var(--rm-r-lg);padding:26px 20px;box-shadow:var(--rm-shadow-sm);animation:rmFade .36s var(--rm-ease)}
+#strive-roadmap .rm-card{background:var(--rm-card);border:1px solid var(--rm-line);border-radius:var(--rm-r-xl);padding:24px 20px;box-shadow:var(--rm-shadow-sm);animation:rmFade .36s var(--rm-ease)}
 #strive-roadmap .rm-card--center{text-align:center;padding:44px 20px}
 @keyframes rmFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-#strive-roadmap .rm-step-eyebrow{font-family:var(--rm-mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rm-teal);margin:0 0 8px}
-#strive-roadmap .rm-title{font-family:var(--rm-display);font-size:24px;line-height:1.15;font-weight:700;letter-spacing:-.02em;color:var(--rm-ink);margin:0 0 8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#strive-roadmap .rm-step-eyebrow{font-family:var(--rm-font);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-turq-deep);margin:0 0 10px}
+#strive-roadmap .rm-title{font-family:var(--rm-display);font-size:clamp(28px,3.4vw,40px);line-height:1.12;font-weight:800;letter-spacing:-.03em;color:var(--rm-ink);margin:0 0 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 #strive-roadmap .rm-card--center .rm-title{justify-content:center}
-#strive-roadmap .rm-sub{font-size:14.5px;color:var(--rm-muted);line-height:1.6;margin:0 0 22px}
+#strive-roadmap .rm-sub{font-size:15.5px;color:var(--rm-muted);line-height:1.6;margin:0 0 22px}
 #strive-roadmap .rm-dot{color:var(--rm-line-2);margin:0 2px}
-#strive-roadmap .rm-h3{display:flex;align-items:center;gap:8px;font-family:var(--rm-display);font-size:15px;font-weight:700;color:var(--rm-ink);margin:22px 0 10px}
-#strive-roadmap .rm-h3-sub{font-family:var(--rm-mono);font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--rm-subtle);margin-left:auto}
+#strive-roadmap .rm-h3{display:flex;align-items:center;gap:8px;font-family:var(--rm-display);font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--rm-ink);margin:22px 0 10px}
+#strive-roadmap .rm-h3-sub{font-family:var(--rm-font);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-subtle);margin-left:auto}
 #strive-roadmap .rm-empty{color:var(--rm-subtle);font-size:14px;padding:12px 0}
 
 /* ---- buttons ---- */
-#strive-roadmap .rm-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;background:var(--rm-teal);color:#fff;border:1.5px solid transparent;border-radius:var(--rm-r-md);font-family:var(--rm-font);font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1;cursor:pointer;text-decoration:none;transition:transform .12s var(--rm-ease),background .2s,box-shadow .2s;white-space:nowrap}
-#strive-roadmap .rm-btn:hover{background:var(--rm-teal-deep)}
+#strive-roadmap .rm-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;padding:0 26px;background:var(--rm-grad-warm);color:#fff;border:1.5px solid transparent;border-radius:var(--rm-pill);font-family:var(--rm-font);font-size:16px;font-weight:800;letter-spacing:-.01em;line-height:1;cursor:pointer;text-decoration:none;box-shadow:var(--rm-glow-warm);transition:transform .2s var(--rm-ease),background .2s,box-shadow .2s,filter .2s,border-color .2s,color .2s;white-space:nowrap}
+#strive-roadmap .rm-btn:hover{transform:translateY(-3px);filter:brightness(1.06)}
 #strive-roadmap .rm-btn:active{transform:scale(.97)}
-#strive-roadmap .rm-btn:focus-visible{outline:none;box-shadow:var(--rm-ring)}
-#strive-roadmap .rm-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-#strive-roadmap .rm-btn--lg{height:52px;padding:0 26px;font-size:16px}
-#strive-roadmap .rm-btn--sm{height:36px;padding:0 14px;font-size:13.5px}
-#strive-roadmap .rm-btn--cta{background:var(--rm-orange)}
-#strive-roadmap .rm-btn--cta:hover{background:var(--rm-orange-deep)}
-#strive-roadmap .rm-btn--ghost{background:transparent;color:var(--rm-teal);border-color:var(--rm-line-2)}
-#strive-roadmap .rm-btn--ghost:hover{background:var(--rm-teal-50);border-color:var(--rm-teal)}
-#strive-roadmap .rm-btn--dashed{border-style:dashed;width:100%;color:var(--rm-muted)}
-#strive-roadmap .rm-link{background:none;border:0;padding:6px 0;color:var(--rm-muted);font-size:13.5px;font-weight:600;cursor:pointer;text-decoration:underline;text-decoration-color:transparent;transition:color .2s,text-decoration-color .2s}
-#strive-roadmap .rm-link:hover{color:var(--rm-teal);text-decoration-color:currentColor}
-#strive-roadmap .rm-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:var(--rm-r-sm);border:1px solid transparent;background:transparent;color:var(--rm-subtle);cursor:pointer;transition:all .15s}
-#strive-roadmap .rm-icon-btn:hover:not(:disabled){background:var(--rm-sunken);color:var(--rm-ink);border-color:var(--rm-line)}
+#strive-roadmap .rm-btn:focus-visible{outline:none;box-shadow:var(--rm-glow-warm),var(--rm-ring)}
+#strive-roadmap .rm-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;filter:none;box-shadow:none}
+#strive-roadmap .rm-btn--lg{height:60px;padding:0 32px;font-size:17px}
+#strive-roadmap .rm-btn--sm{height:40px;padding:0 16px;font-size:14px}
+#strive-roadmap .rm-btn--cta{background:var(--rm-grad-warm)}
+#strive-roadmap .rm-btn--cta:hover{filter:brightness(1.06)}
+#strive-roadmap .rm-btn--ghost{background:transparent;color:var(--rm-turq-deep);border-color:var(--rm-line-2);box-shadow:none;font-weight:700}
+#strive-roadmap .rm-btn--ghost:hover{background:var(--rm-turq-50);border-color:var(--rm-turq);transform:translateY(-2px);filter:none;box-shadow:var(--rm-glow-turq)}
+#strive-roadmap .rm-btn--ghost:focus-visible{box-shadow:var(--rm-ring)}
+#strive-roadmap .rm-btn--dashed{background:transparent;border-style:dashed;border-color:var(--rm-line-2);width:100%;color:var(--rm-muted);box-shadow:none;font-weight:700}
+#strive-roadmap .rm-btn--dashed:hover{border-color:var(--rm-turq);color:var(--rm-turq-deep);background:var(--rm-turq-50);transform:none;filter:none}
+#strive-roadmap .rm-link{background:none;border:0;padding:6px 0;color:var(--rm-muted);font-size:13.5px;font-weight:700;cursor:pointer;text-decoration:underline;text-decoration-color:transparent;transition:color .2s,text-decoration-color .2s}
+#strive-roadmap .rm-link:hover{color:var(--rm-turq-deep);text-decoration-color:currentColor}
+#strive-roadmap .rm-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1.5px solid transparent;background:transparent;color:var(--rm-subtle);cursor:pointer;transition:all .15s}
+#strive-roadmap .rm-icon-btn:hover:not(:disabled){background:var(--rm-sunken);color:var(--rm-ink);border-color:var(--rm-line-2)}
+#strive-roadmap .rm-icon-btn:focus-visible{outline:none;box-shadow:var(--rm-ring)}
 #strive-roadmap .rm-icon-btn:disabled{opacity:.3;cursor:default}
-#strive-roadmap .rm-icon-btn--x:hover:not(:disabled){background:var(--rm-bad-100);color:var(--rm-bad)}
+#strive-roadmap .rm-icon-btn--x:hover:not(:disabled){background:var(--rm-bad-100);color:var(--rm-bad);border-color:transparent}
 #strive-roadmap .rm-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;align-items:center}
 #strive-roadmap .rm-actions--center{justify-content:center}
 #strive-roadmap .rm-actions--end{justify-content:flex-end}
 #strive-roadmap .rm-actions--split{justify-content:space-between}
 
-/* ---- chips / segments / phases ---- */
+/* ---- chips / segments / phases (tappable choices) ---- */
 #strive-roadmap .rm-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
-#strive-roadmap .rm-chip{display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border:1.5px solid var(--rm-line);border-radius:var(--rm-pill);background:var(--rm-card);font-size:13.5px;font-weight:600;color:var(--rm-body);cursor:pointer;transition:all .15s var(--rm-ease)}
-#strive-roadmap .rm-chip:hover{border-color:var(--rm-teal);color:var(--rm-teal)}
-#strive-roadmap .rm-chip.is-on{background:var(--rm-teal);border-color:var(--rm-teal);color:#fff}
-#strive-roadmap .rm-chips--sm .rm-chip{padding:6px 11px;font-size:12.5px;font-weight:500}
-#strive-roadmap .rm-seg{display:inline-flex;flex-wrap:wrap;gap:6px;padding:4px;border-radius:var(--rm-r-md);background:var(--rm-sunken)}
-#strive-roadmap .rm-seg-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border:0;border-radius:var(--rm-r-sm);background:transparent;font-size:13.5px;font-weight:600;color:var(--rm-muted);cursor:pointer;transition:all .15s var(--rm-ease)}
-#strive-roadmap .rm-seg-btn:hover:not(:disabled){color:var(--rm-ink)}
-#strive-roadmap .rm-seg-btn.is-on{background:#fff;color:var(--rm-teal);box-shadow:var(--rm-shadow-sm)}
+#strive-roadmap .rm-chip{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border:1.5px solid var(--rm-line-2);border-radius:var(--rm-pill);background:var(--rm-card);font-size:14px;font-weight:700;color:var(--rm-body);cursor:pointer;transition:all .2s var(--rm-ease)}
+#strive-roadmap .rm-chip:hover{border-color:var(--rm-turq);transform:translateY(-2px);box-shadow:var(--rm-glow-turq)}
+#strive-roadmap .rm-chip:focus-visible{outline:none;box-shadow:var(--rm-ring)}
+#strive-roadmap .rm-chip.is-on{background:var(--rm-grad-cool);border-color:transparent;color:#fff}
+#strive-roadmap .rm-chips--sm .rm-chip{padding:7px 12px;font-size:12.5px;font-weight:700}
+#strive-roadmap .rm-seg{display:flex;flex-wrap:wrap;gap:8px}
+#strive-roadmap .rm-seg-btn{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 18px;border:1.5px solid var(--rm-line-2);border-radius:var(--rm-pill);background:var(--rm-card);font-size:14px;font-weight:700;color:var(--rm-body);cursor:pointer;transition:all .2s var(--rm-ease)}
+#strive-roadmap .rm-seg-btn:hover:not(:disabled){border-color:var(--rm-turq);transform:translateY(-2px);box-shadow:var(--rm-glow-turq)}
+#strive-roadmap .rm-seg-btn:focus-visible{outline:none;box-shadow:var(--rm-ring)}
+#strive-roadmap .rm-seg-btn.is-on{background:var(--rm-grad-cool);border-color:transparent;color:#fff}
 #strive-roadmap .rm-seg-btn:disabled{opacity:.35;cursor:not-allowed}
 #strive-roadmap .rm-phases{display:grid;gap:8px;margin-bottom:6px}
-#strive-roadmap .rm-phase{display:flex;align-items:center;gap:12px;padding:11px 13px;border:1.5px solid var(--rm-line);border-radius:var(--rm-r-md);background:var(--rm-card);text-align:left;cursor:pointer;transition:all .15s var(--rm-ease)}
-#strive-roadmap .rm-phase:hover{border-color:var(--rm-teal)}
-#strive-roadmap .rm-phase.is-on{border-color:var(--rm-teal);background:var(--rm-teal-50)}
-#strive-roadmap .rm-phase-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex:none;border-radius:50%;background:var(--rm-sunken);font-family:var(--rm-mono);font-size:12px;font-weight:700;color:var(--rm-muted)}
-#strive-roadmap .rm-phase.is-on .rm-phase-num{background:var(--rm-teal);color:#fff}
-#strive-roadmap .rm-phase strong{display:block;font-size:14px;color:var(--rm-ink)}
+#strive-roadmap .rm-phase{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid var(--rm-line-2);border-radius:var(--rm-r-lg);background:var(--rm-card);text-align:left;cursor:pointer;transition:all .2s var(--rm-ease)}
+#strive-roadmap .rm-phase:hover{border-color:var(--rm-turq);transform:translateY(-2px);box-shadow:var(--rm-glow-turq)}
+#strive-roadmap .rm-phase:focus-visible{outline:none;box-shadow:var(--rm-ring)}
+#strive-roadmap .rm-phase.is-on{border-color:transparent;background:var(--rm-grad-cool);color:#fff}
+#strive-roadmap .rm-phase-num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;flex:none;border-radius:50%;background:var(--rm-sunken);font-family:var(--rm-display);font-size:13px;font-weight:800;color:var(--rm-subtle)}
+#strive-roadmap .rm-phase.is-on .rm-phase-num{background:rgba(255,255,255,.22);color:#fff}
+#strive-roadmap .rm-phase strong{display:block;font-size:14.5px;font-weight:700;color:var(--rm-ink)}
 #strive-roadmap .rm-phase small{display:block;font-size:12.5px;color:var(--rm-muted)}
+#strive-roadmap .rm-phase.is-on strong{color:#fff}
+#strive-roadmap .rm-phase.is-on small{color:rgba(255,255,255,.78)}
 
 /* ---- quick start ---- */
 #strive-roadmap .rm-qs{display:grid;gap:10px}
-#strive-roadmap .rm-qs-opt{display:flex;align-items:center;gap:14px;padding:16px;border:1.5px solid var(--rm-line);border-radius:var(--rm-r-lg);background:var(--rm-card);color:var(--rm-ink);text-align:left;text-decoration:none;cursor:pointer;transition:all .2s var(--rm-ease);width:100%}
-#strive-roadmap .rm-qs-opt:hover{border-color:var(--rm-teal);box-shadow:var(--rm-shadow-sm)}
-#strive-roadmap .rm-qs-opt.is-open{border-color:var(--rm-teal);background:var(--rm-teal-50)}
+#strive-roadmap .rm-qs-opt{display:flex;align-items:center;gap:14px;padding:16px;border:1.5px solid var(--rm-line-2);border-radius:var(--rm-r-lg);background:var(--rm-card);color:var(--rm-ink);text-align:left;text-decoration:none;cursor:pointer;transition:all .2s var(--rm-ease);width:100%}
+#strive-roadmap .rm-qs-opt:hover{border-color:var(--rm-turq);transform:translateY(-2px);box-shadow:var(--rm-glow-turq)}
+#strive-roadmap .rm-qs-opt:focus-visible{outline:none;box-shadow:var(--rm-ring)}
+#strive-roadmap .rm-qs-opt.is-open{border-color:var(--rm-turq);background:var(--rm-turq-50)}
 #strive-roadmap .rm-qs-opt>span:nth-child(2){flex:1}
-#strive-roadmap .rm-qs-opt strong{display:block;font-family:var(--rm-display);font-size:15px}
+#strive-roadmap .rm-qs-opt strong{display:block;font-family:var(--rm-display);font-size:15.5px;font-weight:800;letter-spacing:-.02em}
 #strive-roadmap .rm-qs-opt small{display:block;font-size:13px;color:var(--rm-muted);margin-top:2px}
-#strive-roadmap .rm-qs-ico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex:none;border-radius:var(--rm-r-md);background:var(--rm-grad-cool);color:#fff}
-#strive-roadmap .rm-qs-ico--alt{background:var(--rm-orange)}
+#strive-roadmap .rm-qs-ico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex:none;border-radius:50%;background:var(--rm-grad-cool);color:#fff}
+#strive-roadmap .rm-qs-ico--alt{background:var(--rm-grad-warm)}
 #strive-roadmap .rm-self{margin-top:18px;padding-top:6px;border-top:1px dashed var(--rm-line-2);animation:rmFade .3s var(--rm-ease)}
 
 /* ---- results ---- */
-#strive-roadmap .rm-badge{text-align:center;padding:26px 18px 20px;border:1px solid var(--rm-line);border-radius:var(--rm-r-lg);background:linear-gradient(180deg,#fff 0%,var(--rm-teal-50) 100%);box-shadow:var(--rm-shadow-md);margin-bottom:18px}
-#strive-roadmap .rm-badge-ico{display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:18px;background:var(--rm-grad-cool);color:#fff;margin-bottom:12px;box-shadow:0 8px 18px rgba(0,104,121,.25)}
-#strive-roadmap .rm-badge-kicker{font-family:var(--rm-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--rm-subtle)}
-#strive-roadmap .rm-badge-arch{font-family:var(--rm-display);font-size:34px;font-weight:800;letter-spacing:-.025em;margin:2px 0 6px;background:var(--rm-grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
-#strive-roadmap .rm-badge-phase{display:flex;justify-content:center;align-items:center;gap:6px;font-weight:700;color:var(--rm-teal);font-size:15px}
+#strive-roadmap .rm-badge{text-align:center;padding:28px 18px 22px;border:1px solid var(--rm-line);border-radius:var(--rm-r-xl);background:linear-gradient(180deg,#fff 0%,var(--rm-turq-50) 100%);box-shadow:var(--rm-shadow-md);margin-bottom:18px}
+#strive-roadmap .rm-badge-ico{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:var(--rm-grad-cool);color:#fff;margin-bottom:12px;box-shadow:0 8px 20px rgba(5,169,216,.28)}
+#strive-roadmap .rm-badge-kicker{font-family:var(--rm-font);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-turq-deep)}
+#strive-roadmap .rm-badge-arch{font-family:var(--rm-display);font-size:36px;font-weight:800;letter-spacing:-.03em;margin:2px 0 6px;background:var(--rm-grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+#strive-roadmap .rm-badge-phase{display:flex;justify-content:center;align-items:center;gap:6px;font-weight:700;color:var(--rm-turq-deep);font-size:15px}
 #strive-roadmap .rm-stats{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
-#strive-roadmap .rm-stat{display:flex;flex-direction:column;align-items:center;min-width:88px;padding:8px 12px;border-radius:var(--rm-r-md);background:rgba(255,255,255,.75);border:1px solid var(--rm-line);font-family:var(--rm-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-subtle)}
-#strive-roadmap .rm-stat strong{font-family:var(--rm-display);font-size:18px;letter-spacing:-.01em;color:var(--rm-ink);text-transform:none;margin-bottom:2px}
+#strive-roadmap .rm-stat{display:flex;flex-direction:column;align-items:center;min-width:88px;padding:10px 14px;border-radius:var(--rm-r-md);background:rgba(255,255,255,.8);border:1px solid var(--rm-line);font-family:var(--rm-font);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-subtle)}
+#strive-roadmap .rm-stat strong{font-family:var(--rm-display);font-size:19px;font-weight:800;letter-spacing:-.02em;color:var(--rm-ink);text-transform:none;margin-bottom:2px}
 #strive-roadmap .rm-headline{font-size:16px;line-height:1.6;color:var(--rm-body);text-align:center;padding:0 6px}
 #strive-roadmap .rm-domains{display:grid;gap:8px}
-#strive-roadmap .rm-dom{padding:10px 12px;border:1px solid var(--rm-line);border-radius:var(--rm-r-md);background:var(--rm-card)}
-#strive-roadmap .rm-dom-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:7px}
-#strive-roadmap .rm-dom-name{font-size:13.5px;font-weight:600;color:var(--rm-ink)}
-#strive-roadmap .rm-dom-score{font-family:var(--rm-mono);font-size:11.5px;color:var(--rm-muted);white-space:nowrap}
-#strive-roadmap .rm-bar{height:7px;background:var(--rm-sunken);border-radius:var(--rm-pill);overflow:hidden}
-#strive-roadmap .rm-bar-fill{height:100%;border-radius:var(--rm-pill);background:var(--rm-teal);transition:width .6s var(--rm-ease)}
+#strive-roadmap .rm-dom{padding:12px 14px;border:1px solid var(--rm-line);border-radius:var(--rm-r-md);background:var(--rm-card)}
+#strive-roadmap .rm-dom-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:8px}
+#strive-roadmap .rm-dom-name{font-size:14px;font-weight:700;color:var(--rm-ink)}
+#strive-roadmap .rm-dom-score{font-family:var(--rm-font);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--rm-turq-deep);white-space:nowrap}
+#strive-roadmap .rm-bar{height:8px;background:var(--rm-sunken);border-radius:var(--rm-pill);overflow:hidden}
+#strive-roadmap .rm-bar-fill{height:100%;border-radius:var(--rm-pill);background:var(--rm-grad-cool);transition:width .6s var(--rm-ease)}
 #strive-roadmap .rm-dom--good .rm-bar-fill{background:var(--rm-good)}
-#strive-roadmap .rm-dom--low .rm-bar-fill{background:var(--rm-orange)}
+#strive-roadmap .rm-dom--low .rm-bar-fill{background:var(--rm-grad-warm)}
 #strive-roadmap .rm-dom--none{opacity:.6}
 #strive-roadmap .rm-review{display:grid;gap:8px}
 #strive-roadmap .rm-q{border:1px solid var(--rm-line);border-radius:var(--rm-r-md);background:var(--rm-card);overflow:hidden}
@@ -145,161 +165,172 @@
 #strive-roadmap .rm-q.is-correct .rm-q-mark{color:var(--rm-good)}
 #strive-roadmap .rm-q.is-wrong .rm-q-mark{color:var(--rm-bad)}
 #strive-roadmap .rm-q.is-wrong{border-color:rgba(216,84,63,.35)}
-#strive-roadmap .rm-q-stem{flex:1;color:var(--rm-ink);font-weight:500}
-#strive-roadmap .rm-q-num{font-family:var(--rm-mono);font-size:10.5px;color:var(--rm-subtle);margin-right:8px}
+#strive-roadmap .rm-q-stem{flex:1;color:var(--rm-ink);font-weight:600}
+#strive-roadmap .rm-q-num{font-family:var(--rm-font);font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--rm-subtle);margin-right:8px}
 #strive-roadmap .rm-q-chev{color:var(--rm-subtle);transition:transform .2s}
 #strive-roadmap .rm-q[open] .rm-q-chev{transform:rotate(180deg)}
 #strive-roadmap .rm-q-body{padding:0 12px 12px 40px;font-size:13.5px;line-height:1.55}
 #strive-roadmap .rm-q-line{display:flex;gap:10px;margin-bottom:5px}
-#strive-roadmap .rm-q-k{flex:none;width:86px;font-family:var(--rm-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--rm-subtle);padding-top:3px}
-#strive-roadmap .rm-q-good{color:var(--rm-good);font-weight:600}
-#strive-roadmap .rm-q-bad{color:var(--rm-bad);font-weight:600;text-decoration:line-through;text-decoration-thickness:1px}
+#strive-roadmap .rm-q-k{flex:none;width:86px;font-family:var(--rm-font);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-subtle);padding-top:3px}
+#strive-roadmap .rm-q-good{color:var(--rm-good);font-weight:700}
+#strive-roadmap .rm-q-bad{color:var(--rm-bad);font-weight:700;text-decoration:line-through;text-decoration-thickness:1px}
 #strive-roadmap .rm-q-fb{color:var(--rm-body);margin:8px 0 8px;padding:10px 12px;background:var(--rm-sunken);border-radius:var(--rm-r-sm)}
-#strive-roadmap .rm-q-lesson{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px;text-decoration:none}
+#strive-roadmap .rm-q-lesson{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:13px;text-decoration:none}
 #strive-roadmap .rm-q-lesson:hover{text-decoration:underline}
 
 /* ---- roadmap prompts ---- */
-#strive-roadmap .rm-card--wide{padding:26px 20px}
-#strive-roadmap .rm-prompt{display:flex;gap:14px;padding:18px 0;border-top:1px solid var(--rm-line)}
-#strive-roadmap .rm-prompt-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex:none;border-radius:50%;background:var(--rm-teal-50);color:var(--rm-teal);font-family:var(--rm-mono);font-size:12px;font-weight:700}
+#strive-roadmap .rm-card--wide{padding:24px 20px}
+#strive-roadmap .rm-prompt{display:flex;gap:14px;padding:18px 16px;border:1px solid var(--rm-line);border-radius:var(--rm-r-lg);background:var(--rm-card)}
+#strive-roadmap .rm-prompt+.rm-prompt{margin-top:12px}
+#strive-roadmap .rm-prompt-num{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:none;border-radius:50%;background:var(--rm-grad-cool);color:#fff;font-family:var(--rm-display);font-size:14px;font-weight:800}
 #strive-roadmap .rm-prompt-body{flex:1;min-width:0}
-#strive-roadmap .rm-prompt-q{font-family:var(--rm-display);font-size:16px;font-weight:700;color:var(--rm-ink);margin:3px 0 10px;line-height:1.35}
-#strive-roadmap .rm-prompt-q em{font-style:normal;color:var(--rm-teal);border-bottom:2px solid var(--rm-teal-100)}
-#strive-roadmap .rm-prompt-hint{font-size:13px;color:var(--rm-muted);margin:8px 0 0;line-height:1.5}
+#strive-roadmap .rm-prompt-q{font-family:var(--rm-display);font-size:18px;font-weight:800;letter-spacing:-.03em;color:var(--rm-ink);margin:8px 0 12px;line-height:1.25}
+#strive-roadmap .rm-prompt-q em{font-style:normal;color:var(--rm-turq-deep);border-bottom:2px solid var(--rm-turq-100)}
+#strive-roadmap .rm-prompt-hint{font-size:13.5px;color:var(--rm-muted);margin:10px 0 0;line-height:1.5}
 #strive-roadmap .rm-roles{display:grid;gap:10px;margin-bottom:10px}
-#strive-roadmap .rm-field{display:flex;flex-direction:column;gap:5px;font-size:12.5px;font-weight:600;color:var(--rm-muted)}
-#strive-roadmap .rm-field input,#strive-roadmap .rm-field select{height:42px;padding:0 12px;border:1.5px solid var(--rm-line-2);border-radius:var(--rm-r-md);background:#fff;font-size:14.5px;font-weight:500;color:var(--rm-ink);transition:border-color .15s,box-shadow .15s;width:100%;min-width:0}
-#strive-roadmap .rm-field input:focus,#strive-roadmap .rm-field select:focus{outline:none;border-color:var(--rm-teal);box-shadow:var(--rm-ring)}
+#strive-roadmap .rm-field{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--rm-subtle)}
+#strive-roadmap .rm-field input,#strive-roadmap .rm-field select{height:52px;padding:0 16px;border:1.5px solid var(--rm-line-2);border-radius:var(--rm-r-md);background:#fff;font-size:15px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--rm-ink);transition:border-color .15s,box-shadow .15s;width:100%;min-width:0}
+#strive-roadmap .rm-field input:focus,#strive-roadmap .rm-field select:focus{outline:none;border-color:var(--rm-turq);box-shadow:var(--rm-ring)}
 #strive-roadmap .rm-field--short{max-width:220px}
 #strive-roadmap .rm-focus{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-#strive-roadmap .rm-focus-btn{position:relative;min-width:0;display:flex;align-items:center;gap:9px;padding:10px 12px;border:1.5px solid var(--rm-line);border-radius:var(--rm-r-md);background:var(--rm-card);text-align:left;cursor:pointer;transition:all .15s var(--rm-ease);color:var(--rm-muted)}
-#strive-roadmap .rm-focus-btn:hover{border-color:var(--rm-teal)}
-#strive-roadmap .rm-focus-ico{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;flex:none;border-radius:var(--rm-r-sm);background:var(--rm-sunken);color:var(--rm-subtle);transition:all .15s}
-#strive-roadmap .rm-focus-name{font-size:13.5px;font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#strive-roadmap .rm-focus-check{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--rm-line-2);color:transparent;transition:all .15s}
-#strive-roadmap .rm-focus-btn.is-on{border-color:var(--rm-teal);color:var(--rm-ink);background:#fff}
-#strive-roadmap .rm-focus-btn.is-on .rm-focus-ico{background:var(--rm-teal);color:#fff}
-#strive-roadmap .rm-focus-btn.is-on .rm-focus-check{background:var(--rm-teal);border-color:var(--rm-teal);color:#fff}
+#strive-roadmap .rm-focus-btn{position:relative;min-width:0;display:flex;align-items:center;gap:9px;padding:10px 12px;border:1.5px solid var(--rm-line-2);border-radius:var(--rm-r-lg);background:var(--rm-card);text-align:left;cursor:pointer;transition:all .2s var(--rm-ease);color:var(--rm-muted)}
+#strive-roadmap .rm-focus-btn:hover{border-color:var(--rm-turq);transform:translateY(-2px);box-shadow:var(--rm-glow-turq)}
+#strive-roadmap .rm-focus-btn:focus-visible{outline:none;box-shadow:var(--rm-ring)}
+#strive-roadmap .rm-focus-ico{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;flex:none;border-radius:50%;background:var(--rm-sunken);color:var(--rm-subtle);transition:all .2s}
+#strive-roadmap .rm-focus-name{font-size:13.5px;font-weight:700;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#strive-roadmap .rm-focus-check{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--rm-line-2);color:transparent;transition:all .2s}
+#strive-roadmap .rm-focus-btn.is-on{border-color:transparent;color:#fff;background:var(--rm-grad-cool)}
+#strive-roadmap .rm-focus-btn.is-on .rm-focus-ico{background:rgba(255,255,255,.22);color:#fff}
+#strive-roadmap .rm-focus-btn.is-on .rm-focus-check{background:rgba(255,255,255,.22);border-color:#fff;color:#fff}
 
 /* ---- the plan ---- */
-#strive-roadmap .rm-prompt--plan{border-top:2px solid var(--rm-teal-100)}
-#strive-roadmap .rm-summary{padding:16px 18px;border-radius:var(--rm-r-lg);background:linear-gradient(135deg,var(--rm-teal-50),#fff 60%,var(--rm-orange-50));border:1px solid var(--rm-teal-100);margin-bottom:14px}
+#strive-roadmap .rm-prompt--plan{border-color:var(--rm-turq-100)}
+#strive-roadmap .rm-plan{display:grid;gap:12px}
+#strive-roadmap .rm-summary{padding:22px 20px;border-radius:var(--rm-r-xl);border:1px solid rgba(255,255,255,.08);margin-bottom:14px;box-shadow:var(--rm-shadow-md)}
 #strive-roadmap .rm-summary.is-fresh{animation:rmPulse .9s var(--rm-ease)}
-@keyframes rmPulse{0%{box-shadow:0 0 0 0 rgba(0,104,121,.35)}100%{box-shadow:0 0 0 14px rgba(0,104,121,0)}}
-#strive-roadmap .rm-summary-k{display:inline-flex;align-items:center;gap:6px;font-family:var(--rm-mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rm-teal);margin-bottom:8px}
-#strive-roadmap .rm-summary-txt{font-family:var(--rm-display);font-size:15.5px;line-height:1.55;font-weight:500;color:var(--rm-ink)}
-#strive-roadmap .rm-summary-stats{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:12px;font-size:13px;color:var(--rm-muted)}
+@keyframes rmPulse{0%{box-shadow:0 0 0 0 rgba(22,196,246,.45)}100%{box-shadow:0 0 0 14px rgba(22,196,246,0)}}
+#strive-roadmap .rm-summary-k{display:inline-flex;align-items:center;gap:8px;font-family:var(--rm-font);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-turq-300);margin-bottom:10px}
+#strive-roadmap .rm-summary-txt{font-family:var(--rm-display);font-size:17px;line-height:1.5;font-weight:600;letter-spacing:-.01em;color:#fff}
+#strive-roadmap .rm-summary-stats{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:14px;font-size:13px;color:rgba(255,255,255,.7)}
 #strive-roadmap .rm-summary-stats span{display:inline-flex;align-items:center;gap:5px}
-#strive-roadmap .rm-summary-stats strong{color:var(--rm-ink)}
-#strive-roadmap .rm-ms-list{display:grid;gap:8px}
-#strive-roadmap .rm-ms{border:1px solid var(--rm-line);border-radius:var(--rm-r-md);background:var(--rm-card);overflow:hidden;transition:box-shadow .3s}
-#strive-roadmap .rm-ms.is-moved{box-shadow:0 0 0 3px var(--rm-teal-100)}
-#strive-roadmap .rm-ms--gap{border-color:var(--rm-orange);background:linear-gradient(180deg,var(--rm-orange-50),#fff 80px)}
-#strive-roadmap .rm-ms--later{opacity:.62;background:var(--rm-sunken)}
-#strive-roadmap .rm-ms-head{display:flex;align-items:center;gap:10px;padding:12px;cursor:pointer;list-style:none}
+#strive-roadmap .rm-summary-stats strong{color:#fff}
+#strive-roadmap .rm-ms-list{display:grid;gap:10px}
+#strive-roadmap .rm-ms{border:1px solid var(--rm-line);border-radius:var(--rm-r-lg);background:var(--rm-card);overflow:hidden;box-shadow:var(--rm-shadow-sm);transition:box-shadow .3s}
+#strive-roadmap .rm-ms.is-moved{box-shadow:0 0 0 3px rgba(22,196,246,.3)}
+#strive-roadmap .rm-ms--gap{border-color:rgba(252,130,4,.45);background:linear-gradient(180deg,var(--rm-orange-50),#fff 80px)}
+#strive-roadmap .rm-ms--later{opacity:.62;background:var(--rm-sunken);box-shadow:none}
+#strive-roadmap .rm-ms-head{display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer;list-style:none}
 #strive-roadmap .rm-ms-head::-webkit-details-marker{display:none}
-#strive-roadmap .rm-ms-idx{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;flex:none;border-radius:50%;background:var(--rm-ink);color:#fff;font-family:var(--rm-mono);font-size:11px;font-weight:700}
-#strive-roadmap .rm-ms--gap .rm-ms-idx{background:var(--rm-orange)}
+#strive-roadmap .rm-ms-idx{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:none;border-radius:50%;background:var(--rm-grad-cool);color:#fff;font-family:var(--rm-display);font-size:14px;font-weight:800}
+#strive-roadmap .rm-ms--gap .rm-ms-idx{background:var(--rm-grad-warm);box-shadow:0 0 0 5px rgba(252,130,4,.18)}
+#strive-roadmap .rm-ms--later .rm-ms-idx{background:var(--rm-sunken);color:var(--rm-subtle);box-shadow:none}
 #strive-roadmap .rm-ms-titles{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
-#strive-roadmap .rm-ms-title{font-family:var(--rm-display);font-size:14.5px;font-weight:700;color:var(--rm-ink);line-height:1.3}
-#strive-roadmap .rm-ms-meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px;font-size:12px;color:var(--rm-muted)}
-#strive-roadmap .rm-ms-count{font-family:var(--rm-mono);font-size:11px;margin-left:2px}
-#strive-roadmap .rm-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:var(--rm-pill);background:var(--rm-sunken);font-size:11px;font-weight:600;color:var(--rm-muted);white-space:nowrap}
-#strive-roadmap .rm-tag--phase{background:var(--rm-teal-50);color:var(--rm-teal)}
-#strive-roadmap .rm-tag--later{background:var(--rm-warn-100);color:var(--rm-orange-deep)}
-#strive-roadmap .rm-tag--course{background:var(--rm-orange-50);color:var(--rm-orange-deep)}
+#strive-roadmap .rm-ms-title{font-family:var(--rm-display);font-size:15.5px;font-weight:800;letter-spacing:-.03em;color:var(--rm-ink);line-height:1.3}
+#strive-roadmap .rm-ms-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--rm-font);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-turq-deep)}
+#strive-roadmap .rm-ms-count{font-family:var(--rm-font);font-size:12px;margin-left:2px}
+#strive-roadmap .rm-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:var(--rm-pill);background:var(--rm-sunken);font-family:var(--rm-font);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-subtle);white-space:nowrap}
+#strive-roadmap .rm-tag--phase{background:var(--rm-turq-50);color:var(--rm-turq-deep)}
+#strive-roadmap .rm-tag--later{background:var(--rm-warn-100);color:var(--rm-orange-text)}
+#strive-roadmap .rm-tag--course{background:var(--rm-orange-50);color:var(--rm-orange-text)}
 #strive-roadmap .rm-ms-tools{display:flex;align-items:center;gap:2px}
 #strive-roadmap .rm-ms-chev{color:var(--rm-subtle);transition:transform .2s;margin-left:4px}
 #strive-roadmap .rm-ms[open] .rm-ms-chev{transform:rotate(180deg)}
-#strive-roadmap .rm-ms-why{padding:0 12px 10px 48px;font-size:13px;color:var(--rm-muted);line-height:1.5}
-#strive-roadmap .rm-items{border-top:1px solid var(--rm-line)}
-#strive-roadmap .rm-item{display:flex;align-items:center;gap:10px;padding:9px 10px 9px 14px;border-bottom:1px solid var(--rm-line);animation:rmFade .25s var(--rm-ease)}
-#strive-roadmap .rm-item:last-child{border-bottom:0}
-#strive-roadmap .rm-item-ico{color:var(--rm-subtle)}
-#strive-roadmap .rm-item.is-done .rm-item-ico{color:var(--rm-good)}
-#strive-roadmap .rm-item--course .rm-item-ico{color:var(--rm-orange)}
+#strive-roadmap .rm-ms-why{padding:0 14px 12px 66px;font-size:13.5px;color:var(--rm-muted);line-height:1.5}
+#strive-roadmap .rm-items{border-top:1px solid var(--rm-line);padding:6px}
+#strive-roadmap .rm-item{display:flex;align-items:center;gap:12px;padding:8px 10px 8px 8px;border-radius:var(--rm-r-lg);animation:rmFade .25s var(--rm-ease);transition:background .15s}
+#strive-roadmap .rm-item:hover{background:var(--rm-sunken)}
+#strive-roadmap .rm-item-ico{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:none;border-radius:50%;background:var(--rm-sunken);color:var(--rm-subtle)}
+#strive-roadmap .rm-item.is-done .rm-item-ico{background:var(--rm-grad-cool);color:#fff}
+#strive-roadmap .rm-item--course .rm-item-ico{background:var(--rm-grad-warm);color:#fff;box-shadow:0 0 0 5px rgba(252,130,4,.18)}
+#strive-roadmap .rm-item.is-done.rm-item--course .rm-item-ico{background:var(--rm-grad-cool);box-shadow:none}
 #strive-roadmap .rm-item-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
-#strive-roadmap .rm-item-title{font-size:13.5px;font-weight:600;color:var(--rm-ink);text-decoration:none;line-height:1.35}
-#strive-roadmap .rm-item-title:hover{color:var(--rm-teal);text-decoration:underline}
+#strive-roadmap .rm-item-title{font-size:14px;font-weight:700;color:var(--rm-ink);text-decoration:none;line-height:1.35}
+#strive-roadmap .rm-item-title:hover{color:var(--rm-turq-deep);text-decoration:underline}
 #strive-roadmap .rm-item.is-done .rm-item-title{color:var(--rm-muted);text-decoration:line-through}
-#strive-roadmap .rm-item-meta{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:11.5px;color:var(--rm-subtle)}
-#strive-roadmap .rm-item--empty{color:var(--rm-subtle);font-size:13px;font-style:italic}
+#strive-roadmap .rm-item-meta{display:flex;flex-wrap:wrap;gap:4px 10px;font-family:var(--rm-font);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-turq-deep)}
+#strive-roadmap .rm-item--empty{color:var(--rm-subtle);font-size:13px;font-style:italic;padding:10px 12px}
+#strive-roadmap .rm-item--empty:hover{background:transparent}
 #strive-roadmap .rm-plan-note{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12.5px;color:var(--rm-muted)}
 #strive-roadmap .rm-inline-err{display:flex;align-items:center;gap:12px;padding:14px;border-radius:var(--rm-r-md);background:var(--rm-bad-100);color:var(--rm-bad);font-size:13.5px}
 #strive-roadmap .rm-inline-err div{flex:1;display:flex;flex-direction:column;gap:2px;color:var(--rm-ink)}
 #strive-roadmap .rm-inline-err span{font-size:12.5px;color:var(--rm-muted)}
 
 /* ---- skeleton / loading ---- */
-#strive-roadmap .rm-spin{width:36px;height:36px;border:4px solid var(--rm-line);border-top-color:var(--rm-teal);border-radius:50%;margin:0 auto 14px;animation:rmSpin .7s linear infinite}
+#strive-roadmap .rm-spin{width:36px;height:36px;border:4px solid var(--rm-line);border-top-color:var(--rm-turq);border-radius:50%;margin:0 auto 14px;animation:rmSpin .7s linear infinite}
 #strive-roadmap .rm-spin--sm{width:14px;height:14px;border-width:2px;margin:0;display:inline-block;vertical-align:-2px}
 @keyframes rmSpin{to{transform:rotate(360deg)}}
 #strive-roadmap .rm-loading{color:var(--rm-muted);font-size:14.5px}
 #strive-roadmap .rm-skel{display:grid;gap:10px}
-#strive-roadmap .rm-skel-msg{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--rm-teal)}
+#strive-roadmap .rm-skel-msg{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--rm-turq-deep)}
 #strive-roadmap .rm-skel span{display:block;height:12px;border-radius:6px;background:linear-gradient(90deg,var(--rm-line) 25%,var(--rm-sunken) 50%,var(--rm-line) 75%);background-size:200% 100%;animation:rmShimmer 1.2s linear infinite}
-#strive-roadmap .rm-skel-summary{padding:16px;border-radius:var(--rm-r-lg);border:1px solid var(--rm-line);display:grid;gap:9px}
-#strive-roadmap .rm-skel-ms{padding:12px;border:1px solid var(--rm-line);border-radius:var(--rm-r-md);display:grid;gap:8px}
+#strive-roadmap .rm-skel-summary{padding:18px;border-radius:var(--rm-r-xl);border:1px solid var(--rm-line);display:grid;gap:9px}
+#strive-roadmap .rm-skel-ms{padding:14px;border:1px solid var(--rm-line);border-radius:var(--rm-r-lg);display:grid;gap:8px}
 #strive-roadmap .rm-skel-t{width:55%;height:14px}
 @keyframes rmShimmer{to{background-position:-200% 0}}
 
 /* ---- goals ---- */
 #strive-roadmap .rm-goals{display:grid;gap:10px}
-#strive-roadmap .rm-goal{display:flex;gap:12px;padding:14px;border:1.5px solid var(--rm-line);border-radius:var(--rm-r-lg);background:var(--rm-card);transition:all .2s var(--rm-ease)}
-#strive-roadmap .rm-goal.is-off{opacity:.5;background:var(--rm-sunken)}
+#strive-roadmap .rm-goal{display:flex;gap:12px;padding:16px;border:1px solid var(--rm-line);border-radius:var(--rm-r-lg);background:var(--rm-card);box-shadow:var(--rm-shadow-sm);transition:all .2s var(--rm-ease)}
+#strive-roadmap .rm-goal.is-off{opacity:.5;background:var(--rm-sunken);box-shadow:none}
 #strive-roadmap .rm-goal-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
-#strive-roadmap .rm-goal-title{border:1.5px solid transparent;border-radius:var(--rm-r-sm);padding:4px 6px;margin:-4px -6px 0;font-family:var(--rm-display);font-size:15px;font-weight:700;color:var(--rm-ink);background:transparent;width:100%;transition:all .15s}
+#strive-roadmap .rm-goal-title{border:1.5px solid transparent;border-radius:var(--rm-r-sm);padding:4px 6px;margin:-4px -6px 0;font-family:var(--rm-display);font-size:15.5px;font-weight:800;letter-spacing:-.02em;color:var(--rm-ink);background:transparent;width:100%;transition:all .15s}
 #strive-roadmap .rm-goal-title:hover{border-color:var(--rm-line-2)}
-#strive-roadmap .rm-goal-title:focus{outline:none;border-color:var(--rm-teal);background:#fff;box-shadow:var(--rm-ring)}
-#strive-roadmap .rm-goal-desc{font-size:13px;color:var(--rm-muted);line-height:1.5}
+#strive-roadmap .rm-goal-title:focus{outline:none;border-color:var(--rm-turq);background:#fff;box-shadow:var(--rm-ring)}
+#strive-roadmap .rm-goal-desc{font-size:13.5px;color:var(--rm-muted);line-height:1.5}
 #strive-roadmap .rm-goal-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:2px}
-#strive-roadmap .rm-goal-due{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--rm-muted);font-weight:600}
-#strive-roadmap .rm-goal-due input{border:1.5px solid var(--rm-line);border-radius:var(--rm-r-sm);padding:3px 6px;font-size:12.5px;font-weight:600;color:var(--rm-ink);background:#fff}
-#strive-roadmap .rm-goal-due input:focus{outline:none;border-color:var(--rm-teal)}
-#strive-roadmap .rm-goal-row .rm-icon-btn{margin-left:auto;width:26px;height:26px}
-#strive-roadmap .rm-switch{position:relative;flex:none;width:40px;height:24px;border-radius:var(--rm-pill);border:0;background:var(--rm-line-2);cursor:pointer;transition:background .2s;margin-top:2px;padding:0}
-#strive-roadmap .rm-switch span{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s var(--rm-ease)}
-#strive-roadmap .rm-switch[aria-checked="true"]{background:var(--rm-good)}
-#strive-roadmap .rm-switch[aria-checked="true"] span{transform:translateX(16px)}
+#strive-roadmap .rm-goal-due{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--rm-muted);font-weight:700}
+#strive-roadmap .rm-goal-due input{border:1.5px solid var(--rm-line-2);border-radius:var(--rm-r-sm);padding:4px 8px;font-size:12.5px;font-weight:700;color:var(--rm-ink);background:#fff}
+#strive-roadmap .rm-goal-due input:focus{outline:none;border-color:var(--rm-turq);box-shadow:var(--rm-ring)}
+#strive-roadmap .rm-goal-row .rm-icon-btn{margin-left:auto;width:28px;height:28px}
+#strive-roadmap .rm-switch{position:relative;flex:none;width:44px;height:26px;border-radius:var(--rm-pill);border:0;background:var(--rm-line-2);cursor:pointer;transition:background .2s;margin-top:2px;padding:0}
+#strive-roadmap .rm-switch span{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s var(--rm-ease)}
+#strive-roadmap .rm-switch:focus-visible{outline:none;box-shadow:var(--rm-ring)}
+#strive-roadmap .rm-switch[aria-checked="true"]{background:var(--rm-grad-cool)}
+#strive-roadmap .rm-switch[aria-checked="true"] span{transform:translateX(18px)}
 #strive-roadmap .rm-add-goal{margin-top:12px}
 #strive-roadmap .rm-custom{padding:16px;border:1.5px dashed var(--rm-line-2);border-radius:var(--rm-r-lg);background:var(--rm-sunken);display:grid;gap:12px;animation:rmFade .25s var(--rm-ease)}
 #strive-roadmap .rm-custom .rm-h3{margin:0}
 #strive-roadmap .rm-custom .rm-actions{margin-top:4px}
 #strive-roadmap .rm-radio-row{display:flex;flex-wrap:wrap;gap:8px}
-#strive-roadmap .rm-radio{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1.5px solid var(--rm-line);border-radius:var(--rm-pill);background:#fff;font-size:13.5px;font-weight:600;cursor:pointer}
-#strive-roadmap .rm-radio:has(input:checked){border-color:var(--rm-teal);color:var(--rm-teal)}
-#strive-roadmap .rm-radio input{accent-color:var(--rm-teal);margin:0}
+#strive-roadmap .rm-radio{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1.5px solid var(--rm-line-2);border-radius:var(--rm-pill);background:#fff;font-size:13.5px;font-weight:700;cursor:pointer;transition:all .2s var(--rm-ease)}
+#strive-roadmap .rm-radio:hover{border-color:var(--rm-turq);transform:translateY(-2px);box-shadow:var(--rm-glow-turq)}
+#strive-roadmap .rm-radio:has(input:checked){border-color:var(--rm-turq);color:var(--rm-turq-deep);background:var(--rm-turq-50)}
+#strive-roadmap .rm-radio input{accent-color:var(--rm-turq);margin:0}
 #strive-roadmap .rm-picker{max-height:260px;overflow:auto;border:1px solid var(--rm-line);border-radius:var(--rm-r-md);background:#fff;padding:6px 0}
-#strive-roadmap .rm-picker-t{font-family:var(--rm-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-subtle);padding:8px 12px 4px}
-#strive-roadmap .rm-pick{display:flex;align-items:center;gap:10px;padding:6px 12px;font-size:13.5px;cursor:pointer}
+#strive-roadmap .rm-picker-t{font-family:var(--rm-font);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-turq-deep);padding:8px 12px 4px}
+#strive-roadmap .rm-pick{display:flex;align-items:center;gap:10px;padding:7px 12px;font-size:13.5px;cursor:pointer}
 #strive-roadmap .rm-pick:hover{background:var(--rm-sunken)}
-#strive-roadmap .rm-pick input{accent-color:var(--rm-teal);margin:0}
+#strive-roadmap .rm-pick input{accent-color:var(--rm-turq);margin:0}
 #strive-roadmap .rm-pick span{flex:1;color:var(--rm-ink)}
-#strive-roadmap .rm-pick small{font-family:var(--rm-mono);font-size:11px;color:var(--rm-subtle)}
+#strive-roadmap .rm-pick small{font-family:var(--rm-font);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--rm-subtle)}
 
 /* ---- profile ---- */
 #strive-roadmap .rm-photo{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
-#strive-roadmap .rm-avatar{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;flex:none;border-radius:50%;background:var(--rm-teal-50);color:var(--rm-teal);overflow:hidden;border:2px solid #fff;box-shadow:var(--rm-shadow-sm)}
+#strive-roadmap .rm-avatar{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;flex:none;border-radius:50%;background:var(--rm-turq-50);color:var(--rm-turq-deep);overflow:hidden;border:2px solid #fff;box-shadow:var(--rm-shadow-sm),0 0 0 1px var(--rm-line)}
 #strive-roadmap .rm-avatar img{width:100%;height:100%;object-fit:cover}
 #strive-roadmap .rm-file{cursor:pointer}
 #strive-roadmap .rm-form{display:grid;gap:14px}
 
 /* ---- done / error ---- */
 #strive-roadmap .rm-done-ico,#strive-roadmap .rm-err-ico{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;margin-bottom:14px}
-#strive-roadmap .rm-done-ico{background:var(--rm-good-100);color:var(--rm-good);animation:rmPop .5s var(--rm-ease)}
-#strive-roadmap .rm-err-ico{background:var(--rm-warn-100);color:var(--rm-orange-deep)}
+#strive-roadmap .rm-done-ico{background:var(--rm-grad-cool);color:#fff;box-shadow:0 8px 20px rgba(5,169,216,.28);animation:rmPop .5s var(--rm-ease)}
+#strive-roadmap .rm-err-ico{background:var(--rm-warn-100);color:var(--rm-orange-text)}
 @keyframes rmPop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
 
 /* ---- toast ---- */
-#strive-roadmap .rm-toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:12px;max-width:calc(100vw - 32px);padding:11px 16px;border-radius:var(--rm-r-md);background:var(--rm-ink);color:#fff;font-size:13.5px;font-weight:500;box-shadow:var(--rm-shadow-md);animation:rmFade .25s var(--rm-ease)}
-#strive-roadmap .rm-toast-btn{display:inline-flex;align-items:center;gap:5px;border:0;background:rgba(255,255,255,.12);color:#fff;border-radius:var(--rm-r-sm);padding:6px 10px;font-size:12.5px;font-weight:700;cursor:pointer}
+#strive-roadmap .rm-toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:12px;max-width:calc(100vw - 32px);padding:12px 20px;border-radius:var(--rm-pill);background:var(--rm-ink);color:#fff;font-size:13.5px;font-weight:600;box-shadow:var(--rm-shadow-md);animation:rmFade .25s var(--rm-ease)}
+#strive-roadmap .rm-toast-btn{display:inline-flex;align-items:center;gap:5px;border:0;background:rgba(255,255,255,.12);color:#fff;border-radius:var(--rm-pill);padding:7px 12px;font-size:12.5px;font-weight:700;cursor:pointer;transition:background .2s}
 #strive-roadmap .rm-toast-btn:hover{background:rgba(255,255,255,.22)}
 
 /* ---- responsive (mobile first; widen up) ---- */
 @media(min-width:560px){
   #strive-roadmap{padding:24px 24px 72px}
-  #strive-roadmap .rm-card{padding:34px 32px}
+  #strive-roadmap .rm-top{padding:26px 28px 28px}
+  #strive-roadmap .rm-card{padding:28px}
   #strive-roadmap .rm-card--center{padding:52px 32px}
-  #strive-roadmap .rm-title{font-size:27px}
+  #strive-roadmap .rm-card--wide{padding:28px}
+  #strive-roadmap .rm-prompt{padding:20px}
+  #strive-roadmap .rm-summary{padding:26px 28px}
   #strive-roadmap .rm-roles{grid-template-columns:1fr 1fr}
   #strive-roadmap .rm-form{grid-template-columns:1fr 1fr}
   #strive-roadmap .rm-focus{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -318,10 +349,13 @@
   #strive-roadmap .rm-rail-line{width:14px}
   #strive-roadmap .rm-actions--split{flex-direction:column-reverse;align-items:stretch}
   #strive-roadmap .rm-actions--split .rm-btn{width:100%}
-  #strive-roadmap .rm-ms-why{padding-left:12px}
+  #strive-roadmap .rm-prompt{gap:12px;padding:16px 14px}
+  #strive-roadmap .rm-prompt-num{width:34px;height:34px;font-size:13px}
+  #strive-roadmap .rm-ms-why{padding-left:14px}
   #strive-roadmap .rm-q-body{padding-left:12px}
   #strive-roadmap .rm-q-k{width:70px}
 }
 @media(prefers-reduced-motion:reduce){
   #strive-roadmap *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  #strive-roadmap .rm-btn:hover,#strive-roadmap .rm-btn--ghost:hover,#strive-roadmap .rm-chip:hover,#strive-roadmap .rm-seg-btn:hover:not(:disabled),#strive-roadmap .rm-focus-btn:hover,#strive-roadmap .rm-phase:hover,#strive-roadmap .rm-qs-opt:hover,#strive-roadmap .rm-radio:hover{transform:none}
 }
