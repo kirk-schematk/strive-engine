@@ -263,8 +263,8 @@ body:has(.onb-page){background:var(--surface-page)}
 }
 
 /* ---- Site navbar over the dark onboarding pages: white links, ink when scrolled, transparent at the top ---- */
-body:has(.onb-page) .nav-ds{background-color:rgba(12,20,23,.82);border-bottom-color:rgba(255,255,255,.08);transition:background-color .25s ease,border-color .25s ease}
-body:has(.onb-page) .nav-ds.is-top{background-color:transparent;border-bottom-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+body:has(.onb-page) .nav-ds{background-color:rgba(12,20,23,.82)!important;border-bottom-color:rgba(255,255,255,.08)!important;transition:background-color .25s ease,border-color .25s ease}
+body:has(.onb-page) .nav-ds.is-top{background-color:transparent!important;border-bottom-color:transparent!important;-webkit-backdrop-filter:none;backdrop-filter:none}
 body:has(.onb-page) .nav-ds-logo{filter:brightness(0) invert(1)}
 body:has(.onb-page) .nav-ds-link{color:rgba(255,255,255,.78)}
 body:has(.onb-page) .nav-ds-link:hover{color:#fff;background-color:rgba(255,255,255,.08)}
