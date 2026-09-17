@@ -134,7 +134,7 @@
       '<div class="slib-wrap">' +
         '<span class="slib-eyebrow">Course library</span>' +
         '<h1 class="slib-title">Browse the library</h1>' +
-        '<p class="slib-lede">Curated, free learning for every stage of your digital delivery journey — full courses to build a skill end-to-end, and mini-lessons to master one thing fast.</p>' +
+        '<p class="slib-lede">Curated learning for every stage of your digital delivery journey — full courses to build a skill end-to-end, and mini-lessons to master one thing fast.</p>' +
         '<div class="slib-controls">' +
           '<div class="slib-search">' + icon('search') + '<input type="text" placeholder="Search courses, lessons, tools, topics"></div>' +
           '<span class="slib-count"></span>' +
