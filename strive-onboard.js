@@ -8,7 +8,6 @@ var MOCK=/[?&]mock=1(?:&|$)/.test(location.search);
 var MOCK_STRETCH=/[?&]stretch=1(?:&|$)/.test(location.search);
 var SCRIPT_BASE=(function(){try{var s=document.currentScript&&document.currentScript.src;return s?s.replace(/[^\/]*$/,''):''}catch(e){return ''}})();
 var FIXTURES=(SCRIPT_BASE||'./')+'docs/fixtures/';
-var LOGO='https://s3.amazonaws.com/webflow-prod-assets/6a1704050c9a272f02d13182/6a170557e26efe4dcc460946_Strive%20Logo%20Torquise_Burnt%20Orange%20Gradient-p-500.png';
 var root=document.getElementById('strive-onboard');
 if(!root)return;
 
@@ -188,13 +187,9 @@ function injectScaffold(){
       return '<span class="onb-rail-step'+(i===0?' is-active':'')+'"><span class="onb-rail-num">'+(i+1)+'</span><span class="onb-rail-label">'+s+'</span></span>'+
         (i<STEPS.length-1?'<span class="onb-rail-line"></span>':'');
     }).join('');
-    nav.innerHTML=
-      '<a href="/" class="onb-logo"><img src="'+LOGO+'" alt="STRIVE"></a>'+
-      '<nav class="onb-rail" aria-label="Onboarding steps">'+railHtml+'</nav>'+
-      '<span class="onb-login"><span>Already a member? </span><a href="/signup#/ms/login" data-ms-modal="login">Log in</a></span>';
-    var lg=nav.querySelector('img');
-    lg.onerror=function(){var s=document.createElement('span');s.className='onb-footer-logo';s.style.margin='0';s.textContent='STRIVE';lg.replaceWith(s)};
-    body.insertBefore(nav,body.firstChild);
+    /* Progress rail only: the page already has the site navbar (logo + log in). */
+    nav.innerHTML='<nav class="onb-rail" aria-label="Onboarding steps">'+railHtml+'</nav>';
+    section.insertBefore(nav,section.firstChild);
   }
 
   if(!document.querySelector('.onb-glow-a')){
