@@ -308,6 +308,21 @@ render();
 }
 })();
 </script>
+<!-- Navbar blend (Webflow Home only; the mockup has no navbar). Lives in the hero styles embed:
+     the hero slides under the sticky .nav-ds (margin-top:-68px + extra hero padding) and the nav goes
+     transparent with white links/logo while scrollY < 24. -->
+<style>
+.nav-ds{transition:background-color .25s ease,border-color .25s ease}
+.nav-ds.is-top{background-color:transparent;border-bottom-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+.nav-ds.is-top .nav-ds-logo{filter:brightness(0) invert(1)}
+.nav-ds.is-top .nav-ds-link{color:rgba(255,255,255,.78)}
+.nav-ds.is-top .nav-ds-link:hover{color:#fff;background-color:rgba(255,255,255,.08)}
+.nav-ds.is-top .nav-ds-login{color:#fff}
+.hp-top{margin-top:-68px}
+.hp-top .qz{padding-top:156px}
+@media (max-width:767px){.hp-top .qz{padding-top:124px}}
+</style>
+<script>(function(){var n=document.querySelector('.nav-ds');if(!n)return;function f(){n.classList.toggle('is-top',(window.pageYOffset||document.documentElement.scrollTop||0)<24)}f();window.addEventListener('scroll',f,{passive:true})})();</script>
 <!-- ===== /card ===== -->
 
   </div>
