@@ -371,3 +371,6 @@ body:has(#strive-roadmap) .nav-ds-login{color:#fff}
 /* The results/roadmap page shares the onboarding's ink background until the dashboard. */
 body:has(#strive-roadmap){background:#0C1417}
 #strive-roadmap{background:transparent}
+
+/* No layout jump on load: reserve the engine's space before the first render. */
+#strive-roadmap:empty{min-height:70vh}

@@ -269,3 +269,6 @@ body:has(.onb-page) .nav-ds-logo{filter:brightness(0) invert(1)}
 body:has(.onb-page) .nav-ds-link{color:rgba(255,255,255,.78)}
 body:has(.onb-page) .nav-ds-link:hover{color:#fff;background-color:rgba(255,255,255,.08)}
 body:has(.onb-page) .nav-ds-login{color:#fff}
+
+/* No layout jump on load: keep the assessment section invisible until the engine has injected its rail and intro. */
+section:has(#strive-onboard):not(.onb-page){visibility:hidden}
