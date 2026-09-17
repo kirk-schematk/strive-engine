@@ -69,13 +69,22 @@ function setStep(idx){
   });
 }
 
+/* Scroll guard: never scroll on the initial render (it jumped the page on
+   load), and only once the visitor has actually interacted with the page. */
+var shown=0,interacted=false;
+function markInteracted(){interacted=true}
+['pointerdown','keydown','touchstart'].forEach(function(ev){
+  document.addEventListener(ev,markInteracted,{once:true,passive:true});
+});
+
 function show(fn,stepIdx){
   if(stepIdx!=null)setStep(stepIdx);
   root.innerHTML='';
   var w=el('div','onb-card');
   fn(w);
   root.appendChild(w);
-  root.scrollIntoView({behavior:'smooth',block:'start'});
+  shown++;
+  if(shown>1&&interacted)root.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function apiCall(method,path,body){
@@ -193,17 +202,12 @@ function injectScaffold(){
     section.insertBefore(el('div','onb-glow-a'),section.firstChild);
   }
 
+  /* One short line under the header; the pitch itself lives on the home page. */
   if(!document.querySelector('.onb-hero')){
     var hero=el('div','onb-hero');
     hero.innerHTML=
-      '<p class="onb-eyebrow">'+ic(P.compass,15)+' No account needed to start</p>'+
-      '<h1 class="onb-hero-title">Find your <span class="onb-grad-text">starting point</span></h1>'+
-      '<p class="onb-hero-sub">Answer a few quick questions and we’ll map your BIM proficiency level, match you to a career archetype, and build your personalized roadmap — in about six minutes.</p>'+
-      '<div class="onb-hero-feats">'+
-        [[P.bldg,'Pick your discipline'],[P.clipboard,'Answer quick questions'],[P.target,'Get your level & roadmap']].map(function(f){
-          return '<div class="onb-feat"><span class="onb-feat-ico">'+ic(f[0],17)+'</span><span>'+f[1]+'</span></div>';
-        }).join('')+
-      '</div>';
+      '<p class="onb-eyebrow">Your assessment</p>'+
+      '<p class="onb-hero-sub">Six to eight questions. About five minutes. Your roadmap at the end.</p>';
     section.insertBefore(hero,root);
   }
 
@@ -212,7 +216,7 @@ function injectScaffold(){
     ft.innerHTML=
       '<div class="onb-footer-inner">'+
         '<div class="onb-footer-about">'+
-          '<a href="/" class="onb-footer-logo">STRIVE</a>'+
+          '<a href="/" class="onb-footer-logo"><img src="https://cdn.prod.website-files.com/6a1704050c9a272f02d13182/6aab434f4aef72c2e3f14f5f_strive-logo-white.png" alt="STRIVE" height="22"></a>'+
           '<p>Pushing digitalization forward in buildings &amp; infrastructure — through hands-on learning, verified skills, and community.</p>'+
         '</div>'+
         '<div class="onb-footer-col"><h4>Learn</h4><a href="/catalog">Courses</a><a href="/career-paths">Career paths</a><a href="/get-started">Skill assessments</a><a href="/teams">For teams</a></div>'+
@@ -223,6 +227,8 @@ function injectScaffold(){
         '<span>© 2026 STRIVE Community</span>'+
         '<span><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></span>'+
       '</div>';
+    var fl=ft.querySelector('.onb-footer-logo img');
+    fl.onerror=function(){fl.parentNode.textContent='STRIVE'};
     body.appendChild(ft);
   }
 }
@@ -393,7 +399,7 @@ function doTeaser(){
       if(data.headline)w.appendChild(el('p','onb-headline',data.headline));
       var locked=el('div','onb-locked');
       locked.appendChild(el('div','onb-lock-ico',ic(P.lock,30)));
-      locked.appendChild(el('h3','onb-lock-title','Your personalized learning path is ready'));
+      locked.appendChild(el('h3','onb-lock-title','Your personalized roadmap is ready'));
       locked.appendChild(el('p','onb-lock-text','Create an account to unlock your full track, curated lessons, and career roadmap.'));
       var cta=el('a','onb-btn onb-btn--lg onb-btn--cta','Create account '+ic(P.arrowRight,19));
       cta.href=signupHref();
@@ -576,7 +582,14 @@ injectScaffold();
 (function(){
   var qs=new URLSearchParams(location.search);
   var d=qs.get('discipline'),g=qs.get('goal');
-  if(d&&g&&DISC.indexOf(d)>=0&&GOALS.indexOf(g)>=0){st.disc=d;st.goal=g;doStart();return}
+  if(d&&g&&DISC.indexOf(d)>=0&&GOALS.indexOf(g)>=0){
+    st.disc=d;st.goal=g;
+    /* Hand-off: hide the intro line so the concept card / first question is first on screen. */
+    root.classList.add('is-handoff');
+    var sec=root.closest('.onb-page');if(sec)sec.classList.add('is-handoff');
+    var intro=document.querySelector('.onb-hero');if(intro)intro.classList.add('is-handoff');
+    doStart();return;
+  }
   showDiscipline();
 })();
 })();
