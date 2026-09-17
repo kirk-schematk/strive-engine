@@ -118,13 +118,13 @@ query onboarding_answer verb=POST {
     // ------------------------------------------------------------------
     // 3. Ladder (ADR DEC-9)
     //    - two correct at a phase -> move up (cap 5)
-    //    - a wrong answer -> move down (floor 1)
-    //    - stable/early stop: a wrong answer at phase p when phase p-1 is
-    //      already proven (>=2 correct) -> the placement is settled.
+    //    - a wrong answer -> move down (floor 1) and KEEP GOING: the ladder
+    //      never ends on a wrong answer (2026-09-17: the old "stable" early
+    //      stop ended the session on the first miss after a climb, which felt
+    //      like failing; the visitor should keep progressing until 8 questions).
     //    - stop at 8 questions or when no unserved question is left.
     // ------------------------------------------------------------------
     var $next_phase { value = $q_phase }
-    var $stable { value = false }
     conditional {
       if (`$correct == true`) {
         conditional {
@@ -134,17 +134,11 @@ query onboarding_answer verb=POST {
         }
       }
       else {
-        var $below_key { value = ($q_phase - 1)|to_text }
-        conditional {
-          if (`$q_phase > 1 && ($counts|get:$below_key|first_notempty:0) >= 2`) {
-            var.update $stable { value = true }
-          }
-        }
         var.update $next_phase { value = ($q_phase - 1)|max:1 }
       }
     }
 
-    var $done { value = $stable == true || $answered >= $MAX_Q }
+    var $done { value = $answered >= $MAX_Q }
 
     // ------------------------------------------------------------------
     // 4. Pick the next question (excluding everything already served)
