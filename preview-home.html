@@ -323,6 +323,35 @@ render();
 @media (max-width:767px){.hp-top .qz{padding-top:124px}}
 </style>
 <script>(function(){var n=document.querySelector('.nav-ds');if(!n)return;function f(){n.classList.toggle('is-top',(window.pageYOffset||document.documentElement.scrollTop||0)<24)}f();window.addEventListener('scroll',f,{passive:true})})();</script>
+<!-- Page theme below the hero (Webflow: its own HTML Embed after the hero styles embed). -->
+<style>
+/* ---- Page theme below the hero: cards, pills and an ink closing band so the rest of the page speaks the hero's language ---- */
+.hp-how-title,.hm-how-title,.hp-cta-title,.hm-cta-title{font-weight:800;letter-spacing:-.03em}
+.hp-steps,.hm-steps{gap:20px}
+.hp-step,.hm-step{background:#FFFFFF;border:1px solid #E6EBED;border-radius:18px;padding:26px 26px 28px;box-shadow:0 1px 2px rgba(16,42,51,.06),0 2px 6px rgba(16,42,51,.05);transition:transform .2s cubic-bezier(.22,1,.36,1),border-color .2s,box-shadow .2s}
+.hp-step:hover,.hm-step:hover{transform:translateY(-4px);border-color:#16C4F6;box-shadow:0 10px 30px rgba(22,196,246,.18)}
+.hp-step-bar,.hm-step-bar{display:none}
+.hp-step-num,.hm-step-num{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin:0 0 18px;border-radius:50%;background:linear-gradient(120deg,#16C4F6 0%,#389696 100%);-webkit-background-clip:padding-box;background-clip:padding-box;color:#FFFFFF;-webkit-text-fill-color:#FFFFFF;font-family:'Sora',system-ui,sans-serif;font-size:15px;font-weight:800;letter-spacing:0}
+.hp-proof,.hm-proof{padding:0 0 96px;background:#F3F6F7}
+.hp-proof-grid,.hm-proof-grid{gap:20px}
+.hp-proof-item,.hm-proof-item,.hp-proof-item+.hp-proof-item,.hm-proof-item+.hm-proof-item,.hp-proof-item.hp-proof-item-r,.hm-proof-item.hm-proof-item-r{background:#FFFFFF;border:1px solid #E6EBED;border-radius:18px;padding:22px 24px}
+.hp-cta,.hm-cta{position:relative;overflow:hidden;background-color:#0C1417;background-image:radial-gradient(ellipse at 10% 0%,rgba(22,196,246,.26),rgba(22,196,246,0) 55%),radial-gradient(ellipse at 92% 110%,rgba(252,130,4,.30),rgba(252,130,4,0) 50%),radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:100% 100%,100% 100%,28px 28px;background-position:0 0,0 0,0 0}
+.hp-cta .hp-eyebrow,.hm-cta-eyebrow{color:#4FD4F9}
+.hp-cta-title,.hm-cta-title{color:#FFFFFF}
+.hp-cta-text,.hm-cta-text{color:rgba(255,255,255,.75)}
+.hp-cta-actions,.hm-cta-actions{gap:14px 20px;align-items:center}
+.hp-cta .btn.is-white,.hm-cta .btn.is-white{display:inline-flex;align-items:center;height:64px;padding:0 34px;border:0;border-radius:999px;background:linear-gradient(120deg,#FC8204 0%,#E6750A 100%);color:#FFFFFF;font-size:19px;font-weight:800;box-shadow:0 10px 30px rgba(252,130,4,.4);transition:transform .2s cubic-bezier(.22,1,.36,1),filter .2s}
+.hp-cta .btn.is-white:hover,.hm-cta .btn.is-white:hover{background:linear-gradient(120deg,#FC8204 0%,#E6750A 100%);color:#FFFFFF;transform:translateY(-3px);filter:brightness(1.06)}
+.hp-cta .btn.is-ghost,.hm-cta .btn.is-ghost{display:inline-flex;align-items:center;height:64px;padding:0 30px;border-radius:999px;border:1.5px solid rgba(255,255,255,.3);color:#FFFFFF;font-size:17px;font-weight:700;transition:border-color .2s,background-color .2s}
+.hp-cta .btn.is-ghost:hover,.hm-cta .btn.is-ghost:hover{border-color:#FFFFFF;background:rgba(255,255,255,.06)}
+.hp-footer,.hm-footer{background:#0C1417;border-top:1px solid rgba(255,255,255,.08);padding:44px 0}
+.hp-footer-logo-img,.hm-footer-logo img{filter:invert(1)}
+.hp-footer-link,.hm-footer-link{color:rgba(255,255,255,.7)}
+.hp-footer-link:hover,.hm-footer-link:hover{color:#FFFFFF}
+.hp-footer .text-caption,.hm-footer .text-caption,.hp-footer .text-body-sm,.hm-footer .text-body-sm{color:rgba(255,255,255,.45)}
+@media (max-width:767px){.hp-proof,.hm-proof{padding-bottom:64px}.hp-cta .btn.is-white,.hm-cta .btn.is-white,.hp-cta .btn.is-ghost,.hm-cta .btn.is-ghost{height:56px;justify-content:center;font-size:17px}}
+@media (prefers-reduced-motion:reduce){.hp-step,.hm-step,.hp-cta .btn.is-white,.hm-cta .btn.is-white{transition:none}}
+</style>
 <!-- ===== /card ===== -->
 
   </div>
