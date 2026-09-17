@@ -4,7 +4,7 @@ CDN-hosted front-end **engines** for the STRIVE learning platform. These are the
 shared renderers that turn a JSON content record (served from Xano) into a fully
 styled page inside Webflow. Content is data; these files are the renderer.
 
-**Live CDN:** https://strive-engine.netlify.app/ (auto-deploys from this repo)
+**Live CDN:** https://strive-engine.kirk-458.workers.dev/ (Cloudflare Workers static assets; deploy with `npm run deploy`)
 
 ## Files served
 
@@ -38,8 +38,8 @@ after signup.
 Each dynamic template page loads the relevant engine from this CDN and mounts it:
 
 ```html
-<link rel="stylesheet" href="https://strive-engine.netlify.app/strive-course.css">
-<script src="https://strive-engine.netlify.app/strive-course.js"></script>
+<link rel="stylesheet" href="https://strive-engine.kirk-458.workers.dev/strive-course.css">
+<script src="https://strive-engine.kirk-458.workers.dev/strive-course.js"></script>
 <div id="strive-course"></div>
 <script>
   STRIVECourse.load({

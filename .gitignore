@@ -31,3 +31,7 @@ __pycache__/
 
 # Claude Code local permissions
 .claude/settings.local.json
+
+# Build output for Cloudflare Workers
+dist/
+.wrangler/

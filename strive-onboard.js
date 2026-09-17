@@ -2,7 +2,7 @@
 'use strict';
 var API='https://x8ki-letl-twmt.n7.xano.io/api:m2bNDxnv';
 var PLATFORM='https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM';
-var CDN='https://strive-engine.netlify.app/';
+var CDN='https://strive-engine.kirk-458.workers.dev/';
 /* ?mock=1 → fixtures only, no Xano (add &stretch=1 to force the "stretch" lesson pick). */
 var MOCK=/[?&]mock=1(?:&|$)/.test(location.search);
 var MOCK_STRETCH=/[?&]stretch=1(?:&|$)/.test(location.search);

@@ -3,7 +3,7 @@
      Page: /welcome-onboard (Memberstack redirects here after signup;
      the dashboard's "Edit roadmap" links here with #roadmap).
      Engine files: strive-roadmap.css + strive-roadmap.js
-     Served from: https://strive-engine.netlify.app/
+     Served from: https://strive-engine.kirk-458.workers.dev/
 
      Flow: Memberstack cookie -> POST {PLATFORM}/memberstack_auth
      {ms_token} -> authToken (Bearer). Onboard token read from
@@ -15,11 +15,11 @@
 
 <!-- Page settings → Custom code → Head -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap">
-<link rel="stylesheet" href="https://strive-engine.netlify.app/strive-roadmap.css">
+<link rel="stylesheet" href="https://strive-engine.kirk-458.workers.dev/strive-roadmap.css">
 
 <!-- Page body: an HTML Embed containing the mount + this script -->
 <div id="strive-roadmap"></div>
-<script src="https://strive-engine.netlify.app/strive-roadmap.js"></script>
+<script src="https://strive-engine.kirk-458.workers.dev/strive-roadmap.js"></script>
 <script>
 (function () {
   var PLATFORM   = 'https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM';
