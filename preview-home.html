@@ -414,6 +414,23 @@ render();
 @media (max-width:767px){.sh{padding:64px 0}.sh-in{padding:0 20px}.sh-head{margin-bottom:28px}.sh-check,.sh-skill,.sh-map{padding:22px;border-radius:20px}.sh-lab{padding:8px;border-radius:20px}.sh-row-lv{display:none}}
 @media (max-width:479px){.sh-lab #strive-lesson .sl-gnode{width:128px!important;left:12px!important}.sh-lab #strive-lesson .sl-gnode[data-node="build"]{left:auto!important;right:14px!important;width:132px!important}}
 @media (prefers-reduced-motion:reduce){.sh-row{transition:none;opacity:1;transform:none}}
+/* Stat quotes: one problem per section, quoted, attributed, linked */
+.sh-stat{margin:0 0 16px;padding:14px 18px 12px;border-left:3px solid #16C4F6;border-radius:0 14px 14px 0;background:rgba(22,196,246,.07)}
+.sh-stat blockquote{margin:0;font-family:'Manrope',system-ui,sans-serif;font-size:16px;line-height:1.5;font-weight:600;color:#0C1417}
+.sh-stat figcaption{margin-top:8px;font-family:'Manrope',system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#5A6E77}
+.sh-stat a{color:#0688B0;text-decoration:none;border-bottom:1.5px solid rgba(6,136,176,.35);transition:border-color .2s}
+.sh-stat a:hover{border-bottom-color:#0688B0}
+.sh-ink .sh-stat{border-left-color:#4FD4F9;background:rgba(255,255,255,.06)}
+.sh-ink .sh-stat blockquote{color:#fff}
+.sh-ink .sh-stat figcaption{color:rgba(255,255,255,.6)}
+.sh-ink .sh-stat a{color:#4FD4F9;border-bottom-color:rgba(79,212,249,.4)}
+.sh-ink .sh-stat a:hover{border-bottom-color:#4FD4F9}
+.hp-cta .sh-stat,.hm-cta .sh-stat{border-left-color:#fff;background:rgba(255,255,255,.14);margin:0 0 28px;max-width:560px}
+.hp-cta .sh-stat blockquote,.hm-cta .sh-stat blockquote{color:#fff}
+.hp-cta .sh-stat figcaption,.hm-cta .sh-stat figcaption{color:rgba(255,255,255,.8)}
+.hp-cta .sh-stat a,.hm-cta .sh-stat a{color:#fff;border-bottom-color:rgba(255,255,255,.5)}
+.sh-cap a{color:#0688B0;font-weight:700;text-decoration:none;border-bottom:1.5px solid rgba(6,136,176,.35)}
+.sh-ink .sh-cap a{color:#4FD4F9;border-bottom-color:rgba(79,212,249,.4)}
 </style>
 <!-- ===== /card ===== -->
 
@@ -431,10 +448,10 @@ render();
         <div class="sh-eyebrow"><b>1</b> Learn</div>
         <h2 class="sh-title">Lessons you can put your <em>hands on.</em></h2>
       </div>
-      <p class="sh-cap">This is Part 4 of the visual programming mini-lesson, running live. <b>Drag a slider.</b> The data flows through the graph and the tower rebuilds, exactly as it does in the lesson.</p>
-    </div>
-    <div class="sh-lab" data-sh-lab>
-      <div id="strive-lesson"><div class="sl-wrap" data-sh-wrap><div class="sh-lab-empty">Loading the lesson engine…</div></div></div>
+      <div>
+        <figure class="sh-stat"><blockquote>“57 percent of firms report that available candidates are not qualified … because they lack essential skills.”</blockquote><figcaption><a href="https://www.agc.org/news/2025/08/28/construction-workforce-shortages-are-leading-cause-project-delays-immigration-enforcement-affects" target="_blank" rel="noopener">AGC 2025 Workforce Survey</a></figcaption></figure>
+        <p class="sh-cap">Skills are what employers cannot find. Every STRIVE lesson is the actual work. This one is live: <b>drag a slider</b> and the tower rebuilds as the data flows.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -461,24 +478,9 @@ render();
         <div class="sh-eyebrow"><b>2</b> Verify</div>
         <h2 class="sh-title">Every lesson ends with a check <em>that counts.</em></h2>
       </div>
-      <p class="sh-cap">Same lesson, final question. <b>Answer it</b> and watch the skill on the right level up. That record is yours, not a certificate PDF.</p>
-    </div>
-    <div class="sh-verify" data-sh-verify>
-      <div class="sh-check">
-        <p class="qz-q" data-vq>Which task is the best fit for algorithmic design?</p>
-        <div class="qz-grid">
-          <button type="button" class="qz-opt" data-v="0"><span class="qz-ico">A</span><span>Choosing the architectural concept for a museum</span></button>
-          <button type="button" class="qz-opt" data-v="1"><span class="qz-ico">B</span><span>Generating 250 unique shading fins from one rule</span></button>
-          <button type="button" class="qz-opt" data-v="2"><span class="qz-ico">C</span><span>Sending a contract to one consultant</span></button>
-          <button type="button" class="qz-opt" data-v="3"><span class="qz-ico">D</span><span>Naming the project in the file system</span></button>
-        </div>
-      </div>
-      <div class="sh-skill" data-vskill>
-        <div class="sh-skill-name">Visual programming · Automation &amp; computation</div>
-        <div class="qz-lvt" data-vlv>Emerging <i>· level 2 of 5</i></div>
-        <div class="qz-meter" data-vmeter><span class="qz-seg is-on"></span><span class="qz-seg is-on"></span><span class="qz-seg"></span><span class="qz-seg"></span><span class="qz-seg"></span></div>
-        <span class="sh-badge" data-vbadge><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-vbt>Not yet verified</span></span>
-        <p class="sh-skill-note" data-vnote>Pass the check and this skill moves to Capable on your profile.</p>
+      <div>
+        <figure class="sh-stat"><blockquote>“The increasing use of CAD and BIM technologies is expected to lead to a decline in employment for many types of drafters.”</blockquote><figcaption><a href="https://www.bls.gov/ooh/architecture-and-engineering/drafters.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics, Occupational Outlook</a></figcaption></figure>
+        <p class="sh-cap">Drafting is being automated. Verified skills above it are not. <b>Answer the question</b> and watch the level move.</p>
       </div>
     </div>
   </div>
@@ -506,8 +508,8 @@ render();
       <div class="sh-lead-copy">
         <div class="sh-eyebrow"><b>3</b> Lead</div>
         <h2 class="sh-title">A roadmap built from what you <em>verified.</em></h2>
-        <p class="sh-cap">Your assessment sets the starting level. Every verified skill moves the roadmap forward, and the role you are aiming at moves closer with it.</p>
-        <p class="sh-cap">Five domains: information management, automation and computation, digital delivery, reality capture, sustainability.</p>
+        <figure class="sh-stat"><blockquote>“The bigger career jump often comes when a professional moves from model production to coordination to information management to project leadership.”</blockquote><figcaption><a href="https://dmc-education.com/2026/09/13/bim-salary-guide-around-the-world-2026-bim-coordinator-modeler-manager-salaries/" target="_blank" rel="noopener">BIM Salary Guide 2026, DMC Education</a></figcaption></figure>
+        <p class="sh-cap">Each tier pays more than the last. BIM managers average about <a href="https://www.erieri.com/salary/job/bim-manager/canada" target="_blank" rel="noopener">20% more</a> than modellers. Your roadmap is built to the next tier, from the skills you verified.</p>
       </div>
       <div class="sh-map">
         <div class="sh-map-top">
@@ -539,9 +541,10 @@ render();
   <div class="hm-container">
     <div class="hm-cta-grid">
       <div class="hm-cta-copy">
-        <div class="text-eyebrow hm-cta-eyebrow">Five minutes</div>
-        <h2 class="text-h2 hm-cta-title">Ready to lead?</h2>
-        <p class="text-body-lg hm-cta-text">See where you stand and what to learn next. Your roadmap is waiting.</p>
+        <div class="text-eyebrow hm-cta-eyebrow">Demand is growing</div>
+        <h2 class="text-h2 hm-cta-title">See where you stand.</h2>
+        <p class="text-body-lg hm-cta-text">Five minutes. Your level, your next tier, and the first lesson to get there.</p>
+        <figure class="sh-stat"><blockquote>“Almost three in five professionals now express anxiety about their organisation falling behind without digital adoption.”</blockquote><figcaption><a href="https://www.thenbs.com/about-nbs/press-releases/ai-adoption-surges-as-digital-anxiety-grips-the-construction-sector" target="_blank" rel="noopener">NBS Digital Construction Report 2025</a></figcaption></figure>
         <div class="hm-cta-actions">
           <a class="btn is-white" href="/get-started">Take the lead</a>
           <a class="btn is-ghost" href="/catalog">Browse courses</a>
