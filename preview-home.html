@@ -418,7 +418,9 @@ render();
 /* Problem first, then how we answer it: eyebrow, quote (the problem), title (our answer), caption */
 .sh-head{display:block;max-width:820px;margin-bottom:36px}
 .sh-title{margin:0 0 14px}
-.sh-cap{max-width:680px}
+.sh-cap{max-width:680px;margin:0 0 12px;color:#2C3D45}
+.sh-ink .sh-cap{color:rgba(255,255,255,.82)}
+.hp-cta .sh-cap,.hm-cta .sh-cap{max-width:600px;color:rgba(255,255,255,.92)}
 /* Evidence line: quote and source in one compact paragraph under the tagline */
 .sh-stat{margin:0;max-width:680px;font-family:'Manrope',system-ui,sans-serif;font-size:15px;line-height:1.55;font-weight:500;color:#5A6E77}
 .sh-src{display:inline-block;margin-left:6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#0688B0;text-decoration:none;border-bottom:1.5px solid rgba(6,136,176,.35);transition:border-color .2s;white-space:nowrap}
@@ -457,6 +459,7 @@ render();
     <div class="sh-head">
       <div class="sh-eyebrow"><b>1</b> Learn</div>
       <h2 class="sh-title">Learn skills employers <em>cannot find.</em></h2>
+      <p class="sh-cap">Hands-on lessons built from real project work, so the skill transfers to the job.</p>
       <p class="sh-stat">“57 percent of firms report that available candidates are not qualified.” <a class="sh-src" href="https://www.agc.org/news/2025/08/28/construction-workforce-shortages-are-leading-cause-project-delays-immigration-enforcement-affects" target="_blank" rel="noopener">AGC, 2025</a></p>
     </div>
     <div class="sh-lab" data-sh-lab>
@@ -485,6 +488,7 @@ render();
     <div class="sh-head">
       <div class="sh-eyebrow"><b>2</b> Verify</div>
       <h2 class="sh-title">Verified skills, <em>not certificates.</em></h2>
+      <p class="sh-cap">Every lesson ends with a graded check that levels the skill on your profile, where employers can see it.</p>
       <p class="sh-stat">BIM is expected to bring “a decline in employment for many types of drafters.” <a class="sh-src" href="https://www.bls.gov/ooh/architecture-and-engineering/drafters.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics</a></p>
     </div>
     <div class="sh-verify" data-sh-verify>
@@ -530,6 +534,7 @@ render();
       <div class="sh-lead-copy">
         <div class="sh-eyebrow"><b>3</b> Lead</div>
         <h2 class="sh-title">A roadmap to <em>the next role.</em></h2>
+        <p class="sh-cap">Your verified skills build a roadmap to a named role and show how close you are.</p>
         <p class="sh-stat">BIM managers average about 20% more than modellers. <a class="sh-src" href="https://www.erieri.com/salary/job/bim-manager/canada" target="_blank" rel="noopener">ERI SalaryExpert, 2026</a></p>
       </div>
       <div class="sh-map">
@@ -564,6 +569,7 @@ render();
       <div class="hm-cta-copy">
         <div class="text-eyebrow hm-cta-eyebrow">Demand is growing</div>
         <h2 class="text-h2 hm-cta-title">See where you stand.</h2>
+        <p class="sh-cap">Five minutes gives you your level and the first lesson that moves it.</p>
         <p class="sh-stat">“Almost three in five professionals now express anxiety about their organisation falling behind.” <a class="sh-src" href="https://www.thenbs.com/about-nbs/press-releases/ai-adoption-surges-as-digital-anxiety-grips-the-construction-sector" target="_blank" rel="noopener">NBS, 2025</a></p>
                 <div class="hm-cta-actions">
           <a class="btn is-white" href="/get-started">Take the lead</a>
