@@ -266,6 +266,8 @@ function init(opts){
       return {tone:'soon',text:'“'+soon.g.title+'” is '+soon.i.label.toLowerCase()+(left?' — '+pluralize(left,'lesson')+' to go. Totally doable.':'. You’ve got this.')}}
     var wk=lessonsThisWeek();
     if(wk>0)return {tone:'good',text:pluralize(wk,'lesson')+' done this week. Keep the momentum going.'};
+    /* First visit: nothing completed yet, so point straight at lesson one. */
+    if(d.next_item&&!d.recent_completions.length&&!(+d.stats.lessons_done>0))return {tone:'good',text:'Welcome to STRIVE. Your roadmap is set, and your first lesson takes about '+fmtMin(d.next_item.minutes)+'.'};
     if(d.next_item)return {tone:'good',text:'Your next lesson takes about '+fmtMin(d.next_item.minutes)+'. Perfect for a coffee break.'};
     if(!hasRoadmap())return {tone:'good',text:'Let’s build your roadmap — it takes about a minute.'};
     return {tone:'good',text:'Nice work. Pick anything from your roadmap to keep going.'};
@@ -316,7 +318,7 @@ function init(opts){
     var phaseLabel=u.phase_label||(u.placement_phase&&PHASE_LABELS[u.placement_phase])||'';
     var n=nudge();
     return '<header class="dsh-top">'+
-      '<div class="dsh-greet"><h1 class="dsh-h1">'+esc(greeting())+', '+esc(u.first_name||'there')+'.</h1>'+
+      '<div class="dsh-greet"><h1 class="dsh-h1">'+esc(greeting())+(u.first_name?', '+esc(u.first_name):'')+'.</h1>'+
         '<p class="dsh-nudge dsh-nudge--'+n.tone+'">'+ic(n.tone==='warn'?P.alert:n.tone==='soon'?P.clock:P.sparkles,16)+'<span>'+esc(n.text)+'</span></p></div>'+
       '<div class="dsh-card dsh-profile">'+
         '<div class="dsh-avatar">'+(photo?'<img src="'+attr(photo)+'" alt="">':'<span>'+esc(initials(u))+'</span>')+'</div>'+

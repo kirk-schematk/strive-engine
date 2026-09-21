@@ -217,6 +217,20 @@
 #strive-lesson .sl-qnav.is-show{display:block}
 #strive-lesson .sl-qnav button{font-family:var(--sl-mono);font-size:12px;color:var(--sl-cyan-deep);background:none;border:none;cursor:pointer;text-decoration:underline}
 
+/* what next (after a passed quiz) */
+#strive-lesson .sl-done-sec{padding:0 0 64px}
+#strive-lesson .sl-done{padding:28px 26px;text-align:center;animation:sl-fade .45s}
+#strive-lesson .sl-done__wait{font-size:14px;color:var(--sl-mute)}
+#strive-lesson .sl-done__ico{width:46px;height:46px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center;
+  color:#fff;background:linear-gradient(135deg,var(--sl-cyan),var(--sl-orange))}
+#strive-lesson .sl-done__title{font-family:var(--sl-display);font-weight:700;font-size:21px;line-height:1.25}
+#strive-lesson .sl-done__text{font-size:14.5px;color:var(--sl-soft);line-height:1.55;margin:8px auto 0;max-width:460px}
+#strive-lesson .sl-done__bar{height:6px;border-radius:6px;background:var(--sl-line);overflow:hidden;max-width:320px;margin:18px auto 0}
+#strive-lesson .sl-done__bar span{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--sl-cyan),var(--sl-orange));transition:width .6s}
+#strive-lesson .sl-done__prog{font-size:12.5px;color:var(--sl-mute);margin-top:7px}
+#strive-lesson .sl-done__actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:6px}
+#strive-lesson .sl-done .sl-btn{font-family:var(--sl-body);font-weight:600;font-size:14.5px;letter-spacing:0;border-radius:999px;text-decoration:none;margin-top:16px}
+
 /* recap */
 #strive-lesson .sl-recap{display:grid;gap:11px;margin-top:14px}
 #strive-lesson .sl-rc{display:flex;gap:14px;padding:16px 18px}

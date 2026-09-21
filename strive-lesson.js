@@ -291,17 +291,51 @@
      member on a wired lesson page). The server re-grades `answers` against
      the lesson's stored quiz — the client result is never trusted. */
   function postCompletion(ctx, selections, score, total) {
-    if (!ctx || !ctx.completeUrl || !ctx.authToken || !ctx.slug) return;
+    if (!ctx || !ctx.completeUrl || !ctx.authToken || !ctx.slug) return Promise.resolve(null);
     try {
-      fetch(ctx.completeUrl, {
+      return fetch(ctx.completeUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": "Bearer " + ctx.authToken },
         body: JSON.stringify({ slug: ctx.slug, answers: selections, score: score, total: total }),
       })
         .then((r) => (r.ok ? r.json() : null))
-        .then((res) => { if (res && res.passed && typeof ctx.onComplete === "function") { try { ctx.onComplete(res); } catch (e) {} } })
-        .catch(() => {});
-    } catch (e) {}
+        .then((res) => { if (res && res.passed && typeof ctx.onComplete === "function") { try { ctx.onComplete(res); } catch (e) {} } return res; })
+        .catch(() => null);
+    } catch (e) { return Promise.resolve(null); }
+  }
+
+  /* ---------- WHAT NEXT (opt-in via opts.doneCard) ----------
+     A passed lesson never ends on a bare tick: the host page supplies
+     doneCard(result) -> {title, text, progress:{done,total}, primary:{label,href},
+     secondary:{label,href}} (or a promise of it) and the engine renders it under
+     the quiz once the completion has been posted. Any field may be omitted. */
+  function showDoneCard(wrap, ctx, posted, revisit) {
+    const root = wrap.closest("#strive-lesson") || wrap.parentNode;
+    if (!ctx || typeof ctx.doneCard !== "function" || root.querySelector(".sl-done")) return;
+    const card = el("div", "sl-card sl-done", `<p class="sl-done__wait">${revisit ? "Loading your next step…" : "Saving your progress…"}</p>`);
+    /* At the very end of the lesson (after the recap), not under the quiz: that is
+       where a finished reader runs out of page. */
+    const sec = el("section", "sl-section sl-done-sec is-in"), inner = el("div", "sl-wrap");
+    inner.appendChild(card); sec.appendChild(inner);
+    root.insertBefore(sec, root.querySelector(".sl-foot"));
+    const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+    Promise.resolve(posted)
+      .then((res) => ctx.doneCard(res, { revisit: !!revisit }))
+      .then((d) => {
+        d = d || {};
+        const pr = d.progress && d.progress.total ? d.progress : null;
+        const pct = pr ? Math.round(Math.min(pr.done, pr.total) / pr.total * 100) : 0;
+        card.innerHTML =
+          `<div class="sl-done__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></div>` +
+          `<h3 class="sl-done__title">${esc(d.title || (revisit ? "You have completed this lesson" : "Lesson complete"))}</h3>` +
+          (d.text ? `<p class="sl-done__text">${esc(d.text)}</p>` : "") +
+          (pr ? `<div class="sl-done__bar"><span style="width:${pct}%"></span></div><p class="sl-done__prog">${esc(pr.done)} of ${esc(pr.total)} on your roadmap</p>` : "") +
+          `<div class="sl-done__actions">` +
+            (d.primary && d.primary.href ? `<a class="sl-btn" href="${esc(d.primary.href)}">${esc(d.primary.label || "Next lesson")} ${arrow}</a>` : "") +
+            (d.secondary && d.secondary.href ? `<a class="sl-btn sl-ghost" href="${esc(d.secondary.href)}">${esc(d.secondary.label || "Dashboard")}</a>` : "") +
+          `</div>`;
+      })
+      .catch(() => { sec.remove(); });
   }
 
   /* ---------- QUIZ (one per lesson, multi-question) ----------
@@ -326,10 +360,10 @@
       if (score === total) {
         wrap.classList.add("is-complete");
         if (ctx && typeof ctx.onQuizPass === "function") { try { ctx.onQuizPass(score, total); } catch (e) {} }
-        nav.innerHTML = `<span class="sl-quiz__done" style="color:var(--sl-cyan-deep)">✓ ${esc(quiz.doneText || "Lesson complete — all answers correct.")}</span>`;
-        postCompletion(ctx, selections, score, total);
+        nav.innerHTML = `<span class="sl-quiz__done" style="color:var(--sl-cyan-deep)">✓ ${esc(String(quiz.doneText || "Lesson complete — all answers correct.").replace(/^\s*[✓✔]\s*/, ""))}</span>`;
+        showDoneCard(wrap, ctx, postCompletion(ctx, selections, score, total), false);
       } else {
-        nav.innerHTML = `<span class="sl-quiz__retry" style="color:#e28001">${score} / ${total} correct — every answer must be correct to complete this lesson. <button data-retry style="margin-left:8px;padding:6px 12px;border:0;border-radius:8px;background:var(--sl-cyan-deep,#006879);color:#fff;font:inherit;cursor:pointer">Try again ↺</button></span>`;
+        nav.innerHTML = `<span class="sl-quiz__retry" style="color:#e28001">${score} of ${total} so far. Verifying this skill takes all ${total}, and you have just seen the answers. <button data-retry style="margin-left:8px;padding:6px 12px;border:0;border-radius:8px;background:var(--sl-cyan-deep,#006879);color:#fff;font:inherit;cursor:pointer">Try again ↺</button></span>`;
         nav.querySelector("[data-retry]").addEventListener("click", () => {
           qi = 0; done = false; answered = false; selections.fill(null); correctFlags.fill(false); load();
         });
@@ -365,6 +399,8 @@
       });
     }
     load();
+    /* Already completed on an earlier visit: offer the next step straight away. */
+    if (ctx && ctx.completed) setTimeout(() => { if (wrap.parentNode) showDoneCard(wrap, ctx, null, true); }, 0);
     return wrap;
   }
 
@@ -431,6 +467,8 @@
        authToken   — Xano auth token for the current member (Bearer)
        completed   — true to render the quiz already marked complete
        onComplete  — callback(result) fired after a successful POST
+       doneCard    — function(result, {revisit}) returning (a promise of) the "what
+                     next" card shown under a passed quiz; see showDoneCard
        onQuizPass  — callback(score, total) fired the moment every quiz answer is
                      correct. Client-side only, needs no auth and is independent of
                      postCompletion (used by the anonymous onboarding flow). */
@@ -443,6 +481,7 @@
       completed: !!opts.completed,
       onComplete: typeof opts.onComplete === "function" ? opts.onComplete : null,
       onQuizPass: typeof opts.onQuizPass === "function" ? opts.onQuizPass : null,
+      doneCard: typeof opts.doneCard === "function" ? opts.doneCard : null,
     };
     const root = document.getElementById(mountId || "strive-lesson");
     if (!root) { console.error("STRIVE: mount #strive-lesson not found"); return; }

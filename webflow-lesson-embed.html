@@ -71,6 +71,35 @@
     } catch (e) { return null; }
   }
 
+  // "What next" card under a passed quiz. Members: next roadmap item + progress from
+  // GET /dashboard (read after the completion has posted). Guests: invite them in.
+  async function doneCard(authToken) {
+    if (!authToken) {
+      return {
+        title: 'Nice work. That skill is yours to keep.',
+        text: 'Take the five-minute assessment to get your level, a roadmap, and this lesson counted toward it.',
+        primary: { label: 'Take the lead', href: '/get-started' },
+        secondary: { label: 'Browse courses', href: '/catalog' }
+      };
+    }
+    var d = await getJSON(XANO + '/dashboard', { headers: { Authorization: 'Bearer ' + authToken } }, 3);
+    var rs = d && (d.roadmap_summary || d.roadmap), t = rs && rs.totals, n = d && d.next_item;
+    if (n && n.slug === slug) n = null; // completion not reflected yet
+    var card = {
+      progress: t && t.items ? { done: t.done || 0, total: t.items } : null,
+      secondary: { label: 'Back to dashboard', href: '/dashboard' }
+    };
+    if (n && n.slug) {
+      card.text = 'Next up' + (n.minutes ? ' (about ' + n.minutes + ' min)' : '') + ': ' + (n.title || n.slug);
+      card.primary = { label: n.type === 'course' ? 'Start the course' : 'Next lesson', href: (n.type === 'course' ? '/course?slug=' : '/lesson?slug=') + encodeURIComponent(n.slug) };
+    } else {
+      card.text = 'It is on your profile now. Pick what comes next from your dashboard.';
+      card.primary = { label: 'Open dashboard', href: '/dashboard' };
+      card.secondary = { label: 'Browse courses', href: '/catalog' };
+    }
+    return card;
+  }
+
   async function start() {
     if (!slug) { showError(); return; }
 
@@ -97,7 +126,8 @@
       slug: slug,
       completeUrl: XANO + '/mini_lesson/complete',
       authToken: authToken,
-      completed: completed
+      completed: completed,
+      doneCard: function () { return doneCard(authToken); }
     });
   }
 

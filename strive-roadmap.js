@@ -281,8 +281,19 @@ function show(fn,stepIdx,cls){
   st.body.appendChild(w); // attach first so screen builders can query st.body
   fn(w);
   shown++;
-  /* never scroll: the page stays put between steps */
+  reveal();
   return w;
+}
+/* The page stays put unless the new step would open out of view (the previous
+   step's button sits at the bottom of a long card). Never on the first render,
+   never before the visitor has interacted. */
+function reveal(){
+  if(shown<2||!interacted)return;
+  var top=st.root.querySelector('.rm-top')||st.body;
+  var r=top.getBoundingClientRect(),vh=window.innerHeight||document.documentElement.clientHeight;
+  if(!vh||(r.top>=0&&r.top<vh*0.6))return;
+  var y=Math.max(0,(window.pageYOffset||0)+r.top-88);
+  try{window.scrollTo({top:y,behavior:'smooth'})}catch(e){window.scrollTo(0,y)}
 }
 function toast(msg,actionLabel,action){
   var t=st.root.querySelector('.rm-toast');

@@ -160,6 +160,7 @@ body:has(.onb-page){background:var(--surface-page)}
 .onb-badge-phase{color:#fff;font-family:var(--font-body);font-weight:700;margin:0 0 6px;font-size:16px}
 .onb-badge-acc{font-family:var(--font-body);color:var(--text-subtle);margin:0;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .onb-headline{color:var(--text-body);font-family:var(--font-body);font-size:16.5px;line-height:1.6;margin:0 0 22px;text-wrap:pretty}
+.onb-self{margin:-10px 0 22px;line-height:1.55;text-wrap:pretty}
 .onb-locked{background:var(--surface-sunken);border:1.5px dashed rgba(255,255,255,.22);border-radius:var(--radius-xl);padding:26px 22px;margin-bottom:8px}
 .onb-lock-ico{color:var(--turquoise-300);margin-bottom:8px}
 .onb-lock-title{font-family:var(--font-display);font-size:clamp(19px,2.4vw,22px);font-weight:800;letter-spacing:-.02em;line-height:1.2;color:#fff;margin:0 0 8px;text-wrap:pretty}

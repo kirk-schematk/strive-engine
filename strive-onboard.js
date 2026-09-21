@@ -48,6 +48,8 @@ var GOAL_ICON={'Level up in my current role':P.trendUp,'Step up to the next role
 var ARCH_ICON={Explorer:P.compass,Builder:P.box,Orchestrator:P.target,Strategist:P.route,Visionary:P.eye};
 
 var STEPS=['About you','Assessment','Your level','Sign up'];
+/* Home hero self-rating (?level=1..4), echoed back on the results so the two agree. */
+var SELF={1:'draw in 2D',2:'model for visuals',3:'work model-first',4:'deliver federated models'};
 var st={token:null,q:null,qNum:0,disc:null,goal:null,pick:null,lessonEl:null,lessonDone:false};
 var enginePromise=null;
 
@@ -82,7 +84,21 @@ function show(fn,stepIdx){
   var w=el('div','onb-card');
   fn(w);
   root.appendChild(w);
-  shown++; /* never scroll: the assessment stays put */
+  shown++;
+  reveal(w,'start');
+}
+
+/* The page stays put unless the thing the visitor needs next is off-screen: a new
+   card whose top is out of view, or feedback that landed below the fold.
+   Never on the first render, never before the visitor has interacted. */
+function reveal(node,block){
+  if(shown<2||!interacted||!node||!node.getBoundingClientRect)return;
+  var r=node.getBoundingClientRect(),vh=window.innerHeight||document.documentElement.clientHeight;
+  if(!vh)return;
+  var off=block==='end'?r.bottom>vh-12:(r.top<72||r.top>vh*0.6);
+  if(!off)return;
+  var y=(window.pageYOffset||0)+(block==='end'?r.bottom-vh+24:r.top-96);
+  try{window.scrollTo({top:Math.max(0,y),behavior:'smooth'})}catch(e){window.scrollTo(0,Math.max(0,y))}
 }
 
 function apiCall(method,path,body){
@@ -91,10 +107,29 @@ function apiCall(method,path,body){
   var opts={method:method,headers:{'Content-Type':'application/json'}};
   if(method==='GET'&&body){url+='?'+new URLSearchParams(body).toString()}
   else if(body){opts.body=JSON.stringify(body)}
-  return fetch(url,opts).then(function(r){
-    if(!r.ok)throw new Error('API error '+r.status);
-    return r.json();
-  });
+  var tries=4;
+  function attempt(i){
+    return fetch(url,opts).then(function(r){
+      /* 429 = Xano rate limit, nothing was processed, so a retry is always safe.
+         5xx is only retried for GETs (a POST may have been recorded). */
+      if((r.status===429||(method==='GET'&&r.status>=500))&&i<tries-1){
+        return sleep(600*Math.pow(2,i)+Math.random()*250).then(function(){return attempt(i+1)});
+      }
+      if(!r.ok){var err=new Error(r.status===429||r.status>=500?'The learning server is busy. Give it a few seconds and try again.':'That did not go through. Please try again.');err.status=r.status;throw err}
+      return r.json();
+    },function(){
+      if(i<tries-1)return sleep(600*Math.pow(2,i)).then(function(){return attempt(i+1)});
+      throw new Error('You look offline. Check your connection and try again.');
+    });
+  }
+  return attempt(0);
+}
+
+/* Server feedback sometimes opens by repeating the verdict the label already shows. */
+function tidyFeedback(t){
+  return String(t||'').replace(/^\s*[\u2713\u2714\u2717\u2718]\s*/,'')
+    .replace(/^(Correct|Right|Yes|Not quite|Reconsider)\s*[.!,:\u2014\u2013-]+\s*/i,'')
+    .replace(/^./,function(c){return c.toUpperCase()});
 }
 
 /* Fetch JSON with retry + exponential backoff on 429 (Xano rate limit) / 5xx / network
@@ -276,11 +311,12 @@ function doStart(){
     st.q=data.question||data.first_question||data.next_question;
     st.qNum=1;
     if(data.concept_card&&data.concept_card.title){showCard(data.concept_card)}
+    else if(st.handoff){showQuestion()} /* they already pressed "Continue to your assessment" */
     else{showIntro()}
   })
   .catch(function(e){
     show(function(w){
-      w.appendChild(el('h2','onb-title','Something went wrong'));
+      w.appendChild(el('h2','onb-title','That didn’t work'));
       w.appendChild(el('p','onb-sub',e.message));
       var b=el('button','onb-btn','Try again');
       b.onclick=doStart;
@@ -340,6 +376,7 @@ function showQuestion(){
 
 function submitAnswer(idx,optsEl){
   var btns=optsEl.querySelectorAll('.onb-option');
+  var stale=optsEl.closest('.onb-card').querySelector('.onb-error');if(stale)stale.remove();
   btns.forEach(function(b,i){
     b.disabled=true;
     if(i===idx)b.classList.add('is-selected');
@@ -356,7 +393,7 @@ function submitAnswer(idx,optsEl){
     var wrap=optsEl.closest('.onb-card');
     var fb=el('div','onb-feedback '+(data.correct?'onb-feedback--correct':'onb-feedback--wrong'));
     fb.appendChild(el('p','onb-fb-label',ic(data.correct?P.checkCircle:P.xCircle,17)+(data.correct?' Correct':' Not quite')));
-    fb.appendChild(el('p','onb-fb-text',data.feedback||data.selected_feedback||''));
+    fb.appendChild(el('p','onb-fb-text',tidyFeedback(data.feedback||data.selected_feedback)));
     if(data.done){
       st.q=null;
       var b=el('button','onb-btn','See your results '+ic(P.arrowRight,17));
@@ -370,10 +407,15 @@ function submitAnswer(idx,optsEl){
       fb.appendChild(b2);
     }
     wrap.appendChild(fb);
+    reveal(fb,'end');
   })
   .catch(function(e){
+    /* Nothing was recorded: unlock the options so the same answer can be sent again. */
     var wrap=optsEl.closest('.onb-card');
-    wrap.appendChild(el('p','onb-error','Error: '+e.message));
+    btns.forEach(function(b){b.disabled=false;b.classList.remove('is-selected')});
+    var er=el('p','onb-error',e.message+' Your answer was not saved, so pick it again.');
+    wrap.appendChild(er);
+    reveal(er,'end');
   });
 }
 
@@ -390,9 +432,11 @@ function doTeaser(){
       badge.appendChild(el('div','onb-badge-ico',ic(ARCH_ICON[arch]||P.target,26)));
       badge.appendChild(el('h2','onb-badge-arch',arch));
       badge.appendChild(el('p','onb-badge-phase',data.phase_label||''));
-      if(data.accuracy!=null)badge.appendChild(el('p','onb-badge-acc',data.accuracy+'% ACCURACY'));
+      /* A low score is a starting point, not a grade to shout about. */
+      if(data.accuracy!=null)badge.appendChild(el('p','onb-badge-acc',data.accuracy>=50?data.accuracy+'% ACCURACY':'YOUR STARTING POINT'));
       w.appendChild(badge);
       if(data.headline)w.appendChild(el('p','onb-headline',data.headline));
+      if(st.selfLevel&&SELF[st.selfLevel])w.appendChild(el('p','onb-sub onb-sub--light onb-self','You told us you '+SELF[st.selfLevel]+' today. These questions measured where your knowledge sits right now, and your roadmap starts from there.'));
       var locked=el('div','onb-locked');
       locked.appendChild(el('div','onb-lock-ico',ic(P.lock,30)));
       locked.appendChild(el('h3','onb-lock-title','Your personalized roadmap is ready'));
@@ -418,8 +462,8 @@ function doTeaser(){
   })
   .catch(function(e){
     show(function(w){
-      w.appendChild(el('h2','onb-title','Something went wrong'));
-      w.appendChild(el('p','onb-sub',e.message));
+      w.appendChild(el('h2','onb-title','That didn’t work'));
+      w.appendChild(el('p','onb-sub',e.message+' Your answers are saved.'));
       var b=el('button','onb-btn','Try again');
       b.onclick=doTeaser;
       w.appendChild(b);
@@ -558,7 +602,7 @@ function onLessonPassed(wrap,p,score,total){
   done.appendChild(cta);
   done.appendChild(el('p','onb-sub onb-sub--light onb-lock-login','Already a member? <a href="/signup#/ms/login" data-ms-modal="login">Log in to save your results</a>'));
   var back=el('button','onb-restart','Back to results');
-  back.onclick=function(){};
+  back.onclick=function(){removeLesson();reveal(root.querySelector('.onb-card'),'start')};
   done.appendChild(back);
   wrap.appendChild(done);
   var card=root.querySelector('.onb-pick');
@@ -577,7 +621,8 @@ injectScaffold();
   var qs=new URLSearchParams(location.search);
   var d=qs.get('discipline'),g=qs.get('goal');
   if(d&&g&&DISC.indexOf(d)>=0&&GOALS.indexOf(g)>=0){
-    st.disc=d;st.goal=g;
+    st.disc=d;st.goal=g;st.handoff=true;
+    var lv=parseInt(qs.get('level'),10);if(SELF[lv])st.selfLevel=lv;
     /* Hand-off: hide the intro line so the concept card / first question is first on screen. */
     root.classList.add('is-handoff');
     var sec=root.closest('.onb-page');if(sec)sec.classList.add('is-handoff');

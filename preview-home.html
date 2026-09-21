@@ -286,7 +286,7 @@ h+='</div>';
 }else{
 var lvl=sel[2]+1,segs='';
 for(i=1;i<=5;i++)segs+='<div class="qz-seg'+(i<=lvl?' is-on':'')+'"></div>';
-var href='/get-started?discipline='+encodeURIComponent(DISC[sel[0]][3])+'&goal='+encodeURIComponent(GOALS[sel[1]][3]);
+var href='/get-started?discipline='+encodeURIComponent(DISC[sel[0]][3])+'&goal='+encodeURIComponent(GOALS[sel[1]][3])+'&level='+lvl;
 h='<div class="qz-res"><div class="qz-lv"><div class="qz-lvt">Level '+lvl+' <i>·</i> '+LV[lvl]+'</div><div class="qz-meter">'+segs+'</div></div><div class="qz-act"><a class="qz-cta" href="'+href+'">Continue to your assessment'+ic('arrow')+'</a><a class="qz-link" href="/catalog">Browse courses</a></div></div>';
 }
 body.innerHTML=h;
@@ -296,7 +296,7 @@ function go(n){clearTimeout(timer);step=n;picked=-1;hover=null;render()}
 body.addEventListener('click',function(e){
 var t=opt(e);if(!t||step>3)return;
 var i=+t.getAttribute('data-i');
-if(step===3){if(t.disabled)return;var ok=i===QZ.ok,qe=body.querySelector('[data-qz-q]'),all=body.querySelectorAll('.qz-opt');for(var k=0;k<all.length;k++){all[k].disabled=true;if(k===QZ.ok)all[k].className='qz-opt is-sel'}if(!ok)t.className='qz-opt is-bad';qe.textContent=ok?QZ.yes:QZ.no;qe.className='qz-q '+(ok?'is-ok':'is-no');clearTimeout(timer);timer=setTimeout(function(){go(4)},1100);return}
+if(step===3){if(t.disabled)return;var ok=i===QZ.ok,qe=body.querySelector('[data-qz-q]'),all=body.querySelectorAll('.qz-opt');for(var k=0;k<all.length;k++){all[k].disabled=true;if(k===QZ.ok)all[k].className='qz-opt is-sel'}if(!ok)t.className='qz-opt is-bad';qe.textContent=ok?QZ.yes:QZ.no;qe.className='qz-q '+(ok?'is-ok':'is-no');clearTimeout(timer);timer=setTimeout(function(){go(4)},2600);return}
 sel[step]=i;picked=i;hover=null;
 var bs=body.querySelectorAll('.qz-opt');
 for(var j=0;j<bs.length;j++)bs[j].className='qz-opt'+(j===i?' is-sel':'');
