@@ -319,23 +319,39 @@
     inner.appendChild(card); sec.appendChild(inner);
     root.insertBefore(sec, root.querySelector(".sl-sources") || root.querySelector(".sl-foot"));
     const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+    const member = !!ctx.authToken;
+    /* d = card data; loading = the host is still fetching it (members only: the
+       buttons and title show straight away, the "next up" line and the primary
+       button stay in a loading state until the data lands). */
+    function paint(d, loading) {
+      d = d || {};
+      const pr = d.progress && d.progress.total ? d.progress : null;
+      const pct = pr ? Math.round(Math.min(pr.done, pr.total) / pr.total * 100) : 0;
+      const primary = loading
+        ? (member ? `<span class="sl-btn is-loading" aria-disabled="true"><span class="sl-done__spin"></span> Next lesson</span>` : "")
+        : (d.primary && d.primary.href ? `<a class="sl-btn" href="${esc(d.primary.href)}">${esc(d.primary.label || "Next lesson")} ${arrow}</a>` : "");
+      const sec2 = loading
+        ? (member ? { label: "Back to dashboard", href: ctx.dashboardHref } : null)
+        : d.secondary;
+      card.innerHTML =
+        `<div class="sl-done__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></div>` +
+        `<h3 class="sl-done__title">${esc(d.title || (revisit ? "You have completed this lesson" : "Lesson complete"))}</h3>` +
+        (loading ? `<p class="sl-done__text is-loading" aria-live="polite">Finding your next lesson…</p><div class="sl-done__bar is-loading"><span></span></div>`
+                 : (d.text ? `<p class="sl-done__text" aria-live="polite">${esc(d.text)}</p>` : "")) +
+        (!loading && pr ? `<div class="sl-done__bar"><span style="width:${pct}%"></span></div><p class="sl-done__prog">${esc(pr.done)} of ${esc(pr.total)} on your roadmap</p>` : "") +
+        `<div class="sl-done__actions">` + primary +
+          (sec2 && sec2.href ? `<a class="sl-btn sl-ghost" href="${esc(sec2.href)}">${esc(sec2.label || "Dashboard")}</a>` : "") +
+        `</div>`;
+    }
+    /* One beat on "Saving your progress…", then the whole card. */
+    let data, settled = false, shown = false;
+    const fallback = { text: "It is on your profile now. Pick what comes next from your dashboard.", primary: { label: "Open dashboard", href: ctx.dashboardHref } };
+    function settle(d) { data = d; settled = true; if (shown) paint(data, false); }
+    setTimeout(() => { shown = true; paint(settled ? data : null, !settled); }, revisit ? 0 : 1000);
     Promise.resolve(posted)
       .then((res) => ctx.doneCard(res, { revisit: !!revisit }))
-      .then((d) => {
-        d = d || {};
-        const pr = d.progress && d.progress.total ? d.progress : null;
-        const pct = pr ? Math.round(Math.min(pr.done, pr.total) / pr.total * 100) : 0;
-        card.innerHTML =
-          `<div class="sl-done__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></div>` +
-          `<h3 class="sl-done__title">${esc(d.title || (revisit ? "You have completed this lesson" : "Lesson complete"))}</h3>` +
-          (d.text ? `<p class="sl-done__text">${esc(d.text)}</p>` : "") +
-          (pr ? `<div class="sl-done__bar"><span style="width:${pct}%"></span></div><p class="sl-done__prog">${esc(pr.done)} of ${esc(pr.total)} on your roadmap</p>` : "") +
-          `<div class="sl-done__actions">` +
-            (d.primary && d.primary.href ? `<a class="sl-btn" href="${esc(d.primary.href)}">${esc(d.primary.label || "Next lesson")} ${arrow}</a>` : "") +
-            (d.secondary && d.secondary.href ? `<a class="sl-btn sl-ghost" href="${esc(d.secondary.href)}">${esc(d.secondary.label || "Dashboard")}</a>` : "") +
-          `</div>`;
-      })
-      .catch(() => { sec.remove(); });
+      .then((d) => settle(d || (member ? fallback : {})))
+      .catch(() => settle(member ? fallback : {}));
   }
 
   /* ---------- QUIZ (one per lesson, multi-question) ----------
@@ -469,6 +485,8 @@
        onComplete  — callback(result) fired after a successful POST
        doneCard    — function(result, {revisit}) returning (a promise of) the "what
                      next" card shown under a passed quiz; see showDoneCard
+       dashboardHref — where the card's "Back to dashboard" goes while the next step
+                     is still loading (default /dashboard)
        onQuizPass  — callback(score, total) fired the moment every quiz answer is
                      correct. Client-side only, needs no auth and is independent of
                      postCompletion (used by the anonymous onboarding flow). */
@@ -482,6 +500,7 @@
       onComplete: typeof opts.onComplete === "function" ? opts.onComplete : null,
       onQuizPass: typeof opts.onQuizPass === "function" ? opts.onQuizPass : null,
       doneCard: typeof opts.doneCard === "function" ? opts.doneCard : null,
+      dashboardHref: opts.dashboardHref || "/dashboard",
     };
     const root = document.getElementById(mountId || "strive-lesson");
     if (!root) { console.error("STRIVE: mount #strive-lesson not found"); return; }
@@ -492,6 +511,13 @@
     const rail = el("div", "sl-rail"); rail.appendChild(el("div", "sl-rail__fill"));
     root.appendChild(rail);
     const dots = el("div", "sl-dots"); root.appendChild(dots);
+    /* A fixed/sticky site navbar owns the top of the viewport: park the progress
+       rail and the section dots under it instead of on top of its links. */
+    const siteNav = document.querySelector(".nav-ds, .w-nav");
+    if (siteNav && /fixed|sticky/.test(getComputedStyle(siteNav).position)) {
+      const navH = Math.round(siteNav.getBoundingClientRect().height);
+      if (navH > 0 && navH < 200) { rail.style.top = navH + "px"; dots.style.top = (navH + 12) + "px"; }
+    }
 
     const sectionEls = [];
     lesson.sections.forEach((sec, i) => {

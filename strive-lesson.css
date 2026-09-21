@@ -227,6 +227,13 @@
 #strive-lesson .sl-done__text{font-size:14.5px;color:var(--sl-soft);line-height:1.55;margin:8px auto 0;max-width:460px}
 #strive-lesson .sl-done__bar{height:6px;border-radius:6px;background:var(--sl-line);overflow:hidden;max-width:320px;margin:18px auto 0}
 #strive-lesson .sl-done__bar span{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--sl-cyan),var(--sl-orange));transition:width .6s}
+#strive-lesson .sl-done__text.is-loading{color:var(--sl-mute);animation:sl-pulse 1.2s ease-in-out infinite}
+#strive-lesson .sl-done__bar.is-loading span{width:35%;animation:sl-slide 1.2s ease-in-out infinite}
+#strive-lesson .sl-done .sl-btn.is-loading{opacity:.55;cursor:default;pointer-events:none}
+#strive-lesson .sl-done__spin{width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;animation:sl-spin .7s linear infinite}
+@keyframes sl-pulse{50%{opacity:.45}}
+@keyframes sl-slide{0%{transform:translateX(-100%)}100%{transform:translateX(290%)}}
+@keyframes sl-spin{to{transform:rotate(360deg)}}
 #strive-lesson .sl-done__prog{font-size:12.5px;color:var(--sl-mute);margin-top:7px}
 #strive-lesson .sl-done__actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:6px}
 #strive-lesson .sl-done .sl-btn{font-family:var(--sl-body);font-weight:600;font-size:14.5px;letter-spacing:0;border-radius:999px;text-decoration:none;margin-top:16px}
