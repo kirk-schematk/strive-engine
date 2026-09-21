@@ -317,7 +317,7 @@
        where a finished reader runs out of page. */
     const sec = el("section", "sl-section sl-done-sec is-in"), inner = el("div", "sl-wrap");
     inner.appendChild(card); sec.appendChild(inner);
-    root.insertBefore(sec, root.querySelector(".sl-foot"));
+    root.insertBefore(sec, root.querySelector(".sl-sources") || root.querySelector(".sl-foot"));
     const arrow = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
     Promise.resolve(posted)
       .then((res) => ctx.doneCard(res, { revisit: !!revisit }))
