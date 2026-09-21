@@ -241,6 +241,10 @@
 #strive-lesson .sl-next{margin-top:22px;font-size:14px;color:var(--sl-soft)}
 #strive-lesson .sl-next a{color:var(--sl-cyan-deep);font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--sl-cyan)}
 
+#strive-lesson .sl-sources{border-top:1px solid var(--sl-line);padding:34px 0 6px;position:relative;z-index:1}
+#strive-lesson .sl-sources__h{font-family:var(--sl-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--sl-mute);margin-bottom:12px}
+#strive-lesson .sl-sources__l{margin:0;padding-left:20px;font-size:14px;line-height:1.7;color:var(--sl-mute)}
+#strive-lesson .sl-sources__l a{color:var(--sl-cyan-deep);text-decoration:underline;text-underline-offset:3px}
 #strive-lesson .sl-foot{text-align:center;padding:34px;font-family:var(--sl-mono);font-size:11.5px;color:var(--sl-mute);position:relative;z-index:1}
 #strive-lesson .sl-foot .b{color:var(--sl-cyan-deep)}
 

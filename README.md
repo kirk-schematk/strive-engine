@@ -33,6 +33,21 @@ XanoScript in `docs/xano/` with a runbook (`docs/xano/README.md`) and a smoke
 test (`docs/xano/smoke_test.py`). Memberstack must redirect to `/welcome-onboard`
 after signup.
 
+## Mini-lesson content pipeline
+
+New mini-lessons are drafted in this repo and pushed to Xano once they pass review.
+The standard (six gates: brief, draft, fact check, alignment, learning design,
+approve) is in `docs/lesson-authoring.md`.
+
+| Path | What it is |
+|---|---|
+| `content/skills.json` | Read-only snapshot of the Notion Skills DB: 200 skills with target level and acceptance criteria. Notion is the master. |
+| `content/lessons/<slug>.json` | One authoring file per lesson: the `mini_lessons` row, the claim ledger, the review record and `lesson_json`. |
+| `content/sources/<competency>.json` | Source packs: sources already opened and confirmed, reused across a competency. |
+| `lesson.schema.json` | Structure of an authoring file and of `lesson_json`. |
+| `tools/validate-lesson.js` | `npm run validate:lessons`. Schema plus content rules (skill/phase/level alignment, sources, every statistic claimed, quiz quality, publish gate). |
+| `preview-lesson.html?file=<slug>` | Reviewer view: the lesson in the real engine under a strip showing skill, objective, acceptance criteria and check status. |
+
 ## How it's used (Webflow)
 
 Each dynamic template page loads the relevant engine from this CDN and mounts it:

@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://strive-engine.kirk-458.workers.dev/lesson.schema.json",
+  "title": "STRIVE mini-lesson authoring file",
+  "description": "One file per lesson in content/lessons/<slug>.json. The top level is the Xano mini_lessons row plus the review record; lesson_json is what strive-lesson.js renders. Structure only: content rules (sources, alignment, quiz quality) live in tools/validate-lesson.js.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slug", "skill_id", "title", "competency_id", "phase", "est_minutes", "status", "lesson_type", "lesson_level", "objective", "claims", "review", "lesson_json"],
+  "properties": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "skill_id": { "type": "string", "pattern": "^SKL-[0-9]+$" },
+    "title": { "type": "string", "minLength": 8, "maxLength": 110 },
+    "competency_id": { "type": "integer" },
+    "phase": { "type": "integer", "minimum": 1, "maximum": 5 },
+    "est_minutes": { "type": "integer", "minimum": 2, "maximum": 8 },
+    "status": { "enum": ["draft", "published"] },
+    "lesson_type": { "enum": ["core", "apply", "ladder", "refresher"] },
+    "lesson_level": { "type": "integer", "minimum": 1, "maximum": 4 },
+    "objective": { "type": "string", "minLength": 20, "maxLength": 240 },
+    "misconception": { "type": "string" },
+    "prerequisite_slugs": { "type": "array", "items": { "type": "string" } },
+    "claims": {
+      "description": "Claim ledger: every factual statement in the lesson, tied to the source passage that supports it.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["text", "source_ids"],
+        "properties": {
+          "text": { "type": "string", "minLength": 10 },
+          "source_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "locator": { "type": "string", "description": "Clause, section or page in the source." },
+          "verified": { "type": "boolean", "description": "Set by the independent fact-check pass, never by the drafting pass." }
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_check_status", "version"],
+      "properties": {
+        "fact_check_status": { "enum": ["unchecked", "verified", "failed"] },
+        "alignment": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "blind_pick_skill_id": { "type": "string" },
+            "blind_pick_level": { "type": "integer" },
+            "match": { "type": "boolean" },
+            "notes": { "type": "string" }
+          }
+        },
+        "pedagogy_score": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "second_look": { "type": "boolean" },
+        "approved_by": { "type": "string" },
+        "approved_at": { "type": "string", "format": "date" },
+        "reviewed_at": { "type": "string", "format": "date" },
+        "review_due": { "type": "string", "format": "date" },
+        "version": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "lesson_json": { "$ref": "#/definitions/lessonJson" }
+  },
+  "definitions": {
+    "lessonJson": {
+      "type": "object",
+      "required": ["slug", "skillId", "meta", "sections"],
+      "properties": {
+        "slug": { "type": "string" },
+        "skillId": { "type": "string" },
+        "meta": { "type": "array", "items": { "type": "string" } },
+        "footer": { "type": "string" },
+        "startLabel": { "type": "string" },
+        "readingNote": { "type": "string" },
+        "sources": { "type": "array", "items": { "$ref": "#/definitions/source" } },
+        "sections": { "type": "array", "minItems": 4, "items": { "$ref": "#/definitions/section" } }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "publisher", "url", "accessed"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "title": { "type": "string" },
+        "publisher": { "type": "string" },
+        "url": { "type": "string", "pattern": "^https://" },
+        "edition": { "type": "string", "description": "Edition, year or version, e.g. 'ISO 19650-1:2018'." },
+        "accessed": { "type": "string", "format": "date" },
+        "pack": { "type": "string", "description": "Slug of the competency source pack this came from; omit if the source is outside the pack." }
+      }
+    },
+    "section": {
+      "type": "object",
+      "required": ["blocks"],
+      "properties": {
+        "eyebrow": { "type": "string" },
+        "hero": { "type": "boolean" },
+        "h1": { "type": "string" },
+        "h2": { "type": "string" },
+        "blocks": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/block" } }
+      }
+    },
+    "block": {
+      "type": "object",
+      "required": ["type"],
+      "oneOf": [
+        { "properties": { "type": { "const": "paragraph" }, "text": { "type": "string" }, "lead": { "type": "boolean" } }, "required": ["text"] },
+        { "properties": { "type": { "const": "note" }, "text": { "type": "string" }, "label": { "type": "string" }, "tone": { "enum": ["warn"] } }, "required": ["text"] },
+        { "properties": { "type": { "const": "hint" }, "text": { "type": "string" } }, "required": ["text"] },
+        { "properties": { "type": { "const": "terms" }, "items": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["term", "def"] } } }, "required": ["items"] },
+        { "properties": { "type": { "const": "flow" }, "steps": { "type": "array", "minItems": 2, "items": { "type": "object", "required": ["title", "text"] } } }, "required": ["steps"] },
+        { "properties": { "type": { "const": "split" }, "left": { "type": "object", "required": ["tag", "title", "body"] }, "right": { "type": "object", "required": ["tag", "title", "nodes"] } }, "required": ["left", "right"] },
+        { "properties": { "type": { "const": "recap" }, "items": { "type": "array", "minItems": 2, "maxItems": 5, "items": { "type": "string" } }, "badge": { "type": "string" }, "next": { "type": "string" } }, "required": ["items"] },
+        { "properties": { "type": { "const": "widget" }, "widget": { "enum": ["caseCards", "maturityMatrix", "nodeGraph"] }, "config": { "type": "object" } }, "required": ["widget", "config"] },
+        {
+          "properties": {
+            "type": { "const": "quiz" },
+            "config": {
+              "type": "object",
+              "required": ["questions"],
+              "properties": {
+                "doneText": { "type": "string" },
+                "questions": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "required": ["q", "options", "okFeedback", "noFeedback"],
+                    "properties": {
+                      "q": { "type": "string" },
+                      "options": { "type": "array", "minItems": 3, "maxItems": 4, "items": { "type": "object", "required": ["text", "correct"], "properties": { "text": { "type": "string" }, "correct": { "type": "boolean" } } } },
+                      "okFeedback": { "type": "string", "minLength": 20 },
+                      "noFeedback": { "type": "string", "minLength": 20 }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": ["config"]
+        }
+      ]
+    }
+  }
+}

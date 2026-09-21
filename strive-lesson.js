@@ -503,6 +503,15 @@
       dots.appendChild(d);
     });
 
+    /* Sources: lesson.sources = [{title, publisher, url, edition?}]. Older lessons have none. */
+    if (lesson.sources && lesson.sources.length) {
+      const src = el("div", "sl-sources");
+      src.innerHTML = `<div class="sl-wrap"><div class="sl-sources__h">Sources</div><ol class="sl-sources__l">${lesson.sources
+        .map((s) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a><span> · ${esc(s.publisher)}${s.edition ? " · " + esc(s.edition) : ""}</span></li>`)
+        .join("")}</ol></div>`;
+      root.appendChild(src);
+    }
+
     if (lesson.footer) root.appendChild(el("div", "sl-foot", h(lesson.footer)));
 
     // mount widgets now that everything is in the DOM

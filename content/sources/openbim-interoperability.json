@@ -1,0 +1,35 @@
+{
+  "_note": "Source pack for competency 12, OpenBIM & Interoperability. Every source here has been opened and its passages confirmed on the 'accessed' date. Passages are paraphrased; quote the source itself when checking a claim.",
+  "competency_id": 12,
+  "sources": [
+    {
+      "id": "bsi-mvd",
+      "title": "Model View Definition (MVD)",
+      "publisher": "buildingSMART International",
+      "url": "https://technical.buildingsmart.org/standards/ifc/mvd/",
+      "accessed": "2026-09-21",
+      "passages": [
+        { "locator": "Intro", "summary": "MVDs are subsets of the IFC schema created for data exchange between software; each is a standard in its own right." },
+        { "locator": "MVDs Are Not Just Filters", "summary": "An MVD defines what data must be present, what must be excluded, how entities are structured and related, and how concepts such as classification and material assignment are applied. An MVD is a standard for a specific use-case." },
+        { "locator": "MVDs Can and Frequently Do Deviate From IFC", "summary": "The Reference View narrows IFC's flexibility: it may allow only layer sets for materials and restrict geometry to swept solids or BReps." },
+        { "locator": "The Danger of Unmanaged MVD Proliferation", "summary": "IFC4precast is not interoperable with the IFC4 Reference View although both use the IFC4 schema; precast data is exchanged as .ifcprecast. Some tools have multiple IFC exports, one per MVD." },
+        { "locator": "How to define information requirements", "summary": "End users' information requirements (elements, properties, relationships, classification) are described with IDS; the MVD concerns the technical encoding that software must implement. The IFC2x3 Coordination View defined in-scope and out-of-scope entities." }
+      ]
+    },
+    {
+      "id": "bsi-mvd-database",
+      "title": "MVD Database",
+      "publisher": "buildingSMART International",
+      "url": "https://technical.buildingsmart.org/standards/ifc/mvd/mvd-database/",
+      "accessed": "2026-09-21",
+      "passages": [
+        { "locator": "Row: IFC4 ADD2 TC1 Reference View (Final, RV 1.2)", "summary": "Simplified geometric and relational representation of spatial and physical components, to reference model information for design coordination between architectural, structural and building services domains." },
+        { "locator": "Row: IFC4 ADD2 TC1 Design Transfer View (Draft, DTV 1.1)", "summary": "Advanced geometric and relational representation to transfer model information from one tool to another; not a round-trip, but a higher-fidelity one-way transfer of data and responsibility. Status is Draft." },
+        { "locator": "Row: IFC2x3 TC1 Coordination View (Final, CV 2.0)", "summary": "Spatial and physical components for design coordination between architectural, structural and building services domains." },
+        { "locator": "Row: IFC2x3 TC1 Basic FM Handover View (Final)", "summary": "Handover of model information from design, construction and commissioning applications to CAFM and CMMS applications." },
+        { "locator": "Row: IFC4 ADD2 TC1 IFC4Precast (Final)", "summary": "Needs to be exchanged as .ifcprecast due to incompatibility with the IFC4 Reference View." },
+        { "locator": "Row: IFC4.3 ADD2 Reference View (Final)", "summary": "Update of the IFC4 Reference View for use with IFC4.3." }
+      ]
+    }
+  ]
+}

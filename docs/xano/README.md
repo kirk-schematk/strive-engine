@@ -271,3 +271,22 @@ Still to confirm in the editor (search the files for `REVIEW`):
    completed_at/mini_lesson_id`, `courses.status/competency_id/level/duration`,
    `assessment_questions.active/skill_id/question_json.{stem, options[{text,
    correct}], feedback.{correct,incorrect}, source.lesson_slug}`.
+
+## Lesson content sync (`sync_content.py`)
+
+The mini-lesson pipeline (`docs/lesson-authoring.md`) writes to Xano through
+`docs/xano/sync_content.py`, additive only:
+
+- `schema`: adds the review fields to `mini_lessons` (`lesson_type`, `lesson_level`,
+  `objective`, `prerequisite_slugs`, `sources`, `claims`, `fact_check_status`, `review`,
+  `approved_by`, `approved_at`, `reviewed_at`, `review_due`, `version`), the framework
+  fields to `skill` (848606, empty before 2026-09-21), and creates `proficiency_levels` (896683).
+  Existing lessons default to `lesson_type = core`, `fact_check_status = unchecked`, `version = 1`.
+- `skills`: upserts `content/skills.json` (the Notion Skills DB snapshot) into `skill`
+  and `proficiency_levels`. Notion stays the master; never edit these rows in Xano.
+- `lesson <slug>… | --all`: runs the validator, then upserts `content/lessons/<slug>.json`
+  by slug. `answer_key` is derived from `lesson_json`, so the server re-grade can never
+  disagree with the quiz the learner sees.
+
+`GET /lessons` and `GET /mini_lesson` select their own fields, so the new columns do not
+change what the site receives. Sources reach the page inside `lesson_json.sources`.

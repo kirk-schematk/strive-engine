@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- Dev / review preview for the lesson engine, using the LOCAL strive-lesson.css/js.
+     ?file=<slug>   renders content/lessons/<slug>.json (an authoring file) with a
+                    review strip: skill, level, objective, acceptance criteria, check status.
+     ?slug=<slug>   renders the live lesson from Xano.
+     (no params)    renders docs/fixtures/mini_lesson_sample.json.
+     Needs a local server: the "static" config in .claude/launch.json. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson engine preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./strive-lesson.css">
+  <script src="./strive-lesson.js"></script>
+  <style>
+    #review{font:13px/1.5 Manrope,system-ui,sans-serif;background:#0b1f2a;color:#d6e4ea;padding:14px 22px}
+    #review b{color:#fff} #review .row{max-width:880px;margin:0 auto}
+    #review .tag{display:inline-block;border:1px solid #35505c;border-radius:12px;padding:1px 9px;margin:0 6px 4px 0}
+    #review .bad{border-color:#fc8204;color:#fc8204} #review .ok{border-color:#16c4f6;color:#16c4f6}
+  </style>
+</head>
+<body style="margin:0">
+  <div id="review" hidden></div>
+  <div id="strive-lesson"></div>
+  <script>
+    var qs = new URLSearchParams(location.search), file = qs.get('file'), slug = qs.get('slug');
+    var j = function (u) { return fetch(u).then(function (r) { if (!r.ok) throw new Error(u + ' ' + r.status); return r.json(); }); };
+    var t = function (s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; };
+    if (file) {
+      Promise.all([j('./content/lessons/' + encodeURIComponent(file) + '.json'), j('./content/skills.json')]).then(function (a) {
+        var d = a[0], sk = a[1].skills.find(function (s) { return s.skill_id === d.skill_id; }) || {}, r = d.review || {};
+        var tag = function (label, ok) { return '<span class="tag ' + (ok ? 'ok' : 'bad') + '">' + t(label) + '</span>'; };
+        var el = document.getElementById('review'); el.hidden = false;
+        el.innerHTML = '<div class="row"><b>' + t(d.skill_id) + ' · ' + t(sk.name) + '</b> · ' + t(sk.competency) + ' · ' + t(d.lesson_type) + ' · L' + t(d.lesson_level) + ' (skill target L' + t(sk.target_level) + ')<br>' +
+          '<b>Objective:</b> ' + t(d.objective) + '<br><b>Acceptance criteria:</b> ' + t(sk.acceptance_criteria) + '<br>' +
+          tag('status: ' + d.status, d.status === 'published') + tag('fact check: ' + r.fact_check_status, r.fact_check_status === 'verified') +
+          tag('alignment: ' + (r.alignment ? (r.alignment.match ? 'match' : 'picked ' + r.alignment.blind_pick_skill_id) : 'not run'), r.alignment && r.alignment.match) +
+          tag('claims verified: ' + d.claims.filter(function (c) { return c.verified; }).length + '/' + d.claims.length, d.claims.every(function (c) { return c.verified; })) +
+          tag(r.approved_by ? 'approved: ' + r.approved_by : 'not approved', !!r.approved_by) + '</div>';
+        STRIVE.renderLesson(d.lesson_json);
+      }).catch(function (e) { document.getElementById('strive-lesson').textContent = String(e); });
+    } else if (slug) {
+      j('https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM/mini_lesson?slug=' + encodeURIComponent(slug)).then(function (d) { STRIVE.renderLesson(d.lesson_json || d); });
+    } else {
+      j('./docs/fixtures/mini_lesson_sample.json').then(function (d) { STRIVE.renderLesson(d); });
+    }
+  </script>
+</body>
+</html>
