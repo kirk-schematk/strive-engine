@@ -54,12 +54,17 @@ query lesson_approve verb=POST {
       value = "now"|to_timestamp:"UTC"|transform_timestamp:$offset:"UTC"|format_timestamp:"Y-m-d":"UTC"
     }
 
+    // Memberstack-linked users often have no email stored: fall back to the name.
+    var $who {
+      value = ($me.email|is_empty) ? ($me.first_name ~ " " ~ $me.last_name) : $me.email
+    }
+
     db.edit mini_lessons {
       field_name = "id"
       field_value = $lesson.id
       data = {
         status: "published",
-        approved_by: $me.email,
+        approved_by: $who,
         approved_at: $today,
         review_due: $due
       }
