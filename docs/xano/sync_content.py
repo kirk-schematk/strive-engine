@@ -137,6 +137,15 @@ def do_lessons(slugs):
             "review": {k: r[k] for k in ("alignment", "pedagogy_score", "second_look") if k in r},
             "approved_by": r.get("approved_by", ""), "approved_at": r.get("approved_at"), "reviewed_at": r.get("reviewed_at"),
             "review_due": r.get("review_due"), "version": r["version"]})
+    # Approval happens in Xano (POST /lesson_approve). A file that still says "draft"
+    # must never un-publish a lesson or wipe its approval record.
+    live = {r["slug"]: r for r in all_rows(T_LESSONS)}
+    for row in rows:
+        cur = live.get(row["slug"])
+        if cur and cur.get("status") == "published" and row["status"] == "draft":
+            for k in ("status", "approved_by", "approved_at", "review_due"):
+                row[k] = cur.get(k)
+            print(f"  {row['slug']}: already published in Xano, keeping its approval")
     print("mini_lessons"); upsert(T_LESSONS, "slug", rows)
 
 def main(argv):

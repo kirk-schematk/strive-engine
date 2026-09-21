@@ -290,3 +290,14 @@ The mini-lesson pipeline (`docs/lesson-authoring.md`) writes to Xano through
 
 `GET /lessons` and `GET /mini_lesson` select their own fields, so the new columns do not
 change what the site receives. Sources reach the page inside `lesson_json.sources`.
+
+### Approver endpoints (Platform group, auth user, `user.role == "admin"` only)
+
+| Endpoint | Id | File |
+|---|---|---|
+| `GET /lesson_review?slug=` | 4060253 | `platform/lesson_review_get.xs`: one lesson at any status with its review record |
+| `GET /lesson_review_queue` | 4060254 | `platform/lesson_review_queue_get.xs`: drafts waiting for review |
+| `POST /lesson_approve {slug, review_months?}` | 4060255 | `platform/lesson_approve.xs`: publishes; refuses unless `fact_check_status == "verified"`; stamps `approved_by`, `approved_at`, `review_due` |
+
+Front end: `webflow-lesson-review-embed.html` on a `/lesson-review` page. `sync_content.py lesson`
+never un-publishes: a file still marked `draft` keeps the row's approval.

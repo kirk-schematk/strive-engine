@@ -1,0 +1,129 @@
+<!-- ============================================================
+     STRIVE Lesson Review — Webflow embed (approvers only)
+     Paste into an HTML Embed on a static /lesson-review page.
+     Flow: Memberstack cookie -> Xano /memberstack_auth -> then
+       no ?slug   : GET /lesson_review_queue  -> list of drafts
+       ?slug=<s>  : GET /lesson_review?slug=  -> review strip + the
+                    lesson in the real engine + Approve button
+                    (POST /lesson_approve).
+     Xano refuses all three unless user.role == "admin", so the
+     page shows nothing useful to anyone else. Completion is not
+     wired here: reviewing a lesson never records progress.
+     ============================================================ -->
+
+<link rel="stylesheet" href="https://strive-engine.kirk-458.workers.dev/strive-lesson.css">
+<script src="https://strive-engine.kirk-458.workers.dev/strive-lesson.js"></script>
+
+<style>
+  #strive-review{font:14px/1.55 Manrope,system-ui,sans-serif;background:#0b1f2a;color:#d6e4ea;padding:18px 22px}
+  #strive-review .rv-row{max-width:880px;margin:0 auto}
+  #strive-review b{color:#fff}
+  #strive-review a{color:#16c4f6}
+  #strive-review .rv-tag{display:inline-block;border:1px solid #35505c;border-radius:12px;padding:1px 10px;margin:8px 6px 0 0;font-size:12.5px}
+  #strive-review .rv-ok{border-color:#16c4f6;color:#16c4f6}
+  #strive-review .rv-bad{border-color:#fc8204;color:#fc8204}
+  #strive-review button{margin-top:12px;padding:10px 18px;border:0;border-radius:8px;background:#16c4f6;color:#0b1f2a;font:600 14px/1 Manrope,system-ui,sans-serif;cursor:pointer}
+  #strive-review button[disabled]{opacity:.45;cursor:not-allowed}
+  #strive-review details{margin-top:10px} #strive-review li{margin:4px 0}
+  #strive-review .rv-q{display:block;padding:10px 0;border-top:1px solid #1e3a47;text-decoration:none}
+</style>
+
+<div id="strive-review"><div class="rv-row">Checking your access…</div></div>
+<div id="strive-lesson"></div>
+
+<script>
+(function () {
+  var XANO = 'https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM';
+  var slug = new URLSearchParams(location.search).get('slug');
+  var bar = document.getElementById('strive-review');
+  var t = function (s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; };
+  var say = function (html) { bar.innerHTML = '<div class="rv-row">' + html + '</div>'; };
+  var tag = function (label, ok) { return '<span class="rv-tag ' + (ok ? 'rv-ok' : 'rv-bad') + '">' + t(label) + '</span>'; };
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  async function call(path, opts, tries) {
+    for (var i = 0; i < (tries || 4); i++) {
+      try {
+        var r = await fetch(XANO + path, opts);
+        if (r.status === 429 || r.status >= 500) { await sleep(600 * Math.pow(2, i)); continue; }
+        return { ok: r.ok, status: r.status, body: await r.json().catch(function () { return null; }) };
+      } catch (e) { await sleep(600 * Math.pow(2, i)); }
+    }
+    return { ok: false, status: 0, body: null };
+  }
+
+  async function getAuth() {
+    try {
+      var member = await window.$memberstackDom.getCurrentMember();
+      if (!member || !member.data) return null;
+      var msToken = await window.$memberstackDom.getMemberCookie();
+      var ex = await call('/memberstack_auth', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ms_token: msToken }) }, 2);
+      return (ex.body || {}).authToken || null;
+    } catch (e) { return null; }
+  }
+
+  function refuse(res) {
+    say(res.status === 403 || res.status === 401 ? 'This page is for STRIVE lesson approvers.' :
+        res.status === 404 ? 'No lesson with that slug.' : 'The server is busy. Reload in a few seconds.');
+  }
+
+  async function showQueue(auth) {
+    var res = await call('/lesson_review_queue', { headers: auth });
+    if (!res.ok) return refuse(res);
+    var q = res.body || [];
+    say('<b>' + q.length + ' draft lesson' + (q.length === 1 ? '' : 's') + ' waiting for review</b>' + q.map(function (l) {
+      return '<a class="rv-q" href="?slug=' + encodeURIComponent(l.slug) + '"><b>' + t(l.skill_id) + '</b> · ' + t(l.title) + ' · ' + t(l.lesson_type) + ' L' + t(l.lesson_level) +
+        '<br>' + tag('fact check: ' + l.fact_check_status, l.fact_check_status === 'verified') +
+        tag(l.review && l.review.second_look ? 'second look needed' : 'single review', !(l.review && l.review.second_look)) + '</a>';
+    }).join(''));
+  }
+
+  async function showLesson(auth) {
+    var res = await call('/lesson_review?slug=' + encodeURIComponent(slug), { headers: auth });
+    if (!res.ok) return refuse(res);
+    var l = res.body, rv = l.review || {}, al = rv.alignment || {}, claims = l.claims || [];
+    var verified = claims.filter(function (c) { return c.verified; }).length;
+    var canApprove = l.status === 'draft' && l.fact_check_status === 'verified';
+    say('<a href="?">← review queue</a><br><b>' + t(l.skill_id) + ' · ' + t(l.title) + '</b> · ' + t(l.lesson_type) + ' · L' + t(l.lesson_level) + ' · v' + t(l.version) +
+      '<br><b>Objective:</b> ' + t(l.objective) + '<br>' +
+      tag('status: ' + l.status, l.status === 'published') + tag('fact check: ' + l.fact_check_status, l.fact_check_status === 'verified') +
+      tag('claims verified: ' + verified + '/' + claims.length, verified === claims.length && claims.length > 0) +
+      tag(al.match ? 'alignment: match' : 'alignment: ' + (al.blind_pick_skill_id ? 'picked ' + al.blind_pick_skill_id : 'not run'), !!al.match) +
+      tag('learning design: ' + (rv.pedagogy_score == null ? 'not scored' : rv.pedagogy_score + '/10'), rv.pedagogy_score >= 8) +
+      (l.approved_by ? tag('approved: ' + l.approved_by + ' ' + (l.approved_at || ''), true) : '') +
+      (al.notes ? '<br><b>Alignment notes:</b> ' + t(al.notes) : '') +
+      '<details><summary>Claims and sources (' + claims.length + ')</summary><ol>' + claims.map(function (c) {
+        return '<li>' + (c.verified ? '✓ ' : '✗ ') + t(c.text) + ' <i>(' + t((c.source_ids || []).join(', ')) + (c.locator ? ': ' + t(c.locator) : '') + ')</i></li>';
+      }).join('') + '</ol></details>' +
+      '<button id="rv-approve"' + (canApprove ? '' : ' disabled') + '>' + (l.status === 'published' ? 'Published' : 'Approve and publish') + '</button> <span id="rv-msg"></span>');
+
+    var btn = document.getElementById('rv-approve');
+    btn.addEventListener('click', async function () {
+      if (!confirm('Publish "' + l.title + '" to the live site?')) return;
+      btn.disabled = true;
+      var out = await call('/lesson_approve', { method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, auth), body: JSON.stringify({ slug: slug }) }, 2);
+      document.getElementById('rv-msg').textContent = out.ok ? 'Published. Sources due for re-check ' + out.body.review_due + '.' : ((out.body || {}).message || 'Could not publish.');
+      if (out.ok) btn.textContent = 'Published'; else btn.disabled = false;
+    });
+
+    if (l.lesson_json && Array.isArray(l.lesson_json.sections)) STRIVE.renderLesson(l.lesson_json, 'strive-lesson');
+  }
+
+  async function start() {
+    var token = await getAuth();
+    if (!token) return say('Log in with your approver account to review lessons.');
+    var auth = { Authorization: 'Bearer ' + token };
+    return slug ? showLesson(auth) : showQueue(auth);
+  }
+
+  function boot() {
+    var waited = 0;
+    (function poll() {
+      if (window.STRIVE && window.$memberstackDom) { start(); return; }
+      if (waited >= 10000) { say('Could not load the lesson engine. Reload to try again.'); return; }
+      waited += 100; setTimeout(poll, 100);
+    })();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+</script>
