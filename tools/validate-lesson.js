@@ -25,7 +25,7 @@ const validateEngine = ajv.compile({ ...schema.definitions.lessonJson, definitio
    must come from the lesson's level or the one below it. */
 const LEVEL_VERBS = {
   1: ["identify", "name", "describe", "explain", "recognise", "distinguish", "match", "list", "define", "summarise", "read"],
-  2: ["apply", "use", "select", "choose", "produce", "build", "complete", "check", "set", "prepare", "trace", "fix", "model", "run", "export"],
+  2: ["apply", "use", "select", "choose", "produce", "build", "complete", "check", "set", "prepare", "trace", "fix", "model", "run", "export", "position", "link", "place"],
   3: ["analyse", "audit", "diagnose", "configure", "prioritise", "plan", "coordinate", "evaluate", "decide", "specify", "resolve", "review", "detect", "assess"],
   4: ["evaluate", "justify", "design", "govern", "direct", "defend", "set", "benchmark", "weigh", "prioritise", "decide", "judge"],
 };

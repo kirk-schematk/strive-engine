@@ -223,6 +223,31 @@
      "summary": "The lead appointed party confirms the federation strategy for the delivery team in the BEP; the appointing party may set it project-wide in the information production methods and procedures. Both should be communicated to all delivery team members and may evolve during the appointment."
     }
    ]
+  },
+  {
+   "id": "bsi-validation",
+   "title": "Validation Service",
+   "publisher": "buildingSMART International",
+   "url": "https://technical.buildingsmart.org/services/validation-service/",
+   "accessed": "2026-09-22",
+   "passages": [
+    {
+     "locator": "What does it do / What is being checked",
+     "summary": "A free online service that judges an IFC file's conformity to the IFC standard: STEP syntax, IFC schema, normative IFC rules. Non-normative checks (industry practices, bSDD compliance) produce warnings, not errors."
+    },
+    {
+     "locator": "What is not being checked",
+     "summary": "It does not check project-, national- or organisation-specific rules; that is where IDS helps."
+    },
+    {
+     "locator": "Visualisation",
+     "summary": "Geometric visualisation is outside its scope. Many errors are invisible in a viewer, unrelated to geometry, or prevent visualisation altogether."
+    },
+    {
+     "locator": "Recommended workflow",
+     "summary": "Most effective at the outset of any IFC validation process, as the base that later checks rely on; alone it is not sufficient to verify a model meets all requirements."
+    }
+   ]
   }
  ]
 }
