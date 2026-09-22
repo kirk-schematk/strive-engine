@@ -1,0 +1,360 @@
+{
+  "slug": "ifc-export-settings-that-matter",
+  "skill_id": "SKL-11",
+  "title": "The four export settings that decide whether your data arrives",
+  "competency_id": 2,
+  "phase": 2,
+  "est_minutes": 6,
+  "status": "draft",
+  "lesson_type": "teach",
+  "component": "b",
+  "sequence": 2,
+  "lesson_level": 2,
+  "objective": "Set the four export choices that decide whether property sets, classification, position and units survive the trip into the IFC file.",
+  "misconception": "If the geometry looks right in the viewer, the export worked. Properties, codes and units come along automatically.",
+  "prerequisite_slugs": [
+    "exporting-open-formats",
+    "ifc-export-read-the-bep"
+  ],
+  "claims": [
+    {
+      "text": "In IFC, an object occurrence can be related to one or more property sets, and each property set contains one or more properties.",
+      "source_ids": [
+        "ifc4-psets"
+      ],
+      "locator": "4.2.2.1",
+      "verified": true
+    },
+    {
+      "text": "Property sets can also be attached to an object type, defining common properties for all occurrences of that type; a property on the occurrence overrides the same-named property on the type.",
+      "source_ids": [
+        "ifc4-psets"
+      ],
+      "locator": "4.2.2.1",
+      "verified": true
+    },
+    {
+      "text": "IfcClassification identifies the classification system a classification reference refers to; formally published examples include Omniclass, Uniclass, Masterformat and DIN277.",
+      "source_ids": [
+        "ifc4-classification"
+      ],
+      "locator": "Entity definition",
+      "verified": true
+    },
+    {
+      "text": "A classification system can be included in full in the data set or referenced by a classification key or id.",
+      "source_ids": [
+        "ifc4-classification"
+      ],
+      "locator": "Entity definition, two methods",
+      "verified": true
+    },
+    {
+      "text": "An IfcSite may carry a single geographic reference point in WGS84 longitude, latitude and elevation, which fixes where the 0,0,0 of the site's local placement sits in the real world.",
+      "source_ids": [
+        "ifc4-site"
+      ],
+      "locator": "Entity definition",
+      "verified": true
+    },
+    {
+      "text": "The site's placement is relative to its parent spatial element, or absolute to the world coordinate system established by the project's representation context, which may define true north.",
+      "source_ids": [
+        "ifc4-site"
+      ],
+      "locator": "Entity definition",
+      "verified": true
+    },
+    {
+      "text": "IFC4 adds project global positioning: a geospatial coordinate reference system on the representation context, using eastings, northings, elevation and orientation.",
+      "source_ids": [
+        "ifc4-positioning"
+      ],
+      "locator": "4.1.4",
+      "verified": true
+    },
+    {
+      "text": "Default units are declared once for the whole IFC data set and apply to all geometry, measure attributes, and properties and quantities without a local unit; they may be SI units, conversion-based units such as inch and foot, derived units, or a monetary unit.",
+      "source_ids": [
+        "ifc4-units"
+      ],
+      "locator": "4.1.2",
+      "verified": true
+    },
+    {
+      "text": "Properties required by an information requirement can be linked to bSDD properties to prevent ambiguity about naming or data type.",
+      "source_ids": [
+        "ukbim-gb"
+      ],
+      "locator": "1.3, p.11",
+      "verified": true
+    }
+  ],
+  "review": {
+    "fact_check_status": "verified",
+    "alignment": {
+      "blind_pick_skill_id": "SKL-11",
+      "blind_pick_level": 2,
+      "match": true,
+      "notes": "First drafted as SKL-24 component d; blind reader picked SKL-11 twice, whose criterion is this lesson. Re-tagged. Runner-ups SKL-24, SKL-117."
+    },
+    "pedagogy_score": 9,
+    "reviewed_at": "2026-09-22",
+    "version": 2
+  },
+  "lesson_json": {
+    "slug": "ifc-export-settings-that-matter",
+    "skillId": "SKL-11",
+    "meta": [
+      "<b>Domain</b> · Technical & Computational Proficiency",
+      "<b>Phase</b> · BIM Modeler",
+      "<b>Level</b> · L2 Working",
+      "<b>SKL-11</b> · part 2"
+    ],
+    "footer": "STRIVE · <span class=\"b\">SKL-11</span> · Export native models to open formats (IFC, NWC)",
+    "sections": [
+      {
+        "hero": true,
+        "eyebrow": "STRIVE · Micro-lesson · 6 min",
+        "h1": "The geometry arrived.<br><span class=\"sl-accent\">Did anything else?</span>",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "lead": true,
+            "text": "An IFC that looks perfect in the viewer can still be useless: walls with no fire rating, doors with no classification code, a model sitting a few hundred metres from everyone else's, dimensions in the wrong unit. The MVD decides <i>what kind</i> of file you make. Four export settings decide whether <b>the data the recipient asked for is actually in it</b>."
+          },
+          {
+            "type": "paragraph",
+            "lead": true,
+            "text": "By the end you will be able to set all four on purpose, whatever authoring tool you use."
+          }
+        ]
+      },
+      {
+        "eyebrow": "Part 1 · How IFC carries data",
+        "h2": "Four things the file has to carry",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Every export dialog looks different, but the IFC standard underneath is the same. It gives the file four separate places to carry the information that matters downstream, and in most tools each one has an export setting that can leave it out."
+          },
+          {
+            "type": "terms",
+            "items": [
+              {
+                "term": "1 · Property sets",
+                "def": "In IFC an object can carry one or more <b>property sets</b>, each holding properties (fire rating, U-value, manufacturer). They can sit on the individual object or on its type. In most tools the export setting decides which sets are written and whether your tool's own parameters are mapped into standard names."
+              },
+              {
+                "term": "2 · Classification",
+                "def": "The file names the <b>classification system</b> (Uniclass, OmniClass, MasterFormat and others) and each classified object carries a reference to its code. In most tools, if the export is not told which parameter holds the code and which system it belongs to, no classification reference is written and the codes are invisible to a checker looking for classification references."
+              },
+              {
+                "term": "3 · Position",
+                "accent": "orange",
+                "def": "The site's origin can be fixed to a real-world point, and the model sits relative to the project's world coordinate system, which can also carry true north. In most tools an export setting picks which of the tool's origins is written as the file's origin."
+              },
+              {
+                "term": "4 · Units",
+                "accent": "orange",
+                "def": "Default units are declared <b>once for the whole file</b> and apply to all geometry and to every property with no unit of its own. For geometry, metric or imperial is a file-level decision. Individual properties can carry their own unit; anything without one falls back to the file default."
+              }
+            ]
+          },
+          {
+            "type": "note",
+            "label": "Watch for",
+            "tone": "warn",
+            "text": "Property-set failures are often naming failures. A recipient's checker looks for a specific set and property name, and your tool's parameter called \"Fire Rating\" arrives under whatever name the mapping gives it. Projects that link required properties to the buildingSMART Data Dictionary do it precisely so the name and data type are unambiguous."
+          }
+        ]
+      },
+      {
+        "eyebrow": "Part 2 · Worked example",
+        "h2": "Setting up one export, on purpose",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Same structural modeller, same Friday drop. The BEP says IFC4 Reference View, the agreed project origin from the site survey, Uniclass 2015 codes, and a named list of property sets the coordinator's checker will look for. Here is the export set up against each of the four."
+          },
+          {
+            "type": "flow",
+            "steps": [
+              {
+                "title": "Property sets: export the named ones, mapped",
+                "text": "In most tools you switch on the standard IFC property sets and point the export at the project's mapping file, so your parameters land under the names the checker expects. Exporting \"everything\" usually bloats the file and still misses the names being looked for."
+              },
+              {
+                "title": "Classification: set the system and the source field",
+                "text": "Point the export at the parameter that holds the Uniclass code and name the system, so the file's classification reference resolves. A code that is in your model but not in the export is invisible downstream."
+              },
+              {
+                "title": "Position: choose the agreed origin",
+                "text": "Pick the agreed project origin the BEP names, not the tool's internal origin. Every discipline picking the same one is what makes the models land together."
+              },
+              {
+                "title": "Units: match how the model was built",
+                "text": "Confirm the file's declared unit matches the units the model was built in. A file whose declared unit does not match the model is a coordination meeting nobody wants."
+              },
+              {
+                "title": "Save the setup and name it",
+                "text": "If your tool supports it, save these choices as a named export configuration for the project, so Friday's drop is reproducible and the next modeller does not start from defaults."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Notice that none of these steps is about geometry. Geometry is rarely what a default preset gets wrong; it is the data around it that gets left behind."
+          }
+        ]
+      },
+      {
+        "eyebrow": "Knowledge check",
+        "h2": "What went wrong?",
+        "blocks": [
+          {
+            "type": "quiz",
+            "config": {
+              "doneText": "Knowledge check complete. Scroll on for your recap.",
+              "questions": [
+                {
+                  "q": "The coordinator's checker reports \"FireRating not found\" on every wall, but you can see the fire rating on each wall in your authoring tool. Which setting is the first suspect?",
+                  "options": [
+                    {
+                      "text": "The MVD: Reference View strips fire ratings out of every wall",
+                      "correct": false
+                    },
+                    {
+                      "text": "Property-set export or mapping: the parameter was not written, or not under that name",
+                      "correct": true
+                    },
+                    {
+                      "text": "Units: fire rating is unit-less so it was dropped",
+                      "correct": false
+                    },
+                    {
+                      "text": "Classification: fire rating is a classification code",
+                      "correct": false
+                    }
+                  ],
+                  "okFeedback": "✓ Right. The value exists in your model; it did not make it into a property set the checker recognises. Check the sets you export and the mapping of that parameter.",
+                  "noFeedback": "The value is in your model, so the question is how it was written to the file. Fire rating travels in a <b>property set</b>; if that set was not exported, or the parameter was mapped to a different property name, the checker cannot find it. It is not a classification code, and a unit declaration does not remove properties."
+                },
+                {
+                  "q": "Your model opens in the federation about 300 m from the architect's. Nothing is scaled, nothing is missing. What did the export most likely get wrong?",
+                  "options": [
+                    {
+                      "text": "The export origin: internal origin written instead of the agreed one",
+                      "correct": true
+                    },
+                    {
+                      "text": "The units: the file was declared in the wrong unit, so everything moved",
+                      "correct": false
+                    },
+                    {
+                      "text": "The classification system",
+                      "correct": false
+                    }
+                  ],
+                  "okFeedback": "✓ Right. A whole-model offset with correct sizes means the file's origin was taken from a different point than the agreed one.",
+                  "noFeedback": "A whole-model offset with nothing scaled is a <b>position</b> problem: the export used a different origin from the agreed one. A wrong unit declaration would change sizes, not just position, and classification does not move geometry."
+                },
+                {
+                  "q": "The coordinator reports every wall as 200 m thick, and the whole building is about a thousand times too big in the federation. What was wrong?",
+                  "options": [
+                    {
+                      "text": "The export origin: the model was written from the wrong base point",
+                      "correct": false
+                    },
+                    {
+                      "text": "The property-set mapping",
+                      "correct": false
+                    },
+                    {
+                      "text": "The declared unit: millimetre values written unconverted, file declared in metres",
+                      "correct": true
+                    }
+                  ],
+                  "okFeedback": "✓ Right. Units are declared once for the file and apply to all geometry. Millimetre numbers under a metre declaration make everything a thousand times too big.",
+                  "noFeedback": "Everything scaled by the same factor is a <b>units</b> problem. Default units are declared once for the file and apply to all geometry, so values written in one unit under a declaration of another scale the whole model. Origin moves it; mapping affects properties, not sizes."
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "eyebrow": "Recap",
+        "h2": "What to carry forward",
+        "blocks": [
+          {
+            "type": "recap",
+            "badge": "SKL-11 · part 2",
+            "items": [
+              "IFC carries the data that matters here in four places: property sets, classification references, placement and file-level units. In most tools each has an export setting that can leave it out.",
+              "Export the property sets the recipient's checker names, through the project mapping, not \"everything\".",
+              "For geometry, position and units are one decision for the whole file: use the agreed project origin and declare the unit the model was built in.",
+              "<b>This week:</b> open your project's export setup and check all four against the BEP. If your tool allows, save it as a named configuration so nobody exports from defaults again."
+            ]
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "ifc4-psets",
+        "title": "IFC4 ADD2 TC1, 4.2.2.1 Property Sets for Objects",
+        "publisher": "buildingSMART International",
+        "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/templates/property-sets-for-objects.htm",
+        "edition": "IFC4 ADD2 TC1",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "ifc4-classification",
+        "title": "IFC4 ADD2 TC1, IfcClassification",
+        "publisher": "buildingSMART International",
+        "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcexternalreferenceresource/lexical/ifcclassification.htm",
+        "edition": "IFC4 ADD2 TC1",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "ifc4-site",
+        "title": "IFC4 ADD2 TC1, IfcSite",
+        "publisher": "buildingSMART International",
+        "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcproductextension/lexical/ifcsite.htm",
+        "edition": "IFC4 ADD2 TC1",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "ifc4-positioning",
+        "title": "IFC4 ADD2 TC1, 4.1.4 Project Global Positioning",
+        "publisher": "buildingSMART International",
+        "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/templates/project-global-positioning.htm",
+        "edition": "IFC4 ADD2 TC1",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "ifc4-units",
+        "title": "IFC4 ADD2 TC1, 4.1.2 Project Units",
+        "publisher": "buildingSMART International",
+        "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/templates/project-units.htm",
+        "edition": "IFC4 ADD2 TC1",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "ukbim-gb",
+        "title": "Information management according to BS EN ISO 19650. Guidance Part B: Open data, buildingSMART and COBie",
+        "publisher": "UK BIM Framework",
+        "url": "https://ukbimframework.org/wp-content/uploads/2020/09/Guidance-Part-B_Open-data-buildingSMART-and-COBie_Edition-1.pdf",
+        "edition": "Edition 1, September 2020",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      }
+    ]
+  }
+}

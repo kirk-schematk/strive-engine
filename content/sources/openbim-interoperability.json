@@ -95,6 +95,14 @@
     {
      "locator": "6.1 Introduction (p.87)",
      "summary": "Each appointed party produces a task information delivery plan (TIDP); the lead appointed party compiles the TIDPs into a master information delivery plan (MIDP)."
+    },
+    {
+     "locator": "6.4.1 (p.90), TIDP contents",
+     "summary": "Per ISO 19650-2 clause 5.4.4 the TIDP schedules the agreed information containers, identifying for each: name and title, predecessors or dependencies, level of information need, estimated production time, author, delivery milestones."
+    },
+    {
+     "locator": "6.4.3 (p.93)",
+     "summary": "A milestone could be based on the purpose for issue, such as for comment with status S3 or published within stage 4 with status A4."
     }
    ]
   },
@@ -195,6 +203,24 @@
     {
      "locator": "4.1.4",
      "summary": "New in IFC4: a geospatial coordinate reference system on the geometric representation context positions the project coordinate system on earth, normally using eastings, northings, elevation above datum and orientation."
+    }
+   ]
+  },
+  {
+   "id": "ukbim-g1",
+   "title": "Information management according to BS EN ISO 19650. Guidance Part 1: Concepts",
+   "publisher": "UK BIM Framework",
+   "url": "https://ukbimframework.org/wp-content/uploads/2019/10/Information-Management-according-to-BS-EN-ISO-19650_-Guidance-Part-1_Concepts_2ndEdition.pdf",
+   "edition": "Second Edition, July 2019",
+   "accessed": "2026-09-22",
+   "passages": [
+    {
+     "locator": "6.3 (p.26)",
+     "summary": "The federation strategy is a higher-level description of how and why the information model is divided up via the information container breakdown structure. Together they provide the rules for combining and segregating containers for purposes such as security, spatial coordination or information transmission."
+    },
+    {
+     "locator": "6.3.1 (p.26)",
+     "summary": "The lead appointed party confirms the federation strategy for the delivery team in the BEP; the appointing party may set it project-wide in the information production methods and procedures. Both should be communicated to all delivery team members and may evolve during the appointment."
     }
    ]
   }

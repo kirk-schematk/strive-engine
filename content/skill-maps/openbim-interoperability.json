@@ -10,119 +10,582 @@
   },
   "skills": [
     {
-      "skill_id": "SKL-114", "level": 1,
+      "skill_id": "SKL-114",
+      "level": 1,
       "components": [
-        { "id": "a", "text": "Name IFC, BCF, IDS, bSDD and COBie and say what each carries (model, issues, requirements, definitions, handover data)", "lessons": [{ "slug": "openbim-standards-overview", "role": "teach", "status": "published" }] },
-        { "id": "b", "text": "Given a job to do on a project, pick the standard that does it", "lessons": [{ "planned": "openbim-standards-pick", "role": "practise" }] },
-        { "id": "c", "text": "Explain how the five fit together in one exchange (IDS says what, IFC carries it, BCF reports problems, bSDD defines terms, COBie hands over)", "lessons": [{ "planned": "openbim-standards-one-exchange", "role": "mix" }] }
+        {
+          "id": "a",
+          "text": "Name IFC, BCF, IDS, bSDD and COBie and say what each carries (model, issues, requirements, definitions, handover data)",
+          "lessons": [
+            {
+              "slug": "openbim-standards-overview",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "text": "Given a job to do on a project, pick the standard that does it",
+          "lessons": [
+            {
+              "planned": "openbim-standards-pick",
+              "role": "practise"
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "text": "Explain how the five fit together in one exchange (IDS says what, IFC carries it, BCF reports problems, bSDD defines terms, COBie hands over)",
+          "lessons": [
+            {
+              "planned": "openbim-standards-one-exchange",
+              "role": "mix"
+            }
+          ]
+        }
       ]
     },
     {
-      "skill_id": "SKL-23", "level": 1,
+      "skill_id": "SKL-23",
+      "level": 1,
       "components": [
-        { "id": "a", "text": "Say what openBIM is and what vendor-neutral means", "lessons": [{ "slug": "vendor-neutral-data", "role": "teach", "status": "published" }] },
-        { "id": "b", "text": "Name the downstream risks of proprietary-only data: reopening in 10 years, changing tools, supply-chain members on other software, owner access after handover", "lessons": [{ "slug": "vendor-neutral-data", "role": "teach", "status": "published" }] },
-        { "id": "c", "text": "Spot lock-in in a real situation (a deliverable, an archive, a contract clause) and say what open alternative fixes it", "lessons": [{ "planned": "vendor-lock-in-spot-it", "role": "practise" }] }
+        {
+          "id": "a",
+          "text": "Say what openBIM is and what vendor-neutral means",
+          "lessons": [
+            {
+              "slug": "vendor-neutral-data",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "text": "Name the downstream risks of proprietary-only data: reopening in 10 years, changing tools, supply-chain members on other software, owner access after handover",
+          "lessons": [
+            {
+              "slug": "vendor-neutral-data",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "text": "Spot lock-in in a real situation (a deliverable, an archive, a contract clause) and say what open alternative fixes it",
+          "lessons": [
+            {
+              "planned": "vendor-lock-in-spot-it",
+              "role": "practise"
+            }
+          ]
+        }
       ]
     },
     {
-      "skill_id": "SKL-24", "level": 2,
+      "skill_id": "SKL-24",
+      "level": 2,
       "components": [
-        { "id": "a", "text": "Say what an MVD is: a subset of IFC for one exchange purpose, not a quality level", "lessons": [{ "slug": "ifc-export-mvds", "role": "teach", "status": "published" }] },
-        { "id": "b", "text": "Match the MVD to what the recipient will do with the file (reference / transfer / handover)", "lessons": [{ "slug": "ifc-export-mvds-apply", "role": "practise", "status": "draft" }] },
-        { "id": "c", "text": "Read the BEP exchange table for the IFC version and MVD each drop requires, and raise it when the MVD is missing", "lessons": [{ "planned": "ifc-export-read-the-bep", "role": "teach" }] },
-        { "id": "d", "text": "Set the export so property sets, classification and coordinates survive (the export-settings side of 'required data translates')", "lessons": [{ "planned": "ifc-export-settings-that-matter", "role": "teach" }] },
-        { "id": "e", "text": "Check the exported file contains what the recipient needs before issuing (hands off to SKL-116)", "lessons": [{ "planned": "ifc-export-end-to-end", "role": "mix", "note": "uses c + d + SKL-116" }] }
+        {
+          "id": "a",
+          "text": "Say what an MVD is: a subset of IFC for one exchange purpose, not a quality level",
+          "lessons": [
+            {
+              "slug": "ifc-export-mvds",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "text": "Match the MVD to what the recipient will do with the file (reference / transfer / handover)",
+          "lessons": [
+            {
+              "slug": "ifc-export-mvds-apply",
+              "role": "practise",
+              "status": "draft"
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "text": "Read the BEP exchange table for the IFC version and MVD each drop requires, and raise it when the MVD is missing",
+          "lessons": [
+            {
+              "slug": "ifc-export-read-the-bep",
+              "role": "teach",
+              "status": "draft"
+            }
+          ]
+        },
+        {
+          "id": "d",
+          "text": "Set the export so property sets, classification and coordinates survive. Hands off to SKL-11 (Model Federation & Validation), whose acceptance criteria is exactly this.",
+          "lessons": [
+            {
+              "slug": "ifc-export-settings-that-matter",
+              "role": "teach",
+              "status": "draft",
+              "note": "tagged SKL-11 component b after the blind alignment check picked SKL-11"
+            }
+          ]
+        },
+        {
+          "id": "e",
+          "text": "Check the exported file contains what the recipient needs before issuing (hands off to SKL-116)",
+          "lessons": [
+            {
+              "planned": "ifc-export-end-to-end",
+              "role": "mix",
+              "note": "uses c + d + SKL-116"
+            }
+          ]
+        }
       ]
     },
     {
-      "skill_id": "SKL-116", "level": 2,
+      "skill_id": "SKL-116",
+      "level": 2,
       "components": [
-        { "id": "a", "text": "Explain why the authoring tool cannot be trusted to show what the export contains", "lessons": [{ "slug": "checking-ifc-in-neutral-viewers", "role": "teach", "status": "published" }] },
-        { "id": "b", "text": "Run the pre-issue check: geometry present, placement, sample elements' properties, classification, units", "lessons": [{ "slug": "checking-ifc-in-neutral-viewers", "role": "teach", "status": "published" }, { "planned": "neutral-viewer-check-drill", "role": "practise" }] },
-        { "id": "c", "text": "Diagnose the common failures a viewer reveals (missing psets, wrong origin, elements exported as proxies) back to the export setting that caused them", "lessons": [{ "planned": "neutral-viewer-diagnose", "role": "practise" }] }
+        {
+          "id": "a",
+          "text": "Explain why the authoring tool cannot be trusted to show what the export contains",
+          "lessons": [
+            {
+              "slug": "checking-ifc-in-neutral-viewers",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "text": "Run the pre-issue check: geometry present, placement, sample elements' properties, classification, units",
+          "lessons": [
+            {
+              "slug": "checking-ifc-in-neutral-viewers",
+              "role": "teach",
+              "status": "published"
+            },
+            {
+              "planned": "neutral-viewer-check-drill",
+              "role": "practise"
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "text": "Diagnose the common failures a viewer reveals (missing psets, wrong origin, elements exported as proxies) back to the export setting that caused them",
+          "lessons": [
+            {
+              "planned": "neutral-viewer-diagnose",
+              "role": "practise"
+            }
+          ]
+        }
       ]
     },
     {
-      "skill_id": "SKL-115", "level": 2,
+      "skill_id": "SKL-115",
+      "level": 2,
       "components": [
-        { "id": "a", "text": "Link rather than convert, and say why", "lessons": [{ "slug": "importing-ifc-models", "role": "teach", "status": "published" }] },
-        { "id": "b", "text": "Position the link correctly using shared coordinates / the agreed origin", "lessons": [{ "planned": "ifc-link-positioning", "role": "teach" }] },
-        { "id": "c", "text": "Confirm the linked data is usable: properties readable, categories mapped, elements selectable for coordination", "lessons": [{ "planned": "ifc-link-usable-data", "role": "practise" }] },
-        { "id": "d", "text": "Refresh a link when a new issue arrives without losing local work", "lessons": [{ "planned": "ifc-link-refresh", "role": "practise" }] }
+        {
+          "id": "a",
+          "text": "Link rather than convert, and say why",
+          "lessons": [
+            {
+              "slug": "importing-ifc-models",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "text": "Position the link correctly using shared coordinates / the agreed origin",
+          "lessons": [
+            {
+              "planned": "ifc-link-positioning",
+              "role": "teach"
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "text": "Confirm the linked data is usable: properties readable, categories mapped, elements selectable for coordination",
+          "lessons": [
+            {
+              "planned": "ifc-link-usable-data",
+              "role": "practise"
+            }
+          ]
+        },
+        {
+          "id": "d",
+          "text": "Refresh a link when a new issue arrives without losing local work",
+          "lessons": [
+            {
+              "planned": "ifc-link-refresh",
+              "role": "practise"
+            }
+          ]
+        }
       ]
     },
     {
-      "skill_id": "SKL-25", "level": 3,
+      "skill_id": "SKL-25",
+      "level": 3,
       "components": [
-        { "id": "a", "text": "Say what a BCF topic carries (viewpoint, component references, status, comments) and why that beats emailing screenshots", "lessons": [{ "slug": "bcf-issue-tracking", "role": "teach", "status": "published" }] },
-        { "id": "b", "text": "Raise, assign and close a BCF issue across two tools", "lessons": [{ "planned": "bcf-raise-assign-close", "role": "practise" }] },
-        { "id": "c", "text": "Run an IFC round-trip audit: export, re-import, compare a sample of elements and properties", "lessons": [{ "planned": "ifc-round-trip-audit", "role": "teach" }] },
-        { "id": "d", "text": "Locate where in the chain data was lost (export mapping, MVD scope, importer) and say who fixes it", "lessons": [{ "planned": "ifc-data-loss-locate", "role": "practise" }] }
+        {
+          "id": "a",
+          "text": "Say what a BCF topic carries (viewpoint, component references, status, comments) and why that beats emailing screenshots",
+          "lessons": [
+            {
+              "slug": "bcf-issue-tracking",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "text": "Raise, assign and close a BCF issue across two tools",
+          "lessons": [
+            {
+              "planned": "bcf-raise-assign-close",
+              "role": "practise"
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "text": "Run an IFC round-trip audit: export, re-import, compare a sample of elements and properties",
+          "lessons": [
+            {
+              "planned": "ifc-round-trip-audit",
+              "role": "teach"
+            }
+          ]
+        },
+        {
+          "id": "d",
+          "text": "Locate where in the chain data was lost (export mapping, MVD scope, importer) and say who fixes it",
+          "lessons": [
+            {
+              "planned": "ifc-data-loss-locate",
+              "role": "practise"
+            }
+          ]
+        }
       ]
     },
     {
-      "skill_id": "SKL-118", "level": 3,
+      "skill_id": "SKL-118",
+      "level": 3,
       "components": [
-        { "id": "a", "text": "Define one status lifecycle and one set of topic types that every connected tool uses", "lessons": [{ "slug": "running-a-bcf-server", "role": "teach", "status": "published" }] },
-        { "id": "b", "text": "Set assignment rules so every open issue has an owner and a due date", "lessons": [{ "planned": "bcf-assignment-rules", "role": "practise" }] },
-        { "id": "c", "text": "Run the weekly hygiene pass: stale issues, orphaned topics, duplicates", "lessons": [{ "planned": "bcf-hygiene-pass", "role": "practise" }] },
-        { "id": "d", "text": "Report issue ageing and closure rates to the coordination meeting", "lessons": [{ "planned": "bcf-reporting", "role": "mix", "note": "with SKL-135 clash analytics" }] }
+        {
+          "id": "a",
+          "text": "Define one status lifecycle and one set of topic types that every connected tool uses",
+          "lessons": [
+            {
+              "slug": "running-a-bcf-server",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "text": "Set assignment rules so every open issue has an owner and a due date",
+          "lessons": [
+            {
+              "planned": "bcf-assignment-rules",
+              "role": "practise"
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "text": "Run the weekly hygiene pass: stale issues, orphaned topics, duplicates",
+          "lessons": [
+            {
+              "planned": "bcf-hygiene-pass",
+              "role": "practise"
+            }
+          ]
+        },
+        {
+          "id": "d",
+          "text": "Report issue ageing and closure rates to the coordination meeting",
+          "lessons": [
+            {
+              "planned": "bcf-reporting",
+              "role": "mix",
+              "note": "with SKL-135 clash analytics"
+            }
+          ]
+        }
       ]
     },
     {
-      "skill_id": "SKL-117", "level": 3,
+      "skill_id": "SKL-117",
+      "level": 3,
       "components": [
-        { "id": "a", "text": "Say what a mapping configuration file controls (class mapping, property set mapping, classification export)", "lessons": [{ "slug": "maintaining-ifc-mapping-configs", "role": "teach", "status": "published" }] },
-        { "id": "b", "text": "Version, publish and retire configs through the CDE so every party exports from the current one", "lessons": [{ "planned": "mapping-config-versioning", "role": "practise" }] },
-        { "id": "c", "text": "Trace an incoming model's wrong classes back to a stale config and get the party updated", "lessons": [{ "planned": "mapping-config-stale-trace", "role": "practise" }] }
+        {
+          "id": "a",
+          "text": "Say what a mapping configuration file controls (class mapping, property set mapping, classification export)",
+          "lessons": [
+            {
+              "slug": "maintaining-ifc-mapping-configs",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "text": "Version, publish and retire configs through the CDE so every party exports from the current one",
+          "lessons": [
+            {
+              "planned": "mapping-config-versioning",
+              "role": "practise"
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "text": "Trace an incoming model's wrong classes back to a stale config and get the party updated",
+          "lessons": [
+            {
+              "planned": "mapping-config-stale-trace",
+              "role": "practise"
+            }
+          ]
+        }
       ]
     },
     {
-      "skill_id": "SKL-26", "level": 3,
+      "skill_id": "SKL-26",
+      "level": 3,
       "components": [
-        { "id": "a", "text": "Say why export mapping belongs in the BEP, not with each modeller", "lessons": [{ "slug": "ifc-mapping-bep", "role": "teach", "status": "published" }] },
-        { "id": "b", "text": "Write a checkable interoperability requirement: IFC version, MVD, property sets, classification, units, origin", "lessons": [{ "planned": "bep-interop-clause", "role": "practise" }] },
-        { "id": "c", "text": "Specify the bridging protocol for each tool pair on the project (hands off to SKL-119)", "lessons": [{ "planned": "bep-bridging-clause", "role": "mix", "note": "with SKL-119" }] }
+        {
+          "id": "a",
+          "text": "Say why export mapping belongs in the BEP, not with each modeller",
+          "lessons": [
+            {
+              "slug": "ifc-mapping-bep",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "text": "Write a checkable interoperability requirement: IFC version, MVD, property sets, classification, units, origin",
+          "lessons": [
+            {
+              "planned": "bep-interop-clause",
+              "role": "practise"
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "text": "Specify the bridging protocol for each tool pair on the project (hands off to SKL-119)",
+          "lessons": [
+            {
+              "planned": "bep-bridging-clause",
+              "role": "mix",
+              "note": "with SKL-119"
+            }
+          ]
+        }
       ]
     },
     {
-      "skill_id": "SKL-119", "level": 3,
+      "skill_id": "SKL-119",
+      "level": 3,
       "components": [
-        { "id": "a", "text": "Inventory the tools on the project and the exchanges between them", "lessons": [{ "slug": "planning-software-bridging", "role": "teach", "status": "published" }] },
-        { "id": "b", "text": "Choose the route and settings for one tool pair (format, MVD, mapping, frequency)", "lessons": [{ "planned": "bridging-one-pair", "role": "practise" }] },
-        { "id": "c", "text": "Test the critical exchanges with sample data before production and record the result", "lessons": [{ "planned": "bridging-test-exchange", "role": "practise" }] }
+        {
+          "id": "a",
+          "text": "Inventory the tools on the project and the exchanges between them",
+          "lessons": [
+            {
+              "slug": "planning-software-bridging",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "text": "Choose the route and settings for one tool pair (format, MVD, mapping, frequency)",
+          "lessons": [
+            {
+              "planned": "bridging-one-pair",
+              "role": "practise"
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "text": "Test the critical exchanges with sample data before production and record the result",
+          "lessons": [
+            {
+              "planned": "bridging-test-exchange",
+              "role": "practise"
+            }
+          ]
+        }
       ]
     },
     {
-      "skill_id": "SKL-120", "level": 3,
+      "skill_id": "SKL-120",
+      "level": 3,
       "components": [
-        { "id": "a", "text": "Say what an IDS file expresses (applicability + requirements) and what a checker does with it", "lessons": [{ "slug": "specifying-ids-deliverables", "role": "teach", "status": "published" }] },
-        { "id": "b", "text": "Turn an information requirement into an IDS specification for one exchange", "lessons": [{ "planned": "ids-write-one-spec", "role": "practise" }] },
-        { "id": "c", "text": "Vary requirements by exchange stage and attach the right IDS to each drop", "lessons": [{ "planned": "ids-by-stage", "role": "practise" }] },
-        { "id": "d", "text": "Read a check report and turn failures into assigned fixes (hands off to SKL-29)", "lessons": [{ "planned": "ids-read-the-report", "role": "mix", "note": "with SKL-29" }] }
+        {
+          "id": "a",
+          "text": "Say what an IDS file expresses (applicability + requirements) and what a checker does with it",
+          "lessons": [
+            {
+              "slug": "specifying-ids-deliverables",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "text": "Turn an information requirement into an IDS specification for one exchange",
+          "lessons": [
+            {
+              "planned": "ids-write-one-spec",
+              "role": "practise"
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "text": "Vary requirements by exchange stage and attach the right IDS to each drop",
+          "lessons": [
+            {
+              "planned": "ids-by-stage",
+              "role": "practise"
+            }
+          ]
+        },
+        {
+          "id": "d",
+          "text": "Read a check report and turn failures into assigned fixes (hands off to SKL-29)",
+          "lessons": [
+            {
+              "planned": "ids-read-the-report",
+              "role": "mix",
+              "note": "with SKL-29"
+            }
+          ]
+        }
       ]
     },
     {
-      "skill_id": "SKL-121", "level": 4,
+      "skill_id": "SKL-121",
+      "level": 4,
       "components": [
-        { "id": "a", "text": "State what 'open by default' fixes: deliverables, archives, procurement language", "lessons": [{ "slug": "corporate-openbim-policy", "role": "teach", "status": "published" }] },
-        { "id": "b", "text": "Decide the exceptions process: when proprietary is allowed and who signs off", "lessons": [{ "planned": "openbim-policy-exceptions", "role": "practise" }] },
-        { "id": "c", "text": "Make the policy stick: contract clauses, templates, audits", "lessons": [{ "planned": "openbim-policy-enforcement", "role": "mix" }] }
+        {
+          "id": "a",
+          "text": "State what 'open by default' fixes: deliverables, archives, procurement language",
+          "lessons": [
+            {
+              "slug": "corporate-openbim-policy",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "text": "Decide the exceptions process: when proprietary is allowed and who signs off",
+          "lessons": [
+            {
+              "planned": "openbim-policy-exceptions",
+              "role": "practise"
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "text": "Make the policy stick: contract clauses, templates, audits",
+          "lessons": [
+            {
+              "planned": "openbim-policy-enforcement",
+              "role": "mix"
+            }
+          ]
+        }
       ]
     },
     {
-      "skill_id": "SKL-69", "level": 4,
+      "skill_id": "SKL-69",
+      "level": 4,
       "components": [
-        { "id": "a", "text": "Explain why open-standard adoption across the industry is in the firm's own interest", "lessons": [{ "slug": "open-standards-advocacy", "role": "teach", "status": "published" }] },
-        { "id": "b", "text": "Choose where to participate (buildingSMART chapters, rooms, national mirror committees) and what the firm brings", "lessons": [{ "planned": "advocacy-where-to-sit", "role": "practise" }] },
-        { "id": "c", "text": "Influence a mandate: evidence, allies, the ask", "lessons": [{ "planned": "advocacy-influence-a-mandate", "role": "practise" }] }
+        {
+          "id": "a",
+          "text": "Explain why open-standard adoption across the industry is in the firm's own interest",
+          "lessons": [
+            {
+              "slug": "open-standards-advocacy",
+              "role": "teach",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "text": "Choose where to participate (buildingSMART chapters, rooms, national mirror committees) and what the firm brings",
+          "lessons": [
+            {
+              "planned": "advocacy-where-to-sit",
+              "role": "practise"
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "text": "Influence a mandate: evidence, allies, the ask",
+          "lessons": [
+            {
+              "planned": "advocacy-influence-a-mandate",
+              "role": "practise"
+            }
+          ]
+        }
       ]
     }
   ],
   "reinforce_series": [
-    { "planned": "openbim-refresher-1", "role": "reinforce", "covers": ["SKL-114/a", "SKL-23/b", "SKL-24/a"], "offer_after_days": 14 },
-    { "planned": "openbim-refresher-2", "role": "reinforce", "covers": ["SKL-24/b", "SKL-116/b", "SKL-115/a"], "offer_after_days": 21 }
+    {
+      "planned": "openbim-refresher-1",
+      "role": "reinforce",
+      "covers": [
+        "SKL-114/a",
+        "SKL-23/b",
+        "SKL-24/a"
+      ],
+      "offer_after_days": 14
+    },
+    {
+      "planned": "openbim-refresher-2",
+      "role": "reinforce",
+      "covers": [
+        "SKL-24/b",
+        "SKL-116/b",
+        "SKL-115/a"
+      ],
+      "offer_after_days": 21
+    }
   ],
   "sequence_note": "Within a skill, lessons run in component order (a, b, c...). Across the competency, the natural learner path is SKL-114 -> 23 -> 24 -> 116 -> 115 -> 25 -> 118 -> 117 -> 26 -> 119 -> 120 -> 121 -> 69, which matches phase order."
 }

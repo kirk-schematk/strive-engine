@@ -1,0 +1,345 @@
+{
+  "slug": "ifc-export-read-the-bep",
+  "skill_id": "SKL-24",
+  "title": "Before you export: find the MVD the plan requires",
+  "competency_id": 12,
+  "phase": 2,
+  "est_minutes": 5,
+  "status": "draft",
+  "lesson_type": "teach",
+  "component": "c",
+  "sequence": 3,
+  "lesson_level": 2,
+  "objective": "Use the project BEP and your TIDP to find the IFC version and MVD a drop requires, raising any that are not recorded.",
+  "misconception": "The BEP is a tender document for managers. Modellers pick the export preset that worked last time.",
+  "prerequisite_slugs": [
+    "ifc-export-mvds",
+    "ifc-export-mvds-apply"
+  ],
+  "claims": [
+    {
+      "text": "The BEP has two purposes: evidence to the appointing party that the delivery team can manage information to the requirements, and the delivery tool the team uses to produce, manage and exchange project information during the appointment.",
+      "source_ids": [
+        "ukbim-g2"
+      ],
+      "locator": "5.2, p.82",
+      "verified": true
+    },
+    {
+      "text": "There is only one BEP for each delivery team, though there may be two early versions of it (pre-appointment and appointment).",
+      "source_ids": [
+        "ukbim-g2"
+      ],
+      "locator": "5.2, p.82",
+      "verified": true
+    },
+    {
+      "text": "ISO 19650-2 clause 5.3.2 recommends seven considerations for the pre-appointment BEP, including the federation strategy, adds or amends to the information standard, and a schedule of software, hardware and IT infrastructure.",
+      "source_ids": [
+        "ukbim-g2"
+      ],
+      "locator": "5.3.3 items A-G, pp.84-85",
+      "verified": true
+    },
+    {
+      "text": "The schedule of software lists the software versions the delivery team will use, and the guidance calls it a fundamental consideration for wider interoperability.",
+      "source_ids": [
+        "ukbim-g2"
+      ],
+      "locator": "5.3.3 item G, p.85",
+      "verified": true
+    },
+    {
+      "text": "The delivery team's BEP should be kept up to date throughout the appointment using change management processes.",
+      "source_ids": [
+        "ukbim-g2"
+      ],
+      "locator": "5.5, p.87",
+      "verified": true
+    },
+    {
+      "text": "Each task team's TIDP schedules the agreed information containers, identifying for each its name and title, predecessors, level of information need, estimated production time, author and delivery milestones; the lead appointed party compiles TIDPs into the MIDP.",
+      "source_ids": [
+        "ukbim-g2"
+      ],
+      "locator": "6.1 p.87-88; 6.4.1 p.90",
+      "verified": true
+    },
+    {
+      "text": "A delivery milestone can be based on the purpose for issue, for example for comment with status S3.",
+      "source_ids": [
+        "ukbim-g2"
+      ],
+      "locator": "6.4.3, p.94",
+      "verified": true
+    },
+    {
+      "text": "Requirements for information exchange in the project's information standard could reference MVDs.",
+      "source_ids": [
+        "ukbim-gb"
+      ],
+      "locator": "1.4, ISO 19650-2 clause 5.1.4, p.11",
+      "verified": true
+    },
+    {
+      "text": "Quality assurance checks can be partly automated by rule-based checking of information against the relevant MVDs.",
+      "source_ids": [
+        "ukbim-gb"
+      ],
+      "locator": "1.4, ISO 19650-2 clause 5.6.3, p.12",
+      "verified": true
+    },
+    {
+      "text": "The federation strategy describes how and why the information model is divided into containers, and with the container breakdown structure gives the rules for combining and segregating them for purposes such as spatial coordination or information transmission.",
+      "source_ids": [
+        "ukbim-g1"
+      ],
+      "locator": "6.3, p.26",
+      "verified": true
+    },
+    {
+      "text": "An MVD is a buildingSMART-sanctioned implementation of the IFC schema to satisfy a specific purpose.",
+      "source_ids": [
+        "ukbim-gb"
+      ],
+      "locator": "1.3, p.10",
+      "verified": true
+    },
+    {
+      "text": "The IFC4 Reference View is used to reference model information for design coordination between architectural, structural and building services domains.",
+      "source_ids": [
+        "bsi-mvd-database"
+      ],
+      "locator": "Row: IFC4 ADD2 TC1 Reference View",
+      "verified": true
+    }
+  ],
+  "review": {
+    "fact_check_status": "verified",
+    "version": 2,
+    "reviewed_at": "2026-09-22",
+    "alignment": {
+      "blind_pick_skill_id": "SKL-24",
+      "blind_pick_level": 2,
+      "match": true,
+      "notes": "v1 was read as SKL-140 (BEP sections); v2 rebuilt around the MVD decision and read as SKL-24. Runner-ups SKL-140, SKL-32, comfortable."
+    },
+    "pedagogy_score": 9
+  },
+  "lesson_json": {
+    "slug": "ifc-export-read-the-bep",
+    "skillId": "SKL-24",
+    "meta": [
+      "<b>Domain</b> · Information Management & Open Standards",
+      "<b>Phase</b> · BIM Modeler",
+      "<b>Level</b> · L2 Working",
+      "<b>SKL-24</b> · part 3 of 5"
+    ],
+    "footer": "STRIVE · <span class=\"b\">SKL-24</span> · Export IFC files using predefined Model View Definitions (MVDs)",
+    "sections": [
+      {
+        "hero": true,
+        "eyebrow": "STRIVE · Micro-lesson · 5 min",
+        "h1": "The MVD was decided<br><span class=\"sl-accent\">before you opened the file.</span>",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "lead": true,
+            "text": "Which IFC version. Which MVD. Which version of your authoring tool. On a well-run project none of those are your call on export day. They were agreed when the team was appointed, and they are written in the <b>BIM Execution Plan</b> and the delivery plans that hang off it."
+          },
+          {
+            "type": "paragraph",
+            "lead": true,
+            "text": "By the end you will know where to look for the MVD a drop requires, how to confirm it from the purpose of the deliverable, and what to do when it is not written down."
+          }
+        ]
+      },
+      {
+        "eyebrow": "Part 1 · What the BEP is for",
+        "h2": "Not a tender document. A delivery tool.",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "The BEP is written by the lead appointed party for the whole delivery team, and there is one per delivery team. UK BIM Framework guidance gives it two jobs: first, to show the client that the team can manage information to the requirements; second, to be <b>the tool the team uses to produce, manage and exchange information</b> for the rest of the appointment. That second job is the one that concerns you every time you export."
+          },
+          {
+            "type": "terms",
+            "items": [
+              {
+                "term": "MVD",
+                "def": "Model View Definition. A buildingSMART-sanctioned implementation of the IFC schema for a specific purpose. Guidance notes that a project's exchange rules can name the MVD to use."
+              },
+              {
+                "term": "BEP",
+                "def": "BIM Execution Plan. The delivery team's agreed approach to producing and exchanging information. One per delivery team, kept current through the appointment."
+              },
+              {
+                "term": "Information standard",
+                "def": "The project's rules for how information is structured and exchanged. Its exchange requirements can reference MVDs, so this is where to expect the IFC version and MVD."
+              },
+              {
+                "term": "TIDP and MIDP",
+                "accent": "orange",
+                "def": "Task Information Delivery Plan, one per task team: the deliverables, their level of information need, author and delivery milestones. The lead appointed party compiles them into the Master Information Delivery Plan."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Guidance lists seven things a pre-appointment BEP should consider. Three of them bear on your export. Any <b>adds or amends to the information standard</b>, because the standard's exchange rules can reference MVDs. The <b>schedule of software</b>, which lists the versions each party will use; the guidance calls it a fundamental consideration for interoperability. And the <b>federation strategy</b>, which describes how the model is split into containers and combined, and for what, such as spatial coordination. That tells you what your file will be combined with, which is the purpose the MVD has to serve. If your tool also offers a Design Transfer View, remember what it is for: handing a model from one tool to another, not referencing it for coordination."
+          }
+        ]
+      },
+      {
+        "eyebrow": "Part 2 · Worked example",
+        "h2": "Reading the BEP for one drop",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "You are the structural modeller. Friday's coordination drop is due. Here is how a careful modeller reads the plans before touching the export dialog."
+          },
+          {
+            "type": "flow",
+            "steps": [
+              {
+                "title": "Find the deliverable in your TIDP",
+                "text": "The TIDP names the container, its level of information need and its delivery milestone. Milestones can be tied to the purpose for issue, such as for comment. Purpose is what picks the MVD."
+              },
+              {
+                "title": "Find the format rule in the information standard",
+                "text": "Look for the IFC version and the MVD. \"IFC4 Reference View for coordination exchanges\" is what a good one says. \"IFC\" on its own is not a rule."
+              },
+              {
+                "title": "Confirm the purpose against the federation strategy",
+                "text": "It says how containers are combined and for what. A file that will be federated for spatial coordination is a reference file, and that is the purpose the Reference View was written for."
+              },
+              {
+                "title": "Check your tool's version against the software schedule",
+                "text": "A version that differs from the schedule is the interoperability risk the guidance flags. Raise it rather than exporting and hoping."
+              },
+              {
+                "title": "If the MVD is not written down, raise it before you export",
+                "text": "Guidance expects the BEP to be kept up to date through change management. A missing MVD is a gap in the plan, not a gap for you to guess across. Ask the information manager and get the answer recorded."
+              }
+            ]
+          },
+          {
+            "type": "note",
+            "label": "Why raise, not guess",
+            "tone": "warn",
+            "text": "Guidance notes that quality checks can be partly automated with rules that test information against the relevant MVD. If the MVD was never written down, your file is checked against someone's assumption, and a guess that differs from the checker's fails the drop."
+          }
+        ]
+      },
+      {
+        "eyebrow": "Knowledge check",
+        "h2": "Where would you look?",
+        "blocks": [
+          {
+            "type": "quiz",
+            "config": {
+              "doneText": "Knowledge check complete. Scroll on for your recap.",
+              "questions": [
+                {
+                  "q": "Your TIDP lists Friday's container as the structural model, milestone \"for comment\", to be federated with the other disciplines for spatial coordination. The information standard says \"IFC4 Reference View for coordination exchanges\". Your export dialog also offers Design Transfer View. Which do you export?",
+                  "options": [
+                    {
+                      "text": "Design Transfer View, because it carries more of the model than Reference View does",
+                      "correct": false
+                    },
+                    {
+                      "text": "Reference View: the standard names it for coordination exchanges",
+                      "correct": true
+                    },
+                    {
+                      "text": "Either, because the TIDP does not mention an MVD",
+                      "correct": false
+                    },
+                    {
+                      "text": "Ask the coordinator which one they want this week",
+                      "correct": false
+                    }
+                  ],
+                  "okFeedback": "✓ Right. The standard names the MVD for coordination exchanges, and the TIDP shows this container is for coordination. Nothing is left to choose.",
+                  "noFeedback": "The MVD is already decided: the information standard names <b>Reference View</b> for coordination exchanges, and the TIDP shows this drop is for coordination. \"More of the model\" is not a purpose, the TIDP does not need to repeat the standard, and asking each week means the plan is not being used."
+                },
+                {
+                  "q": "The information standard says \"models are exchanged as IFC\" and nothing more. Your coordinator needs a coordination model on Friday. What is the right move?",
+                  "options": [
+                    {
+                      "text": "Export with your tool's default IFC preset, since \"IFC\" is all the standard asks for",
+                      "correct": false
+                    },
+                    {
+                      "text": "Raise the gap so the version and MVD are recorded, then export to that",
+                      "correct": true
+                    },
+                    {
+                      "text": "Export every MVD your tool offers and let the coordinator choose",
+                      "correct": false
+                    }
+                  ],
+                  "okFeedback": "✓ Right. \"IFC\" is not a checkable rule. The plan is meant to be kept current, and the fix is to get the version and MVD written down.",
+                  "noFeedback": "\"IFC\" alone names no version and no MVD, so nothing can be checked against it. The BEP is meant to be updated through change management. Raise it, get the version and MVD recorded, then export to that. A pile of alternative files just moves the guess to the coordinator."
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "eyebrow": "Recap",
+        "h2": "What to carry forward",
+        "blocks": [
+          {
+            "type": "recap",
+            "badge": "SKL-24 · part 3",
+            "items": [
+              "The BEP is the delivery team's working tool for exchanging information, not just a tender exhibit.",
+              "The information standard is where to expect the IFC version and MVD; the federation strategy confirms the purpose; the software schedule fixes versions.",
+              "Your TIDP names the deliverable, its level of information need and its milestone, which can be tied to the purpose for issue.",
+              "<b>This week:</b> open your project's BEP and find the MVD for your next drop. If it is not recorded, raise it with the information manager today, not on export day."
+            ]
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "ukbim-g2",
+        "title": "Information management according to BS EN ISO 19650. Guidance Part 2: Processes for Project Delivery",
+        "publisher": "UK BIM Framework",
+        "url": "https://ukbimframework.org/wp-content/uploads/2020/05/ISO19650-2Edition4.pdf",
+        "edition": "Fourth Edition, April 2020",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "ukbim-gb",
+        "title": "Information management according to BS EN ISO 19650. Guidance Part B: Open data, buildingSMART and COBie",
+        "publisher": "UK BIM Framework",
+        "url": "https://ukbimframework.org/wp-content/uploads/2020/09/Guidance-Part-B_Open-data-buildingSMART-and-COBie_Edition-1.pdf",
+        "edition": "Edition 1, September 2020",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "ukbim-g1",
+        "title": "Information management according to BS EN ISO 19650. Guidance Part 1: Concepts",
+        "publisher": "UK BIM Framework",
+        "url": "https://ukbimframework.org/wp-content/uploads/2019/10/Information-Management-according-to-BS-EN-ISO-19650_-Guidance-Part-1_Concepts_2ndEdition.pdf",
+        "edition": "Second Edition, July 2019",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "bsi-mvd-database",
+        "title": "MVD Database",
+        "publisher": "buildingSMART International",
+        "url": "https://technical.buildingsmart.org/standards/ifc/mvd/mvd-database/",
+        "accessed": "2026-09-21",
+        "pack": "openbim-interoperability"
+      }
+    ]
+  }
+}
