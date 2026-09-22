@@ -1,35 +1,202 @@
 {
-  "_note": "Source pack for competency 12, OpenBIM & Interoperability. Every source here has been opened and its passages confirmed on the 'accessed' date. Passages are paraphrased; quote the source itself when checking a claim.",
-  "competency_id": 12,
-  "sources": [
+ "_note": "Source pack for competency 12, OpenBIM & Interoperability. Every source here has been opened and its passages confirmed on the 'accessed' date. Passages are paraphrased; quote the source itself when checking a claim.",
+ "competency_id": 12,
+ "sources": [
+  {
+   "id": "bsi-mvd",
+   "title": "Model View Definition (MVD)",
+   "publisher": "buildingSMART International",
+   "url": "https://technical.buildingsmart.org/standards/ifc/mvd/",
+   "accessed": "2026-09-21",
+   "passages": [
     {
-      "id": "bsi-mvd",
-      "title": "Model View Definition (MVD)",
-      "publisher": "buildingSMART International",
-      "url": "https://technical.buildingsmart.org/standards/ifc/mvd/",
-      "accessed": "2026-09-21",
-      "passages": [
-        { "locator": "Intro", "summary": "MVDs are subsets of the IFC schema created for data exchange between software; each is a standard in its own right." },
-        { "locator": "MVDs Are Not Just Filters", "summary": "An MVD defines what data must be present, what must be excluded, how entities are structured and related, and how concepts such as classification and material assignment are applied. An MVD is a standard for a specific use-case." },
-        { "locator": "MVDs Can and Frequently Do Deviate From IFC", "summary": "The Reference View narrows IFC's flexibility: it may allow only layer sets for materials and restrict geometry to swept solids or BReps." },
-        { "locator": "The Danger of Unmanaged MVD Proliferation", "summary": "IFC4precast is not interoperable with the IFC4 Reference View although both use the IFC4 schema; precast data is exchanged as .ifcprecast. Some tools have multiple IFC exports, one per MVD." },
-        { "locator": "How to define information requirements", "summary": "End users' information requirements (elements, properties, relationships, classification) are described with IDS; the MVD concerns the technical encoding that software must implement. The IFC2x3 Coordination View defined in-scope and out-of-scope entities." }
-      ]
+     "locator": "Intro",
+     "summary": "MVDs are subsets of the IFC schema created for data exchange between software; each is a standard in its own right."
     },
     {
-      "id": "bsi-mvd-database",
-      "title": "MVD Database",
-      "publisher": "buildingSMART International",
-      "url": "https://technical.buildingsmart.org/standards/ifc/mvd/mvd-database/",
-      "accessed": "2026-09-21",
-      "passages": [
-        { "locator": "Row: IFC4 ADD2 TC1 Reference View (Final, RV 1.2)", "summary": "Simplified geometric and relational representation of spatial and physical components, to reference model information for design coordination between architectural, structural and building services domains." },
-        { "locator": "Row: IFC4 ADD2 TC1 Design Transfer View (Draft, DTV 1.1)", "summary": "Advanced geometric and relational representation to transfer model information from one tool to another; not a round-trip, but a higher-fidelity one-way transfer of data and responsibility. Status is Draft." },
-        { "locator": "Row: IFC2x3 TC1 Coordination View (Final, CV 2.0)", "summary": "Spatial and physical components for design coordination between architectural, structural and building services domains." },
-        { "locator": "Row: IFC2x3 TC1 Basic FM Handover View (Final)", "summary": "Handover of model information from design, construction and commissioning applications to CAFM and CMMS applications." },
-        { "locator": "Row: IFC4 ADD2 TC1 IFC4Precast (Final)", "summary": "Needs to be exchanged as .ifcprecast due to incompatibility with the IFC4 Reference View." },
-        { "locator": "Row: IFC4.3 ADD2 Reference View (Final)", "summary": "Update of the IFC4 Reference View for use with IFC4.3." }
-      ]
+     "locator": "MVDs Are Not Just Filters",
+     "summary": "An MVD defines what data must be present, what must be excluded, how entities are structured and related, and how concepts such as classification and material assignment are applied. An MVD is a standard for a specific use-case."
+    },
+    {
+     "locator": "MVDs Can and Frequently Do Deviate From IFC",
+     "summary": "The Reference View narrows IFC's flexibility: it may allow only layer sets for materials and restrict geometry to swept solids or BReps."
+    },
+    {
+     "locator": "The Danger of Unmanaged MVD Proliferation",
+     "summary": "IFC4precast is not interoperable with the IFC4 Reference View although both use the IFC4 schema; precast data is exchanged as .ifcprecast. Some tools have multiple IFC exports, one per MVD."
+    },
+    {
+     "locator": "How to define information requirements",
+     "summary": "End users' information requirements (elements, properties, relationships, classification) are described with IDS; the MVD concerns the technical encoding that software must implement. The IFC2x3 Coordination View defined in-scope and out-of-scope entities."
     }
-  ]
+   ]
+  },
+  {
+   "id": "bsi-mvd-database",
+   "title": "MVD Database",
+   "publisher": "buildingSMART International",
+   "url": "https://technical.buildingsmart.org/standards/ifc/mvd/mvd-database/",
+   "accessed": "2026-09-21",
+   "passages": [
+    {
+     "locator": "Row: IFC4 ADD2 TC1 Reference View (Final, RV 1.2)",
+     "summary": "Simplified geometric and relational representation of spatial and physical components, to reference model information for design coordination between architectural, structural and building services domains."
+    },
+    {
+     "locator": "Row: IFC4 ADD2 TC1 Design Transfer View (Draft, DTV 1.1)",
+     "summary": "Advanced geometric and relational representation to transfer model information from one tool to another; not a round-trip, but a higher-fidelity one-way transfer of data and responsibility. Status is Draft."
+    },
+    {
+     "locator": "Row: IFC2x3 TC1 Coordination View (Final, CV 2.0)",
+     "summary": "Spatial and physical components for design coordination between architectural, structural and building services domains."
+    },
+    {
+     "locator": "Row: IFC2x3 TC1 Basic FM Handover View (Final)",
+     "summary": "Handover of model information from design, construction and commissioning applications to CAFM and CMMS applications."
+    },
+    {
+     "locator": "Row: IFC4 ADD2 TC1 IFC4Precast (Final)",
+     "summary": "Needs to be exchanged as .ifcprecast due to incompatibility with the IFC4 Reference View."
+    },
+    {
+     "locator": "Row: IFC4.3 ADD2 Reference View (Final)",
+     "summary": "Update of the IFC4 Reference View for use with IFC4.3."
+    }
+   ]
+  },
+  {
+   "id": "ukbim-g2",
+   "title": "Information management according to BS EN ISO 19650. Guidance Part 2: Processes for Project Delivery",
+   "publisher": "UK BIM Framework",
+   "url": "https://ukbimframework.org/wp-content/uploads/2020/05/ISO19650-2Edition4.pdf",
+   "edition": "Fourth Edition, April 2020",
+   "accessed": "2026-09-22",
+   "passages": [
+    {
+     "locator": "5.2 Purposes of the BIM execution plan (p.82)",
+     "summary": "The BEP is (1) evidence to the appointing party that the delivery team can manage information to the requirements, and (2) the delivery tool the team uses to produce, manage and exchange project information during the appointment."
+    },
+    {
+     "locator": "5.3.3 Contents of the (pre-appointment) BEP, items A-G (pp.84-85)",
+     "summary": "ISO 19650-2 clause 5.3.2 recommends seven considerations: A individuals undertaking the information management function; B information delivery strategy; C federation strategy; D high-level responsibility matrix; E adds/amends to information production methods and procedures; F adds/amends to the information standard; G schedule of software, hardware and IT infrastructure."
+    },
+    {
+     "locator": "5.3.3 item G (p.85)",
+     "summary": "A schedule listing software versions, hardware and IT to be used by the delivery team; important to enable collaboration between task teams, delivery teams and the appointing party; a fundamental consideration for wider interoperability."
+    },
+    {
+     "locator": "5.3.3 (p.84)",
+     "summary": "ISO 19650-2 clause 5.3.2 uses 'shall consider' for the pre-appointment BEP, whereas clause 5.4.1 uses 'shall' for the BEP in the appointment."
+    },
+    {
+     "locator": "5.5 Checklist (p.86)",
+     "summary": "Keep the delivery team BEP up to date throughout the appointment using change management processes."
+    },
+    {
+     "locator": "6.1 Introduction (p.87)",
+     "summary": "Each appointed party produces a task information delivery plan (TIDP); the lead appointed party compiles the TIDPs into a master information delivery plan (MIDP)."
+    }
+   ]
+  },
+  {
+   "id": "ukbim-gb",
+   "title": "Information management according to BS EN ISO 19650. Guidance Part B: Open data, buildingSMART and COBie",
+   "publisher": "UK BIM Framework",
+   "url": "https://ukbimframework.org/wp-content/uploads/2020/09/Guidance-Part-B_Open-data-buildingSMART-and-COBie_Edition-1.pdf",
+   "edition": "Edition 1, September 2020",
+   "accessed": "2026-09-22",
+   "passages": [
+    {
+     "locator": "1.3 (p.10), MVD definition",
+     "summary": "An MVD is a buildingSMART-sanctioned implementation of the IFC schema to satisfy a specific purpose; the IFC coordination view could support spatial coordination by reducing larger models to the relevant information."
+    },
+    {
+     "locator": "1.4, ISO 19650-2 clause 5.1.4 (p.11)",
+     "summary": "Requirements for information exchange within the project information standard could reference MVDs."
+    },
+    {
+     "locator": "1.4, ISO 19650-2 clause 5.4.2 (p.11)",
+     "summary": "The detailed responsibility matrix could use classes, property sets and properties within the IFC schema and the bSDD."
+    },
+    {
+     "locator": "1.4, ISO 19650-2 clause 5.6.3 (p.12)",
+     "summary": "Quality assurance checks can be partly automated through rule-based checking that tests information against the relevant MVDs."
+    },
+    {
+     "locator": "1.3 (p.11), bSDD",
+     "summary": "Properties required by an information requirement could be linked to bSDD properties to prevent ambiguity about naming or data type."
+    }
+   ]
+  },
+  {
+   "id": "ifc4-psets",
+   "title": "IFC4 ADD2 TC1, 4.2.2.1 Property Sets for Objects",
+   "publisher": "buildingSMART International",
+   "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/templates/property-sets-for-objects.htm",
+   "edition": "IFC4 ADD2 TC1",
+   "accessed": "2026-09-22",
+   "passages": [
+    {
+     "locator": "4.2.2.1",
+     "summary": "An object occurrence can be related to one or more property sets; a property set contains one or more properties. Property sets can also be related to an object type, defining common properties for all occurrences; a property on the occurrence overrides the same-named property on the type."
+    }
+   ]
+  },
+  {
+   "id": "ifc4-units",
+   "title": "IFC4 ADD2 TC1, 4.1.2 Project Units",
+   "publisher": "buildingSMART International",
+   "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/templates/project-units.htm",
+   "edition": "IFC4 ADD2 TC1",
+   "accessed": "2026-09-22",
+   "passages": [
+    {
+     "locator": "4.1.2",
+     "summary": "Default units are declared once for the whole data set and apply to all geometry, measure attributes, and properties and quantities with no local unit. Defined as SI units, conversion-based units (e.g. inch, foot with a factor to metre), derived units, or a monetary unit."
+    }
+   ]
+  },
+  {
+   "id": "ifc4-site",
+   "title": "IFC4 ADD2 TC1, IfcSite",
+   "publisher": "buildingSMART International",
+   "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcproductextension/lexical/ifcsite.htm",
+   "edition": "IFC4 ADD2 TC1",
+   "accessed": "2026-09-22",
+   "passages": [
+    {
+     "locator": "Entity definition",
+     "summary": "A site may carry a single geographic reference point (WGS84 longitude, latitude, elevation) establishing where the 0,0,0 of the site local placement sits in the real world. The site placement is relative to the world coordinate system established by the project representation context, which may define true north."
+    }
+   ]
+  },
+  {
+   "id": "ifc4-classification",
+   "title": "IFC4 ADD2 TC1, IfcClassification",
+   "publisher": "buildingSMART International",
+   "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcexternalreferenceresource/lexical/ifcclassification.htm",
+   "edition": "IFC4 ADD2 TC1",
+   "accessed": "2026-09-22",
+   "passages": [
+    {
+     "locator": "Entity definition",
+     "summary": "IfcClassification identifies the classification system a classification reference refers to; examples of formally published systems are Omniclass, Uniclass, Masterformat, DIN277. A system may be included in full or referenced by key/id through IfcClassificationReference."
+    }
+   ]
+  },
+  {
+   "id": "ifc4-positioning",
+   "title": "IFC4 ADD2 TC1, 4.1.4 Project Global Positioning",
+   "publisher": "buildingSMART International",
+   "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/templates/project-global-positioning.htm",
+   "edition": "IFC4 ADD2 TC1",
+   "accessed": "2026-09-22",
+   "passages": [
+    {
+     "locator": "4.1.4",
+     "summary": "New in IFC4: a geospatial coordinate reference system on the geometric representation context positions the project coordinate system on earth, normally using eastings, northings, elevation above datum and orientation."
+    }
+   ]
+  }
+ ]
 }

@@ -10,21 +10,92 @@
   "lesson_level": 2,
   "objective": "Select the Model View Definition that fits what the receiving party will do with your IFC, before you export it.",
   "misconception": "An IFC is an IFC: whichever export preset you pick, the recipient gets the same data. Or its cousin: the richest preset is always the safest.",
-  "prerequisite_slugs": ["ifc-export-mvds"],
+  "prerequisite_slugs": [
+    "ifc-export-mvds"
+  ],
   "claims": [
-    { "text": "MVDs are subsets of the IFC schema created for data exchange between software, and each one is a standard for a specific use-case.", "source_ids": ["bsi-mvd"], "locator": "Intro; MVDs Are Not Just Filters", "verified": true },
-    { "text": "An MVD defines what data must be present and what data must be excluded.", "source_ids": ["bsi-mvd"], "locator": "MVDs Are Not Just Filters", "verified": true },
-    { "text": "The IFC4 Reference View is a simplified geometric and relational representation used to reference model information for design coordination between architectural, structural and building services domains.", "source_ids": ["bsi-mvd-database"], "locator": "Row: IFC4 ADD2 TC1 Reference View", "verified": true },
-    { "text": "The Reference View narrows the material and geometry options that the full IFC schema allows.", "source_ids": ["bsi-mvd"], "locator": "MVDs Can and Frequently Do Deviate From IFC", "verified": true },
-    { "text": "The IFC4 Design Transfer View is an advanced representation for transferring model information from one tool to another as a higher-fidelity one-way transfer, not a round trip, and its status in the buildingSMART MVD database is Draft.", "source_ids": ["bsi-mvd-database"], "locator": "Row: IFC4 ADD2 TC1 Design Transfer View", "verified": true },
-    { "text": "The IFC2x3 Coordination View 2.0 covers spatial and physical components for design coordination between architectural, structural and building services domains.", "source_ids": ["bsi-mvd-database"], "locator": "Row: IFC2x3 TC1 Coordination View", "verified": true },
-    { "text": "The IFC2x3 Basic FM Handover View is for handing model information over to CAFM and CMMS applications.", "source_ids": ["bsi-mvd-database"], "locator": "Row: IFC2x3 TC1 Basic FM Handover View", "verified": true },
-    { "text": "Two MVDs based on the same IFC version can be mutually incompatible: IFC4Precast data cannot reliably be read by Reference View software and is exchanged as .ifcprecast.", "source_ids": ["bsi-mvd", "bsi-mvd-database"], "locator": "The Danger of Unmanaged MVD Proliferation; Row: IFC4Precast", "verified": true },
-    { "text": "Some tools have multiple IFC exports, one for each MVD.", "source_ids": ["bsi-mvd"], "locator": "The Danger of Unmanaged MVD Proliferation", "verified": true }
+    {
+      "text": "MVDs are subsets of the IFC schema created for data exchange between software, and each one is a standard for a specific use-case.",
+      "source_ids": [
+        "bsi-mvd"
+      ],
+      "locator": "Intro; MVDs Are Not Just Filters",
+      "verified": true
+    },
+    {
+      "text": "An MVD defines what data must be present and what data must be excluded.",
+      "source_ids": [
+        "bsi-mvd"
+      ],
+      "locator": "MVDs Are Not Just Filters",
+      "verified": true
+    },
+    {
+      "text": "The IFC4 Reference View is a simplified geometric and relational representation used to reference model information for design coordination between architectural, structural and building services domains.",
+      "source_ids": [
+        "bsi-mvd-database"
+      ],
+      "locator": "Row: IFC4 ADD2 TC1 Reference View",
+      "verified": true
+    },
+    {
+      "text": "The Reference View narrows the material and geometry options that the full IFC schema allows.",
+      "source_ids": [
+        "bsi-mvd"
+      ],
+      "locator": "MVDs Can and Frequently Do Deviate From IFC",
+      "verified": true
+    },
+    {
+      "text": "The IFC4 Design Transfer View is an advanced representation for transferring model information from one tool to another as a higher-fidelity one-way transfer, not a round trip, and its status in the buildingSMART MVD database is Draft.",
+      "source_ids": [
+        "bsi-mvd-database"
+      ],
+      "locator": "Row: IFC4 ADD2 TC1 Design Transfer View",
+      "verified": true
+    },
+    {
+      "text": "The IFC2x3 Coordination View 2.0 covers spatial and physical components for design coordination between architectural, structural and building services domains.",
+      "source_ids": [
+        "bsi-mvd-database"
+      ],
+      "locator": "Row: IFC2x3 TC1 Coordination View",
+      "verified": true
+    },
+    {
+      "text": "The IFC2x3 Basic FM Handover View is for handing model information over to CAFM and CMMS applications.",
+      "source_ids": [
+        "bsi-mvd-database"
+      ],
+      "locator": "Row: IFC2x3 TC1 Basic FM Handover View",
+      "verified": true
+    },
+    {
+      "text": "Two MVDs based on the same IFC version can be mutually incompatible: IFC4Precast data cannot reliably be read by Reference View software and is exchanged as .ifcprecast.",
+      "source_ids": [
+        "bsi-mvd",
+        "bsi-mvd-database"
+      ],
+      "locator": "The Danger of Unmanaged MVD Proliferation; Row: IFC4Precast",
+      "verified": true
+    },
+    {
+      "text": "Some tools have multiple IFC exports, one for each MVD.",
+      "source_ids": [
+        "bsi-mvd"
+      ],
+      "locator": "The Danger of Unmanaged MVD Proliferation",
+      "verified": true
+    }
   ],
   "review": {
     "fact_check_status": "verified",
-    "alignment": { "blind_pick_skill_id": "SKL-24", "blind_pick_level": 2, "match": true, "notes": "Runner-ups SKL-116 and SKL-26, overlap minor. Covers the selection half of the acceptance criteria; Q2 sits nearer L1." },
+    "alignment": {
+      "blind_pick_skill_id": "SKL-24",
+      "blind_pick_level": 2,
+      "match": true,
+      "notes": "Runner-ups SKL-116 and SKL-26, overlap minor. Covers the selection half of the acceptance criteria; Q2 sits nearer L1."
+    },
     "pedagogy_score": 8,
     "reviewed_at": "2026-09-21",
     "version": 1
@@ -45,116 +116,257 @@
         "eyebrow": "STRIVE · Apply lesson · 6 min",
         "h1": "Same model.<br><span class=\"sl-accent\">Different IFC.</span>",
         "blocks": [
-          { "type": "paragraph", "lead": true, "text": "The export dialog offers you a list of presets. Pick one and the structural engineer sees your ducts exactly where they should be. Pick another and the facilities team gets a file that was not built for their system. The model did not change. <b>The Model View Definition did.</b>" },
-          { "type": "paragraph", "lead": true, "text": "By the end you will be able to choose the MVD that fits what the person receiving your IFC is going to do with it." }
+          {
+            "type": "paragraph",
+            "lead": true,
+            "text": "The export dialog offers you a list of presets. Pick one and the structural engineer sees your ducts exactly where they should be. Pick another and the facilities team gets a file that was not built for their system. The model did not change. <b>The Model View Definition did.</b>"
+          },
+          {
+            "type": "paragraph",
+            "lead": true,
+            "text": "By the end you will be able to choose the MVD that fits what the person receiving your IFC is going to do with it."
+          }
         ]
       },
       {
         "eyebrow": "Part 1 · The principle",
         "h2": "An MVD is a decision about purpose",
         "blocks": [
-          { "type": "paragraph", "text": "A <b>Model View Definition (MVD)</b> is a subset of the IFC schema built for one kind of exchange between software. buildingSMART describes each MVD as a standard for a specific use-case: it sets what data <b>must be present</b> and what data <b>is left out</b>." },
-          { "type": "paragraph", "text": "That is why some tools show several IFC exports, one for each MVD. They are not quality levels. They are answers to different questions about who is receiving the file and why." },
-          { "type": "terms", "items": [
-            { "term": "IFC4 Reference View", "def": "A simplified representation of spatial and physical components. Purpose: let other disciplines <b>reference</b> your model for design coordination." },
-            { "term": "IFC2x3 Coordination View 2.0", "def": "The IFC2x3 view with a near-identical stated purpose: spatial and physical components for coordination between architecture, structure and building services." },
-            { "term": "IFC4 Design Transfer View", "accent": "orange", "def": "A richer representation for moving a model <b>from one tool into another</b>. A one-way, higher-fidelity hand-off, not a round trip. Still listed as Draft by buildingSMART." },
-            { "term": "IFC2x3 Basic FM Handover View", "accent": "orange", "def": "For handing model information to facilities and maintenance management systems (CAFM and CMMS)." }
-          ] },
-          { "type": "note", "label": "Watch for", "tone": "warn", "text": "Sharing an IFC version does not make two MVDs compatible. buildingSMART's own example: IFC4Precast data cannot reliably be read by Reference View software, so it is exchanged under its own file extension." }
+          {
+            "type": "paragraph",
+            "text": "A <b>Model View Definition (MVD)</b> is a subset of the IFC schema built for one kind of exchange between software. buildingSMART describes each MVD as a standard for a specific use-case: it sets what data <b>must be present</b> and what data <b>is left out</b>."
+          },
+          {
+            "type": "paragraph",
+            "text": "That is why some tools show several IFC exports, one for each MVD. They are not quality levels. They are answers to different questions about who is receiving the file and why."
+          },
+          {
+            "type": "terms",
+            "items": [
+              {
+                "term": "IFC4 Reference View",
+                "def": "A simplified representation of spatial and physical components. Purpose: let other disciplines <b>reference</b> your model for design coordination."
+              },
+              {
+                "term": "IFC2x3 Coordination View 2.0",
+                "def": "The IFC2x3 view with a near-identical stated purpose: spatial and physical components for coordination between architecture, structure and building services."
+              },
+              {
+                "term": "IFC4 Design Transfer View",
+                "accent": "orange",
+                "def": "A richer representation for moving a model <b>from one tool into another</b>. A one-way, higher-fidelity hand-off, not a round trip. Still listed as Draft by buildingSMART."
+              },
+              {
+                "term": "IFC2x3 Basic FM Handover View",
+                "accent": "orange",
+                "def": "For handing model information to facilities and maintenance management systems (CAFM and CMMS)."
+              }
+            ]
+          },
+          {
+            "type": "note",
+            "label": "Watch for",
+            "tone": "warn",
+            "text": "Sharing an IFC version does not make two MVDs compatible. buildingSMART's own example: IFC4Precast data cannot reliably be read by Reference View software, so it is exchanged under its own file extension."
+          }
         ]
       },
       {
         "eyebrow": "Part 2 · Worked example",
         "h2": "Four checks before you click Export",
         "blocks": [
-          { "type": "paragraph", "text": "You are the mechanical modeller. It is Thursday, and the weekly coordination drop is due. The export dialog lists an IFC4 Reference View preset and an IFC4 Design Transfer View preset. Here is how a careful modeller decides." },
-          { "type": "flow", "steps": [
-            { "title": "Who receives it, and what will they do?", "text": "The coordinator will federate it (combine it with the architectural and structural models) and run clash tests. They will look at it and measure against it. They will not edit your ducts." },
-            { "title": "What does the BEP ask for?", "text": "The BIM Execution Plan (BEP) is the project's agreed rulebook for exchanges. Its exchange table says IFC4 for coordination drops. If the BEP names the MVD, that settles it. If it names only the IFC version, the purpose decides." },
-            { "title": "Which MVD was written for that purpose?", "text": "Referencing a model for design coordination is the stated purpose of the <b>Reference View</b>. Design Transfer is for handing a model, and responsibility for it, from one tool to another, which nobody here is doing." },
-            { "title": "Export, then look at what you sent", "text": "Open the file outside your authoring tool and confirm the elements and properties the recipient needs actually arrived." }
-          ] },
-          { "type": "paragraph", "text": "Notice what the modeller did <i>not</i> do: pick the preset with the most data \"to be safe\". The Reference View narrows the geometry and material options IFC allows. buildingSMART notes that this simplifies software implementation, at the cost of some of IFC's flexibility. For a coordination drop, that trade is the right one." }
+          {
+            "type": "paragraph",
+            "text": "You are the mechanical modeller. It is Thursday, and the weekly coordination drop is due. The export dialog lists an IFC4 Reference View preset and an IFC4 Design Transfer View preset. Here is how a careful modeller decides."
+          },
+          {
+            "type": "flow",
+            "steps": [
+              {
+                "title": "Who receives it, and what will they do?",
+                "text": "The coordinator will federate it (combine it with the architectural and structural models) and run clash tests. They will look at it and measure against it. They will not edit your ducts."
+              },
+              {
+                "title": "What does the BEP ask for?",
+                "text": "The BIM Execution Plan (BEP) is the project's agreed rulebook for exchanges. Its exchange table says IFC4 for coordination drops. If the BEP names the MVD, that settles it. If it names only the IFC version, the purpose decides."
+              },
+              {
+                "title": "Which MVD was written for that purpose?",
+                "text": "Referencing a model for design coordination is the stated purpose of the <b>Reference View</b>. Design Transfer is for handing a model, and responsibility for it, from one tool to another, which nobody here is doing."
+              },
+              {
+                "title": "Export, then look at what you sent",
+                "text": "Open the file outside your authoring tool and confirm the elements and properties the recipient needs actually arrived."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Notice what the modeller did <i>not</i> do: pick the preset with the most data \"to be safe\". The Reference View narrows the geometry and material options IFC allows. buildingSMART notes that this simplifies software implementation, at the cost of some of IFC's flexibility. For a coordination drop, that trade is the right one."
+          }
         ]
       },
       {
         "eyebrow": "Part 3 · Judge it",
         "h2": "Right MVD for the job?",
         "blocks": [
-          { "type": "paragraph", "text": "Four exports, four recipients. Tap the ones where the modeller matched the MVD to what the recipient will do." },
-          { "type": "widget", "widget": "caseCards", "config": {
-            "goodLabel": "FITS THE PURPOSE ✓",
-            "badLabel": "WRONG VIEW",
-            "hintStart": "Found <b>0 / 2</b>. Tap the cards.",
-            "hintDone": "✓ <b>Both found.</b> Each good choice started from what the recipient will do with the file.",
-            "cases": [
-              { "good": true, "icon": "🧩", "title": "Weekly clash drop on an IFC4 project: Reference View", "desc": "Coordinator federates and clash-tests.", "why": "✓ Fits. Referencing models for design coordination between disciplines is exactly what the Reference View is for." },
-              { "good": false, "icon": "📦", "title": "Same weekly clash drop: Design Transfer View, \"so nothing is lost\"", "desc": "More data must be safer.", "why": "✗ Wrong view. Design Transfer is for handing a model from one tool to another. Nobody is taking over your model, and the coordination workflow was set up around the Reference View." },
-              { "good": true, "icon": "🏢", "title": "IFC2x3 project, data going into the owner's CAFM system: Basic FM Handover View", "desc": "Facilities team loads asset data.", "why": "✓ Fits. Handover to CAFM and CMMS applications is the stated purpose of this view." },
-              { "good": false, "icon": "🏭", "title": "Precast fabricator's production system: \"IFC4 is IFC4\", so Reference View", "desc": "Same schema version, so it should read fine.", "why": "✗ Wrong view. Two MVDs on the same IFC version can be incompatible. Precast production has its own MVD, and buildingSMART notes that Reference View software cannot reliably read IFC4Precast data." }
-            ]
-          } }
+          {
+            "type": "paragraph",
+            "text": "Four exports, four recipients. Tap the ones where the modeller matched the MVD to what the recipient will do."
+          },
+          {
+            "type": "widget",
+            "widget": "caseCards",
+            "config": {
+              "goodLabel": "FITS THE PURPOSE ✓",
+              "badLabel": "WRONG VIEW",
+              "hintStart": "Found <b>0 / 2</b>. Tap the cards.",
+              "hintDone": "✓ <b>Both found.</b> Each good choice started from what the recipient will do with the file.",
+              "cases": [
+                {
+                  "good": true,
+                  "icon": "🧩",
+                  "title": "Weekly clash drop on an IFC4 project: Reference View",
+                  "desc": "Coordinator federates and clash-tests.",
+                  "why": "✓ Fits. Referencing models for design coordination between disciplines is exactly what the Reference View is for."
+                },
+                {
+                  "good": false,
+                  "icon": "📦",
+                  "title": "Same weekly clash drop: Design Transfer View, \"so nothing is lost\"",
+                  "desc": "More data must be safer.",
+                  "why": "✗ Wrong view. Design Transfer is for handing a model from one tool to another. Nobody is taking over your model, and the coordination workflow was set up around the Reference View."
+                },
+                {
+                  "good": true,
+                  "icon": "🏢",
+                  "title": "IFC2x3 project, data going into the owner's CAFM system: Basic FM Handover View",
+                  "desc": "Facilities team loads asset data.",
+                  "why": "✓ Fits. Handover to CAFM and CMMS applications is the stated purpose of this view."
+                },
+                {
+                  "good": false,
+                  "icon": "🏭",
+                  "title": "Precast fabricator's production system: \"IFC4 is IFC4\", so Reference View",
+                  "desc": "Same schema version, so it should read fine.",
+                  "why": "✗ Wrong view. Two MVDs on the same IFC version can be incompatible. Precast production has its own MVD, and buildingSMART notes that Reference View software cannot reliably read IFC4Precast data."
+                }
+              ]
+            }
+          }
         ]
       },
       {
         "eyebrow": "Knowledge check",
         "h2": "Your call",
         "blocks": [
-          { "type": "quiz", "config": {
-            "doneText": "Knowledge check complete. Scroll on for your recap.",
-            "questions": [
-              {
-                "q": "The BEP says \"IFC4\" for coordination drops but names no MVD. The structural engineer will link your model as a background to check penetrations. Which export do you choose?",
-                "options": [
-                  { "text": "Design Transfer View, because it carries the most information", "correct": false },
-                  { "text": "Reference View, because they will reference the model for coordination", "correct": true },
-                  { "text": "Whichever preset the software had selected by default", "correct": false },
-                  { "text": "Any of them, since they are all IFC4", "correct": false }
-                ],
-                "okFeedback": "✓ Right. The engineer is referencing your model to coordinate against it, which is the purpose the Reference View was written for.",
-                "noFeedback": "Start from what the recipient will do. They are linking your model as a reference for coordination, not taking it over. That purpose belongs to the <b>Reference View</b>. \"Most data\", \"same IFC version\" and \"it was the default\" are not reasons."
-              },
-              {
-                "q": "A colleague says: \"Reference View and Design Transfer View are just low and high quality settings.\" What is the better description?",
-                "options": [
-                  { "text": "They are different standards for different exchanges: one to reference a model, one to hand a model to another tool", "correct": true },
-                  { "text": "They are the same data, compressed differently", "correct": false },
-                  { "text": "Reference View is the IFC4 option and Design Transfer View is the IFC2x3 option", "correct": false }
-                ],
-                "okFeedback": "✓ Yes. Each MVD is a standard for a specific use-case. It sets what must be present and what is left out for that exchange.",
-                "noFeedback": "An MVD is not a quality slider. Each one is a standard for a specific use-case that sets what data must be present and what is excluded. Both are IFC4 views. Reference View serves coordination; Design Transfer View serves a one-way hand-off from one tool to another."
-              },
-              {
-                "q": "An architect is leaving the project and the incoming firm, on different authoring software, will continue developing the model. The appointment asks for the best available IFC hand-off. What should you flag?",
-                "options": [
-                  { "text": "Nothing. Send the weekly Reference View file, it is already exported", "correct": false },
-                  { "text": "This is a tool-to-tool transfer, so a Design Transfer export fits the purpose, but it is a one-way hand-off and the view is still Draft, so agree a test exchange first", "correct": true },
-                  { "text": "Use the FM handover preset because the word \"handover\" matches", "correct": false }
-                ],
-                "okFeedback": "✓ Good judgement. The purpose is transfer into another tool, which is what Design Transfer is for. It is one-way, and buildingSMART still lists it as Draft, so test before relying on it.",
-                "noFeedback": "The recipient will keep authoring, so a coordination-only Reference View file will not serve them, and FM handover is for facilities systems. The fitting view is <b>Design Transfer</b>: a one-way, higher-fidelity hand-off that is still listed as Draft, so a test exchange comes first."
-              }
-            ]
-          } }
+          {
+            "type": "quiz",
+            "config": {
+              "doneText": "Knowledge check complete. Scroll on for your recap.",
+              "questions": [
+                {
+                  "q": "The BEP says \"IFC4\" for coordination drops but names no MVD. The structural engineer will link your model as a background to check penetrations. Which export do you choose?",
+                  "options": [
+                    {
+                      "text": "Design Transfer View, because it carries the most information",
+                      "correct": false
+                    },
+                    {
+                      "text": "Reference View, because they will reference the model for coordination",
+                      "correct": true
+                    },
+                    {
+                      "text": "Whichever preset the software had selected by default",
+                      "correct": false
+                    },
+                    {
+                      "text": "Any of them, since they are all IFC4",
+                      "correct": false
+                    }
+                  ],
+                  "okFeedback": "✓ Right. The engineer is referencing your model to coordinate against it, which is the purpose the Reference View was written for.",
+                  "noFeedback": "Start from what the recipient will do. They are linking your model as a reference for coordination, not taking it over. That purpose belongs to the <b>Reference View</b>. \"Most data\", \"same IFC version\" and \"it was the default\" are not reasons."
+                },
+                {
+                  "q": "A colleague says: \"Reference View and Design Transfer View are just low and high quality settings.\" What is the better description?",
+                  "options": [
+                    {
+                      "text": "They are different standards for different exchanges: one to reference a model, one to hand a model to another tool",
+                      "correct": true
+                    },
+                    {
+                      "text": "They are the same data, compressed differently",
+                      "correct": false
+                    },
+                    {
+                      "text": "Reference View is the IFC4 option and Design Transfer View is the IFC2x3 option",
+                      "correct": false
+                    }
+                  ],
+                  "okFeedback": "✓ Yes. Each MVD is a standard for a specific use-case. It sets what must be present and what is left out for that exchange.",
+                  "noFeedback": "An MVD is not a quality slider. Each one is a standard for a specific use-case that sets what data must be present and what is excluded. Both are IFC4 views. Reference View serves coordination; Design Transfer View serves a one-way hand-off from one tool to another."
+                },
+                {
+                  "q": "An architect is leaving the project and the incoming firm, on different authoring software, will continue developing the model. The appointment asks for the best available IFC hand-off. What should you flag?",
+                  "options": [
+                    {
+                      "text": "Nothing. Send the weekly Reference View file, it is already exported",
+                      "correct": false
+                    },
+                    {
+                      "text": "This is a tool-to-tool transfer, so a Design Transfer export fits the purpose, but it is a one-way hand-off and the view is still Draft, so agree a test exchange first",
+                      "correct": true
+                    },
+                    {
+                      "text": "Use the FM handover preset because the word \"handover\" matches",
+                      "correct": false
+                    }
+                  ],
+                  "okFeedback": "✓ Good judgement. The purpose is transfer into another tool, which is what Design Transfer is for. It is one-way, and buildingSMART still lists it as Draft, so test before relying on it.",
+                  "noFeedback": "The recipient will keep authoring, so a coordination-only Reference View file will not serve them, and FM handover is for facilities systems. The fitting view is <b>Design Transfer</b>: a one-way, higher-fidelity hand-off that is still listed as Draft, so a test exchange comes first."
+                }
+              ]
+            }
+          }
         ]
       },
       {
         "eyebrow": "Recap",
         "h2": "What to carry forward",
         "blocks": [
-          { "type": "recap", "badge": "SKL-24 · Apply", "items": [
-            "An MVD is a standard for one kind of exchange. It decides what is in the file and what is left out.",
-            "Choose from the recipient's purpose: reference for coordination, transfer into another tool, or handover to facilities systems.",
-            "The same IFC version does not mean two MVDs are compatible.",
-            "<b>This week:</b> open your project's BEP exchange table. For each IFC you issue, check it names the MVD, not just the IFC version. If it does not, raise it."
-          ] }
+          {
+            "type": "recap",
+            "badge": "SKL-24 · Apply",
+            "items": [
+              "An MVD is a standard for one kind of exchange. It decides what is in the file and what is left out.",
+              "Choose from the recipient's purpose: reference for coordination, transfer into another tool, or handover to facilities systems.",
+              "The same IFC version does not mean two MVDs are compatible.",
+              "<b>This week:</b> open your project's BEP exchange table. For each IFC you issue, check it names the MVD, not just the IFC version. If it does not, raise it."
+            ]
+          }
         ]
       }
     ],
     "sources": [
-      { "id": "bsi-mvd", "title": "Model View Definition (MVD)", "publisher": "buildingSMART International", "url": "https://technical.buildingsmart.org/standards/ifc/mvd/", "accessed": "2026-09-21", "pack": "openbim-interoperability" },
-      { "id": "bsi-mvd-database", "title": "MVD Database", "publisher": "buildingSMART International", "url": "https://technical.buildingsmart.org/standards/ifc/mvd/mvd-database/", "accessed": "2026-09-21", "pack": "openbim-interoperability" }
+      {
+        "id": "bsi-mvd",
+        "title": "Model View Definition (MVD)",
+        "publisher": "buildingSMART International",
+        "url": "https://technical.buildingsmart.org/standards/ifc/mvd/",
+        "accessed": "2026-09-21",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "bsi-mvd-database",
+        "title": "MVD Database",
+        "publisher": "buildingSMART International",
+        "url": "https://technical.buildingsmart.org/standards/ifc/mvd/mvd-database/",
+        "accessed": "2026-09-21",
+        "pack": "openbim-interoperability"
+      }
     ]
-  }
+  },
+  "component": "b",
+  "sequence": 2
 }

@@ -99,7 +99,7 @@ function checkFile(file) {
     if (doc.competency_id !== skill.competency_id) E(`competency_id ${doc.competency_id} but ${doc.skill_id} belongs to ${skill.competency_id} (${skill.competency})`);
     if (doc.phase !== skill.phase) E(`phase ${doc.phase} but ${doc.skill_id} is phase ${skill.phase}; a wrong phase drops the lesson out of roadmap milestones`);
     if (doc.lesson_level > skill.target_level) E(`lesson_level ${doc.lesson_level} is above the skill's target level ${skill.target_level} (${levelName[skill.target_level]})`);
-    if (doc.lesson_type === "apply" && doc.lesson_level !== skill.target_level) E(`apply lessons teach at the skill's target level (${skill.target_level})`);
+    if (["apply", "practise", "mix"].includes(doc.lesson_type) && doc.lesson_level !== skill.target_level) E(`apply, practise and mix lessons teach at the skill's target level (${skill.target_level})`);
     if (doc.lesson_type !== "core" && doc.slug === skill.core_lesson_slug) E("slug collides with the skill's core lesson");
     if (!lj.meta.some((m) => m.includes(doc.skill_id))) W("meta pills should include the skill id");
     if (!lj.meta.some((m) => m.includes("L" + doc.lesson_level))) W(`meta pills should show the level (L${doc.lesson_level} ${levelName[doc.lesson_level]})`);
@@ -111,9 +111,9 @@ function checkFile(file) {
 
   /* --- structure + quiz quality --- */
   const { nQ, blocks } = checkEngineShape(lj, E, W);
-  if (doc.lesson_type !== "core" && doc.lesson_type !== "refresher" && nQ < 2) E("apply and ladder lessons need at least 2 quiz questions");
-  if (doc.lesson_type === "apply" && !blocks.some((b) => b.type === "widget")) E("apply lessons need a judgement widget (caseCards or similar) before the quiz");
-  if (doc.lesson_type === "apply" && !doc.misconception) W("name the misconception this lesson corrects; distractors are built from it");
+  if (["apply", "practise", "mix", "ladder"].includes(doc.lesson_type) && nQ < 2) E("practise, mix and ladder lessons need at least 2 quiz questions");
+  if (["apply", "practise", "mix"].includes(doc.lesson_type) && !blocks.some((b) => b.type === "widget")) E("practise and mix lessons need a judgement widget (caseCards or similar) before the quiz");
+  if (doc.lesson_type !== "reinforce" && !doc.misconception) W("name the misconception this lesson corrects; distractors are built from it");
 
   /* --- length --- */
   const texts = collectText(lj);

@@ -68,6 +68,8 @@ SKILL_COLS = [
 ]
 LESSON_COLS = [
     ("lesson_type", "text", "core | apply | ladder | refresher", "core"),
+    ("component", "text", "Component id on the competency skill map"),
+    ("sequence", "int", "Order within the skill"),
     ("lesson_level", "int", "proficiency level this lesson teaches (<= skill target_level)"),
     ("objective", "text", "The single measurable objective"),
     ("prerequisite_slugs", "json", "mini_lessons slugs to take first"),
@@ -131,7 +133,7 @@ def do_lessons(slugs):
         rows.append({
             "slug": d["slug"], "skill_id": d["skill_id"], "title": d["title"], "status": d["status"], "lesson_json": lj,
             "competency_id": d["competency_id"], "est_minutes": d["est_minutes"], "phase": d["phase"], "answer_key": json.dumps(key),
-            "lesson_type": d["lesson_type"], "lesson_level": d["lesson_level"], "objective": d["objective"],
+            "lesson_type": d["lesson_type"], "component": d.get("component", ""), "sequence": d.get("sequence", 0), "lesson_level": d["lesson_level"], "objective": d["objective"],
             "prerequisite_slugs": d.get("prerequisite_slugs", []), "sources": lj.get("sources", []), "claims": d["claims"],
             "fact_check_status": r["fact_check_status"],
             "review": {k: r[k] for k in ("alignment", "pedagogy_score", "second_look") if k in r},
