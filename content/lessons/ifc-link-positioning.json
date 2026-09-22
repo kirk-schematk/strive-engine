@@ -1,0 +1,312 @@
+{
+  "slug": "ifc-link-positioning",
+  "skill_id": "SKL-115",
+  "title": "Linking an IFC: getting it to land where everyone else's model is",
+  "competency_id": 12,
+  "phase": 2,
+  "est_minutes": 5,
+  "status": "draft",
+  "lesson_type": "teach",
+  "component": "b",
+  "sequence": 2,
+  "lesson_level": 2,
+  "objective": "Position a linked IFC on the project's agreed origin by reading how the file itself is placed, so it lands where the other discipline models are.",
+  "misconception": "An IFC has one fixed position baked in. If it lands in the wrong place, the other party exported it wrong and there is nothing to do on my side.",
+  "prerequisite_slugs": [
+    "importing-ifc-models"
+  ],
+  "claims": [
+    {
+      "text": "The geometric placement of the site in an IFC file is relative to the spatial structure element containing it, or absolute to the world coordinate system established by the project's geometric representation context.",
+      "source_ids": [
+        "ifc4-site"
+      ],
+      "locator": "Entity definition",
+      "verified": true
+    },
+    {
+      "text": "The project's world coordinate system may include a definition of true north in its XY plane.",
+      "source_ids": [
+        "ifc4-site"
+      ],
+      "locator": "Entity definition",
+      "verified": true
+    },
+    {
+      "text": "An IfcSite may define a single geographic reference point (WGS84 longitude, latitude, elevation) establishing where the 0,0,0 of the site's local placement sits in the real world.",
+      "source_ids": [
+        "ifc4-site"
+      ],
+      "locator": "Entity definition",
+      "verified": true
+    },
+    {
+      "text": "IFC4 adds project global positioning: a geospatial coordinate reference system on the representation context, positioning the project coordinate system on earth, normally using eastings, northings, elevation above datum and orientation.",
+      "source_ids": [
+        "ifc4-positioning"
+      ],
+      "locator": "4.1.4",
+      "verified": true
+    },
+    {
+      "text": "Default units are declared once for the whole IFC data set and apply to all geometry.",
+      "source_ids": [
+        "ifc4-units"
+      ],
+      "locator": "4.1.2",
+      "verified": true
+    },
+    {
+      "text": "The federation strategy and container breakdown structure provide the rules for combining and segregating information containers for purposes such as spatial coordination, and should be communicated to all members of the delivery team.",
+      "source_ids": [
+        "ukbim-g1"
+      ],
+      "locator": "6.3 and 6.3.1, p.26",
+      "verified": true
+    }
+  ],
+  "review": {
+    "fact_check_status": "verified",
+    "alignment": {
+      "blind_pick_skill_id": "SKL-115",
+      "blind_pick_level": 2,
+      "match": true,
+      "notes": "Runner-ups SKL-75 and SKL-12, both L3 and at federation scale; the lesson stays at one link in one tool. Usable-data half of the criterion deferred to component c."
+    },
+    "pedagogy_score": 8,
+    "reviewed_at": "2026-09-22",
+    "version": 2
+  },
+  "lesson_json": {
+    "slug": "ifc-link-positioning",
+    "skillId": "SKL-115",
+    "meta": [
+      "<b>Domain</b> · Information Management & Open Standards",
+      "<b>Phase</b> · Production",
+      "<b>Level</b> · L2 Working",
+      "<b>SKL-115</b> · part 2"
+    ],
+    "footer": "STRIVE · <span class=\"b\">SKL-115</span> · Import and link IFC models into native authoring tools",
+    "sections": [
+      {
+        "hero": true,
+        "eyebrow": "STRIVE · Micro-lesson · 5 min",
+        "h1": "Same building.<br><span class=\"sl-accent\">Two kilometres apart.</span>",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "lead": true,
+            "text": "You link the mechanical engineer's IFC and it lands nowhere near your model. Or it lands close, but rotated. Neither means the file is broken. It means the file's idea of where 0,0,0 is, and your tool's idea, have not been reconciled. That reconciliation is your job when you link."
+          },
+          {
+            "type": "paragraph",
+            "lead": true,
+            "text": "By the end you will be able to read how an IFC is positioned and place it on the project's agreed origin on purpose."
+          }
+        ]
+      },
+      {
+        "eyebrow": "Part 1 · How an IFC knows where it is",
+        "h2": "Three things the file can carry",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "An IFC file does not carry a single position field for a building. It carries a chain of placements. The site is placed either relative to its parent, or absolutely in the project's <b>world coordinate system</b>. On top of that, the file may say where that coordinate system sits on the earth. When you link, you are deciding how your tool aligns its own origin with the file's."
+          },
+          {
+            "type": "terms",
+            "items": [
+              {
+                "term": "World coordinate system",
+                "def": "Set up once in the file's project context. The site's placement is relative to it (or to a parent site). It may also define <b>true north</b>, which is one place a rotation mismatch can come from."
+              },
+              {
+                "term": "Site reference point",
+                "def": "The site may carry a single real-world point: WGS84 longitude, latitude and elevation, marking where the site's local 0,0,0 sits on earth."
+              },
+              {
+                "term": "Project global positioning",
+                "accent": "orange",
+                "def": "New in IFC4: a coordinate reference system on the project context, with eastings, northings, elevation above datum and orientation. This is what lets a file be placed on a survey grid."
+              },
+              {
+                "term": "File units",
+                "accent": "orange",
+                "def": "Declared once and applied to all geometry. A file in metres linked into a model in millimetres is not a positioning problem, but it can look like one until you check."
+              }
+            ]
+          },
+          {
+            "type": "note",
+            "label": "The agreed origin",
+            "text": "Where every model should sit is not decided in the file. It is agreed at project level and normally recorded in the BIM execution plan, alongside the federation strategy, which sets the rules for combining models for spatial coordination and is meant to be communicated to everyone on the delivery team. That agreed origin is what you align the link to."
+          }
+        ]
+      },
+      {
+        "eyebrow": "Part 2 · Worked example",
+        "h2": "Linking the mechanical model",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "You are the architectural modeller. The mechanical engineer has issued their IFC4 file for this week's coordination. Here is how a careful modeller links it."
+          },
+          {
+            "type": "flow",
+            "steps": [
+              {
+                "title": "Check the file's unit first",
+                "text": "One declaration for the whole file. If it is metres and your model is millimetres, your tool has to read that declaration and convert; most do, but check. Rule this out before you touch position."
+              },
+              {
+                "title": "Read what the project's agreed origin is",
+                "text": "The BEP normally records the agreed project origin: either shared coordinates from a survey point (a real-world reference on the site) or a project-defined origin. This is the target, and it is the same for every link."
+              },
+              {
+                "title": "Read how the file is placed",
+                "text": "Does the site sit at the world origin, or is it offset? Does the file carry a site reference point or a global positioning entry? If your tool reads global positioning, such a file can be placed on the survey grid directly; a file without it relies on its world origin matching the agreed origin, or on a known offset you apply on purpose."
+              },
+              {
+                "title": "Link on the matching origin and check north",
+                "text": "Choose the link placement that aligns the file's origin with the agreed one. Then check rotation: if the file defines true north and your model does too, a mismatch usually shows as a rotation, not an offset."
+              },
+              {
+                "title": "Verify against a known element",
+                "text": "Pick one thing that exists in both models, a gridline intersection or a core wall, and confirm it coincides. If it does not, the file's placement and the agreed origin disagree, and that goes back to the issuing party with the measured offset."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Notice the difference between step 4 and step 5. Choosing the right link placement is your job. A file whose own placement contradicts the agreed origin is the issuing party's job, and the fix is a re-export, not a manual nudge that nobody else knows about. Whether the linked data is usable, properties readable and categories mapped, is the next lesson."
+          }
+        ]
+      },
+      {
+        "eyebrow": "Knowledge check",
+        "h2": "Where did it go?",
+        "blocks": [
+          {
+            "type": "quiz",
+            "config": {
+              "doneText": "Knowledge check complete. Scroll on for your recap.",
+              "questions": [
+                {
+                  "q": "The linked IFC lands in the right place but is rotated a few degrees against your model. Sizes are correct. What is the most likely cause?",
+                  "options": [
+                    {
+                      "text": "The file's unit declaration differs from your model's",
+                      "correct": false
+                    },
+                    {
+                      "text": "The file's true north and your model's do not agree",
+                      "correct": true
+                    },
+                    {
+                      "text": "The property sets were not exported",
+                      "correct": false
+                    }
+                  ],
+                  "okFeedback": "✓ Right. The world coordinate system can define true north; in most tools, two files with different norths show up as a rotation between them.",
+                  "noFeedback": "Right place and right size clear units and origin. The usual cause of a rotation between models is <b>true north</b>: the world coordinate system can define it, and if the two files disagree, one appears rotated against the other. Property sets do not move geometry."
+                },
+                {
+                  "q": "You link the file on the agreed shared origin. A gridline intersection that should coincide is 12 m off. What is the right move?",
+                  "options": [
+                    {
+                      "text": "Nudge the link 12 m until it fits and carry on",
+                      "correct": false
+                    },
+                    {
+                      "text": "Report the measured offset to the issuing party so they re-export on the agreed origin",
+                      "correct": true
+                    },
+                    {
+                      "text": "Switch to converting the IFC to native geometry, which fixes placement",
+                      "correct": false
+                    }
+                  ],
+                  "okFeedback": "✓ Right. You linked on the agreed origin and the file disagrees with it. That is the file's problem, and a manual nudge hides it from everyone else who links the same file.",
+                  "noFeedback": "You did your part: the link is on the agreed origin. If a known element is still off, the <b>file's placement</b> disagrees with the agreed origin. A nudge fixes your view only, and nobody else linking that file gets it. Converting to native geometry reads the same coordinates, so it does not fix placement. Send the offset back for a re-export."
+                },
+                {
+                  "q": "The engineer says their IFC4 file \"carries the survey coordinates\". Which part of the file are they most likely describing?",
+                  "options": [
+                    {
+                      "text": "The IFC4 positioning entry that puts the project on a mapped grid",
+                      "correct": true
+                    },
+                    {
+                      "text": "The property sets on the site",
+                      "correct": false
+                    },
+                    {
+                      "text": "The classification reference on the site",
+                      "correct": false
+                    }
+                  ],
+                  "okFeedback": "✓ Right. IFC4 added project global positioning: a coordinate reference system with eastings, northings, elevation above datum and orientation.",
+                  "noFeedback": "Survey grid coordinates live in IFC4's <b>project global positioning</b>: a coordinate reference system on the project context with eastings, northings, elevation and orientation. Property sets and classification carry data about objects, not where the project sits on the earth."
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "eyebrow": "Recap",
+        "h2": "What to carry forward",
+        "blocks": [
+          {
+            "type": "recap",
+            "badge": "SKL-115 · part 2",
+            "items": [
+              "An IFC carries a chain of placements, a possible site reference point and, in IFC4, global positioning. It does not carry a single position field; you reconcile it with your tool when you link.",
+              "The target is the project's agreed origin, normally recorded in the BEP, the same for every link.",
+              "Units first, then origin, then true north, then verify on a known element.",
+              "<b>This week:</b> for one linked IFC on your project, write down its unit, how its site is placed, and which origin you linked it on. If you cannot answer all three, re-link it on purpose."
+            ]
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "ifc4-site",
+        "title": "IFC4 ADD2 TC1, IfcSite",
+        "publisher": "buildingSMART International",
+        "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcproductextension/lexical/ifcsite.htm",
+        "edition": "IFC4 ADD2 TC1",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "ifc4-positioning",
+        "title": "IFC4 ADD2 TC1, 4.1.4 Project Global Positioning",
+        "publisher": "buildingSMART International",
+        "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/templates/project-global-positioning.htm",
+        "edition": "IFC4 ADD2 TC1",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "ifc4-units",
+        "title": "IFC4 ADD2 TC1, 4.1.2 Project Units",
+        "publisher": "buildingSMART International",
+        "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/templates/project-units.htm",
+        "edition": "IFC4 ADD2 TC1",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "ukbim-g1",
+        "title": "Information management according to BS EN ISO 19650. Guidance Part 1: Concepts",
+        "publisher": "UK BIM Framework",
+        "url": "https://ukbimframework.org/wp-content/uploads/2019/10/Information-Management-according-to-BS-EN-ISO-19650_-Guidance-Part-1_Concepts_2ndEdition.pdf",
+        "edition": "Second Edition, July 2019",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      }
+    ]
+  }
+}

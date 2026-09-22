@@ -1,0 +1,368 @@
+{
+  "slug": "neutral-viewer-diagnose",
+  "skill_id": "SKL-116",
+  "title": "The viewer says something is wrong. Which export setting was it?",
+  "competency_id": 12,
+  "phase": 2,
+  "est_minutes": 6,
+  "status": "draft",
+  "lesson_type": "practise",
+  "component": "c",
+  "sequence": 3,
+  "lesson_level": 2,
+  "objective": "Trace what a neutral viewer shows in your own IFC export back to the export setting that most likely caused it, and know what a clean view does and does not prove.",
+  "misconception": "If the model looks right in a neutral viewer, the file is right. And if the viewer shows a problem, the viewer is probably wrong.",
+  "prerequisite_slugs": [
+    "checking-ifc-in-neutral-viewers",
+    "ifc-export-settings-that-matter"
+  ],
+  "claims": [
+    {
+      "text": "In IFC, an object can be related to one or more property sets, each containing one or more properties; property sets can also sit on the object's type.",
+      "source_ids": [
+        "ifc4-psets"
+      ],
+      "locator": "4.2.2.1",
+      "verified": true
+    },
+    {
+      "text": "IfcClassification identifies the classification system a classification reference refers to, such as Uniclass or Omniclass.",
+      "source_ids": [
+        "ifc4-classification"
+      ],
+      "locator": "Entity definition",
+      "verified": true
+    },
+    {
+      "text": "An IfcSite may carry a WGS84 reference point that fixes where the 0,0,0 of its local placement sits in the real world, and the project's world coordinate system may define true north.",
+      "source_ids": [
+        "ifc4-site"
+      ],
+      "locator": "Entity definition",
+      "verified": true
+    },
+    {
+      "text": "Default units are declared once for the whole IFC data set and apply to all geometry and to properties without a local unit.",
+      "source_ids": [
+        "ifc4-units"
+      ],
+      "locator": "4.1.2",
+      "verified": true
+    },
+    {
+      "text": "The buildingSMART Validation Service judges an IFC file's conformity to the IFC standard: STEP syntax, IFC schema and normative IFC rules. It also runs non-normative checks: industry practices, which produce warnings rather than errors, and bSDD compliance.",
+      "source_ids": [
+        "bsi-validation"
+      ],
+      "locator": "What does it do; What is being checked",
+      "verified": true
+    },
+    {
+      "text": "Outside the constraints encoded in bSDD, the Validation Service does not check project-, national- or organisation-specific rules; that is where IDS helps.",
+      "source_ids": [
+        "bsi-validation"
+      ],
+      "locator": "What is not being checked",
+      "verified": true
+    },
+    {
+      "text": "Geometric visualisation is outside the Validation Service's scope; buildingSMART notes that many errors are invisible in a viewer, unrelated to geometry, or prevent visualisation altogether.",
+      "source_ids": [
+        "bsi-validation"
+      ],
+      "locator": "Visualisation",
+      "verified": true
+    },
+    {
+      "text": "buildingSMART recommends running the Validation Service at the outset of any IFC validation process as the base later checks rely on, and notes it alone is not sufficient to verify a model meets all requirements.",
+      "source_ids": [
+        "bsi-validation"
+      ],
+      "locator": "Recommended workflow",
+      "verified": true
+    }
+  ],
+  "review": {
+    "fact_check_status": "verified",
+    "alignment": {
+      "blind_pick_skill_id": "SKL-116",
+      "blind_pick_level": 2,
+      "match": true,
+      "notes": "v1 quiz drifted onto the three-layer model (SKL-114); v2 re-scoped and read as SKL-116. Runner-ups SKL-11, SKL-114."
+    },
+    "pedagogy_score": 8,
+    "reviewed_at": "2026-09-22",
+    "version": 2
+  },
+  "lesson_json": {
+    "slug": "neutral-viewer-diagnose",
+    "skillId": "SKL-116",
+    "meta": [
+      "<b>Domain</b> · Information Management & Open Standards",
+      "<b>Phase</b> · Production",
+      "<b>Level</b> · L2 Working",
+      "<b>SKL-116</b> · part 3"
+    ],
+    "footer": "STRIVE · <span class=\"b\">SKL-116</span> · Check IFC exports in a neutral viewer before issuing",
+    "sections": [
+      {
+        "hero": true,
+        "eyebrow": "STRIVE · Practice lesson · 6 min",
+        "h1": "Read the symptom.<br><span class=\"sl-accent\">Name the setting.</span>",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "lead": true,
+            "text": "You already open your export in a neutral viewer before you issue it. This lesson is about the next two minutes: the viewer shows you something odd, and you have to decide <b>which export setting most likely caused it</b>, and what a clean view has and has not proved."
+          },
+          {
+            "type": "paragraph",
+            "lead": true,
+            "text": "By the end you will be able to go from what you see to what you change, and say exactly what your viewer check has verified."
+          }
+        ]
+      },
+      {
+        "eyebrow": "Part 1 · Four symptoms, four settings",
+        "h2": "What the viewer can tell you",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "IFC keeps the data this lesson cares about in four places: property sets on objects and their types, classification references on objects, the site's placement in the project coordinate system, and one unit declaration for the whole file. Each place has a signature failure in a viewer, and each points to an export setting."
+          },
+          {
+            "type": "terms",
+            "items": [
+              {
+                "term": "Blank properties",
+                "def": "You click a wall and the property panel shows little beyond a name and an identifier. Most often the property sets were not exported, or your parameters were mapped to different names from the ones you expect."
+              },
+              {
+                "term": "No classification",
+                "def": "Objects show no Uniclass or OmniClass code even though your model carries one. Most often the export was not told which parameter holds the code or which system it belongs to, so no classification reference was written."
+              },
+              {
+                "term": "Wrong place, right size",
+                "accent": "orange",
+                "def": "The model sits away from the agreed origin, or is rotated against true north. Most likely the export wrote a different origin from the agreed project origin."
+              },
+              {
+                "term": "Wrong size",
+                "accent": "orange",
+                "def": "Everything is a thousand times too big or too small. Almost always the file's single unit declaration does not match the unit the values were written in."
+              }
+            ]
+          },
+          {
+            "type": "note",
+            "label": "Watch for",
+            "tone": "warn",
+            "text": "A viewer can only show you what is drawable. buildingSMART, describing its Validation Service, notes that many errors are invisible in a viewer, unrelated to geometry, or stop the file displaying at all. A clean-looking model is not a checked model."
+          }
+        ]
+      },
+      {
+        "eyebrow": "Part 2 · What a clean view proves",
+        "h2": "One layer of three",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Your viewer check sits between two others. Below it, buildingSMART's free <b>Validation Service</b> judges whether the file conforms to the IFC standard itself: syntax, schema and the normative rules, with industry-practice checks reported as warnings. buildingSMART says it is most effective at the outset, so every later check starts from a valid file. Above it, the project's own rules, such as a required property on every space, are what an <b>IDS</b> check tests; the Validation Service does not check project-specific rules."
+          },
+          {
+            "type": "note",
+            "label": "So a clean view proves",
+            "text": "That the geometry drew, at the right size, in the right place, and that the sample elements you clicked carried the data you looked for. It does not prove the file is valid IFC, and it does not prove the file meets the project's requirements."
+          }
+        ]
+      },
+      {
+        "eyebrow": "Part 3 · Judge it",
+        "h2": "What is the viewer really telling you?",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "text": "Four things a modeller saw in the viewer, and what they concluded. Tap the ones where the conclusion follows from the symptom."
+          },
+          {
+            "type": "widget",
+            "widget": "caseCards",
+            "config": {
+              "goodLabel": "SOUND DIAGNOSIS ✓",
+              "badLabel": "WRONG CALL",
+              "hintStart": "Found <b>0 / 2</b>. Tap the cards.",
+              "hintDone": "✓ <b>Both found.</b> A symptom points at a setting; a clean view proves only that the geometry drew and what you clicked was there.",
+              "cases": [
+                {
+                  "good": true,
+                  "icon": "🔎",
+                  "title": "\"Doors have no fire rating in the viewer, so I'll check the property-set export and the mapping.\"",
+                  "desc": "Blank properties → property sets.",
+                  "why": "✓ Sound. Fire rating normally travels in a property set. If it is in the model and not in the file, the set was not exported or the name was mapped differently."
+                },
+                {
+                  "good": false,
+                  "icon": "✅",
+                  "title": "\"It opens, looks right and every wall is where I expect. The file is good to issue.\"",
+                  "desc": "Clean view → done.",
+                  "why": "✗ Wrong call. A viewer shows what is drawable. Schema errors, missing data and project-rule failures can all be invisible in a clean-looking model."
+                },
+                {
+                  "good": true,
+                  "icon": "📐",
+                  "title": "\"The model is the right size but 40 m north of the architect's. I'll check which origin the export wrote.\"",
+                  "desc": "Offset, right size → position.",
+                  "why": "✓ Sound. Right size rules out units; a whole-model offset usually means the export used a different origin from the agreed one."
+                },
+                {
+                  "good": false,
+                  "icon": "🗂️",
+                  "title": "\"No Uniclass codes show, so the viewer must not support classification. Issue it.\"",
+                  "desc": "Blame the viewer.",
+                  "why": "✗ Wrong call, or at least a premature one. Most neutral viewers show classification references. Before blaming the viewer, open the file in a second viewer or search it for a classification reference; if none is there, the export was not told which parameter holds the code and which system it belongs to."
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "eyebrow": "Knowledge check",
+        "h2": "Your diagnosis",
+        "blocks": [
+          {
+            "type": "quiz",
+            "config": {
+              "doneText": "Knowledge check complete. Scroll on for your recap.",
+              "questions": [
+                {
+                  "q": "In the viewer your model is the right size and in the right place, but every element's property panel shows little beyond a name and an identifier. What do you change before re-exporting?",
+                  "options": [
+                    {
+                      "text": "The export origin",
+                      "correct": false
+                    },
+                    {
+                      "text": "Which property sets are exported and how your parameters are mapped",
+                      "correct": true
+                    },
+                    {
+                      "text": "The unit declaration",
+                      "correct": false
+                    },
+                    {
+                      "text": "Nothing; the viewer would not show properties anyway",
+                      "correct": false
+                    }
+                  ],
+                  "okFeedback": "✓ Right. Position and size are fine, so origin and units are not the problem. Near-empty property panels usually mean the property sets were not written or the names did not map.",
+                  "noFeedback": "Size and place are fine, which clears units and origin. Properties live in <b>property sets</b>; if the panel is near empty, the sets were most likely not exported or the parameter names were mapped differently. Neutral viewers show property sets when the file contains them, so \"nothing\" is not an option."
+                },
+                {
+                  "q": "Your file opens cleanly, every element is the right size and place, and the doors you clicked carry their fire ratings. What has your viewer check proved?",
+                  "options": [
+                    {
+                      "text": "That the file is valid IFC and meets the project's requirements",
+                      "correct": false
+                    },
+                    {
+                      "text": "That the geometry drew correctly and the sample data you looked for is present; nothing about validity or project rules",
+                      "correct": true
+                    },
+                    {
+                      "text": "That every element in the file carries every required property",
+                      "correct": false
+                    }
+                  ],
+                  "okFeedback": "✓ Right. A viewer verifies what is drawable and what you clicked. Validity is the Validation Service's job and project rules are an IDS check's job.",
+                  "noFeedback": "A viewer shows what is drawable and what you clicked, and no more. Many errors are invisible in a viewer, and the Validation Service does not check project rules; an <b>IDS</b> check does. Your check proved geometry and sample data, which is exactly what it is for."
+                },
+                {
+                  "q": "The viewer refuses to open your file at all. Where do you start?",
+                  "options": [
+                    {
+                      "text": "A validator, because a file can fail the IFC standard in ways no viewer can display",
+                      "correct": true
+                    },
+                    {
+                      "text": "Re-export with a different MVD and try again",
+                      "correct": false
+                    },
+                    {
+                      "text": "Try a different viewer until one opens it, then issue",
+                      "correct": false
+                    }
+                  ],
+                  "okFeedback": "✓ Right. buildingSMART recommends validation at the outset: some errors prevent visualisation altogether, and a validator will normally report them, which a viewer cannot.",
+                  "noFeedback": "Start at the base layer. Some errors prevent visualisation altogether, and no viewer can tell you what they are; a <b>validator</b> will normally report them. Changing MVDs is guessing, and a second viewer only tells you whether the first one had a limit, not what is wrong with the file."
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "eyebrow": "Recap",
+        "h2": "What to carry forward",
+        "blocks": [
+          {
+            "type": "recap",
+            "badge": "SKL-116 · part 3",
+            "items": [
+              "Four viewer symptoms point to four export settings: blank properties, missing codes, wrong place, wrong size.",
+              "A clean view proves the geometry drew and the sample data you clicked is there. It does not prove validity or project compliance.",
+              "The viewer is one of three layers: validator for the standard, viewer for what you can see, IDS for the project's rules.",
+              "<b>This week:</b> on your next export, write down what each of the four viewer checks showed, and which of the three layers each finding belonged to."
+            ]
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "ifc4-psets",
+        "title": "IFC4 ADD2 TC1, 4.2.2.1 Property Sets for Objects",
+        "publisher": "buildingSMART International",
+        "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/templates/property-sets-for-objects.htm",
+        "edition": "IFC4 ADD2 TC1",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "ifc4-classification",
+        "title": "IFC4 ADD2 TC1, IfcClassification",
+        "publisher": "buildingSMART International",
+        "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcexternalreferenceresource/lexical/ifcclassification.htm",
+        "edition": "IFC4 ADD2 TC1",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "ifc4-site",
+        "title": "IFC4 ADD2 TC1, IfcSite",
+        "publisher": "buildingSMART International",
+        "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcproductextension/lexical/ifcsite.htm",
+        "edition": "IFC4 ADD2 TC1",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "ifc4-units",
+        "title": "IFC4 ADD2 TC1, 4.1.2 Project Units",
+        "publisher": "buildingSMART International",
+        "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/templates/project-units.htm",
+        "edition": "IFC4 ADD2 TC1",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      },
+      {
+        "id": "bsi-validation",
+        "title": "Validation Service",
+        "publisher": "buildingSMART International",
+        "url": "https://technical.buildingsmart.org/services/validation-service/",
+        "accessed": "2026-09-22",
+        "pack": "openbim-interoperability"
+      }
+    ]
+  }
+}
