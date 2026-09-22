@@ -205,7 +205,7 @@ svg{display:block}
 .qz-lv{display:flex;flex-direction:column;gap:14px;flex:1 1 320px;min-width:0}
 .qz-lvt{font-family:'Sora',system-ui,sans-serif;font-size:clamp(28px,3.4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.1}
 .qz-lvt i{font-style:normal;font-weight:600;color:rgba(255,255,255,.5)}
-.qz-meter{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:420px}
+.qz-meter{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:420px}
 .qz-seg{height:14px;border-radius:999px;background:rgba(255,255,255,.12);animation:qz-pop .42s cubic-bezier(.34,1.4,.64,1) both}
 .qz-seg:nth-child(2){animation-delay:90ms}.qz-seg:nth-child(3){animation-delay:180ms}.qz-seg:nth-child(4){animation-delay:270ms}.qz-seg:nth-child(5){animation-delay:360ms}
 .qz-seg.is-on{background:linear-gradient(100deg,#4fd4f9 0%,#7fcccb 45%,#ffa840 100%)}
@@ -259,7 +259,7 @@ function ic(n){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor
 var DISC=[['Architecture','architecture','compass','Architecture'],['Structural','structures','building','Engineering'],['Mechanical','mechanical','fan','Engineering'],['Electrical','electrical','zap','Engineering'],['Civil','civil','route','Engineering'],['Something else','the built world','layers','Other']];
 var GOALS=[['Land a digital role','land a digital role','rocket','Move into BIM/digital'],['Get promoted','get promoted','trend','Step up to the next role'],['Move into BIM','move into BIM','swap','Move into BIM/digital'],['Stay current','stay current','refresh','Level up in my current role']];
 var BASE=[['Draw in 2D','draw in 2D'],['Model for visuals','model for visuals'],['Work model-first','work model-first'],['Deliver federated models','deliver federated models']];
-var LV=['','Aware','Emerging','Capable','Advanced'],STEPS=[DISC,GOALS,BASE];
+var LV=['','Awareness','Working','Advanced','Expert'],STEPS=[DISC,GOALS,BASE];
 var QZ={q:'One more. A concept-stage design review needs a wall element. Which level of geometric detail is appropriate?',a:['Fabrication-level detail so nothing is missed later','Enough to show intent and arrangement for the decision at hand','No geometry, a placeholder note is fine','Whatever the template defaults to'],ok:1,yes:'Right. Level of Information Need means modelling to what the milestone needs, no more.',no:'Not quite. At concept stage the milestone only needs intent and arrangement; anything more is over-modelling.'};
 var step=0,sel=[-1,-1,-1],picked=-1,hover=null,timer=null;
 var slots=root.querySelectorAll('[data-qz-slot]'),body=root.querySelector('[data-qz-body]');
@@ -285,9 +285,9 @@ for(i=0;i<QZ.a.length;i++)h+='<button type="button" class="qz-opt" data-i="'+i+'
 h+='</div>';
 }else{
 var lvl=sel[2]+1,segs='';
-for(i=1;i<=5;i++)segs+='<div class="qz-seg'+(i<=lvl?' is-on':'')+'"></div>';
+for(i=1;i<=4;i++)segs+='<div class="qz-seg'+(i<=lvl?' is-on':'')+'"></div>';
 var href='/get-started?discipline='+encodeURIComponent(DISC[sel[0]][3])+'&goal='+encodeURIComponent(GOALS[sel[1]][3])+'&level='+lvl;
-h='<div class="qz-res"><div class="qz-lv"><div class="qz-lvt">Level '+lvl+' <i>·</i> '+LV[lvl]+'</div><div class="qz-meter">'+segs+'</div></div><div class="qz-act"><a class="qz-cta" href="'+href+'">Continue to your assessment'+ic('arrow')+'</a><a class="qz-link" href="/catalog">Browse courses</a></div></div>';
+h='<div class="qz-res"><div class="qz-lv"><div class="qz-lvt">'+LV[lvl]+'</div><div class="qz-meter">'+segs+'</div></div><div class="qz-act"><a class="qz-cta" href="'+href+'">Continue to your assessment'+ic('arrow')+'</a><a class="qz-link" href="/catalog">Browse courses</a></div></div>';
 }
 body.innerHTML=h;
 }
@@ -518,10 +518,10 @@ render();
       </div>
       <div class="sh-skill" data-vskill>
         <div class="sh-skill-name">Visual programming · Automation &amp; computation</div>
-        <div class="qz-lvt" data-vlv>Emerging <i>· level 2 of 5</i></div>
-        <div class="qz-meter" data-vmeter><span class="qz-seg is-on"></span><span class="qz-seg is-on"></span><span class="qz-seg"></span><span class="qz-seg"></span><span class="qz-seg"></span></div>
+        <div class="qz-lvt" data-vlv>Working</div>
+        <div class="qz-meter" data-vmeter><span class="qz-seg is-on"></span><span class="qz-seg is-on"></span><span class="qz-seg"></span><span class="qz-seg"></span></div>
         <span class="sh-badge" data-vbadge><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-vbt>Not yet verified</span></span>
-        <p class="sh-skill-note" data-vnote>Pass the check and this skill moves to Capable on your profile.</p>
+        <p class="sh-skill-note" data-vnote>Pass the check and this skill moves to Advanced on your profile.</p>
       </div>
     </div>
   </div>
@@ -536,7 +536,7 @@ render();
     for(var k=0;k<opts.length;k++){opts[k].disabled=true;if(k===OK)opts[k].className='qz-opt is-sel';else if(k===i)opts[k].className='qz-opt is-bad'}
     var ok=i===OK;q.textContent=ok?yes:no;q.className='qz-q '+(ok?'is-ok':'is-no');
     if(!ok){note.textContent='Wrong answers show you the right one and let you retry. Nothing is recorded until you pass.';return}
-    setTimeout(function(){skill.className='sh-skill is-lit';segs[2].className='qz-seg is-on';lv.innerHTML='Capable <i>· level 3 of 5</i>';bt.textContent='Verified · just now';note.textContent='Recorded on your profile. Employers see the level, and the check behind it.'},500);
+    setTimeout(function(){skill.className='sh-skill is-lit';segs[2].className='qz-seg is-on';lv.innerHTML='Advanced';bt.textContent='Verified · just now';note.textContent='Recorded on your profile. Employers see the level, and the check behind it.'},500);
   }
   for(var k=0;k<opts.length;k++)(function(b){b.addEventListener('click',function(){pick(+b.getAttribute('data-v'))})})(opts[k]);
 })();
@@ -558,8 +558,8 @@ render();
         </div>
         <div class="sh-map-prog"><div class="sh-map-prog-bar"><span style="--w:40%"></span></div><div class="sh-map-prog-meta"><b>40%</b> of the way to BIM Coordinator · 2 of 5 milestones verified</div></div>
         <div class="sh-rows" data-sh-rows>
-          <div class="sh-row is-done"><span class="sh-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div class="sh-row-t"><strong>Level of Information Need</strong><span>Information management · mini-lesson</span></div><span class="sh-row-lv">Verified · Capable</span></div>
-          <div class="sh-row is-done"><span class="sh-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div class="sh-row-t"><strong>Visual programming</strong><span>Automation &amp; computation · mini-lesson</span></div><span class="sh-row-lv">Verified · Capable</span></div>
+          <div class="sh-row is-done"><span class="sh-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div class="sh-row-t"><strong>Level of Information Need</strong><span>Information management · mini-lesson</span></div><span class="sh-row-lv">Verified · Working</span></div>
+          <div class="sh-row is-done"><span class="sh-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div class="sh-row-t"><strong>Visual programming</strong><span>Automation &amp; computation · mini-lesson</span></div><span class="sh-row-lv">Verified · Working</span></div>
           <div class="sh-row is-now"><span class="sh-dot">3</span><div class="sh-row-t"><strong>Federated model coordination</strong><span>Digital delivery · course, 4 lessons</span></div><span class="sh-row-lv">In progress</span></div>
           <div class="sh-row is-next"><span class="sh-dot">4</span><div class="sh-row-t"><strong>Scan to BIM fundamentals</strong><span>Reality capture · mini-lesson</span></div><span class="sh-row-lv">Next</span></div>
           <div class="sh-row is-next"><span class="sh-dot">5</span><div class="sh-row-t"><strong>Carbon data in the model</strong><span>Sustainability · mini-lesson</span></div><span class="sh-row-lv">Next</span></div>

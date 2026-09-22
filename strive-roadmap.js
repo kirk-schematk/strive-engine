@@ -75,6 +75,13 @@ var P={
   externalLink:'<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>'
 };
 var ARCH_ICON={Explorer:P.compass,Builder:P.box,Orchestrator:P.target,Strategist:P.route,Visionary:P.eye};
+var ARCHS=['Explorer','Builder','Orchestrator','Strategist','Visionary'];
+function archMeter(arch,phase){
+  var i=ARCHS.indexOf(arch);if(i<0)i=clamp((+phase||1)-1,0,4);
+  var segs='';for(var k=0;k<ARCHS.length;k++)segs+='<span class="rm-seg'+(k<=i?' is-on':'')+'" title="'+ARCHS[k]+'"></span>';
+  var next=i<ARCHS.length-1?'Next on the ladder: <b>'+ARCHS[i+1]+'</b>':'The top of the ladder';
+  return '<div class="rm-meter" role="img" aria-label="'+esc(ARCHS[i])+', step '+(i+1)+' of '+ARCHS.length+'">'+segs+'</div><p class="rm-meter-next">'+next+'</p>';
+}
 var DEFAULT_LABELS={'1':'Student','2':'Modeler','3':'Coordinator','4':'Project BIM Manager','5':'Director'};
 var PHASE_HINT={'1':'Learning the tools','2':'Producing models day to day','3':'Coordinating across disciplines','4':'Running BIM on projects','5':'Setting digital strategy'};
 var DOMAINS=[
@@ -432,7 +439,7 @@ function showResults(){
         '<div class="rm-badge-ico">'+ic(ARCH_ICON[arch]||P.target,28)+'</div>'+
         '<p class="rm-badge-kicker">Your archetype</p>'+
         '<h2 class="rm-badge-arch">'+esc(arch||'Learner')+'</h2>'+
-        '<p class="rm-badge-phase">'+ic(P.flag,14)+' '+esc(r.phase_label||label(r.placement_phase))+' <span class="rm-dot">·</span> Phase '+esc(r.placement_phase)+' of 5</p>'+
+        '<div class="rm-ladder">'+archMeter(arch,r.placement_phase)+'</div>'+
         '<div class="rm-stats">'+
           '<span class="rm-stat"><strong>'+esc(r.accuracy!=null?r.accuracy+'%':'—')+'</strong>accuracy</span>'+
           '<span class="rm-stat"><strong>'+esc(r.questions_correct)+'/'+esc(r.questions_answered)+'</strong>correct</span>'+

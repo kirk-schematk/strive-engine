@@ -46,6 +46,15 @@ var GOALS=['Level up in my current role','Step up to the next role','Move into B
 var DISC_ICON={'Architecture':P.bldg,'Engineering':P.layers,'Construction':P.crane,'Operations & FM':P.wrench,'Client/Owner':P.briefcase,'Other':P.compass};
 var GOAL_ICON={'Level up in my current role':P.trendUp,'Step up to the next role':P.arrowUpRight,'Move into BIM/digital':P.monitor,'Keep my team current':P.users};
 var ARCH_ICON={Explorer:P.compass,Builder:P.box,Orchestrator:P.target,Strategist:P.route,Visionary:P.eye};
+/* The five archetypes are the maturity ladder; the meter shows where you are on it
+   without a "level n of 5" or a job title. */
+var ARCHS=['Explorer','Builder','Orchestrator','Strategist','Visionary'];
+function archMeter(arch){
+  var i=ARCHS.indexOf(arch);if(i<0)return '';
+  var segs='';for(var k=0;k<ARCHS.length;k++)segs+='<span class="onb-seg'+(k<=i?' is-on':'')+'" title="'+ARCHS[k]+'"></span>';
+  var next=i<ARCHS.length-1?'Next on the ladder: <b>'+ARCHS[i+1]+'</b>':'The top of the ladder';
+  return '<div class="onb-meter" role="img" aria-label="'+arch+', step '+(i+1)+' of '+ARCHS.length+'">'+segs+'</div><p class="onb-meter-next">'+next+'</p>';
+}
 
 var STEPS=['About you','Assessment','Your level','Sign up'];
 /* Home hero self-rating (?level=1..4), echoed back on the results so the two agree. */
@@ -431,7 +440,7 @@ function doTeaser(){
       var arch=data.archetype||'';
       badge.appendChild(el('div','onb-badge-ico',ic(ARCH_ICON[arch]||P.target,26)));
       badge.appendChild(el('h2','onb-badge-arch',arch));
-      badge.appendChild(el('p','onb-badge-phase',data.phase_label||''));
+      badge.appendChild(el('div','onb-ladder',archMeter(arch)));
       /* A low score is a starting point, not a grade to shout about. */
       if(data.accuracy!=null)badge.appendChild(el('p','onb-badge-acc',data.accuracy>=50?data.accuracy+'% ACCURACY':'YOUR STARTING POINT'));
       w.appendChild(badge);

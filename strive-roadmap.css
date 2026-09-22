@@ -143,6 +143,12 @@
 #strive-roadmap .rm-badge-kicker{font-family:var(--rm-font);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-turq-deep)}
 #strive-roadmap .rm-badge-arch{font-family:var(--rm-display);font-size:36px;font-weight:800;letter-spacing:-.03em;margin:2px 0 6px;background:var(--rm-grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
 #strive-roadmap .rm-badge-phase{display:flex;justify-content:center;align-items:center;gap:6px;font-weight:700;color:var(--rm-turq-deep);font-size:15px}
+#strive-roadmap .rm-ladder{margin:4px auto 4px;max-width:300px}
+#strive-roadmap .rm-meter{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+#strive-roadmap .rm-seg{height:10px;border-radius:999px;background:var(--rm-line)}
+#strive-roadmap .rm-seg.is-on{background:var(--rm-grad)}
+#strive-roadmap .rm-meter-next{font-size:13px;color:var(--rm-subtle);margin:8px 0 0;text-align:center}
+#strive-roadmap .rm-meter-next b{color:var(--rm-turq-deep);font-weight:700}
 #strive-roadmap .rm-stats{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
 #strive-roadmap .rm-stat{display:flex;flex-direction:column;align-items:center;min-width:88px;padding:10px 14px;border-radius:var(--rm-r-md);background:rgba(255,255,255,.8);border:1px solid var(--rm-line);font-family:var(--rm-font);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rm-subtle)}
 #strive-roadmap .rm-stat strong{font-family:var(--rm-display);font-size:19px;font-weight:800;letter-spacing:-.02em;color:var(--rm-ink);text-transform:none;margin-bottom:2px}
