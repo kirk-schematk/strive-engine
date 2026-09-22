@@ -25,7 +25,12 @@
   #strive-review button{margin-top:12px;padding:10px 18px;border:0;border-radius:8px;background:#16c4f6;color:#0b1f2a;font:600 14px/1 Manrope,system-ui,sans-serif;cursor:pointer}
   #strive-review button[disabled]{opacity:.45;cursor:not-allowed}
   #strive-review details{margin-top:10px} #strive-review li{margin:4px 0}
-  #strive-review .rv-q{display:block;padding:10px 0;border-top:1px solid #1e3a47;text-decoration:none}
+  #strive-review .rv-q{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid #1e3a47}
+  #strive-review .rv-q a{text-decoration:none;flex:1}
+  #strive-review .rv-q input{margin-top:5px;width:16px;height:16px;accent-color:#16c4f6}
+  #strive-review .rv-q .rv-st{font-size:12.5px;color:#16c4f6;min-width:90px;text-align:right}
+  #strive-review .rv-bulk{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  #strive-review button.rv-ghost{background:transparent;border:1px solid #35505c;color:#d6e4ea}
 </style>
 
 <div id="strive-review"><div class="rv-row">Checking your access…</div></div>
@@ -72,10 +77,38 @@
     if (!res.ok) return refuse(res);
     var q = res.body || [];
     say('<b>' + q.length + ' draft lesson' + (q.length === 1 ? '' : 's') + ' waiting for review</b>' + q.map(function (l) {
-      return '<a class="rv-q" href="?slug=' + encodeURIComponent(l.slug) + '"><b>' + t(l.skill_id) + '</b> · ' + t(l.title) + ' · ' + t(l.lesson_type) + ' L' + t(l.lesson_level) +
-        '<br>' + tag('fact check: ' + l.fact_check_status, l.fact_check_status === 'verified') +
-        tag(l.review && l.review.second_look ? 'second look needed' : 'single review', !(l.review && l.review.second_look)) + '</a>';
-    }).join(''));
+      var ok = l.fact_check_status === 'verified';
+      return '<div class="rv-q" data-slug="' + t(l.slug) + '"><input type="checkbox" class="rv-pick"' + (ok ? '' : ' disabled title="Fact check not verified"') + '>' +
+        '<a href="?slug=' + encodeURIComponent(l.slug) + '"><b>' + t(l.skill_id) + '</b> · ' + t(l.title) + ' · ' + t(l.lesson_type) + ' L' + t(l.lesson_level) +
+        '<br>' + tag('fact check: ' + l.fact_check_status, ok) +
+        tag(l.review && l.review.second_look ? 'second look needed' : 'single review', !(l.review && l.review.second_look)) + '</a><span class="rv-st"></span></div>';
+    }).join('') + (q.length ? '<div class="rv-bulk"><button class="rv-ghost" id="rv-all">Select all verified</button><button id="rv-bulk-go" disabled>Approve selected</button><span id="rv-bulk-msg"></span></div>' : ''));
+    if (!q.length) return;
+    // Bulk approve: one POST /lesson_approve per ticked row, in sequence (Xano rate limit).
+    // The server still refuses any lesson whose fact check is not verified.
+    var picks = function () { return [].slice.call(bar.querySelectorAll('.rv-pick:checked')); };
+    var go = document.getElementById('rv-bulk-go');
+    var refreshGo = function () { go.disabled = !picks().length; go.textContent = 'Approve selected' + (picks().length ? ' (' + picks().length + ')' : ''); };
+    bar.addEventListener('change', refreshGo);
+    document.getElementById('rv-all').addEventListener('click', function () {
+      bar.querySelectorAll('.rv-pick:not(:disabled)').forEach(function (c) { c.checked = true; });
+      refreshGo();
+    });
+    go.addEventListener('click', async function () {
+      var rows = picks().map(function (c) { return c.closest('.rv-q'); });
+      if (!confirm('Publish ' + rows.length + ' lesson' + (rows.length === 1 ? '' : 's') + ' to the live site?')) return;
+      go.disabled = true; document.getElementById('rv-all').disabled = true;
+      var done = 0;
+      for (var i = 0; i < rows.length; i++) {
+        var row = rows[i], st = row.querySelector('.rv-st'), pick = row.querySelector('.rv-pick');
+        st.textContent = 'publishing…';
+        var out = await call('/lesson_approve', { method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, auth), body: JSON.stringify({ slug: row.dataset.slug }) }, 3);
+        if (out.ok) { done++; st.textContent = 'published'; pick.checked = false; pick.disabled = true; }
+        else { st.textContent = (out.body && out.body.message) || 'failed'; st.style.color = '#fc8204'; }
+      }
+      document.getElementById('rv-bulk-msg').textContent = done + ' of ' + rows.length + ' published.';
+      document.getElementById('rv-all').disabled = false; refreshGo();
+    });
   }
 
   async function showLesson(auth) {
