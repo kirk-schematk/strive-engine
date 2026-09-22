@@ -11,6 +11,22 @@ every author (human or Claude), goes through the same six gates.
 - **Published content:** Xano `mini_lessons`. A file is pushed as `draft`, reviewed
   on the real page, then flipped to `published` by an approver.
 
+## Skill maps and component lessons
+
+A skill is a bundle of specific things to know or do. Before writing for a
+competency, break each of its skills into **components** in
+`content/skill-maps/<competency-slug>.json`, place the existing lessons on the
+map (they are never changed), and plan one lesson per component. Roles:
+`teach` (introduces a component), `practise` (applies it in a scenario), `mix`
+(two or more components together), `reinforce` (short retrieval after a gap).
+The map is reviewed by both approvers before its lessons are drafted, because
+it decides what gets written.
+
+**To do (Kirk, 2026-09-21):** eventually create a series of component
+micro-lessons per skill, Duolingo-style: several short lessons that each drive
+home one component, then mix and reinforce. The first pass covers the
+components learners on active roadmaps hit first; later passes fill the rest.
+
 ## Lesson types
 
 | Type | Level taught | Purpose |
