@@ -13,6 +13,7 @@ $env:XANO_META_TOKEN="<metadata api token>"     # PowerShell; bash: export XANO_
 python docs/xano/push.py docs/xano/functions/roadmap_build.xs function 342153
 python docs/xano/push.py docs/xano/onboarding/onboarding_answer.xs api 428916 4019192
 python docs/xano/smoke_test.py                  # + XANO_AUTH_TOKEN=<member token> for the auth half
+python docs/xano/check_answer_keys.py           # mini_lessons: answer_key must match lesson_json correct flags
 ```
 
 | Object | Xano id |
