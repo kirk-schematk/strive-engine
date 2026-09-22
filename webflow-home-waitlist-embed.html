@@ -1,0 +1,75 @@
+<!-- STRIVE home: WAITLIST mode for the hero (pre-launch). Webflow: HTML Embed inside hp-hero, right after the
+     hero card embed. Inert unless the site head gate (webflow-prelaunch-head.html) set window.STRIVE_PRELAUNCH.
+     The hero card calls STRIVEWaitlist.html() / .bind() in its final state instead of linking to /get-started;
+     the closing band's button scrolls back to the card. Source of truth for the copy + CSS: preview-home.html. -->
+<style>
+.qz-pill{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;height:36px;margin-bottom:-18px;padding:0 16px 0 12px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:rgba(255,255,255,.85);font-family:'Manrope',system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.qz-pill i{width:8px;height:8px;border-radius:50%;background:#fc8204;box-shadow:0 0 0 4px rgba(252,130,4,.25)}
+.qz-wl{flex:1 1 400px;min-width:0;max-width:560px;display:flex;flex-direction:column;gap:12px;animation:qz-rise .48s .2s cubic-bezier(.22,1,.36,1) both}
+.qz-wl-lead{margin:0;font-family:'Manrope',system-ui,sans-serif;font-size:17px;line-height:1.5;font-weight:600;color:rgba(255,255,255,.85)}
+.qz-wl-row{display:flex;gap:10px;flex-wrap:wrap}
+.qz-wl-in{flex:1 1 220px;min-width:0;height:64px;padding:0 22px;border-radius:999px;border:1.5px solid rgba(255,255,255,.22);background:rgba(255,255,255,.07);color:#fff;font-family:'Manrope',system-ui,sans-serif;font-size:17px;font-weight:600;outline:none;transition:border-color .2s,background .2s}
+.qz-wl-in::placeholder{color:rgba(255,255,255,.45)}
+.qz-wl-in:focus{border-color:#16c4f6;background:rgba(255,255,255,.1)}
+.qz-wl.is-err .qz-wl-in{border-color:#fc8204}
+.qz-wl .qz-cta{flex:none}
+.qz-wl .qz-cta[disabled]{opacity:.7;cursor:wait;transform:none}
+.qz-wl-note{margin:0;font-size:13px;color:rgba(255,255,255,.5)}
+.qz-wl-msg{margin:0;min-height:1.4em;font-size:15px;font-weight:600;color:#ffa840}
+.qz-wl-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.qz-wl-done{flex:1 1 400px;max-width:560px;animation:qz-rise .48s cubic-bezier(.22,1,.36,1) both}
+.qz-wl-done h3{margin:0 0 10px;font-family:'Sora',system-ui,sans-serif;font-size:clamp(22px,2.4vw,30px);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:#fff}
+.qz-wl-done p{margin:0;font-size:16px;line-height:1.55;color:rgba(255,255,255,.75)}
+.qz-wl-done p b{color:#4fd4f9;font-weight:700}
+@media (max-width:767px){.qz-wl,.qz-wl-done{flex-basis:auto;max-width:none}.qz-wl-in,.qz-wl .qz-cta{height:56px;font-size:16px}.qz-wl .qz-cta{justify-content:center}}
+html.is-prelaunch .qz{overflow:clip}
+@media (prefers-reduced-motion:reduce){.qz-wl,.qz-wl-done{animation:none}}
+</style>
+<script>
+(function(){
+if(!window.STRIVE_PRELAUNCH)return;
+var API='https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM/waitlist';
+var ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+window.STRIVEWaitlist={
+ html:function(){
+  return '<form class="qz-wl" data-wl novalidate><p class="qz-wl-lead">STRIVE opens soon. Leave your email and we send your starting point now, and keep these answers ready for opening day.</p><div class="qz-wl-row"><input class="qz-wl-in" type="email" name="email" placeholder="you@company.com" autocomplete="email" required aria-label="Email"><input class="qz-wl-hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="qz-cta" type="submit">Send my starting point'+ARROW+'</button></div><p class="qz-wl-note">One email now, one when the doors open. Nothing else.</p><p class="qz-wl-msg" data-wl-msg aria-live="polite"></p></form>';
+ },
+ bind:function(root,picks){
+  var f=root.querySelector('[data-wl]');if(!f)return;
+  var inp=f.querySelector('.qz-wl-in'),btn=f.querySelector('.qz-cta'),msg=f.querySelector('[data-wl-msg]'),hp=f.querySelector('.qz-wl-hp');
+  setTimeout(function(){try{inp.focus({preventScroll:true})}catch(e){}},400);
+  function done(email){f.outerHTML='<div class="qz-wl-done"><h3>Your starting point is on its way.</h3><p>Sent to <b>'+esc(email)+'</b>. Your answers are saved: when STRIVE opens you pick up right here, and you hear from us first.</p></div>'}
+  function post(body,tries){
+   return fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){
+    if((r.status===429||r.status>=500)&&tries>0)return new Promise(function(res){setTimeout(res,900*(4-tries))}).then(function(){return post(body,tries-1)});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    return r.json().catch(function(){return {}});
+   });
+  }
+  f.addEventListener('submit',function(e){
+   e.preventDefault();
+   var email=(inp.value||'').trim();
+   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){f.classList.add('is-err');msg.textContent='Enter the email you want the report at.';inp.focus();return}
+   f.classList.remove('is-err');msg.textContent='';
+   if(hp&&hp.value){done(email);return}
+   btn.disabled=true;btn.firstChild.nodeValue='Sending…';
+   var body={email:email,discipline:picks.discipline,goal:picks.goal,level:picks.level,level_name:picks.level_name,discipline_label:picks.discipline_label,goal_label:picks.goal_label,baseline_label:picks.baseline_label,warmup_correct:picks.warmup_correct===true,source:'home',page:location.href};
+   post(body,3).then(function(){done(email)}).catch(function(){btn.disabled=false;btn.firstChild.nodeValue='Send my starting point';f.classList.add('is-err');msg.textContent='That did not go through. Try again in a moment.'});
+  });
+ }
+};
+/* Waitlist copy elsewhere on the page: an "Opening soon" pill in the hero and the closing band pointing back at the card. */
+function tweak(){
+ var qin=document.querySelector('.qz-in'),tag=document.querySelector('.qz-tag');
+ if(qin&&tag&&!qin.querySelector('.qz-pill')){var pill=document.createElement('div');pill.className='qz-pill';pill.innerHTML='<i></i>Opening soon';qin.insertBefore(pill,tag)}
+ var cta=document.querySelector('.hp-cta,.hm-cta');
+ if(!cta)return;
+ var b=cta.querySelector('.btn.is-white');
+ if(b){b.textContent='Get your starting point';b.setAttribute('href','#qz');b.addEventListener('click',function(e){var q=document.getElementById('qz');if(q){e.preventDefault();q.scrollIntoView({behavior:'smooth',block:'start'})}})}
+ var t=cta.querySelector('.hp-cta-title,.hm-cta-title');if(t)t.textContent='Be first through the door.';
+ var c=cta.querySelector('.sh-cap');if(c)c.textContent='Three taps give you your starting point today. Leave your email and we keep your spot, and your answers, for opening day.';
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',tweak);else tweak();
+})();
+</script>

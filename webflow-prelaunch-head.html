@@ -1,0 +1,24 @@
+<!-- STRIVE pre-launch gate: Webflow Site settings > Custom code > HEAD, under the Memberstack tag.
+     On strivebim.com the site runs in WAITLIST mode: only the home page is served (every other path bounces
+     to /), the navbar loses Log in / Join, and the hero card ends in an email capture instead of the
+     assessment hand-off (see webflow-home-waitlist-embed.html). Staging (strive-0782e7.webflow.io) is
+     untouched: add ?prelaunch=1 to preview waitlist mode there, ?prelaunch=0 to force it off on any host.
+     Runs in the head so the class is on <html> before first paint (no flash of the product CTAs). -->
+<script>
+(function(){
+  var h=location.hostname,q=location.search,p=location.pathname.replace(/\/+$/,'')||'/';
+  var on=/(^|\.)strivebim\.com$/i.test(h);
+  if(/[?&]prelaunch=1(&|$)/.test(q))on=true;
+  if(/[?&]prelaunch=0(&|$)/.test(q))on=false;
+  if(!on)return;
+  window.STRIVE_PRELAUNCH=true;
+  document.documentElement.className+=' is-prelaunch';
+  var home=/^\/(index\.html|preview-home\.html)?$/.test(p);
+  if(!home)location.replace('/'+(/[?&]prelaunch=1(&|$)/.test(q)?'?prelaunch=1':''));
+})();
+</script>
+<style>
+html.is-prelaunch .nav-ds-link,html.is-prelaunch .nav-ds [data-ms-modal],html.is-prelaunch .nav-ds [data-ms-content],html.is-prelaunch .nav-ds [data-ms-action],html.is-prelaunch .hm-nav-btn{display:none!important}
+html.is-prelaunch .hp-footer-links,html.is-prelaunch .hm-footer-links{display:none!important}
+html.is-prelaunch .hp-cta .btn.is-ghost,html.is-prelaunch .hm-cta .btn.is-ghost{display:none!important}
+</style>

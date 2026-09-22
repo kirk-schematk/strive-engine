@@ -72,10 +72,43 @@ Contract: `docs/onboarding-roadmap-spec.md` (section 2).
 | `platform/lessons_get.xs` | endpoint | Platform | GET | none | **replaces** existing |
 | `platform/course_check_complete.xs` | endpoint | Platform | POST | **user** | new |
 | `platform/course_check_completions_get.xs` | endpoint | Platform | GET | **user** | new |
+| `platform/waitlist_post.xs` | endpoint | Platform | POST | none | new (2026-09-22, id 4062412) |
+| `platform/waitlist_apply.xs` | endpoint | Platform | POST | **user** | new (2026-09-22, id 4062413) |
 | `smoke_test.py` | test | — | — | — | — |
 
 "user" auth = the `user` table (id 848600), same token the front end gets from
 `POST /memberstack_auth`.
+
+## Pre-launch waitlist (2026-09-22)
+
+While strivebim.com is not launched, the home page runs in **waitlist mode**
+(site head gate `webflow-prelaunch-head.html`, hero embed
+`webflow-home-waitlist-embed.html`): the three-tap hero card ends in an email
+capture instead of the assessment hand-off.
+
+**Table `waitlist` (897296)** was created with `docs/xano/create_waitlist_table.py`
+(unique index on `email`). One row per email: the engine values `discipline` /
+`goal`, the self-rated `level` 1..4 + `level_name`, the sentence-form labels the
+hero showed, `warmup_correct`, `submissions`, `report_sent_at` (null until the
+report email goes out) and `applied_user_id` / `applied_at` (set at signup).
+
+**`POST /waitlist`** (4062412, no auth) upserts the row, then sends the
+"starting point" report through **Resend** when the workspace environment
+variable `RESEND_API_KEY` is set (`WAITLIST_FROM` optional, default
+`STRIVE <onboarding@resend.dev>`; a strivebim.com sender needs the domain
+verified in Resend). Without the key the row is stored and `report_sent` is
+false, so nothing is lost: set the key later and re-send from the rows.
+Only `email` is required; every other input is optional.
+
+**`POST /waitlist_apply`** (4062413, auth user) is called by
+`webflow-roadmap-embed.html` right after the Memberstack -> Xano exchange on
+`/welcome-onboard`: it copies `discipline` / `goal` from the waitlist row with
+the member's email onto `user` (only when still blank), stamps the row, and
+returns the picks; `strive-roadmap.js` opens the quick-start panel with them
+pre-selected. Idempotent.
+
+Push: `python docs/xano/push.py docs/xano/platform/waitlist_post.xs api 417827 4062412`
+(same pattern for `waitlist_apply.xs` / 4062413).
 
 ## Course knowledge checks (2026-09-09)
 

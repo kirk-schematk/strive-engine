@@ -422,6 +422,19 @@ function showQuickStart(){
         };
       });
     });
+    /* Waitlist member: open "Build from my answers" with the picks they made on the home page before launch. */
+    var wl=st.opts.waitlist;
+    if(wl&&(wl.discipline||wl.goal)){
+      self.hidden=false;w.querySelector('[data-self]').classList.add('is-open');
+      [['disc',wl.discipline],['goal',wl.goal]].forEach(function(kv){
+        var g=w.querySelector('[data-k="'+kv[0]+'"]');if(!g||!kv[1])return;
+        var b=null;g.querySelectorAll('button').forEach(function(x){if(x.dataset.v===kv[1])b=x});
+        if(b){b.classList.add('is-on');pick[kv[0]]=kv[1]}
+      });
+      var hint=document.createElement('p');hint.className='rm-sub';hint.textContent='We kept the answers you gave us before launch. Change anything, then pick where you are today.';
+      self.insertBefore(hint,self.firstChild);
+      check();
+    }
     build.onclick=function(){
       var body={source:'self',discipline:pick.disc,goal:pick.goal,placement_phase:pick.phase,weekly_minutes:60,focus_domains:[1,2,3,4,5]};
       st.selfBase=body;
@@ -895,7 +908,10 @@ function init(opts){
     /* No /login page exists: login is the Memberstack modal (data-ms-modal="login");
        /signup#/ms/login opens it on the signup page as a fallback. */
     loginHref:opts.loginHref||'/signup#/ms/login',
-    prefill:opts.prefill||null
+    prefill:opts.prefill||null,
+    /* Pre-launch waitlist picks (POST /waitlist_apply, done by the embed after auth): {applied, discipline, goal, level, level_name}.
+       When present the quick-start panel opens with discipline + goal pre-selected. */
+    waitlist:opts.waitlist||null
   };
   st.root=typeof st.opts.mount==='string'?document.querySelector(st.opts.mount):st.opts.mount;
   if(!st.root){log('mount not found:',st.opts.mount);return}
