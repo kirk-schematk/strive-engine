@@ -14,7 +14,7 @@
     "discipline": "Architecture",
     "goal": "Step up to the next role",
     "placement_phase": 2,
-    "phase_label": "Modeler",
+    "phase_label": "Production",
     "archetype": "Builder"
   },
   "roadmap_summary": {
@@ -27,11 +27,11 @@
     "placement_phase": 2,
     "target_phase": 3,
     "phase_labels": {
-      "1": "Student",
-      "2": "Modeler",
-      "3": "Coordinator",
-      "4": "Project BIM Manager",
-      "5": "Director"
+      "1": "Foundations",
+      "2": "Production",
+      "3": "Coordination",
+      "4": "Management",
+      "5": "Strategy"
     },
     "archetype": "Builder",
     "goal": "Step up to the next role",
@@ -48,7 +48,7 @@
         5
       ]
     },
-    "summary": "You placed at Modeler (Builder). Your goal is 'Step up to the next role', so this plan takes you to Coordinator. It starts by closing 3 gaps from your assessment, then works through Technical & Computational Proficiency, Information Management & Open Standards, Process Execution & Coordination and Strategy, Policy & Management at Modeler and Coordinator level. About 3.7h of lessons at 60 min/week — roughly 4 weeks.",
+    "summary": "You placed at Production (Builder). Your goal is 'Move up to the next phase', so this plan takes you to Coordination. It starts by closing 3 gaps from your assessment, then works through Technical & Computational Proficiency, Information Management & Open Standards, Process Execution & Coordination and Strategy, Policy & Management at Production and Coordination level. About 3.7h of lessons at 60 min/week — roughly 4 weeks.",
     "totals": {
       "items": 20,
       "minutes": 220,
@@ -104,7 +104,7 @@
       },
       {
         "id": "m2",
-        "title": "Modeler: Technical & Computational Proficiency",
+        "title": "Production: Technical & Computational Proficiency",
         "why": "The authoring, data and federation habits a Coordinator expects from every modeler.",
         "phase": 2,
         "domain": 1,
@@ -172,7 +172,7 @@
       },
       {
         "id": "m3",
-        "title": "Modeler: Information Management & Open Standards",
+        "title": "Production: Information Management & Open Standards",
         "why": "Get comfortable with requirements and IFC so your models travel well.",
         "phase": 2,
         "domain": 2,
@@ -218,7 +218,7 @@
       },
       {
         "id": "m4",
-        "title": "Coordinator: Process Execution & Coordination",
+        "title": "Coordination: Process Execution & Coordination",
         "why": "Running clash cycles, enforcing the BEP and issuing data drops is the core of the Coordinator role.",
         "phase": 3,
         "domain": 3,
@@ -286,7 +286,7 @@
       },
       {
         "id": "m5",
-        "title": "Coordinator: Strategy, Policy & Management",
+        "title": "Coordination: Strategy, Policy & Management",
         "why": "Planning deliveries and judging incoming models so the schedule holds.",
         "phase": 3,
         "domain": 4,
@@ -358,8 +358,8 @@
   "goals": [
     {
       "id": 301,
-      "title": "Nail the Modeler tech fundamentals",
-      "description": "Finish the five core Modeler lessons on authoring, data and federation.",
+      "title": "Nail the Production tech fundamentals",
+      "description": "Finish the five core Production lessons on authoring, data and federation.",
       "metric": {
         "type": "lessons",
         "slugs": [

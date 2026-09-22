@@ -34,7 +34,7 @@ function roadmap_build {
     // ------------------------------------------------------------------
     var $phase_labels {
       // NOTE: a literal {"1": …} becomes a 0-based LIST in Xano (off-by-one lookups); build maps with |set.
-      value = {}|set:"1":"Student"|set:"2":"Modeler"|set:"3":"Coordinator"|set:"4":"Project BIM Manager"|set:"5":"Director"
+      value = {}|set:"1":"Foundations"|set:"2":"Production"|set:"3":"Coordination"|set:"4":"Management"|set:"5":"Strategy"
     }
     var $archetypes {
       value = {}|set:"1":"Explorer"|set:"2":"Builder"|set:"3":"Orchestrator"|set:"4":"Strategist"|set:"5":"Visionary"
@@ -119,6 +119,11 @@ function roadmap_build {
       }
     }
     var $T_key { value = $T|to_text }
+    // Display label for the goal (stored values stay as keys for track_matrix and old sessions).
+    var $goal_labels {
+      value = {}|set:"Level up in my current role":"Get solid where I am"|set:"Step up to the next role":"Move up to the next phase"|set:"Move into BIM/digital":"Move into digital delivery"|set:"Keep my team current":"Bring my team along"
+    }
+    var $goal_label { value = $goal_labels|get:$goal|first_notempty:$goal }
 
     // ------------------------------------------------------------------
     // 3. Load reference data
@@ -552,7 +557,7 @@ function roadmap_build {
     }
     // `~` is the documented text-concatenation operator (Xano expression docs: `a ~ b`).
     var $summary {
-      value = "You placed at " ~ $P_label ~ " (" ~ $archetype ~ "). Your goal is '" ~ $goal ~ "', so this plan takes you to " ~ $T_label ~ ". " ~ $summary_mid ~ ($domain_names_used|join:", ") ~ " at " ~ $P_label ~ " level. About " ~ ($hours|to_text) ~ "h of lessons at " ~ ($weekly|to_text) ~ " min/week - roughly " ~ ($weeks|to_text) ~ " weeks."
+      value = "You placed at " ~ $P_label ~ " (" ~ $archetype ~ "). Your goal is '" ~ $goal_label ~ "', so this plan takes you to " ~ $T_label ~ ". " ~ $summary_mid ~ ($domain_names_used|join:", ") ~ " at " ~ $P_label ~ " level. About " ~ ($hours|to_text) ~ "h of lessons at " ~ ($weekly|to_text) ~ " min/week - roughly " ~ ($weeks|to_text) ~ " weeks."
     }
 
     // ------------------------------------------------------------------

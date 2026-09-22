@@ -143,7 +143,7 @@ front end uses one base + one token.
 {
   "version": 1, "generated_at": "2026-09-02T14:00:00Z", "source": "assessment",
   "placement_phase": 2, "target_phase": 3,
-  "phase_labels": {"1":"Student","2":"Modeler","3":"Coordinator","4":"Project BIM Manager","5":"Director"},
+  "phase_labels": {"1":"Foundations","2":"Production","3":"Coordination","4":"Management","5":"Strategy"},
   "archetype": "Builder", "goal": "Step up to the next role", "discipline": "Architecture",
   "inputs": {"current_role":"", "target_role":"", "weekly_minutes":60, "focus_domains":[1,2,3,4,5]},
   "summary": "You placed at Modeler (Builder). …",

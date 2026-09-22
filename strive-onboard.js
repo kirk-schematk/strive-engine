@@ -43,6 +43,9 @@ var P={
 
 var DISC=['Architecture','Engineering','Construction','Operations & FM','Client/Owner','Other'];
 var GOALS=['Level up in my current role','Step up to the next role','Move into BIM/digital','Keep my team current'];
+/* Stored values above are keys (track_matrix, roadmap rules); these are what the visitor reads. */
+var GOAL_LABEL={'Level up in my current role':'Get solid where I am','Step up to the next role':'Move up to the next phase','Move into BIM/digital':'Move into digital delivery','Keep my team current':'Bring my team along'};
+function goalLabel(g){return GOAL_LABEL[g]||g}
 var DISC_ICON={'Architecture':P.bldg,'Engineering':P.layers,'Construction':P.crane,'Operations & FM':P.wrench,'Client/Owner':P.briefcase,'Other':P.compass};
 var GOAL_ICON={'Level up in my current role':P.trendUp,'Step up to the next role':P.arrowUpRight,'Move into BIM/digital':P.monitor,'Keep my team current':P.users};
 var ARCH_ICON={Explorer:P.compass,Builder:P.box,Orchestrator:P.target,Strategist:P.route,Visionary:P.eye};
@@ -297,7 +300,7 @@ function showGoal(){
     w.appendChild(el('p','onb-sub','Choose what drives you.'));
     var g=el('div','onb-grid onb-grid--goals');
     GOALS.forEach(function(goal){
-      var b=el('button','onb-choice','<span class="onb-choice-ico">'+ic(GOAL_ICON[goal]||'',19)+'</span><span>'+goal+'</span>');
+      var b=el('button','onb-choice','<span class="onb-choice-ico">'+ic(GOAL_ICON[goal]||'',19)+'</span><span>'+goalLabel(goal)+'</span>');
       b.onclick=function(){st.goal=goal;doStart()};
       g.appendChild(b);
     });

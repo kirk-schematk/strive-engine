@@ -7,11 +7,11 @@
     "placement_override": null,
     "target_phase": 3,
     "phase_labels": {
-      "1": "Student",
-      "2": "Modeler",
-      "3": "Coordinator",
-      "4": "Project BIM Manager",
-      "5": "Director"
+      "1": "Foundations",
+      "2": "Production",
+      "3": "Coordination",
+      "4": "Management",
+      "5": "Strategy"
     },
     "archetype": "Builder",
     "goal": "Step up to the next role",
@@ -28,7 +28,7 @@
         5
       ]
     },
-    "summary": "You placed at Modeler (Builder). Your goal is 'Step up to the next role', so this plan takes you to Coordinator. It starts by closing 3 gaps from your assessment, then works through Technical & Computational Proficiency, Information Management & Open Standards, Process Execution & Coordination and Interpersonal & Supportive Competencies at Modeler and Coordinator level. About 4h of lessons at 60 min/week — roughly 4 weeks.",
+    "summary": "You placed at Production (Builder). Your goal is 'Move up to the next phase', so this plan takes you to Coordination. It starts by closing 3 gaps from your assessment, then works through Technical & Computational Proficiency, Information Management & Open Standards, Process Execution & Coordination and Interpersonal & Supportive Competencies at Production and Coordination level. About 4h of lessons at 60 min/week — roughly 4 weeks.",
     "weak_domains": [
       {
         "domain": 1,
@@ -89,7 +89,7 @@
       },
       {
         "id": "m2",
-        "title": "Modeler: Technical & Computational Proficiency",
+        "title": "Production: Technical & Computational Proficiency",
         "why": "Solid authoring, data and federation habits are what Coordinators rely on from their modelers.",
         "phase": 2,
         "domain": 1,
@@ -187,7 +187,7 @@
       },
       {
         "id": "m3",
-        "title": "Modeler: Information Management & Open Standards",
+        "title": "Production: Information Management & Open Standards",
         "why": "Know where files live, how they are named and how they leave your authoring tool.",
         "phase": 2,
         "domain": 2,
@@ -230,7 +230,7 @@
       },
       {
         "id": "m4",
-        "title": "Coordinator: Process Execution & Coordination",
+        "title": "Coordination: Process Execution & Coordination",
         "why": "This is the core of the Coordinator role: reading, fixing and closing out clashes to the BEP.",
         "phase": 3,
         "domain": 3,
@@ -295,7 +295,7 @@
       },
       {
         "id": "m5",
-        "title": "Coordinator: Technical & Computational Proficiency",
+        "title": "Coordination: Technical & Computational Proficiency",
         "why": "Run the checks yourself instead of waiting for someone else's report.",
         "phase": 3,
         "domain": 1,
@@ -338,7 +338,7 @@
       },
       {
         "id": "m6",
-        "title": "Coordinator: Interpersonal & Supportive Competencies",
+        "title": "Coordination: Interpersonal & Supportive Competencies",
         "why": "Coordinators spend half their week in meetings. Make those minutes count.",
         "phase": 3,
         "domain": 5,
@@ -390,7 +390,7 @@
         "due_date": "2026-09-16"
       },
       {
-        "title": "Finish Modeler: Technical & Computational Proficiency",
+        "title": "Finish Production: Technical & Computational Proficiency",
         "description": "Complete every lesson in your first milestone, including the Revit basics course.",
         "metric": {
           "type": "lessons",
@@ -408,7 +408,7 @@
         "due_date": "2026-09-23"
       },
       {
-        "title": "Reach Coordinator level",
+        "title": "Reach Coordination level",
         "description": "Work through the whole plan and land at Coordinator.",
         "metric": {
           "type": "lessons",
@@ -460,7 +460,7 @@
       "due_date": "2026-09-16"
     },
     {
-      "title": "Finish Modeler: Technical & Computational Proficiency",
+      "title": "Finish Production: Technical & Computational Proficiency",
       "description": "Complete every lesson in your first milestone, including the Revit basics course.",
       "metric": {
         "type": "lessons",
@@ -478,7 +478,7 @@
       "due_date": "2026-09-23"
     },
     {
-      "title": "Reach Coordinator level",
+      "title": "Reach Coordination level",
       "description": "Work through the whole plan and land at Coordinator.",
       "metric": {
         "type": "lessons",

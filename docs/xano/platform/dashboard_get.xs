@@ -24,7 +24,7 @@ query dashboard verb=GET {
   stack {
     var $phase_labels {
       // NOTE: a literal {"1": …} becomes a 0-based LIST in Xano (off-by-one lookups); build maps with |set.
-      value = {}|set:"1":"Student"|set:"2":"Modeler"|set:"3":"Coordinator"|set:"4":"Project BIM Manager"|set:"5":"Director"
+      value = {}|set:"1":"Foundations"|set:"2":"Production"|set:"3":"Coordination"|set:"4":"Management"|set:"5":"Strategy"
     }
     var $archetypes {
       value = {}|set:"1":"Explorer"|set:"2":"Builder"|set:"3":"Orchestrator"|set:"4":"Strategist"|set:"5":"Visionary"

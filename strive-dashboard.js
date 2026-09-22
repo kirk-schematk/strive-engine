@@ -21,7 +21,7 @@
 
 var DEFAULT_PLATFORM='https://x8ki-letl-twmt.n7.xano.io/api:fykJB1SM';
 var DEFAULT_LINKS={lesson:'/lesson?slug=',course:'/course?slug=',roadmap:'/welcome-onboard#roadmap',goals:'/welcome-onboard#goals',onboard:'/welcome-onboard',assess:'/get-started',signup:'/signup'};
-var PHASE_LABELS={1:'Student',2:'Modeler',3:'Coordinator',4:'Project BIM Manager',5:'Director'};
+var PHASE_LABELS={1:'Foundations',2:'Production',3:'Coordination',4:'Management',5:'Strategy'};
 var DOMAIN_SHORT={1:'Technical',2:'Information',3:'Process',4:'Strategy',5:'People'};
 
 /* ---- Lucide-style inline SVG icons (no emoji) ---- */
@@ -328,7 +328,7 @@ function init(opts){
           (u.location?'<div class="dsh-profile-loc">'+ic(P.mapPin,14)+'<span>'+esc(u.location)+'</span></div>':'')+
           '<div class="dsh-badges">'+
             (u.archetype?'<span class="dsh-badge dsh-badge--arch">'+ic(ARCH_ICON[u.archetype]||P.target,13)+esc(u.archetype)+'</span>':'')+
-            (phaseLabel?'<span class="dsh-badge dsh-badge--phase">'+ic(P.layers,13)+esc(phaseLabel)+(u.placement_phase?' <em>· Phase '+esc(u.placement_phase)+'</em>':'')+'</span>':'')+
+            (phaseLabel?'<span class="dsh-badge dsh-badge--phase">'+ic(P.layers,13)+esc(phaseLabel)+'</span>':'')+
             (u.desired_role?'<span class="dsh-badge dsh-badge--goal">'+ic(P.flag,13)+'Heading for '+esc(u.desired_role)+'</span>':'')+
           '</div>'+
         '</div>'+

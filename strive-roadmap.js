@@ -82,7 +82,7 @@ function archMeter(arch,phase){
   var next=i<ARCHS.length-1?'Next on the ladder: <b>'+ARCHS[i+1]+'</b>':'The top of the ladder';
   return '<div class="rm-meter" role="img" aria-label="'+esc(ARCHS[i])+', step '+(i+1)+' of '+ARCHS.length+'">'+segs+'</div><p class="rm-meter-next">'+next+'</p>';
 }
-var DEFAULT_LABELS={'1':'Student','2':'Modeler','3':'Coordinator','4':'Project BIM Manager','5':'Director'};
+var DEFAULT_LABELS={'1':'Foundations','2':'Production','3':'Coordination','4':'Management','5':'Strategy'};
 var PHASE_HINT={'1':'Learning the tools','2':'Producing models day to day','3':'Coordinating across disciplines','4':'Running BIM on projects','5':'Setting digital strategy'};
 var DOMAINS=[
   {id:1,name:'Technical & Computational Proficiency',short:'Technical',icon:P.cpu},
@@ -94,8 +94,12 @@ var DOMAINS=[
 var DISC=['Architecture','Engineering','Construction','Operations & FM','Client/Owner','Other'];
 var DISC_ICON={'Architecture':P.bldg,'Engineering':P.layers,'Construction':P.crane,'Operations & FM':P.wrench,'Client/Owner':P.briefcase,'Other':P.compass};
 var GOALS=['Level up in my current role','Step up to the next role','Move into BIM/digital','Keep my team current'];
+var GOAL_LABEL={'Level up in my current role':'Get solid where I am','Step up to the next role':'Move up to the next phase','Move into BIM/digital':'Move into digital delivery','Keep my team current':'Bring my team along'};
+function goalLabel(g){return GOAL_LABEL[g]||g}
 var GOAL_ICON={'Level up in my current role':P.trendUp,'Step up to the next role':P.arrowUpRight,'Move into BIM/digital':P.monitor,'Keep my team current':P.users};
 var WEEKLY=[30,60,120,240];
+/* Typical job titles per phase: quick fills for the role boxes (phases themselves are not roles). */
+var ROLE_EXAMPLES=['BIM Technician','BIM Modeler','BIM Coordinator','BIM Manager','Digital Director'];
 
 /* ---- state ---- */
 var st={opts:null,root:null,body:null,step:0,mock:false,mockPath:null,deepLink:false,
@@ -234,7 +238,7 @@ function mockRegenerate(rm,goals,body){
   var gaps=(rm.milestones.filter(function(m){return m.id==='m1'})[0]||{items:[]}).items.length;
   var doms=[];active.forEach(function(m){if(m.domain!=null&&doms.indexOf(domainName(m.domain))<0)doms.push(domainName(m.domain))});
   var min=itemMinutes(rm);
-  rm.summary='You placed at '+L[String(P)]+(rm.archetype?' ('+rm.archetype+')':'')+". Your goal is '"+rm.goal+"', so this plan takes you to "+L[String(rm.target_phase)]+'. '+
+  rm.summary='You placed at '+L[String(P)]+(rm.archetype?' ('+rm.archetype+')':'')+". Your goal is '"+goalLabel(rm.goal)+"', so this plan takes you to "+L[String(rm.target_phase)]+'. '+
     (gaps?'It starts by closing '+gaps+' gaps from your assessment, then works through ':'It works through ')+
     (doms.length?doms.slice(0,-1).join(', ')+(doms.length>1?' and ':'')+doms.slice(-1)[0]:'your focus areas')+
     ' at '+L[String(P)]+(rm.target_phase!==P?' and '+L[String(rm.target_phase)]:'')+' level. About '+Math.max(1,Math.round(min/60))+'h of lessons at '+weekly+' min/week — roughly '+weeksFor(min,weekly)+' weeks.';
@@ -402,7 +406,7 @@ function showQuickStart(){
       '</div>'+
       '<div class="rm-self" hidden>'+
         '<h3 class="rm-h3">Your discipline</h3><div class="rm-chips" data-k="disc">'+DISC.map(function(d){return '<button type="button" class="rm-chip" data-v="'+esc(d)+'">'+ic(DISC_ICON[d],15)+' '+esc(d)+'</button>'}).join('')+'</div>'+
-        '<h3 class="rm-h3">Your goal</h3><div class="rm-chips" data-k="goal">'+GOALS.map(function(g){return '<button type="button" class="rm-chip" data-v="'+esc(g)+'">'+ic(GOAL_ICON[g],15)+' '+esc(g)+'</button>'}).join('')+'</div>'+
+        '<h3 class="rm-h3">Your goal</h3><div class="rm-chips" data-k="goal">'+GOALS.map(function(g){return '<button type="button" class="rm-chip" data-v="'+esc(g)+'">'+ic(GOAL_ICON[g],15)+' '+esc(goalLabel(g))+'</button>'}).join('')+'</div>'+
         '<h3 class="rm-h3">Where are you today?</h3><div class="rm-phases" data-k="phase">'+[1,2,3,4,5].map(function(p){return '<button type="button" class="rm-phase" data-v="'+p+'"><span class="rm-phase-num">'+p+'</span><span><strong>'+esc(DEFAULT_LABELS[p])+'</strong><small>'+esc(PHASE_HINT[p])+'</small></span></button>'}).join('')+'</div>'+
         '<div class="rm-actions"><button type="button" class="rm-btn rm-btn--lg" disabled data-build>Build my roadmap '+ic(P.arrowRight,18)+'</button></div>'+
       '</div>';
@@ -484,10 +488,10 @@ function showRoadmap(){
     w.innerHTML=
       '<p class="rm-step-eyebrow">'+(st.deepLink?'Edit your roadmap':'Your roadmap')+'</p>'+
       '<h2 class="rm-title">'+esc(L[String(rm.placement_phase)])+' '+ic(P.arrowRight,20)+' '+esc(L[String(rm.target_phase)])+'</h2>'+
-      '<p class="rm-sub">'+esc(rm.goal||'')+(rm.discipline?' <span class="rm-dot">·</span> '+esc(rm.discipline):'')+'. Answer four quick prompts and we’ll tune the plan as you go.</p>'+
+      '<p class="rm-sub">'+esc(goalLabel(rm.goal||''))+(rm.discipline?' <span class="rm-dot">·</span> '+esc(rm.discipline):'')+'. Answer four quick prompts and we’ll tune the plan as you go.</p>'+
       /* 1. phase check */
       '<section class="rm-prompt" data-p="1"><div class="rm-prompt-num">1</div><div class="rm-prompt-body">'+
-        '<h3 class="rm-prompt-q">Does <em data-phase-label>'+esc(L[String(phaseNow)])+'</em> feel right?</h3>'+
+        '<h3 class="rm-prompt-q">Does <em data-phase-label>'+esc(L[String(phaseNow)])+'</em> sound like your work today?</h3>'+
         '<p class="rm-prompt-hint" data-phase-hint>'+esc(PHASE_HINT[String(phaseNow)]||'')+'</p>'+
         '<div class="rm-seg" data-phase-seg>'+
           '<button type="button" class="rm-seg-btn" data-dir="-1">'+ic(P.arrowLeft,14)+' I’m earlier</button>'+
@@ -501,7 +505,7 @@ function showRoadmap(){
           '<label class="rm-field"><span>Current role</span><input type="text" data-role="current_role" placeholder="e.g. BIM Modeler" value="'+esc(st.inputs.current_role)+'"></label>'+
           '<label class="rm-field"><span>Target role</span><input type="text" data-role="target_role" placeholder="e.g. BIM Coordinator" value="'+esc(st.inputs.target_role)+'"></label>'+
         '</div>'+
-        '<div class="rm-chips rm-chips--sm" data-role-chips>'+[1,2,3,4,5].map(function(p){return '<button type="button" class="rm-chip" data-v="'+esc(L[String(p)])+'">'+esc(L[String(p)])+'</button>'}).join('')+'</div>'+
+        '<div class="rm-chips rm-chips--sm" data-role-chips>'+ROLE_EXAMPLES.map(function(r){return '<button type="button" class="rm-chip" data-v="'+esc(r)+'">'+esc(r)+'</button>'}).join('')+'</div>'+
         '<p class="rm-prompt-hint">Tap a chip to fill whichever box you edited last.</p>'+
       '</div></section>'+
       /* 3. weekly minutes */

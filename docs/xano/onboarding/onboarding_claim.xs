@@ -25,7 +25,7 @@ query onboarding_claim verb=POST {
   stack {
     var $phase_labels {
       // NOTE: a literal {"1": …} becomes a 0-based LIST in Xano (off-by-one lookups); build maps with |set.
-      value = {}|set:"1":"Student"|set:"2":"Modeler"|set:"3":"Coordinator"|set:"4":"Project BIM Manager"|set:"5":"Director"
+      value = {}|set:"1":"Foundations"|set:"2":"Production"|set:"3":"Coordination"|set:"4":"Management"|set:"5":"Strategy"
     }
     var $archetypes {
       value = {}|set:"1":"Explorer"|set:"2":"Builder"|set:"3":"Orchestrator"|set:"4":"Strategist"|set:"5":"Visionary"
@@ -63,7 +63,7 @@ query onboarding_claim verb=POST {
     var $accuracy { value = ($answered > 0) ? ((($n_correct * 100) / $answered)|round:0) : 0 }
     var $placement { value = ($session.placement_phase == null || $session.placement_phase < 1) ? 1 : $session.placement_phase }
     var $placement_key { value = $placement|to_text }
-    var $phase_label { value = $phase_labels|get:$placement_key|first_notempty:"Student" }
+    var $phase_label { value = $phase_labels|get:$placement_key|first_notempty:"Foundations" }
     var $archetype {
       value = ($session.archetype|is_empty) ? ($archetypes|get:$placement_key|first_notempty:"Explorer") : $session.archetype
     }
